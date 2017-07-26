@@ -6,7 +6,7 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/04/16 21:57:16 by wescande         ###   ########.fr        #
+#    Updated: 2017/07/26 21:54:30 by clegoube         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME		=	Assembleur
 
 CC			=	gcc
 FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
-MAIN_FLAGS	=	
-OBJ_FLAGS	=	
+MAIN_FLAGS	=
+OBJ_FLAGS	=
 
 LEN_NAME	=	`printf "%s" $(NAME) |wc -c`
 DELTA		=	$$(echo "$$(tput cols)-31-$(LEN_NAME)"|bc)

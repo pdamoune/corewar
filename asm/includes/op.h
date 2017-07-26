@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/07/26 20:57:54 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/07/26 21:57:04 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,28 @@ typedef struct		header_s
   unsigned int		prog_size;
   char				comment[COMMENT_LENGTH + 1];
 }					header_t;
+
+/*
+**
+*/
+
+typedef struct		global_s
+{
+	char			**gnl_tab;
+	int				nb_empty;
+	struct map_s	*begin_map;
+	struct label_s	*label_tab;
+}					global_t;
+
+typedef struct		label_s
+{
+	char			**content;
+	char			*name;
+	int				nb_octet;
+}					label_t;
+
+typedef struct		map_s
+{
+	char			*line;
+	struct map_s	*next;
+}					map_t;
