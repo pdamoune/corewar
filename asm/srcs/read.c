@@ -34,20 +34,24 @@ map_t	*ft_initialize_map(void)
 	return (map);
 }
 
-int			main(void)
+int			main(int argc, char **argv)
 {
 	char		*line;
 	global_t	*global;
-	int			gnl;
+    int			gnl;
+	int			fd;
 
-	global = ft_initialize_global();
+    global = ft_initialize_global();
+    if (argc != 2)
+        ft_exit(1, global, &line);
 	line = NULL;
-	gnl = get_next_line(0, &line);
+    fd = open(argv[1], O_RDONLY);
+	gnl = get_next_line(fd, &line);
     ft_printf("%s\n",line);
 	if (gnl == 0 || gnl == -1)
 		ft_exit(2, global, &line);
 	free(line);
-	while ((gnl = get_next_line(0, &line)))
+	while ((gnl = get_next_line(fd, &line)))
 	{
         ft_printf("%s\n",line);
         if (gnl == -1)
