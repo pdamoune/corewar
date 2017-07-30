@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	Assembleur
+NAME		=	asm
 
 CC			=	gcc
 FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
@@ -24,29 +24,14 @@ SRC_DIR		=	srcs/
 INC_DIR		=	includes/
 OBJ_DIR		=	objs/
 
-LIBFT_DIR	=	libft/
+LIBFT_DIR	=	../libft/
 LIBFT_LIB	=	$(LIBFT_DIR)libft.a
 LIBFT_INC	=	$(LIBFT_DIR)includes/
 
 LIBS		=
 
 SRC_BASE	=	\
-cliopts_get_scr.c\
-ft_mmap.c\
-ft_script.c\
-ft_signal.c\
-ft_time.c\
-resize_term.c\
-script_display.c\
-script_flush.c\
-script_init.c\
-script_loop.c\
-termios/ft_cfmakeraw.c\
-termios/ft_isatty.c\
-termios/ft_tcgetattr.c\
-termios/ft_tcsetattr.c\
-util/ft_login_tty.c\
-util/ft_openpty.c
+read.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

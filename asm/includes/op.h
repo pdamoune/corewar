@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+# include <stdio.h>
+# include "../../libft/includes/ft_printf.h"
+# include "../../libft/includes/get_next_line.h"
+# include "../../libft/includes/libft.h"
+
 /*
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
