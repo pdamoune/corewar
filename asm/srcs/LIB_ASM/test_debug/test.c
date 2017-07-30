@@ -1,6 +1,11 @@
 
 #include "../../../includes/op.h"
 
+
+/*
+**  FICHIERS DE DEBUG - POUR TESTER LES FONCTIONS CODEES
+*/
+
 void        DEBUG_read_map(global_t *global)
 {
     global->s_map = global->begin_map;

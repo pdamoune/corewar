@@ -10,7 +10,11 @@ static int		ft_initialize_map(map_t **map, char *line)
 	return (0);
 }
 
-void		ft_stock(global_t *global, char *line)
+/*
+**  STOCKE CHAQUE LINE DANS LA STRUCT MAP
+*/
+
+void		ft_stock_map(global_t *global, char *line)
 {
     map_t	*new;
     map_t	*previous;

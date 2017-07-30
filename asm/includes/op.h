@@ -86,11 +86,12 @@ typedef struct		header_s
 
 typedef struct		global_s
 {
-	char			**gnl_tab;
+	char			**gnl_tab; /* A voir si on conserve ou supprime */
 	int				nb_empty;
+    int	    		nb_lines;
     struct map_s	*begin_map;
 	struct map_s	*s_map;
-	struct label_s	*label_tab;
+	struct label_s	*label_tab; /* Tableau de strcutures */
 }					global_t;
 
 typedef struct		label_s
@@ -110,10 +111,12 @@ typedef struct		map_s
 /*
 **   FONCTIONS DE L'ASM
 */
-void		ft_stock(global_t *global, char *line);
+void		ft_stock_map(global_t *global, char *line);
+void		ft_controller(global_t *global);
+void		ft_stock_label(global_t *global);
 
 /*
-**   LIBRAIRIES ASM - LISTES CHAINEES
+**   LIBRAIRIES ASM (en complément de LIBFT)
 */
 
 /*
