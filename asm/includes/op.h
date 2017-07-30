@@ -81,6 +81,11 @@ typedef struct		header_s
 }					header_t;
 
 /*
+*****************************************************************************
+*****************************************************************************
+*****************************************************************************
+*/
+/*
 **  STRUCTURES DE BASES DE L'ASM
 */
 
@@ -109,6 +114,13 @@ typedef struct		map_s
 }					map_t;
 
 /*
+**   DEFINE
+*/
+#define EMPTY_LINE				1
+#define COMMENT					2
+#define WITH_LABEL				3
+#define EMPTY_LABEL		       	4
+/*
 **   FONCTIONS DE L'ASM
 */
 void		ft_stock_map(global_t *global, char *line);
@@ -118,8 +130,9 @@ void		ft_stock_label(global_t *global);
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
 */
-
+int		is_labelchars(int c);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */
 void        DEBUG_read_map(global_t *global);
+void        DEBUG_read_labels(global_t *global);

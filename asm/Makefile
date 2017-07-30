@@ -32,6 +32,7 @@ LIBS		=
 
 SRC_BASE	=	\
 controller.c\
+LIB_ASM/is_labelchars.c\
 LIB_ASM/test_debug/test.c\
 read.c\
 stock_label.c\
