@@ -81,14 +81,15 @@ typedef struct		header_s
 }					header_t;
 
 /*
-**
+**  STRUCTURES DE BASES DE L'ASM
 */
 
 typedef struct		global_s
 {
 	char			**gnl_tab;
 	int				nb_empty;
-	struct map_s	*begin_map;
+    struct map_s	*begin_map;
+	struct map_s	*s_map;
 	struct label_s	*label_tab;
 }					global_t;
 
@@ -102,5 +103,20 @@ typedef struct		label_s
 typedef struct		map_s
 {
 	char			*line;
-	struct map_s	*next;
+    struct map_s	*next;
+	struct map_s	*previous;
 }					map_t;
+
+/*
+**   FONCTIONS DE L'ASM
+*/
+void		ft_stock(global_t *global, char *line);
+
+/*
+**   LIBRAIRIES ASM - LISTES CHAINEES
+*/
+
+/*
+**   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
+*/
+void        DEBUG_read_map(global_t *global);

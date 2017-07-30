@@ -31,7 +31,11 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 LIBS		=
 
 SRC_BASE	=	\
-read.c
+LIB_ASM/lst/asm_lst_addend.c\
+LIB_ASM/lst/asm_lst_new.c\
+LIB_ASM/test_debug/test.c\
+read.c\
+stock.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))
