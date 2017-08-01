@@ -1,13 +1,12 @@
 #include "../includes/op.h"
 
-static int		ft_initialize_map(map_t **map, char *line)
+void		ft_initialize_map(map_t **map, char *line)
 {
 	if (!(*map = (map_t*)malloc(sizeof(map_t))))
-		return (0);
+		return ;
 	(*map)->line = ft_strdup(line);
     (*map)->next = NULL;
 	(*map)->previous = NULL;
-	return (0);
 }
 
 /*

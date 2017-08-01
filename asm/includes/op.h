@@ -98,7 +98,7 @@ typedef struct		global_s
 	struct map_s	*begin_map;
 	struct map_s	*s_map;
 	struct label_s	*begin_label;
-	struct label_s	*label;
+	struct label_s	*s_label;
 }					global_t;
 
 typedef struct		label_s
@@ -134,12 +134,22 @@ typedef struct		map_s
 #define COMMENT					2
 #define WITH_LABEL				3
 #define EMPTY_LABEL		       	4
+#define HEADER	     	       	5
 /*
 **   FONCTIONS DE L'ASM
 */
-void		ft_stock_map(global_t *global, char *line);
 void		ft_controller(global_t *global);
-// void		ft_stock_label(global_t *global);
+void		ft_stock_label(global_t *global);
+/*
+**   FONCTIONS INIT_STRUCT DE L'ASM
+*/
+void	    ft_initialize_global(global_t **global);
+void	    ft_initialize_map(map_t **map, char *line);
+void	    ft_stock_map(global_t *global, char *line);
+void	    ft_initialize_label(label_t **label);
+void	    ft_init_new_label(global_t *global);
+void	    ft_initialize_content(content_t **content, char *line);
+void	    ft_stock_content(global_t *global, char *line);
 
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
@@ -150,3 +160,4 @@ int		is_labelchars(int c);
 */
 void        DEBUG_read_map(global_t *global);
 void        DEBUG_read_labels(global_t *global);
+void        DEBUG_read_content(global_t *global);

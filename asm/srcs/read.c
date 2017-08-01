@@ -11,24 +11,6 @@ void		ft_exit(int nb, global_t *global, char **line)
 }
 
 /*
-**  INITIALISE LA GLOBALE UTILISEE DANS TOUT LE PROGRAMME
-*/
-
-global_t	*ft_initialize_global(void)
-{
-	global_t *global;
-
-	if (!(global = (global_t*)malloc(sizeof(global_t))))
-		return (NULL);
-    global->nb_empty = 0;
-	global->nb_lines = 0;
-	global->begin_map = NULL;
-	global->label = NULL;
-	return (global);
-}
-
-
-/*
 **  LIS LE FICHIER ET STOCK CHAQUE LINE DANS LA STRUCT MAP
 */
 
@@ -39,7 +21,7 @@ int			main(int argc, char **argv)
     int			gnl;
     int			fd;
 
-    global = ft_initialize_global();
+    ft_initialize_global(&global);
     if (argc != 2)
         ft_exit(1, global, &line);
 	line = NULL;
