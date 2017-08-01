@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/07/26 21:57:04 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/08/01 20:26:00 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,25 +91,39 @@ typedef struct		header_s
 
 typedef struct		global_s
 {
-	char			**gnl_tab; /* A voir si on conserve ou supprime */
 	int				nb_empty;
-    int	    		nb_lines;
-    struct map_s	*begin_map;
+	int	    		nb_lines;
+	int	    		i;
+	int	    		j;
+	struct map_s	*begin_map;
 	struct map_s	*s_map;
-	struct label_s	*label_tab; /* Tableau de strcutures */
+	struct label_s	*begin_label;
+	struct label_s	*label;
 }					global_t;
 
 typedef struct		label_s
 {
-	char			**content;
-	char			*name;
-	int				nb_octet;
+	struct content_s	*begin_content;
+	struct content_s	*s_content;
+	char				*name;
+	int					nb_octet;
+	int					num;
+	struct label_s		*next;
+	struct label_s		*previous;
+
 }					label_t;
+
+typedef struct		content_s
+{
+	char				*line;
+	struct content_s	*next;
+	struct content_s	*previous;
+}					content_t;
 
 typedef struct		map_s
 {
 	char			*line;
-    struct map_s	*next;
+	struct map_s	*next;
 	struct map_s	*previous;
 }					map_t;
 
@@ -125,7 +139,7 @@ typedef struct		map_s
 */
 void		ft_stock_map(global_t *global, char *line);
 void		ft_controller(global_t *global);
-void		ft_stock_label(global_t *global);
+// void		ft_stock_label(global_t *global);
 
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)

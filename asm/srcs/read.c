@@ -23,8 +23,7 @@ global_t	*ft_initialize_global(void)
     global->nb_empty = 0;
 	global->nb_lines = 0;
 	global->begin_map = NULL;
-	global->label_tab = NULL;
-	global->gnl_tab = NULL;
+	global->label = NULL;
 	return (global);
 }
 
