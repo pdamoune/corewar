@@ -38,8 +38,8 @@ INIT_STRUCT/init_label.c\
 INIT_STRUCT/init_map.c\
 LIB_ASM/is_labelchars.c\
 LIB_ASM/test_debug/test.c\
-read.c\
-stock_label.c
+parse_label.c\
+read.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

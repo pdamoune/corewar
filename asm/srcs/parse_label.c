@@ -66,12 +66,12 @@ void		ft_sort_lines(global_t *global)
     if (global->s_map)
         global->s_map = global->s_map->next;
 	if (global->s_map && ft_kind_of_line(global->s_map->line) == EMPTY_LINE)
-		ft_init_new_label(global);
+		ft_stock_label(global);
 }
 
-void		ft_stock_label(global_t *global)
+void		ft_parse_label(global_t *global)
 {
-    ft_init_new_label(global); /* global->s_label est initialisé sur un 1er maillon */
+    ft_stock_label(global); /* global->s_label est initialisé sur un 1er maillon */
     global->s_map = global->begin_map;
     while (global->s_map)
     {

@@ -13,7 +13,7 @@ void	ft_initialize_label(label_t **label)
     (*label)->previous = NULL;
 }
 
-void		ft_init_new_label(global_t *global)
+void		ft_stock_label(global_t *global)
 {
     label_t	*new;
     label_t	*previous;

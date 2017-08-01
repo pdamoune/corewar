@@ -139,7 +139,7 @@ typedef struct		map_s
 **   FONCTIONS DE L'ASM
 */
 void		ft_controller(global_t *global);
-void		ft_stock_label(global_t *global);
+void		ft_parse_label(global_t *global);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
@@ -147,7 +147,7 @@ void	    ft_initialize_global(global_t **global);
 void	    ft_initialize_map(map_t **map, char *line);
 void	    ft_stock_map(global_t *global, char *line);
 void	    ft_initialize_label(label_t **label);
-void	    ft_init_new_label(global_t *global);
+void	    ft_stock_label(global_t *global);
 void	    ft_initialize_content(content_t **content, char *line);
 void	    ft_stock_content(global_t *global, char *line);
 
