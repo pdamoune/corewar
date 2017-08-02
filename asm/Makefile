@@ -37,6 +37,9 @@ INIT_STRUCT/init_global.c\
 INIT_STRUCT/init_label.c\
 INIT_STRUCT/init_map.c\
 LIB_ASM/is_labelchars.c\
+LIB_ASM/strdup.c\
+LIB_ASM/strstart.c\
+LIB_ASM/strsubc.c\
 LIB_ASM/test_debug/test.c\
 parse_label.c\
 read.c

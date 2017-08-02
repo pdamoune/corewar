@@ -13,6 +13,7 @@ void	ft_initialize_global(global_t **global)
 	(*global)->nb_lines = 0;
 	(*global)->i = 0;
 	(*global)->j = 0;
+	(*global)->k = 0;
 	(*global)->begin_map = NULL;
 	(*global)->s_map = NULL;
 	(*global)->begin_label = NULL;

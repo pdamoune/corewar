@@ -95,6 +95,7 @@ typedef struct		global_s
 	int	    		nb_lines;
 	int	    		i;
 	int	    		j;
+	int	    		k;
 	struct map_s	*begin_map;
 	struct map_s	*s_map;
 	struct label_s	*begin_label;
@@ -155,6 +156,10 @@ void	    ft_stock_content(global_t *global, char *line);
 **   LIBRAIRIES ASM (en complément de LIBFT)
 */
 int		is_labelchars(int c);
+char	*ft_strstart(const char *big, const char *little);
+// char	*ft_strsubc(char **s, char c);
+ char	*ft_strsubc(char const *s, unsigned int start, char c);
+ char	*ft_strdup_asm(const char *s);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */

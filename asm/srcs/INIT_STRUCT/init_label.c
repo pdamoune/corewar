@@ -30,4 +30,5 @@ void		ft_stock_label(global_t *global)
         previous->next = new;
     }
     global->s_label = new;
+	global->s_label->num = global->k++;
 }
