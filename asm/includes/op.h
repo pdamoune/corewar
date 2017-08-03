@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/08/01 20:26:00 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/08/03 20:29:04 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,9 +157,8 @@ void	    ft_stock_content(global_t *global, char *line);
 */
 int		is_labelchars(int c);
 char	*ft_strstart(const char *big, const char *little);
-// char	*ft_strsubc(char **s, char c);
- char	*ft_strsubc(char const *s, unsigned int start, char c);
- char	*ft_strdup_asm(const char *s);
+char	*ft_strsubc(char **s, char c);
+char	*ft_strdup_asm(const char *s);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */

@@ -37,7 +37,7 @@ int		ft_kind_of_line(char *line)
 
 void		ft_with_label(global_t *global)
 {
-	global->s_label->name = ft_strsubc(global->s_map->line,0, LABEL_CHAR);
+	global->s_label->name = ft_strsubc(&(global->s_map->line), LABEL_CHAR);
 	ft_stock_content(global, global->s_map->line);
 	global->s_map = global->s_map->next;
 	global->i = 1;
