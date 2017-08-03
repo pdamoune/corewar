@@ -36,13 +36,17 @@ INIT_STRUCT/init_content.c\
 INIT_STRUCT/init_global.c\
 INIT_STRUCT/init_label.c\
 INIT_STRUCT/init_map.c\
+LIB_ASM/convert_base.c\
 LIB_ASM/is_labelchars.c\
+LIB_ASM/print_lines.c\
 LIB_ASM/strdup.c\
+LIB_ASM/strsplitspa.c\
 LIB_ASM/strstart.c\
 LIB_ASM/strsubc.c\
 LIB_ASM/test_debug/test.c\
 parse_label.c\
-read.c
+read.c\
+traduce_label.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

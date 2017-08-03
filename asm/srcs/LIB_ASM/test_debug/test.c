@@ -33,7 +33,11 @@ void        DEBUG_read_labels(global_t *global)
         i = 0;
         while (global->s_label->s_content)
         {
-            ft_printf("line %d) -->      %s \n", i++, global->s_label->s_content->line);
+
+			ft_printf("Instruction %d):\n",i++);
+			ft_print_lines(global->s_label->s_content->line);
+			ft_printf("\n");
+
             global->s_label->s_content = global->s_label->s_content->next;
         }
        ft_printf("\n");

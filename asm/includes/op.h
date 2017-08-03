@@ -116,7 +116,7 @@ typedef struct		label_s
 
 typedef struct		content_s
 {
-	char				*line;
+	char				**line;
 	struct content_s	*next;
 	struct content_s	*previous;
 }					content_t;
@@ -127,6 +127,14 @@ typedef struct		map_s
 	struct map_s	*next;
 	struct map_s	*previous;
 }					map_t;
+
+typedef	struct	s_var
+{
+	int				chaine;
+	int				mot;
+	int				lettre;
+	struct s_var	*next;
+}				t_var;
 
 /*
 **   DEFINE
@@ -151,6 +159,7 @@ void	    ft_initialize_label(label_t **label);
 void	    ft_stock_label(global_t *global);
 void	    ft_initialize_content(content_t **content, char *line);
 void	    ft_stock_content(global_t *global, char *line);
+void		ft_browse_label(global_t *global);
 
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
@@ -159,6 +168,9 @@ int		is_labelchars(int c);
 char	*ft_strstart(const char *big, const char *little);
 char	*ft_strsubc(char **s, char c);
 char	*ft_strdup_asm(const char *s);
+char	**ft_strsplit_asm(char const *str);
+void	ft_print_lines(char **tab);
+char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */

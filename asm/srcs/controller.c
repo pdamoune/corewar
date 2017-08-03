@@ -8,5 +8,6 @@ void		ft_controller(global_t *global)
 {
 	// DEBUG_read_map(global);
     ft_parse_label(global);
-	DEBUG_read_labels(global);
+	//DEBUG_read_labels(global);
+	ft_browse_label(global);
 }
