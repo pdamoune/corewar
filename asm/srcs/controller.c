@@ -25,6 +25,9 @@ void		ft_pointeur_tab(global_t *global, int index, char *line)
 	p_tab[direct] = direct_param;
 	p_tab[indirect] = indirect_param;
 	p_tab[R] = register_param;
+	p_tab[Name_CMD_STRING] = cmd_string;
+	p_tab[Comment_CMD_STRING] = cmd_string;
+	p_tab[Comment_CHAR] = comments_string;
 
 	p_tab[index](global, line);
 }

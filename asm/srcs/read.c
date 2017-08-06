@@ -2,8 +2,16 @@
 
 void		ft_exit(int nb, global_t *global, char **line)
 {
-	nb = 0;
-	ft_printf("ERROR n°%d\n", nb);
+	char	*errors[20];
+
+	errors[1] = "Le nombre d'arguments est différent de 2";
+	errors[2] = "Problème avec le get next line";
+	errors[10] = "Ceci n'est pas une instruction";
+	errors[11] = "Le nombre d'arguments pour cette instruction n'est pas valide";
+	errors[12] = "Cet argument ne correspond pas à celui attendu";
+	errors[19] = NULL;
+	// nb = 0;
+	ft_printf("ERROR n°%d : %s\n", nb, errors[nb]);
     free(global); // Penser à free la global en cas d'erreur (fct ft_free.c à créer)
     if (line && *line)
         ft_strdel(line);
@@ -29,7 +37,7 @@ int			main(int argc, char **argv)
 	while ((gnl = get_next_line(fd, &line)))
 	{
         if (gnl == -1)
-			ft_exit(3, global, &line);
+			ft_exit(2, global, &line);
 		ft_stock_map(global, line);
 		free(line);
         global->nb_lines++;

@@ -4,7 +4,7 @@ char	**ft_index_tab()
 {
 	char **tab;
 
-	if (!(tab = (char **)malloc(20 * sizeof(*tab))))
+	if (!(tab = (char **)malloc(25 * sizeof(*tab))))
 		return (NULL);
 
 	tab[0] = ft_strdup("live");
@@ -26,7 +26,10 @@ char	**ft_index_tab()
 	tab[16] = ft_strdup("%:");
 	tab[17] = ft_strdup("%");
 	tab[18] = ft_strdup("r");
-	tab[19] = NULL;
+	tab[19] = ft_strdup(NAME_CMD_STRING);
+	tab[20] = ft_strdup(COMMENT_CMD_STRING);
+	tab[21] = ft_strdup("#");
+	tab[22] = NULL;
 	return (tab);
 }
 

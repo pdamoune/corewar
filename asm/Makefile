@@ -35,6 +35,8 @@ controller.c\
 FONCTIONS/add_instruct.c\
 FONCTIONS/aff_instruct.c\
 FONCTIONS/and_instruct.c\
+FONCTIONS/cmd_string.c\
+FONCTIONS/comments_string.c\
 FONCTIONS/direct_param.c\
 FONCTIONS/fork_instruct.c\
 FONCTIONS/indirect_param.c\

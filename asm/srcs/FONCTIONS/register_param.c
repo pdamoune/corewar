@@ -10,7 +10,7 @@ void	register_param(global_t *global, char *line)
 	if (registre)
 	{
 		nbr = ft_convert_base(registre, "0123456789", "0123456789ABCDEF");
-		printf("<%s> = REGISTRE %s\n", line, nbr);
+		printf("<%s> = REGISTRE 0x0%s\n", line, nbr);
 	}
 	else
 		printf("<%s> \n", line);

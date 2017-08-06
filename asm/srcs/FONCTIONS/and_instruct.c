@@ -1,10 +1,10 @@
 #include "../includes/op.h"
 
 
-void	and_instruct(global_t *global, char *line)
+void	add_instruct(global_t *global, char *line)
 {
-	if (ft_strstart(line, "and"))
-		printf("<%s> = 0x6 \n", line);
+	if (ft_strstart(line, "add"))
+		printf("<%s> = 0x04 \n", line);
 	else
 		printf("<%s> \n", line);
 	global->i = 0;

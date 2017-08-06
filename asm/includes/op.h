@@ -152,6 +152,7 @@ typedef	struct	s_var
 */
 void		ft_controller(global_t *global);
 void		ft_parse_label(global_t *global);
+void		ft_exit(int nb, global_t *global, char **line);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
@@ -204,9 +205,12 @@ enum				e_conversion
 	direct = 17,
 	indirect = 16,
 	R = 18,
+	Name_CMD_STRING = 19,
+	Comment_CMD_STRING = 20,
+	Comment_CHAR = 21,
 };
 void	ft_pointeur_tab(global_t *global, int index, char *line);
-void	(*p_tab[20])(global_t *, char *);
+void	(*p_tab[25])(global_t *, char *);
 void	live_instruct(global_t *global, char *line);
 void	ld_instruct(global_t *global, char *line);
 void	st_instruct(global_t *global, char *line);
@@ -226,3 +230,5 @@ void	aff_instruct(global_t *global, char *line);
 void	direct_param(global_t *global, char *line);
 void	indirect_param(global_t *global, char *line);
 void	register_param(global_t *global, char *line);
+void	cmd_string(global_t *global, char *line);
+void	comments_string(global_t *global, char *line);
