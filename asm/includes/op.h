@@ -153,6 +153,7 @@ typedef	struct	s_var
 void		ft_controller(global_t *global);
 void		ft_parse_label(global_t *global);
 void		ft_exit(int nb, global_t *global, char **line);
+int			ft_write(global_t *global, int fdIn, char *string);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */

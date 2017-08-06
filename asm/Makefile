@@ -67,7 +67,8 @@ LIB_ASM/strsubc.c\
 LIB_ASM/test_debug/test.c\
 parse_label.c\
 read.c\
-traduce_label.c
+traduce_label.c\
+write.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

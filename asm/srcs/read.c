@@ -5,7 +5,9 @@ void		ft_exit(int nb, global_t *global, char **line)
 	char	*errors[20];
 
 	errors[1] = "Le nombre d'arguments est différent de 2";
-	errors[2] = "Problème avec le get next line";
+	errors[2] = "Erreur dans l'ouverture du fichier";
+	errors[3] = "Problème avec le get next line";
+	errors[4] = "Erreur dans l'ouverture du fichier de destination";
 	errors[10] = "Ceci n'est pas une instruction";
 	errors[11] = "Le nombre d'arguments pour cette instruction n'est pas valide";
 	errors[12] = "Cet argument ne correspond pas à celui attendu";
@@ -16,6 +18,7 @@ void		ft_exit(int nb, global_t *global, char **line)
     if (line && *line)
         ft_strdel(line);
 	exit(0);
+	// exit(EXIT_FAILURE);
 }
 
 /*
@@ -27,22 +30,27 @@ int			main(int argc, char **argv)
 	char		*line;
 	global_t	*global;
     int			gnl;
-    int			fd;
+    int			fdIn;
 
     ft_initialize_global(&global);
     if (argc != 2)
         ft_exit(1, global, &line);
 	line = NULL;
-    fd = open(argv[1], O_RDONLY);
-	while ((gnl = get_next_line(fd, &line)))
+    fdIn = open(argv[1], O_RDONLY, 0666);
+	if (-1 == fdIn)
+		ft_exit(2, global, &line);
+	while ((gnl = get_next_line(fdIn, &line)))
 	{
         if (gnl == -1)
-			ft_exit(2, global, &line);
+			ft_exit(3, global, &line);
 		ft_stock_map(global, line);
 		free(line);
         global->nb_lines++;
 	}
 	ft_controller(global);
-	get_next_line(-2, NULL);
+	ft_write(global, fdIn, "test hello world");
+	ft_write(global, fdIn, "toujours tester");
+	ft_write(global, fdIn, "oooooooooooooooo testons encore");
+	close(fdIn);
 	return (0);
 }
