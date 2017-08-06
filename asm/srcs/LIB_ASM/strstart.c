@@ -16,7 +16,7 @@ char	*ft_strstart(const char *big, const char *little)
 		else
 			return (NULL);
 	}
-	if ( big[i] == little[i])
+	if ( big[i] == little[i] && (size_t)i == ft_strlen(little))
 		return ((char *)big + i);
 	return (NULL);
 }

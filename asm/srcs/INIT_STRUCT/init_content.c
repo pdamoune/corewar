@@ -5,6 +5,7 @@ void	ft_initialize_content(content_t **content, char *line)
 	if (!(*content = (content_t*)malloc(sizeof(content_t))))
 		return ;
 	(*content)->line = ft_strsplit_asm(ft_strdup_asm(line));
+	(*content)->nb_octet = 0;
     (*content)->next = NULL;
 	(*content)->previous = NULL;
 }

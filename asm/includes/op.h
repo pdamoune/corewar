@@ -93,6 +93,7 @@ typedef struct		global_s
 {
 	int				nb_empty;
 	int	    		nb_lines;
+	char			**index_tab;
 	int	    		i;
 	int	    		j;
 	int	    		k;
@@ -107,7 +108,8 @@ typedef struct		label_s
 	struct content_s	*begin_content;
 	struct content_s	*s_content;
 	char				*name;
-	int					nb_octet;
+	int					index;
+	char				*instruction;
 	int					num;
 	struct label_s		*next;
 	struct label_s		*previous;
@@ -117,6 +119,7 @@ typedef struct		label_s
 typedef struct		content_s
 {
 	char				**line;
+	int					nb_octet;
 	struct content_s	*next;
 	struct content_s	*previous;
 }					content_t;
@@ -152,14 +155,14 @@ void		ft_parse_label(global_t *global);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
-void	    ft_initialize_global(global_t **global);
-void	    ft_initialize_map(map_t **map, char *line);
-void	    ft_stock_map(global_t *global, char *line);
-void	    ft_initialize_label(label_t **label);
-void	    ft_stock_label(global_t *global);
-void	    ft_initialize_content(content_t **content, char *line);
-void	    ft_stock_content(global_t *global, char *line);
-void		ft_browse_label(global_t *global);
+void	ft_initialize_global(global_t **global);
+void	ft_initialize_map(map_t **map, char *line);
+void	ft_stock_map(global_t *global, char *line);
+void	ft_initialize_label(label_t **label);
+void	ft_stock_label(global_t *global);
+void	ft_initialize_content(content_t **content, char *line);
+void	ft_stock_content(global_t *global, char *line);
+void	ft_browse_label(global_t *global);
 
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
@@ -174,6 +177,52 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */
-void        DEBUG_read_map(global_t *global);
-void        DEBUG_read_labels(global_t *global);
-void        DEBUG_read_content(global_t *global);
+void	DEBUG_read_map(global_t *global);
+void	DEBUG_read_labels(global_t *global);
+void	DEBUG_read_content(global_t *global);
+/*
+**   FONCTIONS DE TRADUCTIONS
+*/
+enum				e_conversion
+{
+	live = 0,
+	ld = 13,
+	st = 8,
+	add = 1,
+	sub = 2,
+	and = 3,
+	or = 4,
+	xor = 5,
+	zjmp = 6,
+	ldi = 12,
+	sti = 7,
+	FORK = 9,
+	lld = 11,
+	lldi = 10,
+	lfork = 14,
+	aff = 15,
+	direct = 17,
+	indirect = 16,
+	R = 18,
+};
+void	ft_pointeur_tab(global_t *global, int index, char *line);
+void	(*p_tab[20])(global_t *, char *);
+void	live_instruct(global_t *global, char *line);
+void	ld_instruct(global_t *global, char *line);
+void	st_instruct(global_t *global, char *line);
+void	add_instruct(global_t *global, char *line);
+void	sub_instruct(global_t *global, char *line);
+void	and_instruct(global_t *global, char *line);
+void	or_instruct(global_t *global, char *line);
+void	xor_instruct(global_t *global, char *line);
+void	zjmp_instruct(global_t *global, char *line);
+void	ldi_instruct(global_t *global, char *line);
+void	sti_instruct(global_t *global, char *line);
+void	fork_instruct(global_t *global, char *line);
+void	lld_instruct(global_t *global, char *line);
+void	lldi_instruct(global_t *global, char *line);
+void	lfork_instruct(global_t *global, char *line);
+void	aff_instruct(global_t *global, char *line);
+void	direct_param(global_t *global, char *line);
+void	indirect_param(global_t *global, char *line);
+void	register_param(global_t *global, char *line);

@@ -35,6 +35,7 @@ int		ft_kind_of_line(char *line)
 	return (0);
 }
 
+
 void		ft_with_label(global_t *global)
 {
 	global->s_label->name = ft_strsubc(&(global->s_map->line), LABEL_CHAR);
@@ -47,7 +48,6 @@ void		ft_with_label(global_t *global)
 		global->i++;
 		global->s_map = global->s_map->next;
 	}
-	global->s_label->nb_octet = global->i;
 	if (global->s_map)
 		global->s_map = global->s_map->previous;
 }

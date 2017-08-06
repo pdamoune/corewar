@@ -32,6 +32,25 @@ LIBS		=
 
 SRC_BASE	=	\
 controller.c\
+FONCTIONS/add_instruct.c\
+FONCTIONS/aff_instruct.c\
+FONCTIONS/and_instruct.c\
+FONCTIONS/direct_param.c\
+FONCTIONS/fork_instruct.c\
+FONCTIONS/indirect_param.c\
+FONCTIONS/ld_instruct.c\
+FONCTIONS/ldi_instruct.c\
+FONCTIONS/lfork_instruct.c\
+FONCTIONS/live_instruct.c\
+FONCTIONS/lld_instruct.c\
+FONCTIONS/lldi_instruct.c\
+FONCTIONS/or_instruct.c\
+FONCTIONS/register_param.c\
+FONCTIONS/st_instruct.c\
+FONCTIONS/sti_instruct.c\
+FONCTIONS/sub_instruct.c\
+FONCTIONS/xor_instruct.c\
+FONCTIONS/zjmp_instruct.c\
 INIT_STRUCT/init_content.c\
 INIT_STRUCT/init_global.c\
 INIT_STRUCT/init_label.c\

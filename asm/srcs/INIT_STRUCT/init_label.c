@@ -6,9 +6,10 @@ void	ft_initialize_label(label_t **label)
 		return ;
     (*label)->begin_content = NULL;
     (*label)->s_content = NULL;
-    (*label)->name = NULL;
-	(*label)->nb_octet = 0;
-    (*label)->num = 0;
+	(*label)->name = NULL;
+    (*label)->instruction = NULL;
+	(*label)->num = 0;
+    (*label)->index = 42;
     (*label)->next = NULL;
     (*label)->previous = NULL;
 }

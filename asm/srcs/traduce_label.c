@@ -3,20 +3,31 @@
 /*
 ** FONCTIOn QUI VA TRADUIRE LES INSTRUCTIONS
 */
+
+int		ft_find_index(global_t *global, char *line)
+{
+	int i;
+
+	i = 0;
+	while (global->index_tab[i])
+	{
+		if (ft_strstart(line, global->index_tab[i]))
+			return(i);
+		i++;
+	}
+	return(i);
+}
+
 void		ft_traduce_label(global_t *global, char *line)
 {
-	/* Actuellement cette fonction n'a aucun sens et ne veut rien dire en l'état,
-	Je me suis juste amusée!!
+	int index;
 
-	Il faut entièrement la coder et analyser chaque instruction qu'il faudra transformer
-	Par contre, j'ai une question -> Dans quoi on stocke la valeur en hexa ?
-	Est-ce qu'on crée un tableau de nos instructions ? */
-
-	if (!ft_strcmp(line, "live"))
-		printf("<%s> = 0x01 \n", line);
+	index = ft_find_index(global,line);
+	// printf("*******line = %s - index :%d**********\n",line, index);
+	if (index >= 0 && index < 19)
+		ft_pointeur_tab(global, index, line);
 	else
-		printf("<%s> \n", line);
-	global->i = 0;
+		printf("<%s> error index %d\n", line, index);
 }
 
 /*
@@ -32,7 +43,6 @@ void		ft_browse_label(global_t *global)
     {
         printf("/--------------- NEW LABEL n°%d --------------/\n", global->s_label->num);
         printf("Name :%s \n", global->s_label->name);
-    	printf("nb_octet :%d \n", global->s_label->nb_octet);
         printf("Content : \n");
         global->s_label->s_content = global->s_label->begin_content;
         while (global->s_label->s_content)

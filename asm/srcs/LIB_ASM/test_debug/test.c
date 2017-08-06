@@ -27,7 +27,6 @@ void        DEBUG_read_labels(global_t *global)
     {
         ft_printf("/--------------- NEW LABEL n°%d --------------/\n", global->s_label->num);
         ft_printf("Name :%s \n", global->s_label->name);
-    	ft_printf("nb_octet :%d \n", global->s_label->nb_octet);
         ft_printf("Content : \n");
         global->s_label->s_content = global->s_label->begin_content;
         i = 0;
