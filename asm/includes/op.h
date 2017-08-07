@@ -97,6 +97,7 @@ typedef struct		global_s
 	int	    		i;
 	int	    		j;
 	int	    		k;
+	int	    		fdIn;
 	struct map_s	*begin_map;
 	struct map_s	*s_map;
 	struct label_s	*begin_label;
@@ -153,7 +154,7 @@ typedef	struct	s_var
 void		ft_controller(global_t *global);
 void		ft_parse_label(global_t *global);
 void		ft_exit(int nb, global_t *global, char **line);
-int			ft_write(global_t *global, int fdIn, char *string);
+int			ft_write(global_t *global, char *string, int hexa);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
@@ -176,6 +177,7 @@ char	*ft_strdup_asm(const char *s);
 char	**ft_strsplit_asm(char const *str);
 void	ft_print_lines(char **tab);
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
+char	*ft_arg(char *arg, int param, int type, char *val);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */
