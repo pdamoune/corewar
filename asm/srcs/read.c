@@ -4,13 +4,15 @@ void		ft_exit(int nb, global_t *global, char **line)
 {
 	char	*errors[20];
 
-	errors[1] = "Le nombre d'arguments est différent de 2";
-	errors[2] = "Erreur dans l'ouverture du fichier";
+	errors[1] = "Le nombre d'arguments en ligne de commande est différent de 2";
+	errors[2] = "Erreur dans l'ouverture du fichier de départ";
 	errors[3] = "Problème avec le get next line";
 	errors[4] = "Erreur dans l'ouverture du fichier de destination";
-	errors[10] = "Ceci n'est pas une instruction";
+	errors[10] = "Ceci n'est pas une instruction valide";
 	errors[11] = "Le nombre d'arguments pour cette instruction n'est pas valide";
-	errors[12] = "Cet argument ne correspond pas à celui attendu";
+	errors[12] = "Cet argument ne correspond pas aux arguments prévus pour cette instruction";
+	errors[13] = "Le nombre d'octets renseignés pour ce DIRECT n'est pas correct";
+	errors[14] = "Problème de conversion de base en hexa";
 	errors[19] = NULL;
 	// nb = 0;
 	ft_printf("ERROR n°%d : %s\n", nb, errors[nb]);

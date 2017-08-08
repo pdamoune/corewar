@@ -1,6 +1,6 @@
 #include "../includes/op.h"
 
-int		ft_write(global_t *global, char *string, int hexa)
+int		ft_write(global_t *global, char *string)
 {
     int fdOut;
     int nbRead;
@@ -18,16 +18,6 @@ int		ft_write(global_t *global, char *string, int hexa)
          nbRead = read(fdOut, buffer, sizeof(buffer));
     }
 	lseek(fdOut,0,SEEK_END);
-	if (hexa == 2)
-	{
-		write(fdOut, "0x00 0x", 8);
-		lseek(fdOut,0,SEEK_END);
-	}
-	if (hexa == 4)
-	{
-		write(fdOut, "0x00 0x00 0x00 0x", 17);
-		lseek(fdOut,0,SEEK_END);
-	}
 	write(fdOut, string, ft_strlen(string));
     close(fdOut);
     return EXIT_SUCCESS;

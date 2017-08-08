@@ -28,6 +28,7 @@
 # define REG_CODE				1
 # define DIR_CODE				2
 # define IND_CODE				3
+# define ARG_CODE				4
 
 
 #define MAX_ARGS_NUMBER			4
@@ -154,7 +155,7 @@ typedef	struct	s_var
 void		ft_controller(global_t *global);
 void		ft_parse_label(global_t *global);
 void		ft_exit(int nb, global_t *global, char **line);
-int			ft_write(global_t *global, char *string, int hexa);
+int			ft_write(global_t *global, char *string);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
@@ -177,7 +178,8 @@ char	*ft_strdup_asm(const char *s);
 char	**ft_strsplit_asm(char const *str);
 void	ft_print_lines(char **tab);
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
-char	*ft_arg(char *arg, int param, int type, char *val);
+char	*ft_arg(char *arg, int param, int type);
+char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */

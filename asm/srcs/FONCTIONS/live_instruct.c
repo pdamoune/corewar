@@ -1,22 +1,16 @@
 #include "../includes/op.h"
 
-/*
-**  INSTRUCTION : LIVE
-**  OPCODE = 1
-**	ARG = T_DIR
-**	Label_size = 4
-*/
-void	live_instruct(global_t *global, char *line)
+
+char	*ft_compose_arg(global_t *global)
 {
 	int		i;
 	int		comment;
-	char	*arg_1;
-	char	*value_1;
+	char	*value;
+	char	*arg;
 
-	arg_1 = ft_strdup("00000000");
-	ft_write(global, "0x01", 0);
-	comment = 0;
 	i = 1;
+	arg = ft_strdup("00000000");
+	comment = 0;
 	while (global->s_label->s_content->line[i])
 	{
 		if (!ft_strstart(global->s_label->s_content->line[i], "#") && !comment)
@@ -25,15 +19,10 @@ void	live_instruct(global_t *global, char *line)
 				ft_exit(11, global, NULL);
 			else if (i == 1)
 			{
-				if ((value_1 = ft_strstart(global->s_label->s_content->line[i], "%")))
+				if ((value =
+					ft_strstart(global->s_label->s_content->line[i], "%")))
 				{
-					arg_1 = ft_arg(arg_1, 1, DIR_CODE, NULL);
-					// printf("arg = %s\n", arg_1);
-					arg_1 = ft_convert_base(arg_1, "01", "0123456789ABCDEF");
-					ft_write(global, arg_1, 0);
-					ft_write(global, " ", 0);
-					value_1 = ft_convert_base(value_1, "0123456789", "0123456789ABCDEF");
-					ft_write(global, value_1, 4);
+					arg = ft_arg(arg, 1, DIR_CODE);
 				}
 				else
 					ft_exit(12, global, NULL);
@@ -43,6 +32,55 @@ void	live_instruct(global_t *global, char *line)
 			comment = 1;
 		i++;
 	}
-	ft_write(global, "\n", 0);
-	printf("<%s> = 0x01 0x%s 0x00 0x00 0x00 0x%s\n", line, arg_1, value_1);
+	return(arg);
+}
+
+void	ft_browse_values(global_t *global)
+{
+	int		i;
+	int		comment;
+	char	*value;
+
+	comment = 0;
+	i = 1;
+	while (global->s_label->s_content->line[i])
+	{
+		if (!ft_strstart(global->s_label->s_content->line[i], "#") && !comment)
+		{
+			if ((value =
+				ft_strstart(global->s_label->s_content->line[i], "%")))
+			{
+				value = ft_convert_hexa(global, value, DIR_CODE, 4);
+				ft_write(global, value);
+				printf("%s", value);
+			}
+		}
+		else
+			comment = 1;
+		i++;
+	}
+	// free(tmp);
+	// free(arg);
+}
+/*
+**  INSTRUCTION : LIVE
+**  OPCODE = 1
+**	ARG = T_DIR
+**	Label_size = 4
+*/
+void	live_instruct(global_t *global, char *line)
+{
+	char	*arg;
+	char	*tmp;
+
+	ft_write(global, "0x01 ");
+	printf("<%s> = 0x01 ", line);
+	arg = ft_compose_arg(global);
+	tmp = ft_convert_hexa(global, arg, ARG_CODE, 4);
+	ft_write(global, tmp);
+	printf("%s ", tmp);
+	ft_write(global, " ");
+	ft_browse_values(global);
+	ft_write(global, "\n");
+	printf("\n");
 }

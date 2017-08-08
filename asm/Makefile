@@ -58,6 +58,7 @@ INIT_STRUCT/init_global.c\
 INIT_STRUCT/init_label.c\
 INIT_STRUCT/init_map.c\
 LIB_ASM/convert_base.c\
+LIB_ASM/convert_hexa.c\
 LIB_ASM/get_the_argument.c\
 LIB_ASM/is_labelchars.c\
 LIB_ASM/print_lines.c\
