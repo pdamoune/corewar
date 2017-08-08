@@ -180,6 +180,7 @@ void	ft_print_lines(char **tab);
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
 char	*ft_arg(char *arg, int param, int type);
 char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet);
+int		ft_isstrdigit(char *s);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */

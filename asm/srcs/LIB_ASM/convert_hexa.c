@@ -8,16 +8,16 @@ char	*ft_construct_octets(global_t *global, int type, int nb_octet)
 	if (type == DIR_CODE)
 	{
 		if (nb_octet == 4)
-			result = ft_strdup("0x.. 0x.. 0x.. 0x..");
+			result = ft_strdup("0x.. 0x.. 0x.. 0x.. ");
 		else if (nb_octet == 2)
-			result = ft_strdup("0x.. 0x..");
+			result = ft_strdup("0x.. 0x.. ");
 		else
 			ft_exit(13, global, NULL);
 	}
 	else if (type == IND_CODE)
-		result = ft_strdup("0x.. 0x..");
+		result = ft_strdup("0x.. 0x.. ");
 	else if (type == REG_CODE || type == ARG_CODE)
-		result = ft_strdup("0x..");
+		result = ft_strdup("0x.. ");
 	return (result);
 }
 
@@ -46,5 +46,6 @@ char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet)
 		}
 		i--;
 	}
+	free(value);
 	return (result);
 }

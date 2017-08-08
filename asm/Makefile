@@ -63,6 +63,7 @@ LIB_ASM/get_the_argument.c\
 LIB_ASM/is_labelchars.c\
 LIB_ASM/print_lines.c\
 LIB_ASM/strdup.c\
+LIB_ASM/strisdigit.c\
 LIB_ASM/strsplitspa.c\
 LIB_ASM/strstart.c\
 LIB_ASM/strsubc.c\
