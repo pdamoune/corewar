@@ -221,6 +221,7 @@ void	live_instruct(global_t *global, char *line);
 void	ld_instruct(global_t *global, char *line);
 void	st_instruct(global_t *global, char *line);
 void	add_instruct(global_t *global, char *line);
+void	and_instruct(global_t *global, char *line);
 void	sub_instruct(global_t *global, char *line);
 void	and_instruct(global_t *global, char *line);
 void	or_instruct(global_t *global, char *line);
