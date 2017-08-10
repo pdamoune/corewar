@@ -2,8 +2,7 @@
 
 static int		ft_isseparator(int c)
 {
-	return (c == ' ' || c == '\t' || c == '\v'
-			|| c == '\f' || c == '\r' || c == '\n');
+	return (c == SEPARATOR_CHAR);
 }
 
 
@@ -53,7 +52,7 @@ static int		ft_nbstr_c(char const *str)
 	return (len);
 }
 
-char			**ft_strsplit_spa(char const *str)
+char			**ft_strsplit_virg(char const *str)
 {
 	char	**s1;
 	int		i;

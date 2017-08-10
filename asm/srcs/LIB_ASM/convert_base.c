@@ -26,12 +26,12 @@ int		ft_check_putnbr_base(char *base)
 	return (1);
 }
 
-char	*ft_itoa_base(int nbr, char *base, int base_len, char *tab)
+char	*ft_itoa_base(long int nbr, char *base, int base_len, char *tab)
 {
-	int		display;
-	int		k;
-	int		i;
-	char	*temp;
+	long int	display;
+	int			k;
+	int			i;
+	char		*temp;
 
 	while (base[base_len] || (k = 0))
 		base_len++;
@@ -66,12 +66,12 @@ int		ft_check_atoi_base(char c, char *base)
 	return (-1);
 }
 
-int		ft_atoi_base(char *str, char *base)
+long int		ft_atoi_base(char *str, char *base)
 {
-	int sign;
-	int index;
-	int display;
-	int size_base;
+	int			sign;
+	int			index;
+	long int	display;
+	int			size_base;
 
 	index = 0;
 	display = 0;
@@ -95,9 +95,9 @@ int		ft_atoi_base(char *str, char *base)
 
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
-	int		nb;
-	char	*tab;
-	int		base_len;
+	long int	nb;
+	char		*tab;
+	int			base_len;
 
 	base_len = 0;
 	tab = (char*)malloc(256 * sizeof(char));

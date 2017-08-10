@@ -7,8 +7,9 @@ void	ft_print_lines(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		ft_putstr(tab[i]);
-		ft_putchar('\n');
+		// ft_putstr(tab[i]);
+		printf("<%s>\n", tab[i]);
+		// ft_putchar('\n');
 		i++;
 	}
 }

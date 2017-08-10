@@ -175,12 +175,17 @@ int		is_labelchars(int c);
 char	*ft_strstart(const char *big, const char *little);
 char	*ft_strsubc(char **s, char c);
 char	*ft_strdup_asm(const char *s);
-char	**ft_strsplit_asm(char const *str);
+char	**ft_strsplit_spa(char const *str);
+char	**ft_strsplit_virg(char const *str);
+char	**ft_strsplit_cmt(char const *str);
+char	**ft_split_tab(char **tab1);
 void	ft_print_lines(char **tab);
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
 char	*ft_arg(char *arg, int param, int type);
 char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet);
 int		ft_isstrdigit(char *s);
+void	ft_free_tab(char **tab);
+int		ft_strlen_tab(char **tab);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */
