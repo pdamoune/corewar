@@ -6,11 +6,11 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/08/17 12:33:41 by pdamoune         ###   ########.fr        #
+#    Updated: 2017/08/17 15:49:57 by pdamoune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	Assembleur
+NAME		=	corewar
 
 CC			=	gcc
 FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
@@ -31,22 +31,8 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 LIBS		=
 
 SRC_BASE	=	\
-cliopts_get_scr.c\
-ft_mmap.c\
-ft_script.c\
-ft_signal.c\
-ft_time.c\
-resize_term.c\
-script_display.c\
-script_flush.c\
-script_init.c\
-script_loop.c\
-termios/ft_cfmakeraw.c\
-termios/ft_isatty.c\
-termios/ft_tcgetattr.c\
-termios/ft_tcsetattr.c\
-util/ft_login_tty.c\
-util/ft_openpty.c
+main.c\
+tools/usage.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))
