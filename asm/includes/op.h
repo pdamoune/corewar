@@ -186,6 +186,7 @@ char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet);
 int		ft_isstrdigit(char *s);
 void	ft_free_tab(char **tab);
 int		ft_strlen_tab(char **tab);
+label_t	*go_to_label(char *s, global_t *global);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */

@@ -61,6 +61,7 @@ LIB_ASM/convert_base.c\
 LIB_ASM/convert_hexa.c\
 LIB_ASM/free_tab.c\
 LIB_ASM/get_the_argument.c\
+LIB_ASM/go_to_label.c\
 LIB_ASM/is_labelchars.c\
 LIB_ASM/print_lines.c\
 LIB_ASM/strdup.c\
