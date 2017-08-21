@@ -6,14 +6,15 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/08/18 16:39:53 by pdamoune         ###   ########.fr        #
+#    Updated: 2017/08/21 18:16:22 by philippedamoune  ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	corewar
 
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror
+FLGS		=	-fsanitize=address
 MAIN_FLAGS	=
 OBJ_FLAGS	=
 
