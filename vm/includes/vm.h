@@ -6,13 +6,13 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/18 16:31:16 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/22 20:35:00 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
-# include "../../libft/includes/libft.h"
+# include "libft.h"
 
 /*
 ** Main functions.

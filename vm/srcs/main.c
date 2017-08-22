@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/18 16:42:26 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/22 22:02:37 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int		main(int argc, char **argv)
 {
-	// usage(argv[0]);
-	if (argc == 2)
-		cor_parser(argv[1]);
-	(void)&argc;
-	(void)&argv;
+	if (argc < 2)
+		return (usage(argv[0]));
+
 	return (0);
 }
