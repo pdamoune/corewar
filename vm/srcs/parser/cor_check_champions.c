@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cor_parser.c                                       :+:      :+:    :+:   */
+/*   cor_check_champions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/18 16:29:53 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/23 13:32:51 by pdamoune         ###   ########.fr       */
+/*   Created: 2017/08/23 13:29:58 by pdamoune          #+#    #+#             */
+/*   Updated: 2017/08/23 13:33:04 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int		cor_parser(t_champions *champion1, int ac, char **av)
+int		cor_check_champions(int ac, char **av, int index)
 {
-	int		index;
+	TITLE
 
-	index = cor_check_usage(ac, av);
-	cor_check_champions(ac, av, index);
-	(void)&champion1;
-	return (0);
+	DG("\nac = %d\nindex = %d\nav[index] = %s", ac, index, av[index]);
+	(void)&ac;
+	(void)&av;
+	(void)&index;
+
+	E_TITLE
+	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/08/21 18:16:22 by philippedamoune  ###   ########.fr        #
+#    Updated: 2017/08/23 13:32:38 by pdamoune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,9 @@ LIBS		=
 SRC_BASE	=	\
 main.c\
 tools/usage.c\
-parser/cor_parser.c
+parser/cor_parser.c\
+parser/cor_check_usage.c\
+parser/cor_check_champions.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

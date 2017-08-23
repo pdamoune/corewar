@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/29 21:53:12 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/18 15:04:10 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/23 13:33:26 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define PIPE_WRITE		1
 
 # ifndef DG
-#  define MSG0			"{BLU}%s, {CYA}%s, {GRE}%4d - {eoc}{red}"
+#  define MSG0			"{BLU}%s, {CYA}{bla}%s, {GRE}{bla}%4d - {eoc}{red}"
 #  define MSG1			__FILE__, __func__, __LINE__
 #  define DG(f, ...)	ft_dprintf(2, MSG0 f "{eoc}\n", MSG1, ##__VA_ARGS__)
 # endif

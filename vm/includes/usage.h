@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cor_parser.c                                       :+:      :+:    :+:   */
+/*   usage.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/18 16:29:53 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/23 13:32:51 by pdamoune         ###   ########.fr       */
+/*   Created: 2017/08/23 12:54:04 by pdamoune          #+#    #+#             */
+/*   Updated: 2017/08/23 13:03:00 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#ifndef USAGE_H
+# define USAGE_H
 
-int		cor_parser(t_champions *champion1, int ac, char **av)
+typedef struct	s_usage
 {
-	int		index;
+	char	name[10];
+}				t_usage;
 
-	index = cor_check_usage(ac, av);
-	cor_check_champions(ac, av, index);
-	(void)&champion1;
-	return (0);
-}
+#endif
