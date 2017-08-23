@@ -6,7 +6,7 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/08/17 16:05:09 by pdamoune         ###   ########.fr        #
+#    Updated: 2017/08/23 16:28:53 by pdamoune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ mem/ft_memmove.c\
 mem/ft_memrealloc.c\
 mem/ft_memset.c\
 mem/ft_swapptr.c\
+mem/ft_memrev.c\
 num/ft_abs.c\
 num/ft_atoi.c\
 num/ft_atoli_base.c\

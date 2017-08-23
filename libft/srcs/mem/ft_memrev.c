@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cor_parser.c                                       :+:      :+:    :+:   */
+/*   ft_memrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/18 16:29:53 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/23 14:47:09 by pdamoune         ###   ########.fr       */
+/*   Created: 2017/08/23 16:24:11 by pdamoune          #+#    #+#             */
+/*   Updated: 2017/08/23 16:40:48 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "libft.h"
 
-int		cor_parser(t_champions *champion1, int ac, char **av)
+void	ft_memrev(void *ptr, size_t n)
 {
-	int		index;
+	char	*str;
+	char	rev;
+	size_t	i;
 
-	index = cor_check_usage(ac, av);
-	cor_check_champions(ac, av, index);
-	(void)&champion1;
-	return (0);
+	str = (char *)ptr;
+	i = -1;
+	while (str[++i] == 0)
+		;
+	while (i < n)
+	{
+		rev = str[i];
+		str[i] = str[n];
+		str[n] = rev;
+		i++;
+		n--;
+	}
 }

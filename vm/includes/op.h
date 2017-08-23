@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/08/22 22:03:04 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/23 17:34:55 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ typedef struct		header_s
   char				prog_name[PROG_NAME_LENGTH + 1];
   unsigned int		prog_size;
   char				comment[COMMENT_LENGTH + 1];
+  int				prog[CHAMP_MAX_SIZE];
 }					header_t;

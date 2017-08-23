@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/29 21:53:12 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/23 13:33:26 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/23 16:28:32 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,8 @@ void			*ft_memjoin(const void *mem1, const void *mem2,
 							size_t len1, size_t len2);
 void			*ft_memjoinf(void *mem1, void *mem2, size_t len1, size_t len2);
 void			ft_swapptr(void **ptr1, void **ptr2);
+void			ft_memrev(void *ptr, size_t n);
+
 
 /*
 ** INT :
