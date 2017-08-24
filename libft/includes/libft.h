@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/29 21:53:12 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/23 16:28:32 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/24 12:53:14 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 #  define MSG1			__FILE__, __func__, __LINE__
 #  define DG(f, ...)	ft_dprintf(2, MSG0 f "{eoc}\n", MSG1, ##__VA_ARGS__)
 # endif
+
+#define		MV1_4(X)	(X >> 24)
+#define		MV2_3(X)	((X >> 8) & 0xff00)
+#define		MV3_2(X)	((X & 0xff00) << 8)
+#define		MV4_1(X)	((X & 0xff) << 24)
+#define		INTREV32(X)	MV1_4(X) | MV2_3(X) | MV3_2(X) | MV4_1(X)
 
 enum			e_bool
 {
