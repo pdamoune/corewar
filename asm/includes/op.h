@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/08/24 15:07:09 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/08/24 16:51:24 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,12 +213,12 @@ enum				e_conversion
 	lldi = 10,
 	lfork = 14,
 	aff = 15,
-	direct = 17,
-	indirect = 16,
-	R = 18,
-	Name_CMD_STRING = 19,
-	Comment_CMD_STRING = 20,
-	Comment_CHAR = 21,
+	direct = 16,
+	indirect = 21,
+	R = 17,
+	Name_CMD_STRING = 18,
+	Comment_CMD_STRING = 19,
+	Comment_CHAR = 20,
 };
 void	ft_pointeur_tab(global_t *global, int index, char *line);
 void	(*p_tab[25])(global_t *, char *);
