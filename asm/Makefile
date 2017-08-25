@@ -47,6 +47,7 @@ FONCTIONS/live_instruct.c\
 FONCTIONS/lld_instruct.c\
 FONCTIONS/lldi_instruct.c\
 FONCTIONS/or_instruct.c\
+FONCTIONS/others_string.c\
 FONCTIONS/register_param.c\
 FONCTIONS/st_instruct.c\
 FONCTIONS/sti_instruct.c\

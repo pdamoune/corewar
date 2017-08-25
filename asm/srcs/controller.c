@@ -28,6 +28,8 @@ void		ft_pointeur_tab(global_t *global, int index, char *line)
 	p_tab[Name_CMD_STRING] = cmd_string;
 	p_tab[Comment_CMD_STRING] = cmd_string;
 	p_tab[Comment_CHAR] = comments_string;
+	p_tab[Other_CMD_STRING] = others_string;
+
 
 	p_tab[index](global, line);
 }

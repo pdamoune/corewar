@@ -11,6 +11,7 @@ int		ft_find_index(global_t *global, char *line)
 	i = 0;
 	while (global->index_tab[i])
 	{
+		// printf("line %s\n", line);
 		if (ft_strstart(line, global->index_tab[i]))
 			return(i);
 		i++;
@@ -35,13 +36,13 @@ void		ft_traduce_label(global_t *global, char *line)
 			int index2 = ft_find_index(global,global->s_label->s_content->line[i]);
 			// printf("index2 %d\n", index2);
 
-			if (index2 < 22)
+			if (index2 < 23)
 				ft_pointeur_tab(global, index2, global->s_label->s_content->line[i]);
 			i++;
 		}
 		/*****  Fin Partie DEBUG *******/
 	}
-	else if (index >= 18 && index <= 20)
+	else if (index >= 18 && index <= 21)
 		ft_pointeur_tab(global, index, line);
 	else
 		ft_exit(10, global, NULL);
@@ -65,6 +66,10 @@ void		ft_browse_label(global_t *global)
         while (global->s_label->s_content)
         {
 			printf("Instruction:\n");
+			/* A voir si on modifie ce code */
+			while (!global->s_label->s_content->line[0])
+				global->s_label = global->s_label->next;
+			/* Fin du code */
 			ft_traduce_label(global, global->s_label->s_content->line[0]);
 			printf("\n");
             global->s_label->s_content = global->s_label->s_content->next;

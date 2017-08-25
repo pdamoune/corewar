@@ -217,11 +217,12 @@ enum				e_conversion
 	lfork = 14,
 	aff = 15,
 	direct = 16,
-	indirect = 21,
+	indirect = 22,
 	R = 17,
 	Name_CMD_STRING = 18,
 	Comment_CMD_STRING = 19,
 	Comment_CHAR = 20,
+	Other_CMD_STRING = 21,
 };
 void	ft_pointeur_tab(global_t *global, int index, char *line);
 void	(*p_tab[25])(global_t *, char *);
@@ -247,3 +248,4 @@ void	indirect_param(global_t *global, char *line);
 void	register_param(global_t *global, char *line);
 void	cmd_string(global_t *global, char *line);
 void	comments_string(global_t *global, char *line);
+void	others_string(global_t *global, char *line);

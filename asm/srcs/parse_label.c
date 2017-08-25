@@ -16,7 +16,8 @@ int		ft_kind_of_line(char *line)
 		return (EMPTY_LINE);
 	else if (line[i] == COMMENT_CHAR)
 		return (COMMENT);
-    else if (ft_strstart(line, NAME_CMD_STRING) || ft_strstart(line, COMMENT_CMD_STRING))
+    else if (ft_strstart(line, NAME_CMD_STRING) ||
+			ft_strstart(line, COMMENT_CMD_STRING) || ft_strstart(line, "."))
 		return (HEADER);
 	while (line[i])
 	{

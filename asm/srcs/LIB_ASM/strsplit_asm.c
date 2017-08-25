@@ -53,7 +53,6 @@ char			**ft_split_tab(char **tab1)
 		return (tab1);
 // ft_print_words_tables(tab2);
 	len = ft_strlen_tab(tab3) + ft_strlen_tab(tab1);
-	printf("len: %d", len);
 	if (!(tab = (char**)malloc(sizeof(*tab) * (len + 1))))
 		return (NULL);
 	i = 0;

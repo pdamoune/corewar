@@ -28,8 +28,9 @@ char	**ft_index_tab()
 	tab[18] = ft_strdup(NAME_CMD_STRING);
 	tab[19] = ft_strdup(COMMENT_CMD_STRING);
 	tab[20] = ft_strdup("#");
-	tab[21] = ft_strdup("");
-	tab[22] = NULL;
+	tab[21] = ft_strdup(".");
+	tab[22] = ft_strdup("");
+	tab[23] = NULL;
 	return (tab);
 }
 
