@@ -24,7 +24,7 @@ void		ft_traduce_label(global_t *global, char *line)
 
 	index = ft_find_index(global,line);
 	printf("index %d\n", index);
-	if (index >= 0 && index < 19)
+	if (index >= 0 && index < 18)
 	{
 		ft_pointeur_tab(global, index, line);
 
@@ -41,7 +41,7 @@ void		ft_traduce_label(global_t *global, char *line)
 		}
 		/*****  Fin Partie DEBUG *******/
 	}
-	else if (index >= 19 && index <= 21)
+	else if (index >= 18 && index <= 20)
 		ft_pointeur_tab(global, index, line);
 	else
 		ft_exit(10, global, NULL);

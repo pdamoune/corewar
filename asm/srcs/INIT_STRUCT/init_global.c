@@ -23,12 +23,12 @@ char	**ft_index_tab()
 	tab[13] = ft_strdup("ld");
 	tab[14] = ft_strdup("lfork");
 	tab[15] = ft_strdup("aff");
-	tab[16] = ft_strdup("%:");
-	tab[17] = ft_strdup("%");
-	tab[18] = ft_strdup("r");
-	tab[19] = ft_strdup(NAME_CMD_STRING);
-	tab[20] = ft_strdup(COMMENT_CMD_STRING);
-	tab[21] = ft_strdup("#");
+	tab[16] = ft_strdup("%");
+	tab[17] = ft_strdup("r");
+	tab[18] = ft_strdup(NAME_CMD_STRING);
+	tab[19] = ft_strdup(COMMENT_CMD_STRING);
+	tab[20] = ft_strdup("#");
+	tab[21] = ft_strdup("");
 	tab[22] = NULL;
 	return (tab);
 }

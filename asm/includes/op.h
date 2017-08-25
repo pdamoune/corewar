@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/08/03 20:29:04 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/08/24 19:24:37 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct		global_s
 	int				nb_empty;
 	int	    		nb_lines;
 	char			**index_tab;
+	int				total_octet;
 	int	    		i;
 	int	    		j;
 	int	    		k;
@@ -110,8 +111,8 @@ typedef struct		label_s
 	struct content_s	*begin_content;
 	struct content_s	*s_content;
 	char				*name;
-	int					index;
 	char				*instruction;
+	int					index;
 	int					num;
 	struct label_s		*next;
 	struct label_s		*previous;
@@ -122,6 +123,7 @@ typedef struct		content_s
 {
 	char				**line;
 	int					nb_octet;
+	int					begin_octet;
 	struct content_s	*next;
 	struct content_s	*previous;
 }					content_t;
@@ -214,12 +216,12 @@ enum				e_conversion
 	lldi = 10,
 	lfork = 14,
 	aff = 15,
-	direct = 17,
-	indirect = 16,
-	R = 18,
-	Name_CMD_STRING = 19,
-	Comment_CMD_STRING = 20,
-	Comment_CHAR = 21,
+	direct = 16,
+	indirect = 21,
+	R = 17,
+	Name_CMD_STRING = 18,
+	Comment_CMD_STRING = 19,
+	Comment_CHAR = 20,
 };
 void	ft_pointeur_tab(global_t *global, int index, char *line);
 void	(*p_tab[25])(global_t *, char *);
