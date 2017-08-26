@@ -6,16 +6,17 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/04/16 21:57:16 by wescande         ###   ########.fr        #
+#    Updated: 2017/08/23 13:32:38 by pdamoune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	Assembleur
+NAME		=	corewar
 
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
-MAIN_FLAGS	=	
-OBJ_FLAGS	=	
+FLAGS		=	-Wall -Wextra -Werror
+FLGS		=	-fsanitize=address
+MAIN_FLAGS	=
+OBJ_FLAGS	=
 
 LEN_NAME	=	`printf "%s" $(NAME) |wc -c`
 DELTA		=	$$(echo "$$(tput cols)-31-$(LEN_NAME)"|bc)
@@ -24,29 +25,18 @@ SRC_DIR		=	srcs/
 INC_DIR		=	includes/
 OBJ_DIR		=	objs/
 
-LIBFT_DIR	=	libft/
+LIBFT_DIR	=	../libft/
 LIBFT_LIB	=	$(LIBFT_DIR)libft.a
 LIBFT_INC	=	$(LIBFT_DIR)includes/
 
 LIBS		=
 
 SRC_BASE	=	\
-cliopts_get_scr.c\
-ft_mmap.c\
-ft_script.c\
-ft_signal.c\
-ft_time.c\
-resize_term.c\
-script_display.c\
-script_flush.c\
-script_init.c\
-script_loop.c\
-termios/ft_cfmakeraw.c\
-termios/ft_isatty.c\
-termios/ft_tcgetattr.c\
-termios/ft_tcsetattr.c\
-util/ft_login_tty.c\
-util/ft_openpty.c
+main.c\
+tools/usage.c\
+parser/cor_parser.c\
+parser/cor_check_usage.c\
+parser/cor_check_champions.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

@@ -1,14 +1,14 @@
-#* ************************************************************************** *#
-#*                                                                            *#
-#*                                                        :::      ::::::::   *#
-#*   Makefile                                           :+:      :+:    :+:   *#
-#*                                                    +:+ +:+         +:+     *#
-#*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        *#
-#*                                                +#+#+#+#+#+   +#+           *#
-#*   Created: 2016/08/29 21:32:58 by wescande          #+#    #+#             *#
-#*   Updated: 2016/12/24 02:14:21 by wescande         ###   ########.fr       *#
-#*                                                                            *#
-#* ************************************************************************** *#
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
+#    Updated: 2017/08/17 16:05:09 by pdamoune         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME		=	libft.a
 
@@ -98,6 +98,43 @@ printf/conv/conv_s.c\
 printf/conv/conv_u.c\
 printf/ft_colorize.c\
 printf/ft_printf.c\
+ft_prf/src/ft_prf.c \
+ft_prf/src/prf_parsing.c \
+ft_prf/src/prf_conversion.c \
+ft_prf/src/prf_set_padding.c \
+ft_prf/src/conversions/prf_type_s.c \
+ft_prf/src/conversions/prf_type_c.c \
+ft_prf/src/conversions/prf_type_uc.c \
+ft_prf/src/conversions/prf_type_us.c \
+ft_prf/src/conversions/prf_type_d.c \
+ft_prf/src/conversions/prf_type_u.c \
+ft_prf/src/conversions/prf_type_x.c \
+ft_prf/src/conversions/prf_type_b.c \
+ft_prf/src/conversions/prf_type_o.c \
+ft_prf/src/functions/prf_set_precision.c \
+ft_prf/src/functions/prf_fill_c.c \
+ft_prf/src/functions/prf_fill_data.c \
+ft_prf/src/functions/prf_fill_wchar.c \
+ft_prf/src/functions/prf_set_x.c \
+ft_prf/src/functions/prf_set_prefixe.c \
+ft_prf/src/functions/prf_lltoa_base.c \
+ft_prf/src/functions/prf_ulltoa_base.c \
+ft_prf/src/functions/prf__ulltoa_base.c \
+ft_prf/src/functions/prf_wctoa.c \
+ft_prf/src/functions/prf_strlen_wchar.c \
+ft_prf/src/functions/prf_set_arg.c \
+ft_prf/src/functions/prf_color.c \
+ft_prf/src/functions/prf_atoi.c \
+ft_prf/src/functions/prf_strtoupper.c \
+ft_prf/src/functions/prf_bzero.c \
+ft_prf/src/functions/prf_strlen.c \
+ft_prf/src/functions/prf_toupper.c \
+ft_prf/src/functions/prf_isblank.c \
+ft_prf/src/functions/prf_strncmp.c \
+ft_prf/src/functions/prf_isdigit.c \
+ft_prf/src/functions/prf_strncpy.c \
+ft_prf/src/functions/prf_isspace.c \
+ft_prf/src/functions/prf_strrev.c \
 printf/input/ft_init.c\
 printf/input/ft_set_flag.c\
 printf/printf_core.c\
