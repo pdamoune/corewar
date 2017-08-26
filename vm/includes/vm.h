@@ -15,8 +15,8 @@
 # include "libft.h"
 # include "usage.h"
 # include "op.h"
-# define TITLE ft_prf("===   %s   ===\n", __func__);
-# define E_TITLE ft_prf("=== fin %s ===\n", __func__);
+# define TITLE ft_printf("===   %s   ===\n", __func__);
+# define E_TITLE ft_printf("=== fin %s ===\n", __func__);
 
 typedef struct	s_champions
 {

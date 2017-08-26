@@ -46,26 +46,26 @@
 
 int		usage(char *name)
 {
-	ft_prf("%s %s ", USG, FILE_NAME);
-	ft_prf("%s %s %s %s\n", OPT1, OPT2, OPT3, OPT4);
-	ft_prf("%*c-a %*c: %s\n", TAB(5), TAB(8), USG1);
-	ft_prf("%.*s %s %.*s\n", SEP, TITLE1, SEPEND(TITLE1));
-	ft_prf("%*c-d N %*c: %s\n", TAB(5), TAB(6), USG2);
-	ft_prf("%*c-s N %*c: %s\n", TAB(5), TAB(6), USG3);
-	ft_prf("%*c-v N %*c: %s\n", TAB(5), TAB(6), USG4);
-	ft_prf("%*c %s\n", TAB(16), USG41);
-	ft_prf("%*c %s\n", TAB(16), USG42);
-	ft_prf("%*c %s\n", TAB(16), USG43);
-	ft_prf("%*c %s\n", TAB(16), USG44);
-	ft_prf("%*c %s\n", TAB(16), USG45);
-	ft_prf("%*c %s\n", TAB(16), USG46);
-	ft_prf("%.*s %s %.*s\n", SEP, TITLE2, SEPEND(TITLE2));
-	ft_prf("%*c-b %*c: %s\n", TAB(5), TAB(8), USG5);
-	ft_prf("%*c%s\n", TAB(5), USG6);
-	ft_prf("%.*s %s %.*s\n", SEP, TITLE3, SEPEND(TITLE3));
-	ft_prf("%*c-n %*c: %s\n", TAB(5), TAB(8), USG7);
-	ft_prf("%*c%s\n", TAB(5), USG8);
-	ft_prf("%s\n", SEPARATOR);
+	ft_printf("%s %s ", USG, FILE_NAME);
+	ft_printf("%s %s %s %s\n", OPT1, OPT2, OPT3, OPT4);
+	ft_printf("%*c-a %*c: %s\n", TAB(5), TAB(8), USG1);
+	ft_printf("%.*s %s %.*s\n", SEP, TITLE1, SEPEND(TITLE1));
+	ft_printf("%*c-d N %*c: %s\n", TAB(5), TAB(6), USG2);
+	ft_printf("%*c-s N %*c: %s\n", TAB(5), TAB(6), USG3);
+	ft_printf("%*c-v N %*c: %s\n", TAB(5), TAB(6), USG4);
+	ft_printf("%*c %s\n", TAB(16), USG41);
+	ft_printf("%*c %s\n", TAB(16), USG42);
+	ft_printf("%*c %s\n", TAB(16), USG43);
+	ft_printf("%*c %s\n", TAB(16), USG44);
+	ft_printf("%*c %s\n", TAB(16), USG45);
+	ft_printf("%*c %s\n", TAB(16), USG46);
+	ft_printf("%.*s %s %.*s\n", SEP, TITLE2, SEPEND(TITLE2));
+	ft_printf("%*c-b %*c: %s\n", TAB(5), TAB(8), USG5);
+	ft_printf("%*c%s\n", TAB(5), USG6);
+	ft_printf("%.*s %s %.*s\n", SEP, TITLE3, SEPEND(TITLE3));
+	ft_printf("%*c-n %*c: %s\n", TAB(5), TAB(8), USG7);
+	ft_printf("%*c%s\n", TAB(5), USG8);
+	ft_printf("%s\n", SEPARATOR);
 	return (0);
 }
 // #### TEXT OUTPUT MODE ############################################################%
