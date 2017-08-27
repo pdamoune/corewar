@@ -6,14 +6,14 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/08/23 13:32:38 by pdamoune         ###   ########.fr        #
+#    Updated: 2017/08/27 12:30:36 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	corewar
 
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
 FLGS		=	-fsanitize=address
 MAIN_FLAGS	=
 OBJ_FLAGS	=
@@ -35,10 +35,10 @@ SRC_BASE	=	\
 parser/cor_check_champions.c\
 parser/cor_check_usage.c\
 parser/cor_parser.c\
-init/init_player_number.c\
-init/init_player.c\
-init/init.c\
+init/init_number.c\
 init/init_dump.c\
+init/init_vm.c\
+init/init_file.c\
 tools/usage.c\
 main.c
 

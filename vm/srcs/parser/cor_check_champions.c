@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cor_check_champions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 13:29:58 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/24 17:41:40 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/27 12:31:19 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int 	cor_read(int fd, void *ptr, int size)
 	// E_TITLE
 }
 
-int		cor_get_data(int fd, header_t *header)
+int		cor_get_data(int fd, t_header *header)
 {
 	if (cor_read(fd, &header->magic, 4) != 4)
 		DG("\nError : Bad header, bad size of file\n");
@@ -49,27 +49,27 @@ int		cor_get_data(int fd, header_t *header)
 }
 
 
-int		cor_check_champions(int ac, char **av, int index)
-{
-	TITLE
-	header_t	header;
-	int 		fd;
+// int		cor_check_champions(int ac, char **av, int index)
+// {
+// 	TITLE
+// 	header_t	header;
+// 	int 		fd;
 
-	// DG("\nac = %d | index = %d | av[index] = %s\n", ac, index, av[index]);
-	ft_bzero(&header, sizeof(header_t));
-	if ((fd = open(av[index], O_RDONLY)) == -1)
-		exit (DG("\nBad champion file : fd = %d\n", fd));
-	(void)&ac;
-	if (!cor_get_data(fd, &header))
-		DG("\nError : get_data\n");
+// 	// DG("\nac = %d | index = %d | av[index] = %s\n", ac, index, av[index]);
+// 	ft_bzero(&header, sizeof(header_t));
+// 	if ((fd = open(av[index], O_RDONLY)) == -1)
+// 		exit (DG("\nBad champion file : fd = %d\n", fd));
+// 	(void)&ac;
+// 	if (!cor_get_data(fd, &header))
+// 		DG("\nError : get_data\n");
 
 
-	ft_printf("prog_name  : %.10s(...)\n", header.prog_name);
-	ft_printf("prog_size  : %x\n", header.prog_size);
-	ft_printf("comment    : %.10s(...)\n", header.comment);
-	ft_printf("prog       : %08x(...)\n", INTREV32(header.prog[0]));
-	ft_printf("magic      : %x\n", header.magic);
+// 	ft_printf("prog_name  : %.10s(...)\n", header.prog_name);
+// 	ft_printf("prog_size  : %x\n", header.prog_size);
+// 	ft_printf("comment    : %.10s(...)\n", header.comment);
+// 	ft_printf("prog       : %08x(...)\n", INTREV32(header.prog[0]));
+// 	ft_printf("magic      : %x\n", header.magic);
 
-	E_TITLE
-	return (1);
-}
+// 	E_TITLE
+// 	return (1);
+// }

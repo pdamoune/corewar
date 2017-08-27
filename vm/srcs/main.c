@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/26 21:08:14 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 12:34:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int		main(int ac, char **av)
 	if (init_vm(&vm, ac, av))
 		return (1);
 	return (0);
-	t_champions	champions;
+	// t_champions	champions;
 
-	if (ac < 2)
-		return (usage(av[0]));
-	cor_display_data();
-	ft_bzero(&champions, sizeof(t_champions));
-	cor_parser(&champions, ac, av);
+	// if (ac < 2)
+	// 	return (usage(av[0]));
+	// cor_display_data();
+	// ft_bzero(&champions, sizeof(t_champions));
+	// cor_parser(&champions, ac, av);
 	return (0);
 }

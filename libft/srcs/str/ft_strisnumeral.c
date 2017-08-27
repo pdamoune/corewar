@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 11:49:31 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 11:49:58 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 13:27:11 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		ft_strisnumeral(const char *str)
 {
-	if (!str)
+	if (!str || !*str)
 		return (0);
-	if (*str == '-' || *str == '+')
+	if ((*str == '-' || *str == '+') && *(str + 1))
 		++str;
 	while (*str)
 	{
