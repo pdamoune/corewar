@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 01:42:08 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 14:02:55 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 16:44:57 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int		init_number(char **opt_arg, t_vm *vm, int n_args)
 	if (!ft_strisnumeral(args[0]))
 		return(ERR_COR("argument must be numeral value"));
 	player_number = ft_atoi(args[0]);
-	if (player_number < 1 || player_number > 4)
-		return(ERR_COR("argument must be 1 ≤ n ≤ 4"));
+	if (player_number < 1 || player_number > MAX_PLAYERS)
+		return(ERR_COR("argument must be 1 ≤ n ≤ %d", MAX_PLAYERS));
 	ret = init_file(vm, player_number - 1, args[1]);
 	return (ret);
 }

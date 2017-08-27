@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 14:41:08 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 16:07:47 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int		init_vm(t_vm *vm, int ac, char **av)
 		while (*vm->av_data)
 			if (init_file(vm, -1, *vm->av_data++))
 				return (1);
+	vm->cycle_to_die = CYCLE_TO_DIE;
 	return (0);
 }

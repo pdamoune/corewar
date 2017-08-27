@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cycle.c                                            :+:      :+:    :+:   */
+/*   remove_one_process.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 16:26:07 by wescande         ###   ########.fr       */
+/*   Created: 2017/08/27 19:09:00 by wescande          #+#    #+#             */
+/*   Updated: 2017/08/28 01:15:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-int		do_one_cycle(t_vm *vm)
+void		remove_one_process(t_vm *vm, t_process *process)
 {
+	t_process *cur;
+	t_process *tmp;
 
-
-
-
-	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
-		dump(vm);
-	check_cycle(vm);
-	++vm->cycle;
-	return (0);
+	cur = vm->process;
+	if (vm->process == process)
+	{
+		vm->process = process->next;
+		process_del(process);
+		return ;
+	}
+	while (cur)
+	{
+		tmp = cur->next;
+		if (tmp == process)
+		{
+			cur->next = tmp->next;
+			process_del(process);
+		}
+		cur = cur->next;
+	}
 }

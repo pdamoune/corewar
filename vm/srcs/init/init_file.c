@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 11:53:01 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 14:05:47 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 16:44:16 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	get_empty_file(t_vm *vm)
 {
 	int i = -1;
 
-	while (++i < 4)
+	while (++i < MAX_PLAYERS)
 		if (!vm->file[i].is_used)
 			return (i);
 	return (-1);
@@ -28,7 +28,7 @@ int		init_file(t_vm *vm, int num, char *filename)
 	int			fd;
 
 	if (num == -1 && (num = get_empty_file(vm)) == -1)
-		return (ERR_COR("max player is 4"));
+		return (ERR_COR("max player is %d", MAX_PLAYERS));
 	file = &(vm->file[num]);
 	if (file->is_used++)
 		return (ERR_COR("player number already used"));

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/27 14:41:56 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 17:15:20 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	console_run(t_vm *vm)
 		if (ret)
 			break;
 	}
+	DG("END at cycle %d", vm->cycle);
 	if (!ret)
 		ret = display_win(vm);
 	return (free_vm(vm) || ret);

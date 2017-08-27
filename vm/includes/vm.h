@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/27 14:47:21 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 19:02:58 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 # define DUMP		(1 << 1)
 # define STOP		(1 << 2)
 
+# if MAX_PLAYERS < 1
+#  error "macro MAX_PLAYERS must be strictly positive"
+# endif
+
 typedef struct	s_champions
 {
 	void	*c1;
@@ -38,6 +42,19 @@ typedef struct	s_champions
 	void	*c3;
 	void	*c4;
 }				t_champions;
+
+typedef struct	s_process t_process;
+struct	s_process
+{
+	t_process	*next;
+	long		last_live;
+};
+
+typedef struct	s_player
+{
+	int			live;
+	long		last_live;
+}				t_player;
 
 typedef struct	s_file
 {
@@ -51,12 +68,17 @@ typedef struct	s_file
 */
 typedef struct	s_vm
 {
-	long int	flag;
+	long		flag;
 	char		**av_data;
-	t_file		file[4];
-	int			cycle;
+	t_file		file[MAX_PLAYERS];
+	t_player	players[MAX_PLAYERS];
+	t_process	*process;
 	char		area[MEM_SIZE];
-	int			cycle_to_dump;
+	long		cycle;
+	long		cycle_to_dump;
+	long		cycle_to_die;
+	long		last_check;
+	long		check_count;
 }				t_vm;
 
 /*
@@ -65,6 +87,8 @@ typedef struct	s_vm
 
 int		main(int ac, char **av);
 int		do_one_cycle(t_vm *vm);
+void	check_cycle(t_vm *vm);
+void	check_live(t_vm *vm);
 
 /*
 ** Tools functions.

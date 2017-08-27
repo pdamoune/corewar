@@ -41,6 +41,8 @@ init/init_vm.c\
 init/init_file.c\
 tools/free_vm.c\
 tools/usage.c\
+check/check_live.c\
+check/check_cycle.c\
 display/display_win.c\
 display/dump.c\
 main.c\
