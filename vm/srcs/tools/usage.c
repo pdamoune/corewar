@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   usage.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:59 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/23 14:47:06 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/27 14:39:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int		usage(char *name)
 	ft_printf("%*c-n %*c: %s\n", TAB(5), TAB(8), USG7);
 	ft_printf("%*c%s\n", TAB(5), USG8);
 	ft_printf("%s\n", SEPARATOR);
-	return (0);
+	return (1);
 }
 // #### TEXT OUTPUT MODE ############################################################%

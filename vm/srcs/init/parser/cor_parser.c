@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   cor_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 12:02:43 by wescande         ###   ########.fr       */
+/*   Created: 2017/08/18 16:29:53 by pdamoune          #+#    #+#             */
+/*   Updated: 2017/08/27 12:35:03 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <vm.h>
-#include <stdio.h>
-t_cliopts	g_read_opts[] =
-{
-	{'d', "dump", DUMP, 0, init_dump, 1},
-	{'n', "number", 0, 0, init_player_number, 2},
-	{'g', "graphic", GRAPHIC, 0, NULL, 0},
-	{0, 0, 0, 0, 0, 0},
-};
+#include "vm.h"
 
-int		init_vm(t_vm *vm, int ac, char **av)
-{
-	(void)ac;
-	ft_bzero(vm, sizeof(t_vm));
-	if ((cliopts_get(av, g_read_opts, vm)))
-		return (ft_perror("corewar") && usage("corewar"));
-	return (0);
-}
+// int		cor_parser(t_champions *champion1, int ac, char **av)
+// {
+// 	int		index;
+
+// 	index = cor_check_usage(ac, av);
+// 	cor_check_champions(ac, av, index);
+// 	(void)&champion1;
+// 	return (0);
+// }

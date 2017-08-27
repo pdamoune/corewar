@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cor_parser.c                                       :+:      :+:    :+:   */
+/*   cycle.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/18 16:29:53 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/23 14:47:09 by pdamoune         ###   ########.fr       */
+/*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
+/*   Updated: 2017/08/27 14:44:50 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <vm.h>
 
-int		cor_parser(t_champions *champion1, int ac, char **av)
+int		do_one_cycle(t_vm *vm)
 {
-	int		index;
 
-	index = cor_check_usage(ac, av);
-	cor_check_champions(ac, av, index);
-	(void)&champion1;
+
+
+
+	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
+		dump(vm);
+	++vm->cycle;
 	return (0);
 }

@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strisnumeral.c                                  :+:      :+:    :+:   */
+/*   free_vm.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 11:49:31 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 13:27:11 by wescande         ###   ########.fr       */
+/*   Created: 2017/08/27 14:26:06 by wescande          #+#    #+#             */
+/*   Updated: 2017/08/27 14:36:01 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <vm.h>
 
-int		ft_strisnumeral(const char *str)
+int		free_vm(t_vm *vm)
 {
-	if (!str || !*str)
-		return (0);
-	if ((*str == '-' || *str == '+') && *(str + 1))
-		++str;
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return (0);
-		++str;
-	}
-	return (1);
+	(void)vm;
+	return (DG("not yet implemented"));
 }

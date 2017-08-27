@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strisnumeral.c                                  :+:      :+:    :+:   */
+/*   dump.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 11:49:31 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 13:27:11 by wescande         ###   ########.fr       */
+/*   Created: 2017/08/27 14:42:19 by wescande          #+#    #+#             */
+/*   Updated: 2017/08/27 15:43:56 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <vm.h>
 
-int		ft_strisnumeral(const char *str)
+int		dump(t_vm *vm)
 {
-	if (!str || !*str)
-		return (0);
-	if ((*str == '-' || *str == '+') && *(str + 1))
-		++str;
-	while (*str)
+	int		i;
+
+	SET(vm->flag, STOP);
+	//TODO what if we can't reach the dump cycle
+	i = -1;
+	while (++i < MEM_SIZE)
 	{
-		if (!ft_isdigit(*str))
-			return (0);
-		++str;
+		if (i % 64 == 0)
+		{
+			if (i)
+				ft_printf("\n0x%04x :", i);
+			else
+				ft_printf("0x%04x :", i);
+		}
+		ft_printf(" %02x", vm->area[i]);
 	}
-	return (1);
+	ft_putchar('\n');
+	return (0);
 }
