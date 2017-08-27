@@ -6,7 +6,7 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/08/27 12:30:36 by wescande         ###   ########.fr        #
+#    Updated: 2017/08/27 14:39:00 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,15 +32,19 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 LIBS		=
 
 SRC_BASE	=	\
-parser/cor_check_champions.c\
-parser/cor_check_usage.c\
-parser/cor_parser.c\
+init/parser/cor_check_champions.c\
+init/parser/cor_check_usage.c\
+init/parser/cor_parser.c\
 init/init_number.c\
 init/init_dump.c\
 init/init_vm.c\
 init/init_file.c\
+tools/free_vm.c\
 tools/usage.c\
-main.c
+display/display_win.c\
+display/dump.c\
+main.c\
+cycle.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

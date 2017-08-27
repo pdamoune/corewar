@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/27 14:02:14 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 14:47:21 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 */
 # define GRAPHIC	(1 << 0)
 # define DUMP		(1 << 1)
+# define STOP		(1 << 2)
 
 typedef struct	s_champions
 {
@@ -53,6 +54,8 @@ typedef struct	s_vm
 	long int	flag;
 	char		**av_data;
 	t_file		file[4];
+	int			cycle;
+	char		area[MEM_SIZE];
 	int			cycle_to_dump;
 }				t_vm;
 
@@ -61,12 +64,15 @@ typedef struct	s_vm
 */
 
 int		main(int ac, char **av);
+int		do_one_cycle(t_vm *vm);
 
 /*
 ** Tools functions.
 */
 
 int		usage(char *name);
+int		free_vm(t_vm *vm);
+
 
 /*
 ** Parser.
@@ -77,12 +83,18 @@ int		cor_check_usage(int ac, char **av);
 int		cor_check_champions(int ac, char **av, int index);
 
 /*
-**		initialisation
+** INIT
 */
 int		init_vm(t_vm *vm, int ac, char **av);
 int		init_dump(char **opt_arg, t_vm *vm, int n_args);
 int		init_number(char **opt_arg, t_vm *vm, int n_args);
 int		init_file(t_vm *vm, int num, char *filename);
 int		cor_get_data(int fd, t_header *header);
+
+/*
+** DISPLAY
+*/
+int		display_win(t_vm *vm);
+int		dump(t_vm *vm);
 
 #endif
