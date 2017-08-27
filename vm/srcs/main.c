@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/23 17:40:04 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/26 21:08:14 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void 	cor_display_data(void)
 
 int		main(int ac, char **av)
 {
+	t_vm	vm;
+
+	if (init_vm(&vm, ac, av))
+		return (1);
+	return (0);
 	t_champions	champions;
 
 	if (ac < 2)

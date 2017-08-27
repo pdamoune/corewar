@@ -32,11 +32,15 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 LIBS		=
 
 SRC_BASE	=	\
-main.c\
-tools/usage.c\
-parser/cor_parser.c\
+parser/cor_check_champions.c\
 parser/cor_check_usage.c\
-parser/cor_check_champions.c
+parser/cor_parser.c\
+init/init_player_number.c\
+init/init_player.c\
+init/init.c\
+init/init_dump.c\
+tools/usage.c\
+main.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

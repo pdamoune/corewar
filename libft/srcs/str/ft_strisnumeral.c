@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strisdigit.c                                    :+:      :+:    :+:   */
+/*   ft_strisnumeral.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/06 16:14:41 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 11:50:05 by wescande         ###   ########.fr       */
+/*   Created: 2017/08/27 11:49:31 by wescande          #+#    #+#             */
+/*   Updated: 2017/08/27 11:49:58 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strisdigit(const char *str)
+int		ft_strisnumeral(const char *str)
 {
+	if (!str)
+		return (0);
+	if (*str == '-' || *str == '+')
+		++str;
 	while (*str)
 	{
 		if (!ft_isdigit(*str))

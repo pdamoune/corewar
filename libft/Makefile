@@ -108,6 +108,7 @@ str/ft_strmapi.c\
 str/ft_strdup.c\
 str/ft_strsplit.c\
 str/ft_strlcat.c\
+str/ft_strisnumeral.c\
 str/ft_strisdigit.c\
 str/ft_isascii.c\
 str/ft_isprint.c\

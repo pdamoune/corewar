@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/07 22:14:46 by wescande          #+#    #+#             */
-/*   Updated: 2017/04/08 00:07:59 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 11:24:40 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static int			cliopts_parse_short(
 			if (map->arg_required && !(tmp = check_required(av, arg + i)))
 				return (ERR_SET(E_CO_MISS, *arg));
 			tmp = tmp ? tmp : **av;
-			if ((map->get)(tmp, data))
-				return (ERR_SET(E_CO_MISS, *arg));
+			if ((map->get)(tmp, data, map->arg_required))
+				return (ERR_SET(E_CO_ARG_INV, *arg));
 			if (map->arg_required)
 				break ;
 		}
@@ -76,8 +76,8 @@ static int			cliopts_parse_long(
 	{
 		if (map->arg_required && !(tmp = check_required(av, NULL)))
 			return (ERR_SET(E_CO_MISS, *arg));
-		if ((map->get)(tmp, data))
-			return (ERR_SET(E_CO_MISSL, arg));
+		if ((map->get)(tmp, data, map->arg_required))
+			return (ERR_SET(E_CO_ARG_INVL, arg));
 	}
 	++(*av);
 	return (0);

@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strisdigit.c                                    :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/06 16:14:41 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 11:50:05 by wescande         ###   ########.fr       */
+/*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
+/*   Updated: 2017/08/27 12:02:43 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int		ft_strisdigit(const char *str)
+#include <vm.h>
+#include <stdio.h>
+t_cliopts	g_read_opts[] =
 {
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return (0);
-		++str;
-	}
-	return (1);
+	{'d', "dump", DUMP, 0, init_dump, 1},
+	{'n', "number", 0, 0, init_player_number, 2},
+	{'g', "graphic", GRAPHIC, 0, NULL, 0},
+	{0, 0, 0, 0, 0, 0},
+};
+
+int		init_vm(t_vm *vm, int ac, char **av)
+{
+	(void)ac;
+	ft_bzero(vm, sizeof(t_vm));
+	if ((cliopts_get(av, g_read_opts, vm)))
+		return (ft_perror("corewar") && usage("corewar"));
+	return (0);
 }

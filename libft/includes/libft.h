@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/29 21:53:12 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/24 12:53:14 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/27 11:50:29 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define PIPE_WRITE		1
 
 # ifndef DG
-#  define MSG0			"{BLU}%s, {CYA}{bla}%s, {GRE}{bla}%4d - {eoc}{red}"
+#  define MSG0			"{blu}%s, {cya}%s, {gre}%4d - {red}"
 #  define MSG1			__FILE__, __func__, __LINE__
 #  define DG(f, ...)	ft_dprintf(2, MSG0 f "{eoc}\n", MSG1, ##__VA_ARGS__)
 # endif
@@ -37,6 +37,12 @@
 #define		MV3_2(X)	((X & 0xff00) << 8)
 #define		MV4_1(X)	((X & 0xff) << 24)
 #define		INTREV32(X)	MV1_4(X) | MV2_3(X) | MV3_2(X) | MV4_1(X)
+
+# define IS_SET(x, y)		(((x) & (y)) == (y))
+# define IS_UNSET(x, y)		(((x) & (y)) != (y))
+# define SET(x, y)			((x) |= (y))
+# define UNSET(x, y)		((x) &= ~(y))
+# define SWITCH(x, y)		(IS_SET((x), (y)) ? UNSET((x), (y)) : SET((x), (y)))
 
 enum			e_bool
 {
@@ -69,7 +75,7 @@ typedef struct	s_cliopts
 	long int	flag_on;
 	long int	flag_off;
 	int			(*get)();
-	int			arg_required:1;
+	int			arg_required;
 }				t_cliopts;
 
 typedef struct	s_data_template
@@ -102,6 +108,8 @@ enum	e_errors
 	E_SYS_NOFILE,
 	E_SYS_ISDIR,
 	E_SYS_NOPERM,
+	E_CO_ARG_INV,
+	E_CO_ARG_INVL,
 	E_MAX,
 };
 
@@ -126,6 +134,7 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
 int				ft_strisdigit(const char *str);
+int				ft_strisnumeral(const char *str);
 int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isspa(int c);
