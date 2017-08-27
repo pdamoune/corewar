@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 11:53:01 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 14:05:47 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/27 17:17:17 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		init_file(t_vm *vm, int num, char *filename)
 	}
 	if (!cor_get_data(fd, &(file->header)))
 		return (1);
-	
+
 
 	ft_printf("prog_name  : %.10s(...)\n", file->header.prog_name);
 	ft_printf("prog_size  : %x\n", file->header.prog_size);
