@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/27 17:20:50 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/28 17:24:05 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,18 @@
 /*
 ** FLAGS
 */
+
 # define GRAPHIC	(1 << 0)
 # define DUMP		(1 << 1)
 # define STOP		(1 << 2)
 
-typedef struct	s_champions
-{
-	void	*c1;
-	void	*c2;
-	void	*c3;
-	void	*c4;
-}				t_champions;
-
 typedef struct	s_file
 {
 	int			is_used:1;
+	char		r[REG_NUMBER + 1][REG_SIZE];
+	// carry = r[0] ?
+	// int		carry:1;
+	int			pc;
 	t_header	header;
 }				t_file;
 
@@ -49,6 +46,7 @@ typedef struct	s_file
 ** it's forbidden to change the order of the 2 first params in the following struct
 ** she is cast in another one after
 */
+
 typedef struct	s_vm
 {
 	long int	flag;
