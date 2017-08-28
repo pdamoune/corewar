@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/27 14:41:56 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/28 17:52:35 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	console_run(t_vm *vm)
 	if (!ret)
 		ret = display_win(vm);
 	return (free_vm(vm) || ret);
-	}
+}
 
 int		main(int ac, char **av)
 {

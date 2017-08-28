@@ -6,13 +6,14 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:45:35 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/27 18:04:38 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/28 19:11:39 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** Instruction ld
-** opcode 0x02.
+** Instruction Load direct
+** ld - opcode 0x02
+**
 **		op	?	valeur		registre
 ** ex : 02	90	fffffffb	05
 
@@ -23,3 +24,11 @@
 ** Load the value of the first argument in the registry.
 ** It will change the carry.
 */
+
+#include "vm.h"
+
+int		op_ld(t_op param)
+{
+	(void)&param;
+	return (0);
+}

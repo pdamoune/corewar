@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/28 17:24:05 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/28 19:06:24 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,28 @@
 # define GRAPHIC	(1 << 0)
 # define DUMP		(1 << 1)
 # define STOP		(1 << 2)
+
+typedef struct		s_op
+{
+	char	*label;
+	int		nb_params;
+	int		params[3];
+	// int		op_code;
+	int		(*instru)();
+	int		cycle;
+	char	*label_name;
+	int		ocp;
+	int		index;
+}					t_op;
+
+typedef struct		s_header
+{
+  unsigned int		magic;
+  char				prog_name[PROG_NAME_LENGTH + 1];
+  unsigned int		prog_size;
+  char				comment[COMMENT_LENGTH + 1];
+  unsigned			prog[CHAMP_MAX_SIZE / 4 + 1];
+}					t_header;
 
 typedef struct	s_file
 {
@@ -71,23 +93,36 @@ int		do_one_cycle(t_vm *vm);
 int		usage(char *name);
 int		free_vm(t_vm *vm);
 
-
-/*
-** Parser.
-*/
-
-int		cor_parser(t_champions *champion1, int ac, char **av);
-int		cor_check_usage(int ac, char **av);
-int		cor_check_champions(int ac, char **av, int index);
-
 /*
 ** INIT
 */
+
 int		init_vm(t_vm *vm, int ac, char **av);
 int		init_dump(char **opt_arg, t_vm *vm, int n_args);
 int		init_number(char **opt_arg, t_vm *vm, int n_args);
 int		init_file(t_vm *vm, int num, char *filename);
-int		cor_get_data(int fd, t_header *header);
+int		init_data(int fd, t_header *header);
+
+/*
+** Instructions.
+*/
+
+int		op_live(t_op param);
+int		op_ld(t_op param);
+int		op_st(t_op param);
+int		op_add(t_op param);
+int		op_sub(t_op param);
+int		op_and(t_op param);
+int		op_or(t_op param);
+int		op_xor(t_op param);
+int		op_zjmp(t_op param);
+int		op_ldi(t_op param);
+int		op_sti(t_op param);
+int		op_fork(t_op param);
+int		op_lld(t_op param);
+int		op_lldi(t_op param);
+int		op_lfork(t_op param);
+int		op_aff(t_op param);
 
 /*
 ** DISPLAY

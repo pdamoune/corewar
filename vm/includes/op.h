@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/08/28 17:11:49 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/28 18:02:02 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,3 @@ typedef char	t_arg_type;
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
-
-typedef struct		s_op
-{
-	char	*label;
-	int		nb_params;
-	int		params[3];
-	int		op_code;
-	int		cycle;
-	char	*label_name;
-	int		ocp;
-	int		index;
-}					t_op;
-
-typedef struct		s_header
-{
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-  unsigned			prog[CHAMP_MAX_SIZE / 4 + 1];
-}					t_header;

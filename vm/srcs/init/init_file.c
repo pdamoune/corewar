@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 11:53:01 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 17:17:17 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/28 17:50:36 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,7 @@ int		init_file(t_vm *vm, int num, char *filename)
 		perror(filename);
 		return (1);
 	}
-	if (!cor_get_data(fd, &(file->header)))
+	if (!init_data(fd, &(file->header)))
 		return (1);
-
-
-	ft_printf("prog_name  : %.10s(...)\n", file->header.prog_name);
-	ft_printf("prog_size  : %x\n", file->header.prog_size);
-	ft_printf("comment    : %.10s(...)\n", file->header.comment);
-	ft_printf("prog       : %08x(...)\n", INTREV32(file->header.prog[0]));
-	ft_printf("magic      : %x\n", file->header.magic);
-
 	return (0);
 }

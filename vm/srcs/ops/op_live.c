@@ -6,10 +6,17 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:42:01 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/28 15:33:59 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/28 19:10:44 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "vm.h"
+
+int		op_live(t_op param)
+{
+	(void)&param;
+	return (0);
+}
 /*
 ** Instruction live
 **

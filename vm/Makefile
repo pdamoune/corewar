@@ -6,7 +6,7 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/08/27 14:39:00 by wescande         ###   ########.fr        #
+#    Updated: 2017/08/28 19:09:15 by philippedamoune  ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,13 +32,27 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 LIBS		=
 
 SRC_BASE	=	\
-init/parser/cor_check_champions.c\
-init/parser/cor_check_usage.c\
-init/parser/cor_parser.c\
 init/init_number.c\
 init/init_dump.c\
 init/init_vm.c\
 init/init_file.c\
+init/init_data.c\
+ops/op_live.c\
+ops/op_ld.c\
+ops/op_st.c\
+ops/op_add.c\
+ops/op_sub.c\
+ops/op_and.c\
+ops/op_or.c\
+ops/op_xor.c\
+ops/op_zjmp.c\
+ops/op_ldi.c\
+ops/op_sti.c\
+ops/op_fork.c\
+ops/op_lld.c\
+ops/op_lldi.c\
+ops/op_lfork.c\
+ops/op_aff.c\
 tools/free_vm.c\
 tools/usage.c\
 display/display_win.c\
