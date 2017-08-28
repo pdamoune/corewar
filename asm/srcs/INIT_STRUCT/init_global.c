@@ -48,6 +48,7 @@ void	ft_initialize_global(global_t **global)
 	(*global)->i = 0;
 	(*global)->j = 0;
 	(*global)->k = 0;
+	(*global)->total_octet = 0;
 	(*global)->fdIn = 0;
 	(*global)->begin_map = NULL;
 	(*global)->s_map = NULL;

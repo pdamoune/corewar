@@ -60,6 +60,7 @@ INIT_STRUCT/init_label.c\
 INIT_STRUCT/init_map.c\
 LIB_ASM/convert_base.c\
 LIB_ASM/convert_hexa.c\
+LIB_ASM/free_strjoin.c\
 LIB_ASM/free_tab.c\
 LIB_ASM/get_the_argument.c\
 LIB_ASM/go_to_label.c\

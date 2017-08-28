@@ -1,11 +1,9 @@
 #include "../includes/op.h"
 
 
-void	sti_instruct(global_t *global, char *line)
+void	sti_instruct(global_t *global, int step)
 {
-	if (ft_strstart(line, "sti"))
-		printf("<%s> = 0x0b \n", line);
-	else
-		printf("<%s> \n", line);
-	global->i = 0;
+	printf("<%s> = 0x0b \n", global->s_label->s_content->line[0]);
+	ft_print_words_tables(global->s_label->s_content->line);
+	step = 0;
 }

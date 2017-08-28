@@ -4,7 +4,7 @@
 **  UNE FOIS LE FICHIER LU, LE CONTROLLER VA NOUS PERMETTRE DE TRAITER LES INFORMATIONS STOCKEES
 */
 
-void		ft_pointeur_tab(global_t *global, int index, char *line)
+void		ft_pointeur_tab(global_t *global, int index, int step)
 {
 	p_tab[live] = live_instruct;
 	p_tab[ld] = ld_instruct;
@@ -31,7 +31,7 @@ void		ft_pointeur_tab(global_t *global, int index, char *line)
 	p_tab[Other_CMD_STRING] = others_string;
 
 
-	p_tab[index](global, line);
+	p_tab[index](global, step);
 }
 
 void		ft_controller(global_t *global)
@@ -40,6 +40,7 @@ void		ft_controller(global_t *global)
     ft_parse_label(global);
 	//DEBUG_read_labels(global);
 	ft_browse_label(global);
+	ft_write_label(global);
 }
 
 /* Explications

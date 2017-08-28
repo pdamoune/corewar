@@ -1,10 +1,10 @@
 #include "../includes/op.h"
 
-void	indirect_param(global_t *global, char *line)
+void	indirect_param(global_t *global, int step)
 {
-	if (!ft_strstart(line, "%") && !ft_strstart(line, "r"))
-		printf("<%s> = INDIRECT 11 + %s\n", line, line);
+	if (!ft_strstart(global->s_label->s_content->line[0], "%") && !ft_strstart(global->s_label->s_content->line[0], "r"))
+		printf("<%s> = INDIRECT 11 + %s\n", global->s_label->s_content->line[0], global->s_label->s_content->line[0]);
 	else
-		printf("<%s> \n", line);
-	global->i = 0;
+		printf("<%s> \n", global->s_label->s_content->line[0]);
+	step = 0;
 }

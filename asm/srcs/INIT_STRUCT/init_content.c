@@ -20,7 +20,8 @@ void	ft_initialize_content(content_t **content, char *line)
 	// if (tab2)
 	// 	ft_free_tab(tab2);
 	(*content)->nb_octet = 0;
-    (*content)->next = NULL;
+	(*content)->next = NULL;
+    (*content)->instruction = NULL;
 	(*content)->previous = NULL;
 }
 

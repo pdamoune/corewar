@@ -111,7 +111,7 @@ typedef struct		label_s
 	struct content_s	*begin_content;
 	struct content_s	*s_content;
 	char				*name;
-	char				*instruction;
+	char				*result;
 	int					index;
 	int					num;
 	struct label_s		*next;
@@ -124,6 +124,7 @@ typedef struct		content_s
 	char				**line;
 	int					nb_octet;
 	int					begin_octet;
+	char				*instruction;
 	struct content_s	*next;
 	struct content_s	*previous;
 }					content_t;
@@ -151,6 +152,9 @@ typedef	struct	s_var
 #define WITH_LABEL				3
 #define EMPTY_LABEL		       	4
 #define HEADER	     	       	5
+
+#define STOCK					0
+#define WRITE					1
 /*
 **   FONCTIONS DE L'ASM
 */
@@ -169,6 +173,7 @@ void	ft_stock_label(global_t *global);
 void	ft_initialize_content(content_t **content, char *line);
 void	ft_stock_content(global_t *global, char *line);
 void	ft_browse_label(global_t *global);
+void	ft_write_label(global_t *global);
 
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
@@ -189,12 +194,14 @@ int		ft_isstrdigit(char *s);
 void	ft_free_tab(char **tab);
 int		ft_strlen_tab(char **tab);
 label_t	*go_to_label(char *s, global_t *global);
+char	*ft_free_strjoin(char **s1, char **s2);
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */
 void	DEBUG_read_map(global_t *global);
 void	DEBUG_read_labels(global_t *global);
 void	DEBUG_read_content(global_t *global);
+void	ft_print_words_tables(char **tab);
 /*
 **   FONCTIONS DE TRADUCTIONS
 */
@@ -224,28 +231,28 @@ enum				e_conversion
 	Comment_CHAR = 20,
 	Other_CMD_STRING = 21,
 };
-void	ft_pointeur_tab(global_t *global, int index, char *line);
-void	(*p_tab[25])(global_t *, char *);
-void	live_instruct(global_t *global, char *line);
-void	ld_instruct(global_t *global, char *line);
-void	st_instruct(global_t *global, char *line);
-void	add_instruct(global_t *global, char *line);
-void	and_instruct(global_t *global, char *line);
-void	sub_instruct(global_t *global, char *line);
-void	and_instruct(global_t *global, char *line);
-void	or_instruct(global_t *global, char *line);
-void	xor_instruct(global_t *global, char *line);
-void	zjmp_instruct(global_t *global, char *line);
-void	ldi_instruct(global_t *global, char *line);
-void	sti_instruct(global_t *global, char *line);
-void	fork_instruct(global_t *global, char *line);
-void	lld_instruct(global_t *global, char *line);
-void	lldi_instruct(global_t *global, char *line);
-void	lfork_instruct(global_t *global, char *line);
-void	aff_instruct(global_t *global, char *line);
-void	direct_param(global_t *global, char *line);
-void	indirect_param(global_t *global, char *line);
-void	register_param(global_t *global, char *line);
-void	cmd_string(global_t *global, char *line);
-void	comments_string(global_t *global, char *line);
-void	others_string(global_t *global, char *line);
+void	ft_pointeur_tab(global_t *global, int index, int step);
+void	(*p_tab[25])(global_t *, int);
+void	live_instruct(global_t *global, int step);
+void	ld_instruct(global_t *global, int step);
+void	st_instruct(global_t *global, int step);
+void	add_instruct(global_t *global, int step);
+void	and_instruct(global_t *global, int step);
+void	sub_instruct(global_t *global, int step);
+void	and_instruct(global_t *global, int step);
+void	or_instruct(global_t *global, int step);
+void	xor_instruct(global_t *global, int step);
+void	zjmp_instruct(global_t *global, int step);
+void	ldi_instruct(global_t *global, int step);
+void	sti_instruct(global_t *global, int step);
+void	fork_instruct(global_t *global, int step);
+void	lld_instruct(global_t *global, int step);
+void	lldi_instruct(global_t *global, int step);
+void	lfork_instruct(global_t *global, int step);
+void	aff_instruct(global_t *global, int step);
+void	direct_param(global_t *global, int step);
+void	indirect_param(global_t *global, int step);
+void	register_param(global_t *global, int step);
+void	cmd_string(global_t *global, int step);
+void	comments_string(global_t *global, int step);
+void	others_string(global_t *global, int step);

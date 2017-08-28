@@ -1,11 +1,11 @@
 #include "../includes/op.h"
 
 
-void	others_string(global_t *global, char *line)
+void	others_string(global_t *global, int step)
 {
-	if (ft_strstart(line, "."))
-		printf("<%s> = !! Instruction BIZARRE - A méditer !! \n", line);
+	if (ft_strstart(global->s_label->s_content->line[0], "."))
+		printf("<%s> = !! Instruction BIZARRE - A méditer !! \n", global->s_label->s_content->line[0]);
 	else
-		printf("<%s> nop comment\n", line);
-	global->i = 0;
+		printf("<%s> nop comment\n", global->s_label->s_content->line[0]);
+	step = 0;
 }
