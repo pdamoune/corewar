@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/27 19:02:58 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/29 22:55:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ void	check_live(t_vm *vm);
 
 int		usage(char *name);
 int		free_vm(t_vm *vm);
+void		remove_one_process(t_vm *vm, t_process *process);
+void		process_del(t_process *process);
+
 
 
 /*

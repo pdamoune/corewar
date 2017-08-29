@@ -39,8 +39,11 @@ init/init_number.c\
 init/init_dump.c\
 init/init_vm.c\
 init/init_file.c\
+tools/process_del.c\
 tools/free_vm.c\
+tools/remove_one_process.c\
 tools/usage.c\
+tools/remove_process.c\
 check/check_live.c\
 check/check_cycle.c\
 display/display_win.c\
