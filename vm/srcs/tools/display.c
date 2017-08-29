@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/29 19:24:54 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/29 23:15:08 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void 	disp_vm(t_vm *vm)
 	if ((fd = open("/dev/ttys001", O_WRONLY)) == -1)
 		return ;
 	ft_dprintf(fd, CLEAR);
-	ft_dprintf(fd, "\n%10c===== t_vm *vm =====\n\n", 0);
+	ft_dprintf(fd, "\n%10c===== {red}t_vm *vm {eoc}=====\n\n", 0);
 	ft_dprintf(fd, "{\n");
 	ft_dprintf(fd, "%4clong int     flag      : %.32b\n", 0, vm->flag);
 	ft_dprintf(fd, "%4cchar         **av_data : %p\n", 0, vm->av_data);

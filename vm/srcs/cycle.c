@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/29 23:07:53 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/29 23:17:07 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ int		do_instruction(t_vm *vm, int *pc, char **r, char *carry)
 	char	*area;
 	(void)&r;
 	(void)&carry;
+	(void)&pc;
 
 	area = vm->area;
-	// ft_printf("[%d] %hhx", *pc, area[*pc]);
-	if (!area[*pc % 16] || area[*pc % 16] > 16) // n est pas une instruction
+	if (!area[*pc] || (unsigned)area[*pc] > 16) // n est pas une instruction
 	{
-		*pc = (!*pc || (*pc % MEM_SIZE) ? *pc + 1 : 0);
+		*pc = (!*pc || (*pc % MEM_SIZE) ? (*pc) + 1 : 0);
 		return (1);
 	}
-	// DG("\narea[*pc % 16] = %hh.2x\nfonction : %s\n", area[*pc % 16], g_op_tab[(int)area[*pc % 16]].label);
-	g_op_tab[(int)area[*pc % 16]].instru(g_op_tab[(int)area[*pc % 16]]);
+	// ft_printf("area pc = %x\n", area[*pc]);
+	// // DG("\narea[*pc % 16] = %hh.2x\nfonction : %s\n", area[*pc % 16], g_op_tab[(int)area[*pc % 16]].label);
+	g_op_tab[(short)area[*pc]].instru(g_op_tab[(int)area[*pc]]);
 	*pc = (!*pc || (*pc % MEM_SIZE) ? *pc + 1 : 0);
 	return (1);
 }
@@ -71,7 +72,8 @@ int		do_one_cycle(t_vm *vm)
 	player = 0;
 	while (player < vm->nb_player)
 	{
-		pc = &vm->file[player].pc;
+		pc = &(vm->file[player].pc);
+		// ft_printf("pc = %d\n", pc);
 		r = (char **)vm->file[player].r;
 		carry = &vm->file[player].r[0][0];
 		if (!do_instruction(vm, pc, r, carry))
