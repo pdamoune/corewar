@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/29 19:22:14 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/08/29 23:13:09 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static int	console_run(t_vm *vm)
 	{
 		ret = do_one_cycle(vm);
 		display(vm);
-		
+		break;
+
 		if (ret)
 			break;
 	}
