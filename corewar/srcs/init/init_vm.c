@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/29 23:08:24 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/30 00:08:19 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,17 @@ int		init_area(t_file *file, char *area)
 	int		pc;
 	int		prog_size;
 
-	while (file->is_used)
+	while (file)
 	{
+		if (!file->is_used)
+		{
+			file++;
+			continue ;
+		}
 		pc = file->pc;
 		prog_size = file->header.prog_size;
 		ft_memcpy(&area[pc], file->header.prog, prog_size);
-		DG("Copie des programmes (visualisateur ?)");
+		DG("Copie des programmes (visualisateur ?)"); //TODO
 		file++;
 	}
 	return (1);
