@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/29 23:08:55 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/30 00:03:34 by philippedamoune  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,21 @@
 #  error "macro MAX_PLAYERS must be strictly positive"
 # endif
 
-typedef struct	s_process t_process;
-struct	s_process
+typedef struct		s_process
 {
-	t_process	*next;
-	long		last_live;
-};
+	int				pc;
+	char			r[REG_NUMBER + 1][REG_SIZE];
+	int				carry;
+	int				id_player;
+	long			last_live;
+	t_process		*next;
+}					t_process;
 
-typedef struct	s_player
+typedef struct		s_player
 {
-	int			live;
-	long		last_live;
-}				t_player;
+	int				live;
+	long			last_live;
+}					t_player;
 
 typedef struct		s_header
 {
@@ -61,10 +64,6 @@ typedef struct		s_header
 typedef struct		s_file
 {
 	int				is_used:1;
-	char			r[REG_NUMBER + 1][REG_SIZE];
-	// carry = r[0] ?
-	// int		carry:1;
-	int				pc;
 	t_header		header;
 }					t_file;
 
