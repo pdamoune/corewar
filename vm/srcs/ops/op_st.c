@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 18:04:48 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/28 19:12:27 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/29 19:26:32 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@
 int		op_st(t_op param)
 {
 	(void)&param;
+	DG("");
 	return (0);
 }

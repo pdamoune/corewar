@@ -6,7 +6,7 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/08/28 19:09:15 by philippedamoune  ###   ########.fr        #
+#    Updated: 2017/08/29 17:03:04 by pdamoune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ ops/op_lfork.c\
 ops/op_aff.c\
 tools/free_vm.c\
 tools/usage.c\
+tools/display.c\
 display/display_win.c\
 display/dump.c\
 main.c\

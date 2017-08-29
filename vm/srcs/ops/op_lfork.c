@@ -6,7 +6,7 @@
 /*   By: philippe <philippe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:11:50 by philippe          #+#    #+#             */
-/*   Updated: 2017/08/28 19:11:55 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/29 19:25:57 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 int		op_lfork(t_op param)
 {
 	(void)&param;
+	DG("");
 	return (0);
 }

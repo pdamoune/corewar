@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 11:53:01 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/28 17:50:36 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/29 18:00:01 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int		init_file(t_vm *vm, int num, char *filename)
 		perror(filename);
 		return (1);
 	}
-	if (!init_data(fd, &(file->header)))
+	if (init_data(fd, &(file->header)))
 		return (1);
+	vm->nb_player++;
 	return (0);
 }

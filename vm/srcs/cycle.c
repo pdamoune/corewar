@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/28 19:14:13 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/29 19:51:47 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,41 @@ t_op	g_op_tab[18] =
 
 int		do_instruction(t_vm *vm, int *pc, char **r, char *carry)
 {
-	char	*mem;
+	char	*area;
 	(void)&r;
 	(void)&carry;
-	mem = vm->area;
-	if (!mem[*pc] || mem[*pc] > 16) // n est pas une instruction
-		return (0);
-	g_op_tab[(int)mem[*pc]].instru(g_op_tab[(int)mem[*pc]]);
-	return (0);
+
+	area = vm->area;
+	// ft_printf("[%d] %hhx", *pc, area[*pc]);
+	if (!area[*pc % 16] || area[*pc % 16] > 16) // n est pas une instruction
+	{
+		*pc = (!*pc || (*pc % MEM_SIZE) ? *pc + 1 : 0);
+		return (1);
+	}
+	// DG("\narea[*pc % 16] = %hh.2x\nfonction : %s\n", area[*pc % 16], g_op_tab[(int)area[*pc % 16]].label);
+	g_op_tab[(int)area[*pc % 16]].instru(g_op_tab[(int)area[*pc % 16]]);
+	*pc = (!*pc || (*pc % MEM_SIZE) ? *pc + 1 : 0);
+	return (1);
 }
 
 
 
 int		do_one_cycle(t_vm *vm)
 {
-	int			champion;
+	int			player;
 	int			*pc;
 	char		**r;
 	char		*carry;
 
-	champion = 0;
-	while (champion < 4)
+	player = 0;
+	while (player < vm->nb_player)
 	{
-		pc = &vm->file[champion].pc;
-		r = (char **)vm->file[champion].r;
-		carry = &vm->file[champion].r[0][0];
+		pc = &vm->file[player].pc;
+		r = (char **)vm->file[player].r;
+		carry = &vm->file[player].r[0][0];
 		if (!do_instruction(vm, pc, r, carry))
 			return (DG("area[pc] n est pas une instruction"));
-		champion++;
+		player++;
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);

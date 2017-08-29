@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/28 19:06:24 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/29 17:59:52 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,41 @@
 # define DUMP		(1 << 1)
 # define STOP		(1 << 2)
 
+typedef struct		s_header
+{
+  unsigned int		magic;
+  char				prog_name[PROG_NAME_LENGTH + 1];
+  unsigned int		prog_size;
+  char				comment[COMMENT_LENGTH + 1];
+  unsigned			prog[CHAMP_MAX_SIZE / 4 + 1];
+}					t_header;
+
+typedef struct		s_file
+{
+	int				is_used:1;
+	char			r[REG_NUMBER + 1][REG_SIZE];
+	// carry = r[0] ?
+	// int		carry:1;
+	int				pc;
+	t_header		header;
+}					t_file;
+
+/*
+** it's forbidden to change the order of the 2 first params in the following struct
+** she is cast in another one after
+*/
+
+typedef struct		s_vm
+{
+	long int		flag;
+	char			**av_data;
+	t_file			file[4];
+	int				nb_player;
+	char			area[MEM_SIZE];
+	int				cycle;
+	int				cycle_to_dump;
+}					t_vm;
+
 typedef struct		s_op
 {
 	char	*label;
@@ -45,44 +80,11 @@ typedef struct		s_op
 	int		index;
 }					t_op;
 
-typedef struct		s_header
-{
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-  unsigned			prog[CHAMP_MAX_SIZE / 4 + 1];
-}					t_header;
-
-typedef struct	s_file
-{
-	int			is_used:1;
-	char		r[REG_NUMBER + 1][REG_SIZE];
-	// carry = r[0] ?
-	// int		carry:1;
-	int			pc;
-	t_header	header;
-}				t_file;
-
-/*
-** it's forbidden to change the order of the 2 first params in the following struct
-** she is cast in another one after
-*/
-
-typedef struct	s_vm
-{
-	long int	flag;
-	char		**av_data;
-	t_file		file[4];
-	int			cycle;
-	char		area[MEM_SIZE];
-	int			cycle_to_dump;
-}				t_vm;
-
 /*
 ** Main functions.
 */
 
+void	display(t_vm *vm);
 int		main(int ac, char **av);
 int		do_one_cycle(t_vm *vm);
 

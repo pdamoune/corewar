@@ -6,7 +6,7 @@
 /*   By: philippe <philippe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:11:09 by philippe          #+#    #+#             */
-/*   Updated: 2017/08/28 19:11:14 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/29 19:25:34 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 int		op_aff(t_op param)
 {
 	(void)&param;
+	DG("");
 	return (0);
 }
