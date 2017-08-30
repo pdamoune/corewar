@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/29 21:53:12 by wescande          #+#    #+#             */
-/*   Updated: 2017/04/08 21:05:39 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/30 21:52:11 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@
 #  define MSG0			"{BLU}%s, {CYA}%s, {GRE}%4d - {eoc}{red}"
 #  define MSG1			__FILE__, __func__, __LINE__
 #  define DG(f, ...)	ft_dprintf(2, MSG0 f "{eoc}\n", MSG1, ##__VA_ARGS__)
+# endif
+
+# ifndef INTREV32
+#  define MV1_4(x)	((x >> 24) & (0xff << 0))
+#  define MV2_3(x)	((x >> 8) & (0xff << 8))
+#  define MV3_2(x)	((x << 8) & (0xff << 16))
+#  define MV4_1(x)	((x << 24) & (0xff << 24))
+#  define INTREV32(x)	MV1_4(x) | MV2_3(x) | MV3_2(x) | MV4_1(x)
 # endif
 
 enum			e_bool
