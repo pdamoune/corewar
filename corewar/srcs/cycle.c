@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/29 23:17:07 by wescande         ###   ########.fr       */
+/*   Updated: 2017/08/30 16:24:05 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,25 @@ int		do_instruction(t_vm *vm, int *pc, char **r, char *carry)
 
 int		do_one_cycle(t_vm *vm)
 {
-	int			player;
+	t_process 	*process;
 	int			*pc;
 	char		**r;
 	char		*carry;
 
-	player = 0;
-	while (player < vm->nb_player)
+	process = vm->process;
+	while (process)
 	{
-		pc = &(vm->file[player].pc);
-		// ft_printf("pc = %d\n", pc);
-		r = (char **)vm->file[player].r;
-		carry = &vm->file[player].r[0][0];
+		pc = &(process->pc);
+		ft_printf("=== %d\n", *pc);
+		r = (char **)process->r;
+		carry = (char *)&process->carry;
 		if (!do_instruction(vm, pc, r, carry))
 			return (DG("area[pc] n est pas une instruction"));
-		player++;
+		process = process->next;
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);
-	check_cycle(vm);
+	// check_cycle(vm);
 	++vm->cycle;
 	return (0);
 }

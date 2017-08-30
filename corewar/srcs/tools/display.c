@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/29 23:15:08 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/30 16:21:00 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,13 @@ void 	disp_file(int fd, int fd_prog, t_file *file, t_header *header)
 	ft_dprintf(fd, "\n%10c===== t_file file[%d] =====\n\n", 0, i);
 	ft_dprintf(fd, "{\n");
 	ft_dprintf(fd, "%4cint          is_used      : %d\n", 0, file->is_used);
-	ft_dprintf(fd, "%4cchar         **registres  : %p\n", 0, file->r);
-	ft_dprintf(fd, "%4cint          pc           : %#d\n", 0, file->pc);
+	ft_dprintf(fd, "%4cint          proces       : %p\n", 0, file->process);
+	ft_dprintf(fd, "%4cchar         id_player    : %d\n", 0, file->id_player);
 	ft_dprintf(fd, "}\n");
+	ft_dprintf(fd, "%4cint          id_player    : %d\n", 0, file->process->id_player);
+	ft_dprintf(fd, "%4cint          pc           : %d\n", 0, file->process->pc);
+	ft_dprintf(fd, "%4cint          carry        : %d\n", 0, file->process->carry);
+	ft_dprintf(fd, "%4cint          next         : %p\n", 0, file->process->next);
 	ft_dprintf(fd, "%10c===== t_header *header %d =====\n\n", 0, i++);
 	ft_dprintf(fd, "{\n");
 	ft_dprintf(fd, "%4cunsigned     magic      : %x\n", 0, header->magic);
@@ -107,18 +111,38 @@ void 	disp_vm(t_vm *vm)
 	close(fd);
 }
 
-void 	disp_area(char *area)
+void 	disp_area(t_vm *vm, char *area)
 {
+	t_process *process;
 	int i = 0;
 	int j = 0;
 
 	ft_printf(CLEAR);
-
 	while (i < MEM_SIZE)
 	{
 		while (j < 64)
 		{
+			process = vm->process;
+			while (process)
+			{
+				if (i == process->pc)
+				{
+					ft_printf("{red}", area[i]);
+					// break;
+				}
+				process = process->next;
+			}
+			process = vm->process;
 			ft_printf("%0.2hhx ", area[i]);
+			while (process)
+			{
+				if (i == process->pc)
+				{
+					ft_printf("{eoc}", area[i]);
+					// break;
+				}
+				process = process->next;
+			}
 			j++;
 			i++;
 		}
@@ -143,13 +167,15 @@ void 	display(t_vm *vm)
 	int i = -1;
 	// int j = -1;
 
-	// disp_area(vm->area);
+	disp_area(vm, vm->area);
 	disp_vm(vm);
 	display_data();
 	while (++i < 4)
 	{
 		if (vm->file[i].is_used)
+		{
 			disp_file(fd[i], fd[i], &vm->file[i], &vm->file[i].header);
+		}
 	}
 	close(fd[0]);
 	close(fd[1]);

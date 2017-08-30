@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/30 00:08:19 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/30 16:29:57 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,65 @@ t_cliopts	g_read_opts[] =
 	{0, 0, 0, 0, 0, 0},
 };
 
+
 int		init_area(t_file *file, char *area)
 {
+	int		i;
 	int		pc;
 	int		prog_size;
 
-	while (file)
+	i = -1;
+	while (++i < 4)
 	{
-		if (!file->is_used)
-		{
-			file++;
+		if (!file[i].is_used)
 			continue ;
-		}
-		pc = file->pc;
+		pc = file[i].process->pc;
 		prog_size = file->header.prog_size;
 		ft_memcpy(&area[pc], file->header.prog, prog_size);
 		DG("Copie des programmes (visualisateur ?)"); //TODO
-		file++;
 	}
 	return (1);
 }
 
-int		init_pc(t_vm *vm, int players, int i)
+t_process	*init_process(t_process **process, int id_player, int pc)
 {
-	while (vm->file[i].is_used)
+	t_process	*tmp;
+	t_process	*vm_proc;
+
+	vm_proc = *process;
+	while (vm_proc && vm_proc->next)
+		vm_proc = vm_proc->next;
+	if (!(tmp = ft_memalloc(sizeof(t_process))))
+		DG("Probleme malloc");
+	tmp->id_player = id_player;
+	tmp->pc = pc;
+	if (!*process)
+		*process = tmp;
+	else
+		(vm_proc)->next = tmp;
+	return (tmp);
+}
+
+int		init_process_players(t_vm *vm, t_file *file, int players, int pc)
+{
+	int	id_player;
+	int i;
+
+	id_player = 0;
+	i = 0;
+	while (i < 4)
 	{
-		vm->file[i].pc = i * (MEM_SIZE / players);
+		if (file[i].is_used)
+		{
+			pc = id_player * MEM_SIZE / players;
+			file[i].id_player = ++id_player;
+			file[i].process = init_process(&vm->process, id_player, pc);
+		}
 		i++;
 	}
 	return (1);
 }
+
 
 int		init_vm(t_vm *vm, int ac, char **av)
 {
@@ -62,7 +91,8 @@ int		init_vm(t_vm *vm, int ac, char **av)
 			if (init_file(vm, -1, *vm->av_data++))
 				return (1);
 	vm->cycle_to_die = CYCLE_TO_DIE;
-	init_pc(vm, vm->nb_player, 0);
+	init_process_players(vm, vm->file, vm->nb_player, 0);
 	init_area(vm->file, vm->area);
+	display(vm);
 	return (0);
 }

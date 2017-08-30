@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/30 00:03:34 by philippedamoune  ###   ########.fr       */
+/*   Updated: 2017/08/30 15:28:55 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@
 #  error "macro MAX_PLAYERS must be strictly positive"
 # endif
 
-typedef struct		s_process
+typedef struct	s_process t_process;
+
+struct				s_process
 {
 	int				pc;
 	char			r[REG_NUMBER + 1][REG_SIZE];
@@ -44,7 +46,7 @@ typedef struct		s_process
 	int				id_player;
 	long			last_live;
 	t_process		*next;
-}					t_process;
+};
 
 typedef struct		s_player
 {
@@ -64,6 +66,8 @@ typedef struct		s_header
 typedef struct		s_file
 {
 	int				is_used:1;
+	int				id_player;
+	t_process		*process;
 	t_header		header;
 }					t_file;
 
@@ -117,8 +121,8 @@ void	check_live(t_vm *vm);
 
 int		usage(char *name);
 int		free_vm(t_vm *vm);
-void		remove_one_process(t_vm *vm, t_process *process);
-void		process_del(t_process *process);
+void	remove_one_process(t_vm *vm, t_process *process);
+void	process_del(t_process *process);
 
 
 /*
