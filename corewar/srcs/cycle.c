@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/30 16:24:05 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/02 18:15:17 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		do_one_cycle(t_vm *vm)
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);
-	// check_cycle(vm);
+	check_cycle(vm);
 	++vm->cycle;
 	return (0);
 }

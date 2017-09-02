@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/30 15:28:55 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/02 19:46:16 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 
 # include <libft.h>
 # include <stdio.h>
-# include "usage.h"
-# include "op.h"
+# include <gtk.h>
+# include <usage.h>
+# include <op.h>
+
 # define TITLE ft_printf("===   %s   ===\n", __func__);
 # define E_TITLE ft_printf("=== fin %s ===\n", __func__);
 
 # define MSG_COR(s) ("{red}corewar: " s "{eoc}\n")
 # define ERR_COR(s, ...) (ft_dprintf(2, MSG_COR(s), ##__VA_ARGS__) * 0 + 1)
-
 
 /*
 ** FLAGS
@@ -31,6 +32,8 @@
 # define GRAPHIC	(1 << 0)
 # define DUMP		(1 << 1)
 # define STOP		(1 << 2)
+# define PAUSE		(1 << 3)
+# define REDRAW		(1 << 4)
 
 # if MAX_PLAYERS < 1
 #  error "macro MAX_PLAYERS must be strictly positive"
@@ -83,6 +86,7 @@ typedef struct		s_vm
 	t_file			file[MAX_PLAYERS];
 	t_player		players[MAX_PLAYERS];
 	t_process		*process;
+	t_gtk			gtk;
 	int				nb_player;
 	char			area[MEM_SIZE];
 	int				cycle;
@@ -129,7 +133,7 @@ void	process_del(t_process *process);
 ** INIT
 */
 
-int		init_vm(t_vm *vm, int ac, char **av);
+int		init_vm(t_vm *vm, int *ac, char ***av);
 int		init_dump(char **opt_arg, t_vm *vm, int n_args);
 int		init_number(char **opt_arg, t_vm *vm, int n_args);
 int		init_file(t_vm *vm, int num, char *filename);

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/30 16:29:57 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/02 20:02:45 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		init_area(t_file *file, char *area)
 		pc = file[i].process->pc;
 		prog_size = file->header.prog_size;
 		ft_memcpy(&area[pc], file->header.prog, prog_size);
+		
 		DG("Copie des programmes (visualisateur ?)"); //TODO
 	}
 	return (1);
@@ -79,12 +80,18 @@ int		init_process_players(t_vm *vm, t_file *file, int players, int pc)
 	return (1);
 }
 
-
-int		init_vm(t_vm *vm, int ac, char **av)
+void	init_gtk(int *ac, char ***av, t_vm *vm)
 {
-	(void)ac;
+	vm->gtk.speed = ft_pow(INIT_SPEED, 2);
+	SET(vm->flag, PAUSE);
+	gtk_init(ac, av);
+	create_gtk(vm);
+}
+
+int		init_vm(t_vm *vm, int *ac, char ***av)
+{
 	ft_bzero(vm, sizeof(t_vm));
-	if ((cliopts_get(av, g_read_opts, vm)))
+	if ((cliopts_get(*av, g_read_opts, vm)))
 		return (ft_perror("corewar") && usage("corewar"));
 	if (vm->av_data)
 		while (*vm->av_data)
@@ -92,7 +99,11 @@ int		init_vm(t_vm *vm, int ac, char **av)
 				return (1);
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	init_process_players(vm, vm->file, vm->nb_player, 0);
+	//TODO check if no process , so quit with error
+	if (IS_SET(vm->flag, GRAPHIC))
+		init_gtk(ac, av, vm);
 	init_area(vm->file, vm->area);
+	if (IS_UNSET(vm->flag, GRAPHIC))
 	display(vm);
 	return (0);
 }

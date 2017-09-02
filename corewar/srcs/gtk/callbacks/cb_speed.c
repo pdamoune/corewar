@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   cb_speed.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/01 16:45:52 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/01 16:47:28 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/02 16:37:35 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/02 18:41:51 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef COREWAR_H
-# define COREWAR_H
-
 #include <vm.h>
 
-#endif
+void	cb_speed(GtkWidget *widget, t_vm *vm)
+{
+	vm->gtk.speed = ft_pow((int)gtk_range_get_value(GTK_RANGE(widget)), 2);
+}
