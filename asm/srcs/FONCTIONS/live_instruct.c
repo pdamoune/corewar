@@ -1,29 +1,34 @@
 #include "../includes/op.h"
 
-static void	ft_get_values(global_t *global, char **line)
+static void	ft_get_values(global_t *global, char **line, int type)
 {
 	int		i;
-	char	*value;
+	int		*value;
 	char	*val_tmp;
 
 	i = 0;
 	val_tmp = NULL;
-	value = NULL;
+	value = 0;
 	while (line[++i] && !ft_strstart(line[i], "#"))
 	{
-		if ((val_tmp = ft_strstart(line[i], "%")))
+		if (type == OCTET)
+			global->s_label->s_content->nb_octet += 4;
+		else if (type == STOCK)
 		{
-			if (ft_isstrdigit(val_tmp))
-				value = ft_convert_hexa(global, val_tmp, DIR_CODE, 4);
-			else
+			if ((val_tmp = ft_strstart(line[i], "%")))
 			{
-				value = ft_strdup("0x.. 0x.. 0x.. 0x..");
-				printf("!!!FCT à coder!!! value : %s", value);
+				value = (int *)&(global->s_label->s_content->instruction[1]);
+				if (ft_isstrdigit(val_tmp))
+					*value = INTREV32(ft_atoi(val_tmp));
+				else
+					*value = INTREV32(go_to_label(val_tmp, global, DIR_CODE));
 			}
-			global->s_label->s_content->instruction = ft_free_strjoin(&(global->s_label->s_content->instruction), &value);
+			else
+				ft_exit(12, global, NULL);
 		}
 	}
 }
+
 /*
 **  INSTRUCTION : LIVE
 **  OPCODE = 1
@@ -39,17 +44,33 @@ void	live_instruct(global_t *global, int step)
 	printf("<%s> = 0x01\n", global->s_label->s_content->line[0]);
 	ft_print_words_tables(global->s_label->s_content->line);
 	/* End Debug */
-	if (step == STOCK)
+	if (step == OCTET)
 	{
-		global->s_label->s_content->nb_octet += 4;
-		global->s_label->s_content->instruction = ft_strdup("0x01");
 		/* Pas de composition d'argument pour LIVE	*/
-		ft_get_values(global, global->s_label->s_content->line);
+		/* Octets of the Values */
+		ft_get_values(global, global->s_label->s_content->line, OCTET);
+		printf("nb_octet OCTET = %d \n", global->s_label->s_content->nb_octet);
+		global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet);
+
 	}
-	else
+	else if (step == STOCK)
 	{
-		ft_write(global, global->s_label->s_content->instruction);
-		ft_write(global, "\n");
+		printf("nb_octet STOCK = %d \n", global->s_label->s_content->nb_octet);
+		/* OPCODE  */
+		global->s_label->s_content->instruction[0] = 1;
+
+		/* Get the values */
+		ft_get_values(global, global->s_label->s_content->line, STOCK);
+
+		/* Write the instruction */
+		ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
+
+		/* DEBUG */
+		printf("value instruction : ");
+		int i = 0;
+		while(i < global->s_label->s_content->nb_octet)
+			printf("0x%X ", global->s_label->s_content->instruction[i++]);
+		printf("\n");
+		/* Fin DEBUG */
 	}
-	printf("instruction = %s \n", global->s_label->s_content->instruction);
 }

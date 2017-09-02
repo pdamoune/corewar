@@ -39,8 +39,9 @@ void		ft_controller(global_t *global)
 	// DEBUG_read_map(global);
     ft_parse_label(global);
 	//DEBUG_read_labels(global);
-	ft_browse_label(global);
-	ft_write_label(global);
+	ft_browse_label(global, OCTET);
+	ft_browse_label(global, STOCK);
+	// ft_write_label(global);
 }
 
 /* Explications

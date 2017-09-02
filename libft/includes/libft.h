@@ -38,6 +38,7 @@
 #  define MV3_2(x)	((x << 8) & (0xff << 16))
 #  define MV4_1(x)	((x << 24) & (0xff << 24))
 #  define INTREV32(x)	MV1_4(x) | MV2_3(x) | MV3_2(x) | MV4_1(x)
+#  define INTREV16(x)	MV2_3(x) | MV3_2(x)
 # endif
 
 enum			e_bool

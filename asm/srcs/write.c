@@ -1,6 +1,6 @@
 #include "../includes/op.h"
 
-int		ft_write(global_t *global, char *string)
+int		ft_write(global_t *global, char *string, int size)
 {
     int fdOut;
     int nbRead;
@@ -18,7 +18,9 @@ int		ft_write(global_t *global, char *string)
          nbRead = read(fdOut, buffer, sizeof(buffer));
     }
 	lseek(fdOut,0,SEEK_END);
-	write(fdOut, string, ft_strlen(string));
+	write(fdOut, string, size);
+	// string = NULL;
+	// write(fdOut, "01", 1);
     close(fdOut);
     return EXIT_SUCCESS;
 }

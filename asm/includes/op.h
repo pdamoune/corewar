@@ -153,15 +153,15 @@ typedef	struct	s_var
 #define EMPTY_LABEL		       	4
 #define HEADER	     	       	5
 
-#define STOCK					0
-#define WRITE					1
+#define OCTET					0
+#define STOCK					1
 /*
 **   FONCTIONS DE L'ASM
 */
 void		ft_controller(global_t *global);
 void		ft_parse_label(global_t *global);
 void		ft_exit(int nb, global_t *global, char **line);
-int			ft_write(global_t *global, char *string);
+int			ft_write(global_t *global, char *string, int size);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
@@ -172,8 +172,7 @@ void	ft_initialize_label(label_t **label);
 void	ft_stock_label(global_t *global);
 void	ft_initialize_content(content_t **content, char *line);
 void	ft_stock_content(global_t *global, char *line);
-void	ft_browse_label(global_t *global);
-void	ft_write_label(global_t *global);
+void	ft_browse_label(global_t *global, int type);
 
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
@@ -193,8 +192,9 @@ char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet);
 int		ft_isstrdigit(char *s);
 void	ft_free_tab(char **tab);
 int		ft_strlen_tab(char **tab);
-label_t	*go_to_label(char *s, global_t *global);
+long	go_to_label(char *label, global_t *global, int type);
 char	*ft_free_strjoin(char **s1, char **s2);
+
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */
