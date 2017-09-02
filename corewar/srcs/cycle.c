@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/30 16:24:05 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/02 12:54:12 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int		do_instruction(t_vm *vm, int *pc, char **r, char *carry)
 	if (!area[*pc] || (unsigned)area[*pc] > 16) // n est pas une instruction
 	{
 		*pc = (!*pc || (*pc % MEM_SIZE) ? (*pc) + 1 : 0);
-		return (1);
+		return (0);
 	}
 	// ft_printf("area pc = %x\n", area[*pc]);
 	// // DG("\narea[*pc % 16] = %hh.2x\nfonction : %s\n", area[*pc % 16], g_op_tab[(int)area[*pc % 16]].label);
 	g_op_tab[(short)area[*pc]].instru(g_op_tab[(int)area[*pc]]);
 	*pc = (!*pc || (*pc % MEM_SIZE) ? *pc + 1 : 0);
-	return (1);
+	return (0);
 }
 
 
@@ -76,7 +76,7 @@ int		do_one_cycle(t_vm *vm)
 		ft_printf("=== %d\n", *pc);
 		r = (char **)process->r;
 		carry = (char *)&process->carry;
-		if (!do_instruction(vm, pc, r, carry))
+		if (do_instruction(vm, pc, r, carry))
 			return (DG("area[pc] n est pas une instruction"));
 		process = process->next;
 	}

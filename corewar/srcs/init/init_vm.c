@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/30 16:29:57 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/02 13:03:45 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_process	*init_process(t_process **process, int id_player, int pc)
 	while (vm_proc && vm_proc->next)
 		vm_proc = vm_proc->next;
 	if (!(tmp = ft_memalloc(sizeof(t_process))))
-		DG("Probleme malloc");
+		return (tmp);
 	tmp->id_player = id_player;
 	tmp->pc = pc;
 	if (!*process)
@@ -72,11 +72,12 @@ int		init_process_players(t_vm *vm, t_file *file, int players, int pc)
 		{
 			pc = id_player * MEM_SIZE / players;
 			file[i].id_player = ++id_player;
-			file[i].process = init_process(&vm->process, id_player, pc);
+			if (!(file[i].process = init_process(&vm->process, id_player, pc)))
+				return (DG("Problem malloc process"));
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 
@@ -91,7 +92,8 @@ int		init_vm(t_vm *vm, int ac, char **av)
 			if (init_file(vm, -1, *vm->av_data++))
 				return (1);
 	vm->cycle_to_die = CYCLE_TO_DIE;
-	init_process_players(vm, vm->file, vm->nb_player, 0);
+	if (init_process_players(vm, vm->file, vm->nb_player, 0))
+		return (DG("Problem init process player"));
 	init_area(vm->file, vm->area);
 	display(vm);
 	return (0);

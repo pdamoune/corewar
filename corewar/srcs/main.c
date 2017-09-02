@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/30 16:14:45 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/02 12:54:55 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		main(int ac, char **av)
 	t_vm	vm;
 
 	if (init_vm(&vm, ac, av))
-		return (1);
+		return (-1);
 	if (IS_SET(vm.flag, GRAPHIC))
 		return (DG("graphic not yet implemented"));//return (gtk_run(&vm));
 	else
