@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 16:30:47 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 23:47:10 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 # define SQUARE_HEIGHT		12
 # define SQUARE_SPA			4
 # define SQUARE_BORDER		2
+
+# define PX_WIDTH			(SQUARE_SPA + 2 * SQUARE_BORDER + SQUARE_WIDTH)
+# define PX_HEIGHT			(SQUARE_SPA + 2 * SQUARE_BORDER + SQUARE_HEIGHT)
 
 # define AREA_WIDTH			(BOX_BY_LINE * (SQUARE_WIDTH + 2 * SQUARE_SPA))
 # define AREA_HEIGHT		(NB_LINE * (SQUARE_HEIGHT + 2 * SQUARE_SPA))
@@ -55,6 +58,11 @@
 #  define GTK_ADD			69
 #  define GTK_SUB			78
 #  define GTK_RIGHT			124
+# endif
+
+# ifdef __linux__
+# define GTK_ESC			9
+# define GTK_SPA			65
 # endif
 # define MAX_KEY			1024
 
@@ -104,10 +112,10 @@ typedef struct	s_gtk
 	t_px		px[MEM_SIZE];
 }				t_gtk;
 
-void			calcul_border(t_vm *vm, t_ivec2 cur);
+void			calcul_border(t_vm *vm, int at);//t_ivec2 cur);
 void			draw_rect(guchar *pixels, int rowstride, t_ivec2 size, const t_color color);
 void			draw_rect_border(guchar *pixels, int rowstride, t_ivec2 *size, const t_color color);
-void			draw_border(t_vm *vm, t_ivec2 pos, const t_color color);
+void			draw_border(t_vm *vm, int at, const t_color color);
 void			draw_pix(guchar *p, const t_color color);
 int				draw_underline(t_vm *vm, int at, t_color color);
 
@@ -152,5 +160,6 @@ void			cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm);
 void			cb_mouse(GtkWidget *win, GdkEventKey *event, t_vm *vm);
 void			cb_play(GtkWidget *widget, t_vm *vm);
 void			cb_quit(GtkWidget *widget, gpointer data);
+void			cb_step(GtkWidget *widget, GdkEvent  *event, t_vm *vm);
 
 #endif

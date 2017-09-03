@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 16:27:32 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/02 16:32:31 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 23:51:59 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ GtkWidget		*pack_new_button(GtkWidget *widget, const gchar *title,
 	GtkWidget	*button;
 
 	button = gtk_button_new_with_label(title);
+	gtk_widget_set_can_focus(button, FALSE);
 	gtk_box_pack_start(GTK_BOX(widget), button, FALSE, FALSE, 0);
-	g_signal_connect(G_OBJECT(button), "activate", callback, data);
+	g_signal_connect(G_OBJECT(button), "button-release-event", callback, data);
 	return (button);
 }
 
@@ -40,7 +41,7 @@ GtkWidget		*pack_new_toggle_button(GtkWidget *widget, const gchar *title,
 	GtkWidget	*button;
 
 	button = gtk_toggle_button_new_with_label(title);
-	gtk_widget_set_can_focus(button, FALSE);//TODO check this
+	gtk_widget_set_can_focus(button, FALSE);
 	gtk_box_pack_start(GTK_BOX(widget), button, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(button), "toggled", callback, data);
 	return (button);

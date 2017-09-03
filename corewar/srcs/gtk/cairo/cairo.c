@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 10:15:36 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 11:05:23 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 22:03:08 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ pixbuf_cairo_destroy( cairo_t  *cr,
 
 void cairo_pango_draw_text(t_vm *vm, int at, t_ivec2 pos)
 {
-   GdkPixbuf   *new_pix;
+//    GdkPixbuf   *new_pix;
    PangoLayout *layout;
    cairo_t     *cr;
    char 	*txt;
@@ -186,6 +186,7 @@ void cairo_pango_draw_text(t_vm *vm, int at, t_ivec2 pos)
    pango_layout_set_text(layout, txt, 2);
    pango_cairo_show_layout(cr, layout);
    g_object_unref(G_OBJECT(layout));
-   new_pix = pixbuf_cairo_destroy(cr, FALSE);
+   pixbuf_cairo_destroy(cr, FALSE);
+//    new_pix = pixbuf_cairo_destroy(cr, FALSE);
    free(txt);
 }

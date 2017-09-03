@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 19:35:44 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 23:33:54 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	i = -1;
 	while (++i < p->op.nb_params)
 		args[i] = get_value_from_area(vm, p, type[i], &pc_inc);
+	(void)args;
 	//TODO use check if args are type compatible & execute
 	DG("not yet full implemented");
 	DG("make a pc jump of %d", pc_inc);
@@ -105,16 +106,12 @@ int				do_one_cycle(t_vm *vm)
 {
 	t_process 	*process;
 	int			*pc;
-	char		**r;
-	char		*carry;
 
 	LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
 	{
 		pc = &(process->pc);
 		if (IS_UNSET(vm->flag, GRAPHIC))
 			ft_printf("=== %d\n", *pc);
-		r = (char **)process->r;
-		carry = (char *)&process->carry;
 		init_instruction(vm, process);
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)

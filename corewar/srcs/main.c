@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/03 19:36:00 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/04 00:02:05 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		gtk_cycle(t_vm *vm)
 	char	txt[12];
 
 	vm->gtk.time = g_get_monotonic_time();
-	if ((vm->gtk.time - vm->gtk.oldtime) * vm->gtk.speed > 1000000)
+	if (IS_SETREMOVE(vm->flag, STEP) || (vm->gtk.time - vm->gtk.oldtime) * vm->gtk.speed > 1000000)
 	{
 		DG("Start cycle %lu:", vm->cycle);
 		if (do_one_cycle(vm))
@@ -37,7 +37,7 @@ static gboolean	gtk_loop(void *data)
 	vm->gtk.time = g_get_monotonic_time();
 	while(IS_UNSET(vm->flag, STOP))
 	{
-		if (IS_UNSET(vm->flag, PAUSE))
+		if (IS_UNSET(vm->flag, PAUSE) || IS_SET(vm->flag, STEP))
 		{
 			if (gtk_cycle(vm))
 				break;
