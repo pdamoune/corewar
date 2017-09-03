@@ -36,6 +36,8 @@ check/check_live.c\
 cycle.c\
 display/display_win.c\
 display/dump.c\
+get_from_area/get_type_from_area.c\
+get_from_area/get_value_from_area.c\
 gtk/cairo/cairo.c\
 gtk/callbacks/cb_key_event_release.c\
 gtk/callbacks/cb_mouse.c\

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 16:31:34 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 19:32:56 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,23 @@ t_op	g_op_tab[18] =
 
 static int		do_instruction(t_vm *vm, t_process *p)
 {
-	//TODO
-	DG("not yet implemented");
-	p->pc = move_pc(vm, p->pc, 1);
-	(void)vm;
-	(void)p;
+	int		type[MAX_ARGS_NUMBER];
+	int		args[MAX_ARGS_NUMBER];
+	int		pc_inc;
+	int		i;
+
+	pc_inc = p->op.ocp ? 2 : 1;
+	if (p->op.ocp)
+		get_type_from_area(vm, p, type);
+	else
+		type[0] = T_DIR;
+	i = -1;
+	while (++i < p->op.nb_params)
+		args[i] = get_value_from_area(vm, p, type[i], &pc_inc);
+	//TODO use check if args are type compatible & execute
+	DG("not yet full implemented");
+	DG("make a pc jump of %d", pc_inc);
+	p->pc = move_pc(vm, p->pc, pc_inc);
 	return (0);
 }
 

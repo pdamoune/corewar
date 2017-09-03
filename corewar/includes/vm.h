@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/03 16:08:22 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 19:20:23 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,12 @@ int		main(int ac, char **av);
 int		do_one_cycle(t_vm *vm);
 void	check_cycle(t_vm *vm);
 void	check_live(t_vm *vm);
+
+/*
+** Insignifiant func
+*/
+int		get_value_from_area(t_vm *vm, t_process *p, int type, int *pc_inc);
+void	get_type_from_area(t_vm *vm, t_process *p, int *type);
 
 /*
 ** Tools functions.

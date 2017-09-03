@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/08/29 23:04:26 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 18:50:57 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define IND_CODE				3
 
 
-#define MAX_ARGS_NUMBER			4
+#define MAX_ARGS_NUMBER			3
 #define MAX_PLAYERS				4
 #define MEM_SIZE				(4*1024)
 #define IDX_MOD					(MEM_SIZE / 8)
