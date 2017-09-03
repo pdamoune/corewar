@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/08/24 19:24:37 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/03 17:25:21 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet);
 int		ft_isstrdigit(char *s);
 void	ft_free_tab(char **tab);
 int		ft_strlen_tab(char **tab);
-long	go_to_label(char *label, global_t *global, int type);
+int		go_to_label(char *label, global_t *global);
 char	*ft_free_strjoin(char **s1, char **s2);
 
 /*

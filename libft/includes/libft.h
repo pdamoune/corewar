@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/29 21:53:12 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/30 21:52:11 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/09/03 17:21:47 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@
 #  define MV3_2(x)	((x << 8) & (0xff << 16))
 #  define MV4_1(x)	((x << 24) & (0xff << 24))
 #  define INTREV32(x)	MV1_4(x) | MV2_3(x) | MV3_2(x) | MV4_1(x)
-#  define INTREV16(x)	MV2_3(x) | MV3_2(x)
+# endif
+
+# ifndef INTREV16
+#  define MV1_2(x)	((x >> 8) & (0xff << 0))
+#  define MV2_1(x)	((x << 8) & (0xff << 8))
+#  define INTREV16(x)	MV1_2(x) | MV2_1(x)
 # endif
 
 enum			e_bool

@@ -21,7 +21,7 @@ static void	ft_get_values(global_t *global, char **line, int type)
 				if (ft_isstrdigit(val_tmp))
 					*value = INTREV32(ft_atoi(val_tmp));
 				else
-					*value = INTREV32(go_to_label(val_tmp, global, DIR_CODE));
+					*value = INTREV32(go_to_label(val_tmp, global));
 			}
 			else
 				ft_exit(12, global, NULL);

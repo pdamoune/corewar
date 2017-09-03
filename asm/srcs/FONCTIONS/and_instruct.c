@@ -69,43 +69,69 @@ static void	ft_calcul_octet(global_t *global, char **line)
 
 static void	ft_get_values(global_t *global, char **line)
 {
-	int		*value;
-	char	*val_tmp;
+	int				*value;
+	unsigned short	*value_ind;
+	char			*value_char;
+	char			*val_tmp;
 
 	global->j = 2;
 	val_tmp = NULL;
 	value = 0;
+	value_ind = 0;
+	value_char = 0;
 	while (line[++global->i] && !ft_strstart(line[global->i], "#"))
 	{
-		value = (int *)&(global->s_label->s_content->instruction[global->j]);
+		printf("global->j %d\n", global->j);
+
 		if ((val_tmp = ft_strstart(line[global->i], "%:"))
 		|| (val_tmp = ft_strstart(line[global->i], "%")))
 		{
+			printf("Je suis un DIRECT\n");
+			value = (int *)&(global->s_label->s_content->instruction[global->j]);
 			if(ft_isstrdigit(val_tmp))
 				*value = INTREV32(ft_atoi(val_tmp));
 			else
-				*value = INTREV32(go_to_label(val_tmp, global, DIR_CODE));
+				*value = INTREV32(go_to_label(val_tmp, global));
 			global->j += 4;
+
+		}
+		else if ((val_tmp = ft_strstart(line[global->i], "r"))
+				&& ft_isstrdigit(val_tmp))
+		{
+			printf("Je suis un REGISTRE\n");
+			printf("global->j %d\n", global->j);
+			value_char = (char *)&(global->s_label->s_content->instruction[global->j]);
+			*value_char = ft_atoi(val_tmp);
+			printf("value %d\n", *value_char);
+			if (global->s_label->s_content->nb_octet - 1 != global->j)
+				global->j++;
+
+		}
+		else if (ft_isstrdigit(line[global->i]))
+		{
+			printf("Je suis un INDIRECT valeur decimale\n");
+			value = (int *)&(global->s_label->s_content->instruction[global->j]);
+			*value = INTREV16(ft_atoi(line[global->i]));
+			global->j += 2;
+
 		}
 		else if ((val_tmp = ft_strstart(line[global->i], ":")))
 		{
+			printf("Je suis un INDIRECT label\n");
 			printf("val_tmp %s\n", val_tmp);
-			if(ft_isstrdigit(val_tmp))
-				*value = INTREV16(ft_atoi(val_tmp));
-			else
-				*value = INTREV16(go_to_label(val_tmp, global, IND_CODE));
-				printf("go_to_label %lX\n", go_to_label(val_tmp, global, IND_CODE));
-				printf("val_tmp %X\n", *value);
-			// global->j += 2;
+			value_ind = (unsigned short *)&(global->s_label->s_content->instruction[global->j]);
+			*value_ind = INTREV16((unsigned short)go_to_label(val_tmp, global));
+			printf("go_to_label %X\n", go_to_label(val_tmp, global));
+			printf("val_tmp %X\n", *value_ind);
+			global->j += 2;
+			// 0x6 0x74 0x1 0x1 0x0 0x0
 		}
-		else if ((val_tmp = ft_strstart(line[global->i], "r"))
-				&& ft_isstrdigit(val_tmp) && global->j++)
-			*value = ft_atoi(val_tmp);
-		else if (ft_isstrdigit(line[global->i]) && (global->j += 2))
-			*value = ft_atoi(line[global->i]);
 	}
+	printf("global->j %d\n", global->j);
+
 }
 
+// void	and_instruct(global_t *global, int step, int opcode, int if_arg)
 void	and_instruct(global_t *global, int step)
 {
 	int		*arg;
