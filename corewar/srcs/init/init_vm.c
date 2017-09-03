@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 13:58:30 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 15:50:58 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_cliopts	g_read_opts[] =
 	{'d', "dump", DUMP, 0, init_dump, 1},
 	{'n', "number", 0, 0, init_number, 2},
 	{'g', "graphic", GRAPHIC, 0, NULL, 0},
+	{'v', "verbose", VERBOSE, QUIET, NULL, 0},
+	{'q', "quiet", QUIET, VERBOSE, NULL, 0},
 	{0, 0, 0, 0, 0, 0},
 };
 
@@ -41,13 +43,11 @@ int			init_area(t_vm *vm)
 			while (++j < prog_size)
 				if (init_px(vm, pc + j, i))
 					return (1);
+			init_pc(vm, pc);
 		}
 	}
 	if (IS_SET(vm->flag, GRAPHIC))
-	{
-		init_px(vm, MEM_SIZE-1, 1);
 		gtk_image_set_from_pixbuf(GTK_IMAGE(vm->gtk.img), (vm->gtk.pixbuf));
-	}
 	return (0);
 }
 
@@ -95,7 +95,6 @@ int			init_vm(t_vm *vm, int *ac, char ***av)
 	init_process_players(vm, vm->file, vm->nb_player);
 	if (list_empty(&vm->process))
 		return (ERR_COR("at least one player is needed."));
-	//TODO check if no process , so quit with error
 	if (IS_SET(vm->flag, GRAPHIC))
 		init_gtk(ac, av, vm);
 	if (init_area(vm))

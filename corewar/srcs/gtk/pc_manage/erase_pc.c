@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_del.c                                      :+:      :+:    :+:   */
+/*   erase_pc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 19:11:06 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 16:24:18 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/03 15:58:57 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/03 16:19:32 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void		process_del(t_vm *vm, t_process *process)
+int			erase_pc(t_vm *vm, int at)
 {
-	(void)vm;
-	//TODO play music ?
-	list_del(&process->lx);
-	if (IS_SET(vm->flag, GRAPHIC))
-	{
-		--vm->gtk.px[process->pc].pc;
-		if (!vm->gtk.px[process->pc].pc)
-			erase_pc(vm, process->pc);
-	}
-	free(process);
+	DG("DD1111111111111111");
+	return (draw_underline(vm, at, COLOR_WHITE));
 }

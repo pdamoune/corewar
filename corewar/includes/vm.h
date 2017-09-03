@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/03 13:24:07 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 16:08:22 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,25 @@
 # define STOP		(1 << 2)
 # define PAUSE		(1 << 3)
 # define REDRAW		(1 << 4)
+# define VERBOSE	(1 << 5)
+# define QUIET		(1 << 6)
 
 # if MAX_PLAYERS < 1
 #  error "macro MAX_PLAYERS must be strictly positive"
 # endif
+
+typedef struct		s_op
+{
+	char	*label;
+	int		nb_params;
+	int		params[3];
+	// int		op_code;
+	int		(*instru)();
+	int		cycle;
+	char	*description;
+	int		ocp;
+	int		index;
+}					t_op;
 
 typedef struct		s_process
 {
@@ -46,6 +61,8 @@ typedef struct		s_process
 	int				carry;
 	int				id_player;
 	long			last_live;
+	t_op			op;
+	int				nb_cycle_before_exec;
 	t_lx			lx;
 }					t_process;
 
@@ -93,18 +110,6 @@ typedef struct		s_vm
 	long			check_count;
 }					t_vm;
 
-typedef struct		s_op
-{
-	char	*label;
-	int		nb_params;
-	int		params[3];
-	// int		op_code;
-	int		(*instru)();
-	int		cycle;
-	char	*label_name;
-	int		ocp;
-	int		index;
-}					t_op;
 
 /*
 ** Main functions.
@@ -124,6 +129,7 @@ int		usage(char *name);
 int		free_vm(t_vm *vm);
 void	remove_one_process(t_vm *vm, t_process *process);
 void	process_del(t_vm *vm, t_process *process);
+int		move_pc(t_vm *vm, int origin, int len);
 
 
 /*

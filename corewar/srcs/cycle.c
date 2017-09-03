@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 13:20:40 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 16:31:34 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,41 @@ t_op	g_op_tab[18] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-int		do_instruction(t_vm *vm, int *pc, char **r, char *carry)
+static int		do_instruction(t_vm *vm, t_process *p)
 {
+	//TODO
+	DG("not yet implemented");
+	p->pc = move_pc(vm, p->pc, 1);
+	(void)vm;
+	(void)p;
+	return (0);
+}
+
+static int		init_instruction(t_vm *vm, t_process *p)
+{
+	--p->nb_cycle_before_exec;
+	if (!p->nb_cycle_before_exec)//time to execute op
+	{
+		do_instruction(vm, p);
+	}
+	else if (p->nb_cycle_before_exec == -1) // time to check if new op is available
+	{
+		if (vm->area[p->pc] < 1 || vm->area[p->pc] > 16) // n est pas une instruction
+		{
+			p->pc = move_pc(vm, p->pc, 1);
+			p->nb_cycle_before_exec = 0;
+			DG("area[pc] n est pas une instruction");
+			return (0);
+		}
+		p->op = g_op_tab[(unsigned)vm->area[p->pc]];
+		p->nb_cycle_before_exec = p->op.cycle - 1;
+	}
+	return (0);
+	/*
 	char	*area;
 	(void)&r;
 	(void)&carry;
 	(void)&pc;
-
 	area = vm->area;
 	if (!area[*pc] || (unsigned)area[*pc] > 16) // n est pas une instruction
 	{
@@ -57,12 +85,11 @@ int		do_instruction(t_vm *vm, int *pc, char **r, char *carry)
 	// // DG("\narea[*pc % 16] = %hh.2x\nfonction : %s\n", area[*pc % 16], g_op_tab[(int)area[*pc % 16]].label);
 	g_op_tab[(short)area[*pc]].instru(g_op_tab[(int)area[*pc]]);
 	*pc = (!*pc || (*pc % MEM_SIZE) ? *pc + 1 : 0);
-	return (1);
+	return (0);
+	*/
 }
 
-
-
-int		do_one_cycle(t_vm *vm)
+int				do_one_cycle(t_vm *vm)
 {
 	t_process 	*process;
 	int			*pc;
@@ -76,12 +103,11 @@ int		do_one_cycle(t_vm *vm)
 			ft_printf("=== %d\n", *pc);
 		r = (char **)process->r;
 		carry = (char *)&process->carry;
-		if (!do_instruction(vm, pc, r, carry))
-			return (DG("area[pc] n est pas une instruction"));
+		init_instruction(vm, process);
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);
-	check_cycle(vm);
+	// check_cycle(vm);
 	++vm->cycle;
 	return (0);
 }

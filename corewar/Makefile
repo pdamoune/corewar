@@ -49,6 +49,10 @@ gtk/draw/calcul_border.c\
 gtk/draw/draw_border.c\
 gtk/draw/draw_pix.c\
 gtk/draw/draw_rect.c\
+gtk/draw/draw_underline.c\
+gtk/pc_manage/draw_pc.c\
+gtk/pc_manage/erase_pc.c\
+gtk/pc_manage/init_pc.c\
 gtk/px_manage/calcul_px.c\
 gtk/px_manage/draw_px.c\
 gtk/px_manage/erase_px.c\
@@ -78,6 +82,7 @@ ops/op_xor.c\
 ops/op_zjmp.c\
 tools/display.c\
 tools/free_vm.c\
+tools/move_pc.c\
 tools/process_del.c\
 tools/remove_one_process.c\
 tools/remove_process.c\

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 11:30:42 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 16:30:47 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define COLOR_BLUE			((t_color){0, 0, 255, 255})
 # define COLOR_BLACK		((t_color){0, 0, 0, 255})
 # define COLOR_WHITE		((t_color){255, 255, 255, 255})
+# define COLOR_PC			((t_color){255, 175, 50, 255})
 
 /*
 ** KEY MANAGEMENT FOR GTK
@@ -83,8 +84,9 @@ typedef struct		s_color
 
 typedef struct	s_px
 {
-	long int		flag;
-	int				player;
+	unsigned long	flag;
+	unsigned short	player;
+	unsigned int	pc;
 }				t_px;
 
 typedef struct	s_gtk
@@ -107,6 +109,7 @@ void			draw_rect(guchar *pixels, int rowstride, t_ivec2 size, const t_color colo
 void			draw_rect_border(guchar *pixels, int rowstride, t_ivec2 *size, const t_color color);
 void			draw_border(t_vm *vm, t_ivec2 pos, const t_color color);
 void			draw_pix(guchar *p, const t_color color);
+int				draw_underline(t_vm *vm, int at, t_color color);
 
 /*
 ** PX MANAGE
@@ -118,6 +121,15 @@ int				draw_px(t_vm *vm, int at);
 int				calcul_px(t_vm *vm, int at);
 int				erase_px(t_vm *vm, int at);
 void			cairo_pango_draw_text(t_vm *vm, int at, t_ivec2 pos);
+
+/*
+** PC MANAGE
+*/
+
+void			init_pc(t_vm *vm, int at);
+int				erase_pc(t_vm *vm, int at);
+int				draw_pc(t_vm *vm, int at);
+
 
 /*
 ** GTK CONSTRUCT
