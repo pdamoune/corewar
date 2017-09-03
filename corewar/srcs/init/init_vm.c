@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 09:21:23 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 13:58:30 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ t_cliopts	g_read_opts[] =
 	{0, 0, 0, 0, 0, 0},
 };
 
-
-int		init_area(t_vm *vm)
+int			init_area(t_vm *vm)
 {
 	int		i;
 	int		pc;
@@ -33,7 +32,7 @@ int		init_area(t_vm *vm)
 	{
 		if (!vm->file[i].is_used)
 			continue ;
-		pc = vm->file[i].process->pc;
+		pc = vm->file[i].pc;
 		prog_size = vm->file->header.prog_size;
 		ft_memcpy(&(vm->area[pc]), vm->file->header.prog, prog_size);
 		if (IS_SET(vm->flag, GRAPHIC))
@@ -45,50 +44,36 @@ int		init_area(t_vm *vm)
 		}
 	}
 	if (IS_SET(vm->flag, GRAPHIC))
+	{
+		init_px(vm, MEM_SIZE-1, 1);
 		gtk_image_set_from_pixbuf(GTK_IMAGE(vm->gtk.img), (vm->gtk.pixbuf));
+	}
 	return (0);
 }
 
-t_process	*init_process(t_process **process, int id_player, int pc)
+static int	init_process_players(t_vm *vm, t_file *file, int players)
 {
-	t_process	*tmp;
-	t_process	*vm_proc;
-
-	vm_proc = *process;
-	while (vm_proc && vm_proc->next)
-		vm_proc = vm_proc->next;
-	if (!(tmp = ft_memalloc(sizeof(t_process))))
-		DG("Probleme malloc");
-	tmp->id_player = id_player;
-	tmp->pc = pc;
-	if (!*process)
-		*process = tmp;
-	else
-		(vm_proc)->next = tmp;
-	return (tmp);
-}
-
-int		init_process_players(t_vm *vm, t_file *file, int players, int pc)
-{
-	int	id_player;
-	int i;
+	int			id_player;
+	int			i;
+	t_process	*new_process;
 
 	id_player = 0;
-	i = 0;
-	while (i < 4)
-	{
+	i = -1;
+	while (++i < 4)
 		if (file[i].is_used)
 		{
-			pc = id_player * MEM_SIZE / players;
-			file[i].id_player = ++id_player;
-			file[i].process = init_process(&vm->process, id_player, pc);
+			file[i].pc = id_player * MEM_SIZE / players;
+			if (!(new_process = ft_memalloc(sizeof(t_process))))
+				return (ERR_COR("malloc failed"));
+			new_process->pc = file[i].pc;
+			new_process->id_player = ++id_player;
+			// DG("%p and %p", new_process->lx, );
+			list_add(&(new_process->lx), &(vm->process));
 		}
-		i++;
-	}
-	return (1);
+	return (0);
 }
 
-void	init_gtk(int *ac, char ***av, t_vm *vm)
+void		init_gtk(int *ac, char ***av, t_vm *vm)
 {
 	vm->gtk.speed = ft_pow(INIT_SPEED, 2);
 	SET(vm->flag, PAUSE);
@@ -96,7 +81,7 @@ void	init_gtk(int *ac, char ***av, t_vm *vm)
 	create_gtk(vm);
 }
 
-int		init_vm(t_vm *vm, int *ac, char ***av)
+int			init_vm(t_vm *vm, int *ac, char ***av)
 {
 	ft_bzero(vm, sizeof(t_vm));
 	if ((cliopts_get(*av, g_read_opts, vm)))
@@ -106,7 +91,10 @@ int		init_vm(t_vm *vm, int *ac, char ***av)
 			if (init_file(vm, -1, *vm->av_data++))
 				return (1);
 	vm->cycle_to_die = CYCLE_TO_DIE;
-	init_process_players(vm, vm->file, vm->nb_player, 0);
+	INIT_LIST_HEAD(&(vm->process));
+	init_process_players(vm, vm->file, vm->nb_player);
+	if (list_empty(&vm->process))
+		return (ERR_COR("at least one player is needed."));
 	//TODO check if no process , so quit with error
 	if (IS_SET(vm->flag, GRAPHIC))
 		init_gtk(ac, av, vm);

@@ -6,7 +6,7 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/09/02 20:03:11 by wescande         ###   ########.fr        #
+#    Updated: 2017/09/03 12:51:43 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ FLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
 MAIN_FLAGS	=	`pkg-config --libs gtk+-3.0`
 OBJ_FLAGS	=	`pkg-config --cflags gtk+-3.0`
 
-LEN_NAME	=	`printf "%s" $(NAME) |wc -c`
+LEN_NAME	=	`echo $(NAME) |wc -c`
 DELTA		=	$$(echo "$$(tput cols)-31-$(LEN_NAME)"|bc)
 
 SRC_DIR		=	srcs/

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 10:03:37 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 13:20:40 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ int		do_one_cycle(t_vm *vm)
 	char		**r;
 	char		*carry;
 
-	process = vm->process;
-	while (process)
+	LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
 	{
 		pc = &(process->pc);
 		if (IS_UNSET(vm->flag, GRAPHIC))
@@ -79,7 +78,6 @@ int		do_one_cycle(t_vm *vm)
 		carry = (char *)&process->carry;
 		if (!do_instruction(vm, pc, r, carry))
 			return (DG("area[pc] n est pas une instruction"));
-		process = process->next;
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);

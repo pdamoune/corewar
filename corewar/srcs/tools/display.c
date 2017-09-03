@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/30 16:21:00 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/03 13:25:33 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ void 	disp_file(int fd, int fd_prog, t_file *file, t_header *header)
 	ft_dprintf(fd, "\n%10c===== t_file file[%d] =====\n\n", 0, i);
 	ft_dprintf(fd, "{\n");
 	ft_dprintf(fd, "%4cint          is_used      : %d\n", 0, file->is_used);
-	ft_dprintf(fd, "%4cint          proces       : %p\n", 0, file->process);
-	ft_dprintf(fd, "%4cchar         id_player    : %d\n", 0, file->id_player);
+	// ft_dprintf(fd, "%4cint          proces       : %p\n", 0, file->process);
+	// ft_dprintf(fd, "%4cchar         id_player    : %d\n", 0, file->id_player);
 	ft_dprintf(fd, "}\n");
-	ft_dprintf(fd, "%4cint          id_player    : %d\n", 0, file->process->id_player);
-	ft_dprintf(fd, "%4cint          pc           : %d\n", 0, file->process->pc);
-	ft_dprintf(fd, "%4cint          carry        : %d\n", 0, file->process->carry);
-	ft_dprintf(fd, "%4cint          next         : %p\n", 0, file->process->next);
+	// ft_dprintf(fd, "%4cint          id_player    : %d\n", 0, file->process->id_player);
+	ft_dprintf(fd, "%4cint          pc           : %d\n", 0, file->pc);
+	// ft_dprintf(fd, "%4cint          carry        : %d\n", 0, file->process->carry);
+	// ft_dprintf(fd, "%4cint          next         : %p\n", 0, file->process->next);
 	ft_dprintf(fd, "%10c===== t_header *header %d =====\n\n", 0, i++);
 	ft_dprintf(fd, "{\n");
 	ft_dprintf(fd, "%4cunsigned     magic      : %x\n", 0, header->magic);
@@ -122,26 +122,22 @@ void 	disp_area(t_vm *vm, char *area)
 	{
 		while (j < 64)
 		{
-			process = vm->process;
-			while (process)
+			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
 			{
 				if (i == process->pc)
 				{
 					ft_printf("{red}", area[i]);
 					// break;
 				}
-				process = process->next;
 			}
-			process = vm->process;
 			ft_printf("%0.2hhx ", area[i]);
-			while (process)
+			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
 			{
 				if (i == process->pc)
 				{
 					ft_printf("{eoc}", area[i]);
 					// break;
 				}
-				process = process->next;
 			}
 			j++;
 			i++;

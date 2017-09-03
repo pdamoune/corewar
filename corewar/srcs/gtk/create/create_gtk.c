@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:35:17 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 11:31:00 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 12:47:18 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static GtkWidget		*create_area(t_vm *vm)
 	GtkWidget *event_box;
 
 	scrol = gtk_scrolled_window_new(NULL, NULL);
-	gtk_widget_set_size_request(scrol, AREA_WIDTH, AREA_HEIGHT < 1000 ? AREA_HEIGHT : -1);
+	gtk_widget_set_size_request(scrol, AREA_WIDTH, GTK_HEIGHT);
 	DG("creating scrol with size: %d x %d", AREA_WIDTH, AREA_HEIGHT);//TODO CHECK SIZE HERE
 	vm->gtk.pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, AREA_WIDTH, AREA_HEIGHT); // good ?
 	gdk_pixbuf_fill(vm->gtk.pixbuf, 0xffffffff);
