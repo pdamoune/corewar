@@ -6,13 +6,13 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 17:33:21 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/02 18:00:23 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 09:51:30 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void	draw_rect(guchar *pixels, int rowstride, t_ivec2 size, t_color *color)
+void	draw_rect(guchar *pixels, int rowstride, t_ivec2 size, const t_color color)
 {
 	t_ivec2		pos;
 	
@@ -22,7 +22,7 @@ void	draw_rect(guchar *pixels, int rowstride, t_ivec2 size, t_color *color)
 			draw_pix(pixels + (pos.x * N_CHANNELS + pos.y * rowstride), color);
 }
 
-void	draw_rect_empty(guchar *pixels, int rowstride, t_ivec2 *size, t_color *color)
+void	draw_rect_border(guchar *pixels, int rowstride, t_ivec2 *size, const t_color color)
 {
 	t_ivec2		limit;
 

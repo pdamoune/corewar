@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/02 18:15:17 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 10:03:37 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int		do_one_cycle(t_vm *vm)
 	while (process)
 	{
 		pc = &(process->pc);
-		ft_printf("=== %d\n", *pc);
+		if (IS_UNSET(vm->flag, GRAPHIC))
+			ft_printf("=== %d\n", *pc);
 		r = (char **)process->r;
 		carry = (char *)&process->carry;
 		if (!do_instruction(vm, pc, r, carry))

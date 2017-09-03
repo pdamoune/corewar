@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 17:27:58 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/02 19:13:27 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 11:23:45 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	cb_mouse(GtkWidget *win, GdkEventKey *event, t_vm *vm)
 {
 	GdkEventMotion		*e;
-	
+
+	DG();
 	(void)win;
 	if (event->type == GDK_MOTION_NOTIFY)
 	{

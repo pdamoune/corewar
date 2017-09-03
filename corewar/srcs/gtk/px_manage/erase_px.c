@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dump.c                                             :+:      :+:    :+:   */
+/*   erase_px.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 14:42:19 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 10:53:27 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/03 09:58:05 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/03 10:06:57 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-int		dump(t_vm *vm)
+int		erase_px(t_vm *vm, int at)
 {
-	int		i;
-
-	SET(vm->flag, STOP);
-	//TODO what if we can't reach the dump cycle
-	i = -1;
-	while (++i < MEM_SIZE)
-	{
-		if (i % 64 == 0)
-		{
-			if (i)
-				ft_printf("\n0x%04x :", i);
-			else
-				ft_printf("0x%04x :", i);
-		}
-		ft_printf(" %02hhx", vm->area[i]);
-	}
-	ft_putchar('\n');
+	//TODO this. if this func is called and there is a pc, color the box in grey
+	DG("not implemented");
+	(void)vm;
+	(void)at;
 	return (0);
 }

@@ -6,16 +6,16 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 18:07:23 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/02 18:07:35 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 09:56:31 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void	draw_pix(guchar *p, t_color *color)
+void	draw_pix(guchar *p, const t_color color)
 {
-	p[0] = color->r;
-	p[1] = color->g;
-	p[2] = color->b;
-	p[3] = color->a;
+	p[0] = color.r;
+	p[1] = color.g;
+	p[2] = color.b;
+	p[3] = color.a;
 }

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/02 20:02:45 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 09:21:23 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,32 @@ t_cliopts	g_read_opts[] =
 };
 
 
-int		init_area(t_file *file, char *area)
+int		init_area(t_vm *vm)
 {
 	int		i;
 	int		pc;
 	int		prog_size;
+	int		j;
 
 	i = -1;
 	while (++i < 4)
 	{
-		if (!file[i].is_used)
+		if (!vm->file[i].is_used)
 			continue ;
-		pc = file[i].process->pc;
-		prog_size = file->header.prog_size;
-		ft_memcpy(&area[pc], file->header.prog, prog_size);
-		
-		DG("Copie des programmes (visualisateur ?)"); //TODO
+		pc = vm->file[i].process->pc;
+		prog_size = vm->file->header.prog_size;
+		ft_memcpy(&(vm->area[pc]), vm->file->header.prog, prog_size);
+		if (IS_SET(vm->flag, GRAPHIC))
+		{
+			j = -1;
+			while (++j < prog_size)
+				if (init_px(vm, pc + j, i))
+					return (1);
+		}
 	}
-	return (1);
+	if (IS_SET(vm->flag, GRAPHIC))
+		gtk_image_set_from_pixbuf(GTK_IMAGE(vm->gtk.img), (vm->gtk.pixbuf));
+	return (0);
 }
 
 t_process	*init_process(t_process **process, int id_player, int pc)
@@ -102,8 +110,9 @@ int		init_vm(t_vm *vm, int *ac, char ***av)
 	//TODO check if no process , so quit with error
 	if (IS_SET(vm->flag, GRAPHIC))
 		init_gtk(ac, av, vm);
-	init_area(vm->file, vm->area);
+	if (init_area(vm))
+		return (1);
 	if (IS_UNSET(vm->flag, GRAPHIC))
-	display(vm);
+		display(vm);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:35:17 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/02 19:53:32 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 11:31:00 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static GtkWidget		*create_area(t_vm *vm)
 {
 	GtkWidget *scrol;
+	GtkWidget *event_box;
 
 	scrol = gtk_scrolled_window_new(NULL, NULL);
 	gtk_widget_set_size_request(scrol, AREA_WIDTH, AREA_HEIGHT < 1000 ? AREA_HEIGHT : -1);
@@ -22,9 +23,15 @@ static GtkWidget		*create_area(t_vm *vm)
 	vm->gtk.pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, AREA_WIDTH, AREA_HEIGHT); // good ?
 	gdk_pixbuf_fill(vm->gtk.pixbuf, 0xffffffff);
 	vm->gtk.img = gtk_image_new_from_pixbuf(vm->gtk.pixbuf);
-	gtk_container_add(GTK_CONTAINER(scrol), vm->gtk.img);
-	g_signal_connect(G_OBJECT(scrol), "motion-notify-event", G_CALLBACK(cb_mouse), vm);
-	g_signal_connect(G_OBJECT(scrol), "leave-notify-event", G_CALLBACK(cb_mouse), vm);
+	vm->gtk.pixels = gdk_pixbuf_get_pixels(vm->gtk.pixbuf);
+	vm->gtk.rowstride = gdk_pixbuf_get_rowstride(vm->gtk.pixbuf);
+	event_box = gtk_event_box_new();
+	gtk_event_box_set_above_child (GTK_EVENT_BOX(event_box), TRUE);
+	gtk_container_add(GTK_CONTAINER(event_box), vm->gtk.img);
+	gtk_container_add(GTK_CONTAINER(scrol), event_box);
+	gtk_widget_add_events(event_box, GDK_POINTER_MOTION_MASK);
+	g_signal_connect(G_OBJECT(event_box), "motion-notify-event", G_CALLBACK(cb_mouse), vm);
+	g_signal_connect(G_OBJECT(event_box), "leave-notify-event", G_CALLBACK(cb_mouse), vm);
 	return (scrol);
 }
 

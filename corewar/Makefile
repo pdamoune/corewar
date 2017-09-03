@@ -36,6 +36,7 @@ check/check_live.c\
 cycle.c\
 display/display_win.c\
 display/dump.c\
+gtk/cairo/cairo.c\
 gtk/callbacks/cb_key_event_release.c\
 gtk/callbacks/cb_mouse.c\
 gtk/callbacks/cb_play.c\
@@ -48,6 +49,11 @@ gtk/draw/calcul_border.c\
 gtk/draw/draw_border.c\
 gtk/draw/draw_pix.c\
 gtk/draw/draw_rect.c\
+gtk/px_manage/calcul_px.c\
+gtk/px_manage/draw_px.c\
+gtk/px_manage/erase_px.c\
+gtk/px_manage/init_px.c\
+gtk/px_manage/px_calc_color.c\
 init/init_data.c\
 init/init_dump.c\
 init/init_file.c\
