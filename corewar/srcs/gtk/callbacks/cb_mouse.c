@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_live.c                                       :+:      :+:    :+:   */
+/*   cb_mouse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 16:30:35 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 13:56:05 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/02 17:27:58 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/03 11:39:14 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void		check_live(t_vm *vm)
+void	cb_mouse(GtkWidget *win, GdkEventKey *event, t_vm *vm)
 {
-	t_process *process;
-	t_process *tmp;
+	GdkEventMotion		*e;
 
-	LIST_FOR_EACH_ENTRY_SAFE(process, tmp, &vm->process, lx)
+	(void)win;
+	if (event->type == GDK_MOTION_NOTIFY)
 	{
-		if (process->last_live <= vm->last_check)
-			process_del(vm, process);
+		e = (GdkEventMotion *)event;
+		calcul_border(vm, (t_ivec2){(int)e->x, (int)e->y});
 	}
+	if (event->type == GDK_LEAVE_NOTIFY)
+		calcul_border(vm, (t_ivec2){0, 0});
 }

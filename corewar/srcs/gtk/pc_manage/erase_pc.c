@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_live.c                                       :+:      :+:    :+:   */
+/*   erase_pc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 16:30:35 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 13:56:05 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/03 15:58:57 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/03 16:19:32 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void		check_live(t_vm *vm)
+int			erase_pc(t_vm *vm, int at)
 {
-	t_process *process;
-	t_process *tmp;
-
-	LIST_FOR_EACH_ENTRY_SAFE(process, tmp, &vm->process, lx)
-	{
-		if (process->last_live <= vm->last_check)
-			process_del(vm, process);
-	}
+	DG("DD1111111111111111");
+	return (draw_underline(vm, at, COLOR_WHITE));
 }

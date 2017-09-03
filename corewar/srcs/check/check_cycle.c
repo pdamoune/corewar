@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 16:24:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 17:14:42 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 14:14:14 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void		check_cycle(t_vm *vm)
 {
 	if ((vm->last_check + vm->cycle_to_die) > vm->cycle)
 		return ;
+	if (list_empty(&vm->process)) // TODO on devrait faire ce check apres avoir supprime les process ? la vm de zz sembe le faire avant.
+	{
+		SET(vm->flag, STOP);
+		return ;
+	}
 	check_live(vm);
 	vm->last_check = vm->cycle;
 	++vm->check_count;

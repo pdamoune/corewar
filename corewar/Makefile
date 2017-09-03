@@ -6,19 +6,18 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/08/29 17:03:04 by pdamoune         ###   ########.fr        #
+#    Updated: 2017/09/03 12:51:43 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	corewar
 
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
-FLGS		=	-fsanitize=address
-MAIN_FLAGS	=
-OBJ_FLAGS	=
+FLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
+MAIN_FLAGS	=	`pkg-config --libs gtk+-3.0`
+OBJ_FLAGS	=	`pkg-config --cflags gtk+-3.0`
 
-LEN_NAME	=	`printf "%s" $(NAME) |wc -c`
+LEN_NAME	=	`echo $(NAME) |wc -c`
 DELTA		=	$$(echo "$$(tput cols)-31-$(LEN_NAME)"|bc)
 
 SRC_DIR		=	srcs/
@@ -32,39 +31,64 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 LIBS		=
 
 SRC_BASE	=	\
-init/init_number.c\
-init/init_data.c\
-init/init_dump.c\
-init/init_vm.c\
-init/init_file.c\
-tools/process_del.c\
-tools/free_vm.c\
-tools/display.c\
-tools/remove_one_process.c\
-tools/usage.c\
-tools/remove_process.c\
-check/check_live.c\
 check/check_cycle.c\
-ops/op_fork.c\
-ops/op_live.c\
-ops/op_sub.c\
-ops/op_sti.c\
-ops/op_st.c\
-ops/op_xor.c\
-ops/op_lld.c\
-ops/op_lldi.c\
-ops/op_aff.c\
-ops/op_and.c\
-ops/op_ldi.c\
-ops/op_add.c\
-ops/op_or.c\
-ops/op_zjmp.c\
-ops/op_lfork.c\
-ops/op_ld.c\
+check/check_live.c\
+cycle.c\
 display/display_win.c\
 display/dump.c\
+get_from_area/get_type_from_area.c\
+get_from_area/get_value_from_area.c\
+gtk/cairo/cairo.c\
+gtk/callbacks/cb_key_event_release.c\
+gtk/callbacks/cb_mouse.c\
+gtk/callbacks/cb_play.c\
+gtk/callbacks/cb_quit.c\
+gtk/callbacks/cb_speed.c\
+gtk/create/create_gtk.c\
+gtk/create/create_menu.c\
+gtk/create/create_widget.c\
+gtk/draw/calcul_border.c\
+gtk/draw/draw_border.c\
+gtk/draw/draw_pix.c\
+gtk/draw/draw_rect.c\
+gtk/draw/draw_underline.c\
+gtk/pc_manage/draw_pc.c\
+gtk/pc_manage/erase_pc.c\
+gtk/pc_manage/init_pc.c\
+gtk/px_manage/calcul_px.c\
+gtk/px_manage/draw_px.c\
+gtk/px_manage/erase_px.c\
+gtk/px_manage/init_px.c\
+gtk/px_manage/px_calc_color.c\
+init/init_data.c\
+init/init_dump.c\
+init/init_file.c\
+init/init_number.c\
+init/init_vm.c\
 main.c\
-cycle.c
+ops/op_add.c\
+ops/op_aff.c\
+ops/op_and.c\
+ops/op_fork.c\
+ops/op_ld.c\
+ops/op_ldi.c\
+ops/op_lfork.c\
+ops/op_live.c\
+ops/op_lld.c\
+ops/op_lldi.c\
+ops/op_or.c\
+ops/op_st.c\
+ops/op_sti.c\
+ops/op_sub.c\
+ops/op_xor.c\
+ops/op_zjmp.c\
+tools/display.c\
+tools/free_vm.c\
+tools/move_pc.c\
+tools/process_del.c\
+tools/remove_one_process.c\
+tools/remove_process.c\
+tools/usage.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

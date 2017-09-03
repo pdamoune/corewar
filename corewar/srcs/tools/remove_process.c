@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 19:06:05 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 19:08:46 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 13:20:37 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@ void		remove_process(t_vm *vm)
 	t_process *process;
 	t_process *tmp;
 
-	process = vm->process;
-	while (process)
+	LIST_FOR_EACH_ENTRY_SAFE(process, tmp, &vm->process, lx)
 	{
-		tmp = process->next;
-		free(process);
-		process = tmp;
+		process_del(vm, process);
 	}
-	vm->process = NULL;
 }

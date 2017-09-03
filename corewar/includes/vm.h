@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/30 15:28:55 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/03 19:20:23 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 
 # include <libft.h>
 # include <stdio.h>
-# include "usage.h"
-# include "op.h"
+# include <gtk.h>
+# include <usage.h>
+# include <op.h>
+
 # define TITLE ft_printf("===   %s   ===\n", __func__);
 # define E_TITLE ft_printf("=== fin %s ===\n", __func__);
 
 # define MSG_COR(s) ("{red}corewar: " s "{eoc}\n")
 # define ERR_COR(s, ...) (ft_dprintf(2, MSG_COR(s), ##__VA_ARGS__) * 0 + 1)
-
 
 /*
 ** FLAGS
@@ -31,22 +32,39 @@
 # define GRAPHIC	(1 << 0)
 # define DUMP		(1 << 1)
 # define STOP		(1 << 2)
+# define PAUSE		(1 << 3)
+# define REDRAW		(1 << 4)
+# define VERBOSE	(1 << 5)
+# define QUIET		(1 << 6)
 
 # if MAX_PLAYERS < 1
 #  error "macro MAX_PLAYERS must be strictly positive"
 # endif
 
-typedef struct	s_process t_process;
+typedef struct		s_op
+{
+	char	*label;
+	int		nb_params;
+	int		params[3];
+	// int		op_code;
+	int		(*instru)();
+	int		cycle;
+	char	*description;
+	int		ocp;
+	int		index;
+}					t_op;
 
-struct				s_process
+typedef struct		s_process
 {
 	int				pc;
 	char			r[REG_NUMBER + 1][REG_SIZE];
 	int				carry;
 	int				id_player;
 	long			last_live;
-	t_process		*next;
-};
+	t_op			op;
+	int				nb_cycle_before_exec;
+	t_lx			lx;
+}					t_process;
 
 typedef struct		s_player
 {
@@ -66,8 +84,7 @@ typedef struct		s_header
 typedef struct		s_file
 {
 	int				is_used:1;
-	int				id_player;
-	t_process		*process;
+	int				pc;
 	t_header		header;
 }					t_file;
 
@@ -82,7 +99,8 @@ typedef struct		s_vm
 	char			**av_data;
 	t_file			file[MAX_PLAYERS];
 	t_player		players[MAX_PLAYERS];
-	t_process		*process;
+	t_lx			process;
+	t_gtk			gtk;
 	int				nb_player;
 	char			area[MEM_SIZE];
 	int				cycle;
@@ -92,18 +110,6 @@ typedef struct		s_vm
 	long			check_count;
 }					t_vm;
 
-typedef struct		s_op
-{
-	char	*label;
-	int		nb_params;
-	int		params[3];
-	// int		op_code;
-	int		(*instru)();
-	int		cycle;
-	char	*label_name;
-	int		ocp;
-	int		index;
-}					t_op;
 
 /*
 ** Main functions.
@@ -116,20 +122,27 @@ void	check_cycle(t_vm *vm);
 void	check_live(t_vm *vm);
 
 /*
+** Insignifiant func
+*/
+int		get_value_from_area(t_vm *vm, t_process *p, int type, int *pc_inc);
+void	get_type_from_area(t_vm *vm, t_process *p, int *type);
+
+/*
 ** Tools functions.
 */
 
 int		usage(char *name);
 int		free_vm(t_vm *vm);
 void	remove_one_process(t_vm *vm, t_process *process);
-void	process_del(t_process *process);
+void	process_del(t_vm *vm, t_process *process);
+int		move_pc(t_vm *vm, int origin, int len);
 
 
 /*
 ** INIT
 */
 
-int		init_vm(t_vm *vm, int ac, char **av);
+int		init_vm(t_vm *vm, int *ac, char ***av);
 int		init_dump(char **opt_arg, t_vm *vm, int n_args);
 int		init_number(char **opt_arg, t_vm *vm, int n_args);
 int		init_file(t_vm *vm, int num, char *filename);

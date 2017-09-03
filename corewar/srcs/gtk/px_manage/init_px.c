@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_live.c                                       :+:      :+:    :+:   */
+/*   init_px.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 16:30:35 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 13:56:05 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/03 09:09:43 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/03 09:50:00 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void		check_live(t_vm *vm)
+int		init_px(t_vm *vm, int at, int player)
 {
-	t_process *process;
-	t_process *tmp;
-
-	LIST_FOR_EACH_ENTRY_SAFE(process, tmp, &vm->process, lx)
-	{
-		if (process->last_live <= vm->last_check)
-			process_del(vm, process);
-	}
+	if (IS_SET(vm->gtk.px[at].flag, USED))
+		return (ERR_COR("Can't write at pos %d. Px is already used", at));
+	SET(vm->gtk.px[at].flag, USED);
+	vm->gtk.px[at].player = player;
+	return (calcul_px(vm, at));
 }

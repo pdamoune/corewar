@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:42:19 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 15:43:56 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/03 10:53:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		dump(t_vm *vm)
 			else
 				ft_printf("0x%04x :", i);
 		}
-		ft_printf(" %02x", vm->area[i]);
+		ft_printf(" %02hhx", vm->area[i]);
 	}
 	ft_putchar('\n');
 	return (0);

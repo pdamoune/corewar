@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_live.c                                       :+:      :+:    :+:   */
+/*   move_pc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 16:30:35 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 13:56:05 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/03 15:43:16 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/03 16:28:57 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void		check_live(t_vm *vm)
+int		move_pc(t_vm *vm, int origin, int len)
 {
-	t_process *process;
-	t_process *tmp;
+	int		dest;
 
-	LIST_FOR_EACH_ENTRY_SAFE(process, tmp, &vm->process, lx)
+	dest = ((origin + len) % MEM_SIZE);
+	if (IS_SET(vm->flag, GRAPHIC))
 	{
-		if (process->last_live <= vm->last_check)
-			process_del(vm, process);
+		--vm->gtk.px[origin].pc;
+		if (!vm->gtk.px[origin].pc)
+			erase_pc(vm, origin);
+		if (!vm->gtk.px[dest].pc)
+			draw_pc(vm, dest);
+		++vm->gtk.px[dest].pc;
 	}
+	return (dest);
 }

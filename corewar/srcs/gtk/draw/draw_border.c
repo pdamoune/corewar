@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_live.c                                       :+:      :+:    :+:   */
+/*   draw_border.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 16:30:35 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 13:56:05 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/02 17:35:49 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/03 11:08:41 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void		check_live(t_vm *vm)
+void	draw_border(t_vm *vm, t_ivec2 pos, const t_color color)
 {
-	t_process *process;
-	t_process *tmp;
+	t_ivec2		size[2];
+	int			rowstride;
 
-	LIST_FOR_EACH_ENTRY_SAFE(process, tmp, &vm->process, lx)
-	{
-		if (process->last_live <= vm->last_check)
-			process_del(vm, process);
-	}
+	rowstride = vm->gtk.rowstride;
+	size[0] = (t_ivec2){SQUARE_WIDTH + 2 * SQUARE_BORDER, SQUARE_HEIGHT + 2 * SQUARE_BORDER};
+	size[1] = (t_ivec2){SQUARE_WIDTH, SQUARE_HEIGHT};
+	draw_rect_border(vm->gtk.pixels + pos.x * N_CHANNELS + pos.y * rowstride,
+					rowstride, size, color);
 }
