@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 23:47:10 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/04 19:07:52 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <op.h>
 
 
-# define N_CHANNELS 		4
+# define N_CHANNELS 		3
 
 # define BOX_BY_LINE		64
 # define N_LINE				(MEM_SIZE / BOX_BY_LINE)
@@ -42,12 +42,12 @@
 /*
 ** COLOR
 */
-# define COLOR_RED			((t_color){255, 0, 0, 255})
-# define COLOR_GREEN		((t_color){0, 255, 0, 255})
-# define COLOR_BLUE			((t_color){0, 0, 255, 255})
-# define COLOR_BLACK		((t_color){0, 0, 0, 255})
-# define COLOR_WHITE		((t_color){255, 255, 255, 255})
-# define COLOR_PC			((t_color){255, 175, 50, 255})
+# define COLOR_RED			((t_color){1., 0., 0.})
+# define COLOR_GREEN		((t_color){0., 1., 0.})
+# define COLOR_BLUE			((t_color){0., 0., 1.})
+# define COLOR_BLACK		((t_color){0., 0., 0.})
+# define COLOR_WHITE		((t_color){1., 1., 1.})
+# define COLOR_PC			((t_color){1., .68, .2})
 
 /*
 ** KEY MANAGEMENT FOR GTK
@@ -84,10 +84,9 @@ typedef struct		s_ivec2
 
 typedef struct		s_color
 {
-	unsigned short	r;
-	unsigned short	g;
-	unsigned short	b;
-	unsigned short	a;	
+	double			r;
+	double			g;
+	double			b;
 }					t_color;
 
 typedef struct	s_px
@@ -105,18 +104,13 @@ typedef struct	s_gtk
 	GtkWidget	*win;
 	GtkWidget	*pause;
 	GtkWidget	*cpt;
-	GtkWidget	*img;
-	GdkPixbuf	*pixbuf;
-	guchar		*pixels;
-	int			rowstride;
+	GtkWidget	*draw;
 	t_px		px[MEM_SIZE];
+	cairo_surface_t *surface;
 }				t_gtk;
 
-void			calcul_border(t_vm *vm, int at);//t_ivec2 cur);
-void			draw_rect(guchar *pixels, int rowstride, t_ivec2 size, const t_color color);
-void			draw_rect_border(guchar *pixels, int rowstride, t_ivec2 *size, const t_color color);
-void			draw_border(t_vm *vm, int at, const t_color color);
-void			draw_pix(guchar *p, const t_color color);
+void			calcul_border(GtkWidget *widget, t_vm *vm, int at);
+void			draw_border(GtkWidget *widget, t_vm *vm, int at, const t_color color);
 int				draw_underline(t_vm *vm, int at, t_color color);
 
 /*
@@ -126,6 +120,7 @@ int				draw_underline(t_vm *vm, int at, t_color color);
 int				init_px(t_vm *vm, int at, int player);
 t_color			px_calc_color(t_vm *vm, int at);
 int				draw_px(t_vm *vm, int at);
+int				draw_px_live(t_vm *vm, int at);
 int				calcul_px(t_vm *vm, int at);
 int				erase_px(t_vm *vm, int at);
 void			cairo_pango_draw_text(t_vm *vm, int at, t_ivec2 pos);
@@ -143,6 +138,8 @@ int				draw_pc(t_vm *vm, int at);
 ** GTK CONSTRUCT
 */
 
+void			gtk_init_env(int *ac, char ***av, t_vm *vm);
+int				gtk_init_area(t_vm *vm);
 void			create_gtk(t_vm *vm);
 GtkMenuBar		*menu_new(gpointer data);
 GtkWidget		*menu_item_new(GtkMenu *menu, const gchar *title,
@@ -155,11 +152,12 @@ GtkWidget		*pack_new_button(GtkWidget *widget, const gchar *title,
 /*
 ** CALLBACK FUNCTION FOR GTK
 */
-void			cb_speed(GtkWidget *widget, t_vm *vm);
-void			cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm);
-void			cb_mouse(GtkWidget *win, GdkEventKey *event, t_vm *vm);
-void			cb_play(GtkWidget *widget, t_vm *vm);
-void			cb_quit(GtkWidget *widget, gpointer data);
-void			cb_step(GtkWidget *widget, GdkEvent  *event, t_vm *vm);
+gboolean		cb_speed(GtkWidget *widget, t_vm *vm);
+gboolean		cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm);
+gboolean		cb_mouse(GtkWidget *win, GdkEventKey *event, t_vm *vm);
+gboolean		cb_play(GtkWidget *widget, t_vm *vm);
+gboolean		cb_quit(GtkWidget *widget, gpointer data);
+gboolean		cb_step(GtkWidget *widget, GdkEvent  *event, t_vm *vm);
+gboolean		cb_draw (GtkWidget *widget, cairo_t *cr, t_vm *vm);
 
 #endif

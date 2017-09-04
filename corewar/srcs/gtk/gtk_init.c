@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calcul_px.c                                        :+:      :+:    :+:   */
+/*   gtk_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/03 09:14:29 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 19:07:17 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/04 18:29:14 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/04 18:32:25 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-static t_itof	g_draw_px[] = 
-{
-	// {LIVE | MOUSE, draw_px_live_mouse},
-	{LIVE, draw_px_live},
-	// {MOUSE, draw_px_mouse},
-	{0, 0}
-};
-
-int		calcul_px(t_vm *vm, int at)
+int			gtk_init_area(t_vm *vm)
 {
 	int		i;
+	int		j;
 
-	SET(vm->flag, REDRAW);
-	if (IS_UNSET(vm->gtk.px[at].flag, USED))
-		return (erase_px(vm, at));
 	i = -1;
-	while (g_draw_px[i].id)
+	while (++i < 4)
 	{
-		if (IS_SET(vm->gtk.px[at].flag, g_draw_px[i].id))
-			return (g_draw_px[i].f(vm, at));
+		if (!vm->file[i].is_used)
+			continue ;
+		j = -1;
+		while (++j < (int)vm->file[i].header.prog_size)
+			if (init_px(vm, vm->file[i].pc + j, i))
+				return (1);
+		init_pc(vm, vm->file[i].pc);
 	}
-	return (draw_px(vm, at));
+	return (0);
+}
+
+void		gtk_init_env(int *ac, char ***av, t_vm *vm)
+{
+	vm->gtk.speed = ft_pow(INIT_SPEED, 2);
+	SET(vm->flag, PAUSE);
+	gtk_init(ac, av);
+	create_gtk(vm);
 }

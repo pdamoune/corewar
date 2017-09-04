@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:46:51 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/02 18:08:31 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/04 18:25:13 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_itof	g_action[] =
 	{0, 0},
 };
 
-void			cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm)
+gboolean			cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm)
 {
 	int i;
 
@@ -43,6 +43,9 @@ void			cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm)
 		if (g_action[i].id == event->hardware_keycode)
 		{
 			g_action[i].f(vm);
+			return (FALSE);
+			
 			break;
 		}
+	return (TRUE);
 }

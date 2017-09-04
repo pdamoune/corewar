@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/04 00:02:05 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/04 18:35:00 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ static gboolean	gtk_loop(void *data)
 			if (gtk_cycle(vm))
 				break;
 		}
-		if (IS_SETREMOVE(vm->flag, REDRAW))
-			gtk_image_set_from_pixbuf(GTK_IMAGE(vm->gtk.img), (vm->gtk.pixbuf));
 		while (gtk_events_pending())
 			if (gtk_main_iteration())
 			{
