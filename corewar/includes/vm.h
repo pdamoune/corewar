@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/04 21:19:25 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/04 21:39:20 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,20 @@
 #  error "macro MAX_PLAYERS must be strictly positive"
 # endif
 
-typedef struct		s_op
+typedef struct	s_op	t_op;
+
+struct		s_op
 {
 	char	*label;
 	int		nb_params;
-	int		params[3];
+	int		*params;
 	int		op_code;
 	int		cycle;
 	char	*description;
 	int		ocp;
 	int		index;
-	int		(*instru)();
-}					t_op;
+	int		(*instru)(t_op params);
+};
 
 typedef struct		s_process
 {
