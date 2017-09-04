@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cycle.c                                            :+:      :+:    :+:   */
+/*   do_one_cycle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 23:33:54 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/04 19:15:12 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_op	g_op_tab[18] =
 {
-	{0, 0, {0}, 0, 0, 0, 0, 0, },
+	{0, 0, {0}, 0, 0, 0, 0, 0},
 	{"live", 1, {T_DIR}, &op_live, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, &op_ld, 5, "load", 1, 0},
 	{"st", 2, {T_REG, T_IND | T_REG}, &op_st, 5, "store", 1, 0},
@@ -55,7 +55,15 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	i = -1;
 	while (++i < p->op.nb_params)
 		args[i] = get_value_from_area(vm, p, type[i], &pc_inc);
+
+		DG("{eoc}\np->pc %d\np->carry %d\np->id_player %d\np->nb_cycle_before_exec %d\n", p->pc, p->carry, p->id_player, p->nb_cycle_before_exec);
+	DG("{eoc}\np->op.label %s\np->op.nb_params %d\np->op.cycle %d\np->op.index %d\n", p->op.label, p->op.nb_params, p->op.cycle, p->op.index);
+	// check_args(vm, args[i], p->op.instru[p->op.ocp], g_op_tab[p->op.ocp]);
+	//
+	// p->op = g_op_tab[(unsigned)vm->area[p->pc]];
+	//
 	(void)args;
+
 	//TODO use check if args are type compatible & execute
 	DG("not yet full implemented");
 	DG("make a pc jump of %d", pc_inc);
@@ -70,7 +78,8 @@ static int		init_instruction(t_vm *vm, t_process *p)
 	{
 		do_instruction(vm, p);
 	}
-	else if (p->nb_cycle_before_exec == -1) // time to check if new op is available
+	//TODO pourquoi mettre un if a la place du else if ?
+	if (p->nb_cycle_before_exec == -1) // time to check if new op is available
 	{
 		if (vm->area[p->pc] < 1 || vm->area[p->pc] > 16) // n est pas une instruction
 		{
@@ -80,7 +89,11 @@ static int		init_instruction(t_vm *vm, t_process *p)
 			return (0);
 		}
 		p->op = g_op_tab[(unsigned)vm->area[p->pc]];
-		p->nb_cycle_before_exec = p->op.cycle - 1;
+		// p->nb_cycle_before_exec = p->op.cycle - 1;
+
+		// Decommenter la ligne precedente et commenter la suivante pour avoir
+		// les vrai nb_cycle_before_exec.
+		p->nb_cycle_before_exec = 1;
 	}
 	return (0);
 	/*
@@ -111,7 +124,7 @@ int				do_one_cycle(t_vm *vm)
 	{
 		pc = &(process->pc);
 		if (IS_UNSET(vm->flag, GRAPHIC))
-			ft_printf("=== %d\n", *pc);
+			DG("IS_UNSET, pc = %d, nb_cycle_before_exec = %d", *pc, process->nb_cycle_before_exec);
 		init_instruction(vm, process);
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)

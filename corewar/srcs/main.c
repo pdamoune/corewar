@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/04 18:35:00 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/04 19:14:25 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	console_run(t_vm *vm)
 	DG("START");
 	while (IS_UNSET(vm->flag, STOP))
 	{
-		display(vm);
+		// display(vm);
 		sleep (1);
 		ret = do_one_cycle(vm);
 		// display(vm);
