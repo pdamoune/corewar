@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 19:26:14 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/04 21:21:12 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,33 @@ t_op	g_op_tab[18] =
 	{0, 0, {0}, 0, 0, 0, 0, 0, 0}
 };
 
-int		check_args(t_vm *vm, t_op op, int *args)
+int		check_args(t_vm *vm, t_op op, int *type, unsigned *args)
 {
-	(void)&vm;
-	ft_printf("args[0] : %0.8b\n", args[0]);
-	ft_printf("args[1] : %d\n", args[1]);
-	ft_printf("args[2] : %d\n", args[2]);
+	int		i;
+
+	i = -1;
+	while (++i < MAX_ARGS_NUMBER)
+	{
+		// if (type[i] == T_REG && args[i] > )
+	}
+	ft_printf("args[0] : %0.32b\n", args[0]);
+	ft_printf("args[1] : %0.32b\n", args[1]);
+	ft_printf("args[2] : %0.32b\n", args[2]);
 	// ft_printf("args[3] : %d\n", args[3]);
 
 	ft_printf("op.label : %s\n", op.label);
 	ft_printf("op.nb_params : %d\n", op.nb_params);
-	ft_printf("op.params[0] : %d\n", op.params[0]);
-	ft_printf("op.params[1] : %d\n", op.params[1]);
-	ft_printf("op.params[2] : %d\n", op.params[2]);
+	ft_printf("op.params[0] : %0.8b\n", op.params[0]);
+	ft_printf("op.params[1] : %0.8b\n", op.params[1]);
+	ft_printf("op.params[2] : %0.8b\n", op.params[2]);
 	ft_printf("op.op_code : %d\n", op.op_code);
 	ft_printf("op.cycle : %d\n", op.cycle);
 	ft_printf("op.description : %s\n", op.description);
 	ft_printf("op.ocp : %d\n", op.ocp);
 	ft_printf("op.index : %d\n", op.index);
 	ft_printf("op.instru : %p\n", op.instru);
-
+	(void)&vm;
+(void)&type;
 	return (0);
 }
 
@@ -79,10 +86,8 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	i = -1;
 	while (++i < p->op.nb_params)
 		args[i] = get_value_from_area(vm, p, type[i], &pc_inc);
-
-	check_args(vm, p->op, args);
-	//
-	// p->op = g_op_tab[(unsigned)vm->area[p->pc]];
+	check_args(vm, p->op, type, (unsigned *)args);
+	p->op = g_op_tab[(unsigned)vm->area[p->pc]];
 	//
 	(void)args;
 

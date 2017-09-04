@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 15:58:57 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 16:19:32 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/04 18:48:18 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int			erase_pc(t_vm *vm, int at)
 {
-	DG("DD1111111111111111");
+	DG("%d", at);
 	return (draw_underline(vm, at, COLOR_WHITE));
 }
