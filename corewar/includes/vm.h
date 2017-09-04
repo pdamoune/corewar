@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/04 17:32:30 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/04 19:21:46 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ typedef struct		s_op
 	char	*label;
 	int		nb_params;
 	int		params[3];
-	// int		op_code;
-	int		(*instru)();
+	int		op_code;
 	int		cycle;
 	char	*description;
 	int		ocp;
 	int		index;
+	int		(*instru)();
 }					t_op;
 
 typedef struct		s_process

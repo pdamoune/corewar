@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 18:17:04 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/04 19:26:14 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,55 @@
 
 t_op	g_op_tab[18] =
 {
-	{0, 0, {0}, 0, 0, 0, 0, 0},
-	{"live", 1, {T_DIR}, &op_live, 10, "alive", 0, 0},
-	{"ld", 2, {T_DIR | T_IND, T_REG}, &op_ld, 5, "load", 1, 0},
-	{"st", 2, {T_REG, T_IND | T_REG}, &op_st, 5, "store", 1, 0},
-	{"add", 3, {T_REG, T_REG, T_REG}, &op_add, 10, "addition", 1, 0},
-	{"sub", 3, {T_REG, T_REG, T_REG}, &op_sub, 10, "soustraction", 1, 0},
-	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, &op_and, 6,
-		"et (and  r1, r2, r3   r1&r2 -> r3", 1, 0},
-	{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, &op_or, 6,
-		"ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0},
-	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, &op_xor, 6,
-		"ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0},
-	{"zjmp", 1, {T_DIR}, &op_zjmp, 20, "jump if zero", 0, 1},
-	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, &op_ldi, 25,
-		"load index", 1, 1},
-	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, &op_sti, 25,
-		"store index", 1, 1},
-	{"fork", 1, {T_DIR}, &op_fork, 800, "fork", 0, 1},
-	{"lld", 2, {T_DIR | T_IND, T_REG}, &op_lld, 10, "long load", 1, 0},
-	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, &op_lldi, 50,
-		"long load index", 1, 1},
-	{"lfork", 1, {T_DIR}, &op_lfork, 1000, "long fork", 0, 1},
-	{"aff", 1, {T_REG}, &op_aff, 2, "aff", 1, 0},
-	{0, 0, {0}, 0, 0, 0, 0, 0}
+	{0, 0, {0}, 0, 0, 0, 0, 0, 0},
+	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0, &op_live},
+	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0, &op_ld},
+	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0, &op_st},
+	{"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 1, 0, &op_add},
+	{"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction", 1, 0, &op_sub},
+	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6,
+		"et (and  r1, r2, r3   r1&r2 -> r3", 1, 0, &op_and},
+	{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 7, 6,
+		"ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0, &op_or},
+	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6,
+		"ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0, &op_xor},
+	{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero", 0, 1, &op_zjmp},
+	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
+		"load index", 1, 1, &op_ldi},
+	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
+		"store index", 1, 1, &op_sti},
+	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 1, &op_fork},
+	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0, &op_lld},
+	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
+		"long load index", 1, 1, &op_lldi},
+	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1, &op_lfork},
+	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0, &op_aff},
+	{0, 0, {0}, 0, 0, 0, 0, 0, 0}
 };
+
+int		check_args(t_vm *vm, t_op op, int *args)
+{
+	(void)&vm;
+	ft_printf("args[0] : %0.8b\n", args[0]);
+	ft_printf("args[1] : %d\n", args[1]);
+	ft_printf("args[2] : %d\n", args[2]);
+	// ft_printf("args[3] : %d\n", args[3]);
+
+	ft_printf("op.label : %s\n", op.label);
+	ft_printf("op.nb_params : %d\n", op.nb_params);
+	ft_printf("op.params[0] : %d\n", op.params[0]);
+	ft_printf("op.params[1] : %d\n", op.params[1]);
+	ft_printf("op.params[2] : %d\n", op.params[2]);
+	ft_printf("op.op_code : %d\n", op.op_code);
+	ft_printf("op.cycle : %d\n", op.cycle);
+	ft_printf("op.description : %s\n", op.description);
+	ft_printf("op.ocp : %d\n", op.ocp);
+	ft_printf("op.index : %d\n", op.index);
+	ft_printf("op.instru : %p\n", op.instru);
+
+	return (0);
+}
+
 
 static int		do_instruction(t_vm *vm, t_process *p)
 {
@@ -56,9 +80,7 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	while (++i < p->op.nb_params)
 		args[i] = get_value_from_area(vm, p, type[i], &pc_inc);
 
-		DG("{eoc}\np->pc %d\np->carry %d\np->id_player %d\np->nb_cycle_before_exec %d\n", p->pc, p->carry, p->id_player, p->nb_cycle_before_exec);
-	DG("{eoc}\np->op.label %s\np->op.nb_params %d\np->op.cycle %d\np->op.index %d\n", p->op.label, p->op.nb_params, p->op.cycle, p->op.index);
-	// check_args(vm, args[i], p->op.instru[p->op.ocp], g_op_tab[p->op.ocp]);
+	check_args(vm, p->op, args);
 	//
 	// p->op = g_op_tab[(unsigned)vm->area[p->pc]];
 	//
@@ -78,7 +100,7 @@ static int		init_instruction(t_vm *vm, t_process *p)
 	{
 		do_instruction(vm, p);
 	}
-	if (p->nb_cycle_before_exec == -1) // time to check if new op is available
+	else if (p->nb_cycle_before_exec == -1) // time to check if new op is available
 	{
 		if (vm->area[p->pc] < 1 || vm->area[p->pc] > 16) // n est pas une instruction
 		{
