@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/04 00:02:05 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/04 17:34:32 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	console_run(t_vm *vm)
 	DG("START");
 	while (IS_UNSET(vm->flag, STOP))
 	{
-		display(vm);
+		// display(vm);
 		sleep (1);
 		ret = do_one_cycle(vm);
 		// display(vm);
