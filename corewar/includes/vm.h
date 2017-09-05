@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/04 21:39:20 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 10:51:36 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ struct		s_op
 {
 	char	*label;
 	int		nb_params;
-	int		*params;
+	int		params[MAX_ARGS_NUMBER];
 	int		op_code;
 	int		cycle;
 	char	*description;
