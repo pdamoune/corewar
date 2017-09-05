@@ -6,15 +6,15 @@
 /*   By: philippe <philippe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:30 by philippe          #+#    #+#             */
-/*   Updated: 2017/09/04 17:34:48 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:23:29 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int		op_sti(t_op param)
+int		op_sti(t_vm *vm, t_process *process, t_op *op)
 {
-	(void)&param;
-	DG("Coucou");
+	(void)&op;(void)&vm;(void)&process;
+	DG("<-");
 	return (0);
 }

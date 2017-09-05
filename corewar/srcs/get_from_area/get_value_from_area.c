@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 19:01:09 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 21:18:07 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 15:33:23 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ static int		get_int_from_area(t_vm *vm, t_process *p, int size, int *pc_inc)
 	while (++i < size)
 		ret = (ret << 8) | vm->area[p->pc + *pc_inc + i];
 	*pc_inc += size;
-	// TODO - 1 because pc_inc is to jump to next cmd
-	// ret = vm->area[p->pc + *pc_inc - 1];// - 1 because pc_inc is to jump to next cmd
-	// i = 0;//i put 0 to iter one less because first value is already get
-	// while (++i < size)
-	// 	ret = (ret << 8) | vm->area[p->pc + *pc_inc + i - 1];
 	return (ret);
 }
 

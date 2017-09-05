@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 18:40:13 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:03:01 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ static int	init_process_players(t_vm *vm, t_file *file, int players)
 				return (ERR_COR("malloc failed"));
 			new_process->pc = file[i].pc;
 			new_process->id_player = ++id_player;
+			new_process->r[1][REG_SIZE - 1] = id_player;
+			// TODO
+			/*
+			** ajout de l id player dans le registre r1.
+			** Verifier lorsque REG_SIZE est inferieur a 4
+			** si cela fonctionne aussi
+			*/
 			list_add(&(new_process->lx), &(vm->process));
 		}
 	return (0);
@@ -80,6 +87,9 @@ int			init_vm(t_vm *vm, int *ac, char ***av)
 	if (IS_SET(vm->flag, GRAPHIC))
 		gtk_init_env(ac, av, vm);
 	if (IS_UNSET(vm->flag, GRAPHIC))
-		display(vm);
+	{
+		;
+		// display(vm);
+	}
 	return (0);
 }

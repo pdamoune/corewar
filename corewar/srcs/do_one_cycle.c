@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 21:41:03 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:23:55 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,40 @@ t_op	g_op_tab[18] =
 	{0, 0, {0}, 0, 0, 0, 0, 0, 0}
 };
 
-int		check_args(t_vm *vm, int *type, unsigned *args)
+int		check_args(t_vm *vm, t_process *p, int *type, unsigned *args)
 {
 	int		i;
+	t_op *op;
 
+	(void)&vm; // vm ne sert a rien mais tu en a besoin je crois
+	op = &p->op;
 	i = -1;
-	while (++i < MAX_ARGS_NUMBER)
+	while (++i < p->op.nb_params)
 	{
 		if (type[i] == T_REG && args[i] > REG_NUMBER)
 			return (DG("Invalid register"));
+		op->params[i] = args[i];
 	}
-	//
-	// ft_printf("args[0] : %0.32b\n", args[0]);
-	// ft_printf("args[1] : %0.32b\n", args[1]);
-	// ft_printf("args[2] : %0.32b\n", args[2]);
-	// // ft_printf("args[3] : %d\n", args[3]);
-	//
-	// ft_printf("op.label : %s\n", op.label);
-	// ft_printf("op.nb_params : %d\n", op.nb_params);
-	// ft_printf("op.params[0] : %0.8b\n", op.params[0]);
-	// ft_printf("op.params[1] : %0.8b\n", op.params[1]);
-	// ft_printf("op.params[2] : %0.8b\n", op.params[2]);
-	// ft_printf("op.op_code : %d\n", op.op_code);
-	// ft_printf("op.cycle : %d\n", op.cycle);
-	// ft_printf("op.description : %s\n", op.description);
-	// ft_printf("op.ocp : %d\n", op.ocp);
-	// ft_printf("op.index : %d\n", op.index);
-	// ft_printf("op.instru : %p\n", op.instru);
-	(void)&vm;
-	(void)&type;
+
+	ft_printf("args[0] : %0.32b\n", args[0]);
+	ft_printf("args[1] : %0.32b\n", args[1]);
+	ft_printf("args[2] : %0.32b\n", args[2]);
+	ft_printf("type[0] : %0.32b\n", type[0]);
+	ft_printf("type[1] : %0.32b\n", type[1]);
+	ft_printf("type[2] : %0.32b\n", type[2]);
+
+	ft_printf("op.nb_params : %d\n", op->nb_params);
+	ft_printf("op.params[0] : %0.8b\n", op->params[0]);
+	ft_printf("op.params[1] : %0.8b\n", op->params[1]);
+	ft_printf("op.params[2] : %0.8b\n", op->params[2]);
+
+	ft_printf("op.label : %s\n", op->label);
+	ft_printf("op.op_code : %d\n", op->op_code);
+	ft_printf("op.cycle : %d\n", op->cycle);
+	ft_printf("op.description : %s\n", op->description);
+	ft_printf("op.ocp : %d\n", op->ocp);
+	ft_printf("op.index : %d\n", op->index);
+	ft_printf("op.instru : %p\n", op->instru);
 	return (0);
 }
 
@@ -88,15 +93,11 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	i = -1;
 	while (++i < p->op.nb_params)
 		args[i] = get_value_from_area(vm, p, type[i], &pc_inc);
-	if (check_args(vm, type, (unsigned *)args)) //TODO check if args are type compatible others exceptions
+	if (check_args(vm, p, type, (unsigned *)args)) //TODO check if args are type compatible others exceptions
 		return (DG("Next process"));
 
-	/* TODO Check if p->op is really usefull.
-	** 
-	** p->op = g_op_tab[(unsigned)vm->area[p->pc]];
-	** 	p->params = args;
-	** 	p->op.instru(p->op, args);
-	*/
+	p->op.instru(vm, p, &p->op); // sending to instruction function
+
 	DG("not yet full implemented");
 	DG("make a pc jump of %d", pc_inc);
 	p->pc = move_pc(vm, p->pc, pc_inc);
@@ -127,23 +128,6 @@ static int		init_instruction(t_vm *vm, t_process *p)
 		p->nb_cycle_before_exec = 1;
 	}
 	return (0);
-	/*
-	char	*area;
-	(void)&r;
-	(void)&carry;
-	(void)&pc;
-	area = vm->area;
-	if (!area[*pc] || (unsigned)area[*pc] > 16) // n est pas une instruction
-	{
-		*pc = (!*pc || (*pc % MEM_SIZE) ? (*pc) + 1 : 0);
-		return (0);
-	}
-	// ft_printf("area pc = %x\n", area[*pc]);
-	// // DG("\narea[*pc % 16] = %hh.2x\nfonction : %s\n", area[*pc % 16], g_op_tab[(int)area[*pc % 16]].label);
-	g_op_tab[(short)area[*pc]].instru(g_op_tab[(int)area[*pc]]);
-	*pc = (!*pc || (*pc % MEM_SIZE) ? *pc + 1 : 0);
-	return (0);
-	*/
 }
 
 int				do_one_cycle(t_vm *vm)

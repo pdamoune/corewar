@@ -6,13 +6,13 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 19:00:21 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/04 19:20:51 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:18:59 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-int		check_arg(vm, t_op op, int *args)
+int		check_arg(vm, t_op *op, int *args)
 {
 	ft_printf("args[0] %d\n", arg[0]);
 	ft_printf("args[1] %d\n", arg[1]);

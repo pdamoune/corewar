@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/05 10:51:36 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:22:45 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@
 #  error "macro MAX_PLAYERS must be strictly positive"
 # endif
 
-typedef struct	s_op	t_op;
+typedef struct	s_op		t_op;
+typedef struct	s_process	t_process;
 
 struct		s_op
 {
@@ -54,10 +55,10 @@ struct		s_op
 	char	*description;
 	int		ocp;
 	int		index;
-	int		(*instru)(t_op params);
+	int		(*instru)(t_vm *vm, t_process *process, t_op *op);
 };
 
-typedef struct		s_process
+struct		s_process
 {
 	int				pc;
 	char			r[REG_NUMBER + 1][REG_SIZE];
@@ -67,7 +68,7 @@ typedef struct		s_process
 	t_op			op;
 	int				nb_cycle_before_exec;
 	t_lx			lx;
-}					t_process;
+};
 
 typedef struct		s_player
 {
@@ -155,22 +156,22 @@ int		init_data(int fd, t_header *header);
 ** Instructions.
 */
 
-int		op_live(t_op param);
-int		op_ld(t_op param);
-int		op_st(t_op param);
-int		op_add(t_op param);
-int		op_sub(t_op param);
-int		op_and(t_op param);
-int		op_or(t_op param);
-int		op_xor(t_op param);
-int		op_zjmp(t_op param);
-int		op_ldi(t_op param);
-int		op_sti(t_op param);
-int		op_fork(t_op param);
-int		op_lld(t_op param);
-int		op_lldi(t_op param);
-int		op_lfork(t_op param);
-int		op_aff(t_op param);
+int		op_live(t_vm *vm, t_process *process, t_op *op);
+int		op_ld(t_vm *vm, t_process *process, t_op *op);
+int		op_st(t_vm *vm, t_process *process, t_op *op);
+int		op_add(t_vm *vm, t_process *process, t_op *op);
+int		op_sub(t_vm *vm, t_process *process, t_op *op);
+int		op_and(t_vm *vm, t_process *process, t_op *op);
+int		op_or(t_vm *vm, t_process *process, t_op *op);
+int		op_xor(t_vm *vm, t_process *process, t_op *op);
+int		op_zjmp(t_vm *vm, t_process *process, t_op *op);
+int		op_ldi(t_vm *vm, t_process *process, t_op *op);
+int		op_sti(t_vm *vm, t_process *process, t_op *op);
+int		op_fork(t_vm *vm, t_process *process, t_op *op);
+int		op_lld(t_vm *vm, t_process *process, t_op *op);
+int		op_lldi(t_vm *vm, t_process *process, t_op *op);
+int		op_lfork(t_vm *vm, t_process *process, t_op *op);
+int		op_aff(t_vm *vm, t_process *process, t_op *op);
 
 /*
 ** DISPLAY

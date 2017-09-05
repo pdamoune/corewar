@@ -12,9 +12,9 @@
 
 #include "vm.h"
 
-int		op_lfork(t_op param)
+int		op_lfork(t_vm *vm, t_process *process, t_op *op)
 {
-	(void)&param;
+	(void)&op;(void)&vm;(void)&process;
 	DG("");
 	return (0);
 }
