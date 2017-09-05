@@ -27,9 +27,9 @@
 
 #include "vm.h"
 
-int		op_ld(t_vm *vm, t_process *process, t_op *op)
+int		op_ld(t_vm *vm, t_process *process, t_op op, int *args)
 {
 	DG("");
-	(void)&op;(void)&vm;(void)&process;
+	(void)&op;(void)&vm;(void)&process;(void)&args;
 	return (0);
 }

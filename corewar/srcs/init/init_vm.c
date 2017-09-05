@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/05 17:03:01 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 20:50:46 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	init_process_players(t_vm *vm, t_file *file, int players)
 				return (ERR_COR("malloc failed"));
 			new_process->pc = file[i].pc;
 			new_process->id_player = ++id_player;
-			new_process->r[1][REG_SIZE - 1] = id_player;
+			new_process->r[1] = INTREV32(id_player);
 			// TODO
 			/*
 			** ajout de l id player dans le registre r1.

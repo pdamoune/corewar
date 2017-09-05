@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/05 17:22:45 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 20:34:48 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ struct		s_op
 	char	*description;
 	int		ocp;
 	int		index;
-	int		(*instru)(t_vm *vm, t_process *process, t_op *op);
+	int		(*instru)(t_vm *vm, t_process *process, t_op op, int *args);
 };
 
 struct		s_process
 {
 	int				pc;
-	char			r[REG_NUMBER + 1][REG_SIZE];
+	int				r[REG_NUMBER + 1];
 	int				carry;
 	int				id_player;
 	long			last_live;
@@ -156,22 +156,22 @@ int		init_data(int fd, t_header *header);
 ** Instructions.
 */
 
-int		op_live(t_vm *vm, t_process *process, t_op *op);
-int		op_ld(t_vm *vm, t_process *process, t_op *op);
-int		op_st(t_vm *vm, t_process *process, t_op *op);
-int		op_add(t_vm *vm, t_process *process, t_op *op);
-int		op_sub(t_vm *vm, t_process *process, t_op *op);
-int		op_and(t_vm *vm, t_process *process, t_op *op);
-int		op_or(t_vm *vm, t_process *process, t_op *op);
-int		op_xor(t_vm *vm, t_process *process, t_op *op);
-int		op_zjmp(t_vm *vm, t_process *process, t_op *op);
-int		op_ldi(t_vm *vm, t_process *process, t_op *op);
-int		op_sti(t_vm *vm, t_process *process, t_op *op);
-int		op_fork(t_vm *vm, t_process *process, t_op *op);
-int		op_lld(t_vm *vm, t_process *process, t_op *op);
-int		op_lldi(t_vm *vm, t_process *process, t_op *op);
-int		op_lfork(t_vm *vm, t_process *process, t_op *op);
-int		op_aff(t_vm *vm, t_process *process, t_op *op);
+int		op_live(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_ld(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_st(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_add(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_sub(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_and(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_or(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_xor(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_zjmp(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_ldi(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_sti(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_fork(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_lld(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_lldi(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_lfork(t_vm *vm, t_process *process, t_op op, int *args);
+int		op_aff(t_vm *vm, t_process *process, t_op op, int *args);
 
 /*
 ** DISPLAY

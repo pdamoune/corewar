@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/03 13:25:33 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 18:29:43 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,21 +122,24 @@ void 	disp_area(t_vm *vm, char *area)
 	{
 		while (j < 64)
 		{
-			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
+			// if (area[i])
 			{
-				if (i == process->pc)
+				LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
 				{
-					ft_printf("{red}", area[i]);
-					// break;
+					if (i == process->pc)
+					{
+						ft_printf("{red}", area[i]);
+						// break;
+					}
 				}
-			}
-			ft_printf("%0.2hhx ", area[i]);
-			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
-			{
-				if (i == process->pc)
+				ft_printf("%0.2hhx ", area[i]);
+				LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
 				{
-					ft_printf("{eoc}", area[i]);
-					// break;
+					if (i == process->pc)
+					{
+						ft_printf("{eoc}", area[i]);
+						// break;
+					}
 				}
 			}
 			j++;

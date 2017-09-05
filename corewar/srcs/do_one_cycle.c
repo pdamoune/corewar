@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/05 17:23:55 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 18:35:11 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ t_op	g_op_tab[18] =
 	{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero", 0, 1, &op_zjmp},
 	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
 		"load index", 1, 1, &op_ldi},
-	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
+
+	{"sti", 3,
+	{T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG},
+	11, 25,
 		"store index", 1, 1, &op_sti},
+
 	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 1, &op_fork},
 	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0, &op_lld},
 	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
@@ -52,28 +56,9 @@ int		check_args(t_vm *vm, t_process *p, int *type, unsigned *args)
 	{
 		if (type[i] == T_REG && args[i] > REG_NUMBER)
 			return (DG("Invalid register"));
-		op->params[i] = args[i];
+		p->op.params[i] = type[i];
 	}
 
-	ft_printf("args[0] : %0.32b\n", args[0]);
-	ft_printf("args[1] : %0.32b\n", args[1]);
-	ft_printf("args[2] : %0.32b\n", args[2]);
-	ft_printf("type[0] : %0.32b\n", type[0]);
-	ft_printf("type[1] : %0.32b\n", type[1]);
-	ft_printf("type[2] : %0.32b\n", type[2]);
-
-	ft_printf("op.nb_params : %d\n", op->nb_params);
-	ft_printf("op.params[0] : %0.8b\n", op->params[0]);
-	ft_printf("op.params[1] : %0.8b\n", op->params[1]);
-	ft_printf("op.params[2] : %0.8b\n", op->params[2]);
-
-	ft_printf("op.label : %s\n", op->label);
-	ft_printf("op.op_code : %d\n", op->op_code);
-	ft_printf("op.cycle : %d\n", op->cycle);
-	ft_printf("op.description : %s\n", op->description);
-	ft_printf("op.ocp : %d\n", op->ocp);
-	ft_printf("op.index : %d\n", op->index);
-	ft_printf("op.instru : %p\n", op->instru);
 	return (0);
 }
 
@@ -95,8 +80,7 @@ static int		do_instruction(t_vm *vm, t_process *p)
 		args[i] = get_value_from_area(vm, p, type[i], &pc_inc);
 	if (check_args(vm, p, type, (unsigned *)args)) //TODO check if args are type compatible others exceptions
 		return (DG("Next process"));
-
-	p->op.instru(vm, p, &p->op); // sending to instruction function
+	p->op.instru(vm, p, p->op, args); // sending to instruction function
 
 	DG("not yet full implemented");
 	DG("make a pc jump of %d", pc_inc);

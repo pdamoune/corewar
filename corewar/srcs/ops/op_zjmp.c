@@ -12,9 +12,9 @@
 
 #include "vm.h"
 
-int		op_zjmp(t_vm *vm, t_process *process, t_op *op)
+int		op_zjmp(t_vm *vm, t_process *process, t_op op, int *args)
 {
-	(void)&op;(void)&vm;(void)&process;
+	(void)&op;(void)&vm;(void)&process;(void)&args;
 	DG("");
 	return (0);
 }
