@@ -6,15 +6,15 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/09/03 12:51:43 by wescande         ###   ########.fr        #
+#    Updated: 2017/09/05 18:29:04 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	corewar
 
-CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
-MAIN_FLAGS	=	`pkg-config --libs gtk+-3.0`
+CC			?=	gcc
+FLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=undefined
+MAIN_FLAGS	=	
 OBJ_FLAGS	=	`pkg-config --cflags gtk+-3.0`
 
 LEN_NAME	=	`echo $(NAME) |wc -c`
@@ -28,7 +28,7 @@ LIBFT_DIR	=	../libft/
 LIBFT_LIB	=	$(LIBFT_DIR)libft.a
 LIBFT_INC	=	$(LIBFT_DIR)includes/
 
-LIBS		=
+LIBS		=	`pkg-config --libs gtk+-3.0`
 
 SRC_BASE	=	\
 tools/process_del.c\
@@ -98,6 +98,7 @@ INDEX		=	0
 SHELL		=	/bin/bash
 
 all :
+	$(CC) --version
 	@make -C $(LIBFT_DIR)
 	@make -j $(NAME)
 

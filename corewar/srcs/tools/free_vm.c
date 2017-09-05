@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:26:06 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/27 14:36:01 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:21:17 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int		free_vm(t_vm *vm)
 {
-	(void)vm;
+	remove_process(vm);	
 	return (DG("not yet implemented"));
 }

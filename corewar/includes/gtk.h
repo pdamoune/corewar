@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 19:07:52 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 11:39:58 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define N_LINE				(MEM_SIZE / BOX_BY_LINE)
 # define NB_LINE			(N_LINE*BOX_BY_LINE==MEM_SIZE?N_LINE:N_LINE+1)
 # define SQUARE_WIDTH		16
-# define SQUARE_HEIGHT		12
+# define SQUARE_HEIGHT		16
 # define SQUARE_SPA			4
 # define SQUARE_BORDER		2
 

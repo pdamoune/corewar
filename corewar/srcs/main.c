@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/04 19:14:25 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 18:06:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ static gboolean	gtk_loop(void *data)
 		}
 		while (gtk_events_pending())
 			if (gtk_main_iteration())
-			{
-				DG("DETEC OF A QUIT");
 				return (FALSE);
-			}
 	}
 	gtk_main_quit();
 	return (FALSE);
@@ -57,9 +54,9 @@ static int	gtk_run(t_vm *vm)
 {
 	g_idle_add(gtk_loop, vm);
 	gtk_main();
-	DG("SHOULD FREE MEMORY NOW. IF it's not the last message, we could segfault");
-	//TODO free memory here
-	return (0);
+	if (vm->gtk.surface)
+		cairo_surface_destroy (vm->gtk.surface);
+	return (free_vm(vm));
 }
 
 static int	console_run(t_vm *vm)
@@ -88,6 +85,23 @@ static int	console_run(t_vm *vm)
 int		main(int ac, char **av)
 {
 	t_vm	vm;
+	// unsigned int i = 0xff;
+
+	// i = 0xff;
+	// i= i << 26;
+	// DG("%b", i);
+	// i = 0xff;
+	// i= i << 25;
+	// DG("%b", i);
+	// i = 0xff;
+	// i= i << 24;
+	// DG("%b", i);
+	// i = 0xff;
+	// i= i << 23;
+	// DG("%b", i);
+	// DG("%b", 0xff000000);
+	// DG("%b", (unsigned int)0xff << 24);
+	// return (0);
 
 	if (init_vm(&vm, &ac, &av))
 		return (1);

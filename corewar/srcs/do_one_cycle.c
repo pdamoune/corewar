@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 21:41:03 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 10:56:35 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static int		init_instruction(t_vm *vm, t_process *p)
 		{
 			p->pc = move_pc(vm, p->pc, 1);
 			p->nb_cycle_before_exec = 0;
-			DG("area[pc] n est pas une instruction");
+			// DG("area[pc] n est pas une instruction");
 			return (0);
 		}
 		p->op = g_op_tab[(unsigned)vm->area[p->pc]];
