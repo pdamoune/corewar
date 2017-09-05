@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/05 11:39:58 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 22:23:59 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 
 # define GTK_WIDTH			(AREA_WIDTH + 410)
 # define GTK_HEIGHT			1000
+
 
 /*
 ** COLOR
@@ -94,6 +95,7 @@ typedef struct	s_px
 	unsigned long	flag;
 	unsigned short	player;
 	unsigned int	pc;
+	int				is_new:1;
 }				t_px;
 
 typedef struct	s_gtk
@@ -124,6 +126,7 @@ int				draw_px_live(t_vm *vm, int at);
 int				calcul_px(t_vm *vm, int at);
 int				erase_px(t_vm *vm, int at);
 void			cairo_pango_draw_text(t_vm *vm, int at, t_ivec2 pos);
+void			iter_on_px(t_vm *vm);
 
 /*
 ** PC MANAGE

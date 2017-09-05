@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 09:31:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/05 18:32:36 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 22:09:08 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,18 @@ static void draw_px_text(t_vm *vm, cairo_t *cr, int at, t_ivec2 pos)
 {
 	// PangoLayout *layout;
 	// PangoAttrList *attr_list;
+	double	x,y;
 	char 	*txt;
 	cairo_text_extents_t extents;
 	
-	cairo_set_source_rgb(cr, 1., 0., 0.);
+	cairo_set_source_rgb(cr, 0., 0., 0.);
 	ft_asprintf(&txt, "%02hhx", vm->area[at]);
 	cairo_text_extents(cr, txt, &extents);	
-	DG("size text = %fx%f %fx%f", extents.width, extents.height, extents.x_bearing, extents.y_bearing);
-	double x,y;
-	double x2,y2;
 	x = pos.x + SQUARE_WIDTH / 2;
+	x -= ((int)extents.width / 2 + extents.x_bearing);
 	y = pos.y + SQUARE_HEIGHT / 2;
-	x2 = x - ((int)extents.width / 2 + extents.x_bearing);
-	y2 = y - ((int)extents.height / 2 + (int)extents.y_bearing) - 1;
-
-	cairo_move_to(cr, x2, y2 );
+	y -= (((int)extents.height / 2 + (int)extents.y_bearing) - 1);
+	cairo_move_to(cr, x, y);
 	cairo_select_font_face(cr, "Courier", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
 	cairo_set_font_size(cr, 9.0);
 	cairo_show_text(cr, txt);
@@ -98,15 +95,17 @@ int		draw_px_live(t_vm *vm, int at)
 
 int		draw_px(t_vm *vm, int at)
 {
-	return (draw_px_live(vm, at));
 	t_ivec2		pos;
 	cairo_t		*cr;
+	t_color		color;
 	
+	color = px_calc_color(vm, at);
 	cr = cairo_create(vm->gtk.surface);
 	pos.x = ((at % BOX_BY_LINE) * PX_WIDTH + SQUARE_SPA / 2);
 	pos.y = ((at / BOX_BY_LINE) * PX_HEIGHT + SQUARE_SPA / 2);
 	pos.x += SQUARE_BORDER;
 	pos.y += SQUARE_BORDER;
+	cairo_set_source_rgb(cr, color.r, color.g, color.b);
 	cairo_rectangle(cr, pos.x, pos.y,
 						SQUARE_WIDTH, SQUARE_HEIGHT);
 	cairo_fill(cr);
