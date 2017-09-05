@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/05 20:34:48 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/05 21:22:10 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ struct		s_op
 struct		s_process
 {
 	int				pc;
-	int				r[REG_NUMBER + 1];
+	unsigned int	r[REG_NUMBER + 1];
 	int				carry;
 	int				id_player;
 	long			last_live;
