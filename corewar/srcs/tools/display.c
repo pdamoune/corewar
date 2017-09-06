@@ -6,87 +6,78 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/05 18:29:43 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/06 17:26:28 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 # define CLEAR			"\033\143"
 
-void 	display_data(void)
+void 	display_players(t_vm *vm)
 {
 	int fd;
+	int i = 0;
+	t_player *players;
 
 	if ((fd = open("/dev/ttys002", O_WRONLY)) == -1)
 		return ;
+	players = vm->players;
 	ft_dprintf(fd, CLEAR);
-	ft_dprintf(fd, "\n%10c===== DATA =====\n\n", 0);
-	ft_dprintf(fd, "%4c MAX_PLAYERS     : %d\n", 0, MAX_PLAYERS);
-	ft_dprintf(fd, "%4c MEM_SIZE        : %d\n", 0, MEM_SIZE);
-	ft_dprintf(fd, "%4c CHAMP_MAX_SIZE  : %d\n\n", 0, CHAMP_MAX_SIZE);
-	ft_dprintf(fd, "%4c 01  live\n", 0);
-	ft_dprintf(fd, "%4c 02  ld\n", 0);
-	ft_dprintf(fd, "%4c 03  st\n", 0);
-	ft_dprintf(fd, "%4c 04  add\n", 0);
-	ft_dprintf(fd, "%4c 05  sub\n", 0);
-	ft_dprintf(fd, "%4c 06  and\n", 0);
-	ft_dprintf(fd, "%4c 07  or\n", 0);
-	ft_dprintf(fd, "%4c 08  xor\n", 0);
-	ft_dprintf(fd, "%4c 09  zjmp\n", 0);
-	ft_dprintf(fd, "%4c 0a  ldi\n", 0);
-	ft_dprintf(fd, "%4c 0b  sti\n", 0);
-	ft_dprintf(fd, "%4c 0c  fork\n", 0);
-	ft_dprintf(fd, "%4c 0d  lld\n", 0);
-	ft_dprintf(fd, "%4c 0e  lldi\n", 0);
-	ft_dprintf(fd, "%4c 0f  lfork\n", 0);
-	ft_dprintf(fd, "%4c 10  aff\n", 0);
+	ft_dprintf(fd, "\n%10c===== players =====\n\n", 0);
+	while (i < vm->nb_player)
+	{
+		ft_dprintf(fd, "player %d\n", i + 1);
+		ft_dprintf(fd, "   live      : %d\n", players[i].live);
+		ft_dprintf(fd, "   last_live : %d\n\n", players[i].last_live);
+		i++;
+	}
 	close(fd);
 }
 
-void 	disp_prog(int fd, char *prog, unsigned size)
+void 	disp_process(int fd, t_process *process, t_op op)
 {
-	unsigned i = 0;
-	int j = 0;
+	int i = 0;
 
+	(void)&fd;
+	(void)&i;
+	(void)&process;
+	(void)&op;
 	ft_dprintf(fd, CLEAR);
-	while (i < size)
-	{
-		while (i < size && j < 16)
-		{
-			ft_dprintf(fd, "%.2hhx ", prog[i]);
-			i++;
-			j++;
-		}
-		ft_dprintf(fd, "\n");
-		j = 0;
-	}
-}
-
-void 	disp_file(int fd, int fd_prog, t_file *file, t_header *header)
-{
-	static int i = 0;
-
-	ft_dprintf(fd, CLEAR);
-	ft_dprintf(fd, "%4cint          fd      : %d\n", 0, fd);
-	ft_dprintf(fd, "%4cint          fd_prog : %d\n", 0, fd_prog);
-	ft_dprintf(fd, "\n%10c===== t_file file[%d] =====\n\n", 0, i);
+	ft_dprintf(fd, "\n%10c===== Process [%d] =====\n\n", 0, process->pc);
 	ft_dprintf(fd, "{\n");
-	ft_dprintf(fd, "%4cint          is_used      : %d\n", 0, file->is_used);
-	// ft_dprintf(fd, "%4cint          proces       : %p\n", 0, file->process);
-	// ft_dprintf(fd, "%4cchar         id_player    : %d\n", 0, file->id_player);
-	ft_dprintf(fd, "}\n");
-	// ft_dprintf(fd, "%4cint          id_player    : %d\n", 0, file->process->id_player);
-	ft_dprintf(fd, "%4cint          pc           : %d\n", 0, file->pc);
-	// ft_dprintf(fd, "%4cint          carry        : %d\n", 0, file->process->carry);
-	// ft_dprintf(fd, "%4cint          next         : %p\n", 0, file->process->next);
-	ft_dprintf(fd, "%10c===== t_header *header %d =====\n\n", 0, i++);
-	ft_dprintf(fd, "{\n");
-	ft_dprintf(fd, "%4cunsigned     magic      : %x\n", 0, header->magic);
-	ft_dprintf(fd, "%4cchar         prog_name  : %p\n", 0, header->prog_name);
-	ft_dprintf(fd, "%4cunsigned     prog_size  : %d\n", 0, header->prog_size);
-	ft_dprintf(fd, "%4cchar         comment    : %p\n", 0, header->comment);
-	ft_dprintf(fd, "%4cunsigned     prog[0]    : %02x\n", 0, (char)header->prog[0]);
-	ft_dprintf(fd, "}\n");
+	ft_dprintf(fd, "%4cregistre : %d\n", 0);
+	while (++i < REG_NUMBER + 1)
+		if (process->r[i])
+			ft_dprintf(fd, "       r[%d] = %#x | %d\n", i, process->r[i], process->r[i]);
+	ft_dprintf(fd, "%4cint      pc              : %d\n", 0, process->pc);
+	ft_dprintf(fd, "%4cint      carry           : %d\n", 0, process->carry);
+	ft_dprintf(fd, "%4cint      id_player       : %d\n", 0, process->id_player);
+	ft_dprintf(fd, "%4cint      last_live       : %d\n", 0, process->last_live);
+	ft_dprintf(fd, "%4cint      nb_cycle_b_exec : %d\n", 0, process->nb_cycle_before_exec);
+	ft_dprintf(fd, "\n%10c===== op =====\n\n", 0);
+	ft_dprintf(fd, "%4cchar     nb_params : %d\n", 0, process->op.nb_params);
+	int j = -1;
+	while (++j < process->op.nb_params)
+		ft_dprintf(fd, "%4c     params[%d] : %d\n", 0, j, process->op.params[j]);
+	ft_dprintf(fd, "%4cchar     label : %d | %s\n", 0, process->op.op_code, process->op.label);
+	ft_dprintf(fd, "%4cint        cycle : %d\n", 0, process->op.cycle);
+	ft_dprintf(fd, "%4cint        ocp : %d\n", 0, process->op.ocp);
+	ft_dprintf(fd, "%4cint        index : %d\n", 0, process->op.ocp);
+
+
+	// ft_dprintf(fd, "}\n");
+	// // ft_dprintf(fd, "%4cint          id_player    : %d\n", 0, file->process->id_player);
+	// ft_dprintf(fd, "%4cint          pc           : %d\n", 0, file->pc);
+	// // ft_dprintf(fd, "%4cint          carry        : %d\n", 0, file->process->carry);
+	// // ft_dprintf(fd, "%4cint          next         : %p\n", 0, file->process->next);
+	// ft_dprintf(fd, "%10c===== t_header *header %d =====\n\n", 0, i++);
+	// ft_dprintf(fd, "{\n");
+	// ft_dprintf(fd, "%4cunsigned     magic      : %x\n", 0, header->magic);
+	// ft_dprintf(fd, "%4cchar         prog_name  : %p\n", 0, header->prog_name);
+	// ft_dprintf(fd, "%4cunsigned     prog_size  : %d\n", 0, header->prog_size);
+	// ft_dprintf(fd, "%4cchar         comment    : %p\n", 0, header->comment);
+	// ft_dprintf(fd, "%4cunsigned     prog[0]    : %02x\n", 0, (char)header->prog[0]);
+	// ft_dprintf(fd, "}\n");
 	// disp_prog(fd_prog, (char *)header->prog, header->prog_size);
 
 }
@@ -100,13 +91,14 @@ void 	disp_vm(t_vm *vm)
 	ft_dprintf(fd, CLEAR);
 	ft_dprintf(fd, "\n%10c===== {red}t_vm *vm {eoc}=====\n\n", 0);
 	ft_dprintf(fd, "{\n");
-	ft_dprintf(fd, "%4clong int     flag      : %.32b\n", 0, vm->flag);
-	ft_dprintf(fd, "%4cchar         **av_data : %p\n", 0, vm->av_data);
-	ft_dprintf(fd, "%4ct_file       file[4]   : %p\n", 0, vm->file);
-	ft_dprintf(fd, "%4cint          nb_player : %d\n", 0, vm->nb_player);
-	ft_dprintf(fd, "%4cchar         area[MEM] : %p\n", 0, vm->area);
-	ft_dprintf(fd, "%4cint          cycle     : %d\n", 0, vm->cycle);
-	ft_dprintf(fd, "%4cint          cycle_t_d : %d\n", 0, vm->cycle_to_dump);
+	ft_dprintf(fd, "%4clong int flag          : %.32b\n", 0, vm->flag);
+	ft_dprintf(fd, "%4cint      nb_player     : %d\n", 0, vm->nb_player);
+	ft_dprintf(fd, "%4cint      cycle         : %d\n", 0, vm->cycle);
+	ft_dprintf(fd, "%4cint      cycle_to_dump : %d\n", 0, vm->cycle_to_dump);
+	ft_dprintf(fd, "%4cint      cycle_to_die  : %d\n", 0, vm->cycle_to_die);
+	ft_dprintf(fd, "%4cint      last_check    : %d\n", 0, vm->last_check);
+	ft_dprintf(fd, "%4cint      check_count   : %d\n", 0, vm->check_count);
+
 	ft_dprintf(fd, "}\n");
 	close(fd);
 }
@@ -122,26 +114,13 @@ void 	disp_area(t_vm *vm, char *area)
 	{
 		while (j < 64)
 		{
-			// if (area[i])
-			{
-				LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
-				{
-					if (i == process->pc)
-					{
-						ft_printf("{red}", area[i]);
-						// break;
-					}
-				}
-				ft_printf("%0.2hhx ", area[i]);
-				LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
-				{
-					if (i == process->pc)
-					{
-						ft_printf("{eoc}", area[i]);
-						// break;
-					}
-				}
-			}
+			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
+				if (i == process->pc)
+					ft_printf("{red}", area[i]);
+			ft_printf("%0.2hhx ", area[i]);
+			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
+				if (i == process->pc)
+					ft_printf("{eoc}", area[i]);
 			j++;
 			i++;
 		}
@@ -165,16 +144,18 @@ void 	display(t_vm *vm)
 	};
 	int i = -1;
 	// int j = -1;
+	char *line = NULL;
 
+	get_next_line(0, &line);
 	disp_area(vm, vm->area);
 	disp_vm(vm);
-	display_data();
-	while (++i < 4)
+	display_players(vm);
+	t_process	*process;
+
+	LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
 	{
-		if (vm->file[i].is_used)
-		{
-			disp_file(fd[i], fd[i], &vm->file[i], &vm->file[i].header);
-		}
+		++i;
+		disp_process(fd[i], process, process->op);
 	}
 	close(fd[0]);
 	close(fd[1]);
