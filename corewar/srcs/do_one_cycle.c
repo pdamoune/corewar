@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/06 11:15:24 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/06 14:17:45 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,29 +145,28 @@ t_op	g_op_tab[18] =
 	{0, 0, {0}, 0, 0, 0, 0, 0, 0}
 };
 
-int		check_args(t_vm *vm, t_process *p, int *type, unsigned *args)
+static int		check_args(t_vm *vm, t_process *p, unsigned int *type, unsigned int *args)
 {
 	int		i;
-	t_op *op;
 
-	(void)&vm; // vm ne sert a rien mais tu en a besoin je crois
-	op = &p->op;
+	(void)vm; // vm ne sert a rien mais tu en a besoin je crois
 	i = -1;
 	while (++i < p->op.nb_params)
 	{
+		if (IS_UNSET(p->op.params[i], type[i]))
+			return (1);
 		if (type[i] == T_REG && args[i] > REG_NUMBER)
 			return (DG("Invalid register"));
-		p->op.params[i] = type[i];
+		p->op.params[i] = type[i]; // je sais pas si c'est une bonne chose
 	}
-
 	return (0);
 }
 
 
 static int		do_instruction(t_vm *vm, t_process *p)
 {
-	int		type[MAX_ARGS_NUMBER];
-	int		args[MAX_ARGS_NUMBER];
+	unsigned int		type[MAX_ARGS_NUMBER];
+	unsigned int		args[MAX_ARGS_NUMBER];
 	int		pc_inc;
 	int		i;
 
@@ -180,8 +179,11 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	while (++i < p->op.nb_params)
 		args[i] = get_value_from_area(vm, p, type[i], &pc_inc);
 	if (check_args(vm, p, type, (unsigned *)args)) //TODO check if args are type compatible others exceptions
+	{
+		p->pc = move_pc(vm, p->pc, 1);
 		return (DG("Next process"));
-	p->op.instru(vm, p, p->op, args); // sending to instruction function
+	}
+	p->op.instru(vm, p, args); // sending to instruction function
 
 	DG("not yet full implemented");
 	DG("make a pc jump of %d", pc_inc);

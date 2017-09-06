@@ -88,11 +88,12 @@ gtk/create/create_gtk.c\
 gtk/create/create_menu.c\
 gtk/create/create_widget.c\
 gtk/gtk_init.c\
-get_from_area/get_type_from_area.c\
-get_from_area/get_value_from_area.c\
 check/check_cycle.c\
 check/check_arg.c\
-check/check_live.c
+check/check_live.c\
+area_interface/get_type_from_area.c\
+area_interface/get_value_from_area.c\
+area_interface/set_value_in_area.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

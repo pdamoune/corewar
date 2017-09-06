@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:45:35 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/29 19:25:51 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/06 14:02:13 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 
 #include "vm.h"
 
-int		op_ld(t_vm *vm, t_process *process, t_op op, int *args)
+int		op_ld(t_vm *vm, t_process *process, unsigned int *args)
 {
 	DG("");
-	(void)&op;(void)&vm;(void)&process;(void)&args;
+	(void)&vm;(void)&process;(void)&args;
 	return (0);
 }

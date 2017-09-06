@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 18:04:48 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/05 20:21:03 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/06 14:02:37 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 
 #include "vm.h"
 
-int		op_st(t_vm *vm, t_process *process, t_op op, int *args)
+int		op_st(t_vm *vm, t_process *process, unsigned int *args)
 {
-	(void)&op;(void)&vm;(void)&process;(void)&args;
+	(void)&vm;(void)&process;(void)&args;
 	DG("");
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 19:01:52 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 20:46:18 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/06 14:03:34 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void		get_type_from_area(t_vm *vm, t_process *p, int *type)
+void		get_type_from_area(t_vm *vm, t_process *p, unsigned int *type)
 {
 	int				i;
 	unsigned char	ocp;
