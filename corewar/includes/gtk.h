@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 19:07:52 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/06 10:44:54 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define N_LINE				(MEM_SIZE / BOX_BY_LINE)
 # define NB_LINE			(N_LINE*BOX_BY_LINE==MEM_SIZE?N_LINE:N_LINE+1)
 # define SQUARE_WIDTH		16
-# define SQUARE_HEIGHT		12
+# define SQUARE_HEIGHT		16
 # define SQUARE_SPA			4
 # define SQUARE_BORDER		2
 
@@ -38,6 +38,7 @@
 
 # define GTK_WIDTH			(AREA_WIDTH + 410)
 # define GTK_HEIGHT			1000
+
 
 /*
 ** COLOR
@@ -94,6 +95,7 @@ typedef struct	s_px
 	unsigned long	flag;
 	unsigned short	player;
 	unsigned int	pc;
+	int				is_new:1;
 }				t_px;
 
 typedef struct	s_gtk
@@ -124,6 +126,7 @@ int				draw_px_live(t_vm *vm, int at);
 int				calcul_px(t_vm *vm, int at);
 int				erase_px(t_vm *vm, int at);
 void			cairo_pango_draw_text(t_vm *vm, int at, t_ivec2 pos);
+void			iter_on_px(t_vm *vm);
 
 /*
 ** PC MANAGE
@@ -159,5 +162,7 @@ gboolean		cb_play(GtkWidget *widget, t_vm *vm);
 gboolean		cb_quit(GtkWidget *widget, gpointer data);
 gboolean		cb_step(GtkWidget *widget, GdkEvent  *event, t_vm *vm);
 gboolean		cb_draw (GtkWidget *widget, cairo_t *cr, t_vm *vm);
+gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
+									t_vm *vm);
 
 #endif

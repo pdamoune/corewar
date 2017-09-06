@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/05 21:22:10 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/06 11:15:26 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	get_type_from_area(t_vm *vm, t_process *p, int *type);
 
 int		usage(char *name);
 int		free_vm(t_vm *vm);
-void	remove_one_process(t_vm *vm, t_process *process);
+void	remove_process(t_vm *vm);
 void	process_del(t_vm *vm, t_process *process);
 int		move_pc(t_vm *vm, int origin, int len);
 

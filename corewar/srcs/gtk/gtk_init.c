@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 18:29:14 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 18:32:25 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:17:41 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			gtk_init_area(t_vm *vm)
 	int		j;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < MAX_PLAYERS)
 	{
 		if (!vm->file[i].is_used)
 			continue ;

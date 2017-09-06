@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/04 19:14:25 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/06 10:33:18 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int		gtk_cycle(t_vm *vm)
 	if (IS_SETREMOVE(vm->flag, STEP) || (vm->gtk.time - vm->gtk.oldtime) * vm->gtk.speed > 1000000)
 	{
 		DG("Start cycle %lu:", vm->cycle);
+		iter_on_px(vm);
 		if (do_one_cycle(vm))
 			return (1);
 		ft_itoa_nomalloc(vm->cycle, txt);
@@ -44,10 +45,7 @@ static gboolean	gtk_loop(void *data)
 		}
 		while (gtk_events_pending())
 			if (gtk_main_iteration())
-			{
-				DG("DETEC OF A QUIT");
 				return (FALSE);
-			}
 	}
 	gtk_main_quit();
 	return (FALSE);
@@ -57,9 +55,9 @@ static int	gtk_run(t_vm *vm)
 {
 	g_idle_add(gtk_loop, vm);
 	gtk_main();
-	DG("SHOULD FREE MEMORY NOW. IF it's not the last message, we could segfault");
-	//TODO free memory here
-	return (0);
+	if (vm->gtk.surface)
+		cairo_surface_destroy(vm->gtk.surface);
+	return (free_vm(vm));
 }
 
 static int	console_run(t_vm *vm)

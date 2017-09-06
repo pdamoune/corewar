@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 19:01:09 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/05 15:33:23 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/06 11:16:03 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int		get_int_from_area(t_vm *vm, t_process *p, int size, int *pc_inc)
 {
-	int		ret;
-	int		i;
+	unsigned int		ret;
+	int					i;
 
-	ret = vm->area[p->pc + *pc_inc];
-	i = 0;
+	ret = 0;
+	i = -1;
 	while (++i < size)
 		ret = (ret << 8) | vm->area[p->pc + *pc_inc + i];
 	*pc_inc += size;

@@ -6,15 +6,15 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/09/03 12:51:43 by wescande         ###   ########.fr        #
+#    Updated: 2017/09/06 10:23:45 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	corewar
 
-CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
-MAIN_FLAGS	=	`pkg-config --libs gtk+-3.0`
+CC			?=	gcc
+FLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=undefined
+MAIN_FLAGS	=	
 OBJ_FLAGS	=	`pkg-config --cflags gtk+-3.0`
 
 LEN_NAME	=	`echo $(NAME) |wc -c`
@@ -28,7 +28,7 @@ LIBFT_DIR	=	../libft/
 LIBFT_LIB	=	$(LIBFT_DIR)libft.a
 LIBFT_INC	=	$(LIBFT_DIR)includes/
 
-LIBS		=
+LIBS		=	`pkg-config --libs gtk+-3.0`
 
 SRC_BASE	=	\
 tools/process_del.c\
@@ -63,6 +63,7 @@ ops/op_ldi.c\
 main.c\
 display/dump.c\
 display/display_win.c\
+gtk/px_manage/iter_on_px.c\
 gtk/px_manage/erase_px.c\
 gtk/px_manage/init_px.c\
 gtk/px_manage/calcul_px.c\
@@ -72,6 +73,7 @@ gtk/pc_manage/init_pc.c\
 gtk/pc_manage/erase_pc.c\
 gtk/pc_manage/draw_pc.c\
 gtk/callbacks/cb_key_event_release.c\
+gtk/callbacks/cb_configure_event.c\
 gtk/callbacks/cb_mouse.c\
 gtk/callbacks/cb_speed.c\
 gtk/callbacks/cb_play.c\
@@ -89,6 +91,7 @@ gtk/gtk_init.c\
 get_from_area/get_type_from_area.c\
 get_from_area/get_value_from_area.c\
 check/check_cycle.c\
+check/check_arg.c\
 check/check_live.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))

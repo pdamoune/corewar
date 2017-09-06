@@ -6,40 +6,11 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:35:17 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 18:33:39 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/06 10:54:15 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
-
-static void clear_surface (t_vm *vm)
-{
-  cairo_t *cr;
-
-  cr = cairo_create (vm->gtk.surface);
-
-  cairo_set_source_rgb (cr, 1, 1, 1);
-  cairo_paint (cr);
-
-  cairo_destroy (cr);
-}
-
-static gboolean cb_configure_event(GtkWidget *widget, GdkEventConfigure *event, t_vm *vm)
-{
-	DG(" is this usefull ?");
-	(void)event;
-  if (vm->gtk.surface)
-    cairo_surface_destroy (vm->gtk.surface);
-
-	vm->gtk.surface = gdk_window_create_similar_surface(gtk_widget_get_window (widget), CAIRO_CONTENT_COLOR, gtk_widget_get_allocated_width (widget), gtk_widget_get_allocated_height (widget));
-
-  /* Initialize the surface to white */
-  clear_surface (vm);
-
-  /* We've handled the configure event, no need for further processing. */
-  return TRUE;
-}
-
 
 static GtkWidget		*create_area(t_vm *vm)
 {
@@ -50,7 +21,7 @@ static GtkWidget		*create_area(t_vm *vm)
 	vm->gtk.draw = gtk_drawing_area_new();
 	gtk_widget_set_size_request(vm->gtk.draw, AREA_WIDTH, AREA_HEIGHT);
 	gtk_container_add(GTK_CONTAINER(scrol), vm->gtk.draw);
-	gtk_widget_add_events(vm->gtk.draw, gtk_widget_get_events (vm->gtk.draw) | GDK_POINTER_MOTION_MASK);
+	gtk_widget_add_events(vm->gtk.draw, gtk_widget_get_events (vm->gtk.draw) | GDK_POINTER_MOTION_MASK | GDK_LEAVE_NOTIFY_MASK);
 	g_signal_connect(G_OBJECT(vm->gtk.draw), "draw", G_CALLBACK(cb_draw), vm);
 	g_signal_connect(G_OBJECT(vm->gtk.draw), "configure-event", G_CALLBACK(cb_configure_event), vm);
 	g_signal_connect(G_OBJECT(vm->gtk.draw), "motion-notify-event", G_CALLBACK(cb_mouse), vm);
@@ -92,9 +63,9 @@ static GtkWidget		*create_main_box(t_vm *vm)
 	GtkWidget *hbox;
 
 	win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_position(GTK_WINDOW(win), GTK_WIN_POS_CENTER_ALWAYS);
+	gtk_window_set_position(GTK_WINDOW(win), GTK_WIN_POS_CENTER);
 	// gtk_window_set_decorated(GTK_WINDOW(win), FALSE);
-	gtk_window_set_default_size(GTK_WINDOW(win), GTK_WIDTH, GTK_HEIGHT);
+	// gtk_window_set_default_size(GTK_WINDOW(win), GTK_WIDTH, GTK_HEIGHT);
 	gtk_window_set_title(GTK_WINDOW(win), "~   C . O . R . E . W . A . R   ~");
 	g_signal_connect(G_OBJECT(win), "destroy", G_CALLBACK(cb_quit), win);
 	g_signal_connect(G_OBJECT(win), "key-release-event",

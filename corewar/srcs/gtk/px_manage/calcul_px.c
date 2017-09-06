@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 09:14:29 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 19:07:17 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:15:11 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int		calcul_px(t_vm *vm, int at)
 	if (IS_UNSET(vm->gtk.px[at].flag, USED))
 		return (erase_px(vm, at));
 	i = -1;
-	while (g_draw_px[i].id)
-	{
+	while (g_draw_px[++i].id)
 		if (IS_SET(vm->gtk.px[at].flag, g_draw_px[i].id))
 			return (g_draw_px[i].f(vm, at));
-	}
 	return (draw_px(vm, at));
 }
