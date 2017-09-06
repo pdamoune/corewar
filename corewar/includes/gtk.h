@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/05 22:23:59 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/06 10:44:54 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,5 +162,7 @@ gboolean		cb_play(GtkWidget *widget, t_vm *vm);
 gboolean		cb_quit(GtkWidget *widget, gpointer data);
 gboolean		cb_step(GtkWidget *widget, GdkEvent  *event, t_vm *vm);
 gboolean		cb_draw (GtkWidget *widget, cairo_t *cr, t_vm *vm);
+gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
+									t_vm *vm);
 
 #endif

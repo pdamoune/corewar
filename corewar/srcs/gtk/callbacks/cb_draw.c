@@ -6,13 +6,13 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 18:28:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 18:34:02 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/06 10:55:19 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-gboolean		cb_draw (GtkWidget *widget, cairo_t *cr, t_vm *vm)
+gboolean		cb_draw(GtkWidget *widget, cairo_t *cr, t_vm *vm)
 {
 	static int started = 0;
 
@@ -22,7 +22,7 @@ gboolean		cb_draw (GtkWidget *widget, cairo_t *cr, t_vm *vm)
 		started = 1;
 		gtk_init_area(vm);
 	}
-	cairo_set_source_surface (cr, vm->gtk.surface, 0, 0);
-	cairo_paint (cr);
+	cairo_set_source_surface(cr, vm->gtk.surface, 0, 0);
+	cairo_paint(cr);
 	return (FALSE);
 }

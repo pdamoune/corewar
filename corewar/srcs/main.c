@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/05 22:21:18 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/06 10:33:18 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	gtk_run(t_vm *vm)
 	g_idle_add(gtk_loop, vm);
 	gtk_main();
 	if (vm->gtk.surface)
-		cairo_surface_destroy (vm->gtk.surface);
+		cairo_surface_destroy(vm->gtk.surface);
 	return (free_vm(vm));
 }
 
@@ -86,23 +86,6 @@ static int	console_run(t_vm *vm)
 int		main(int ac, char **av)
 {
 	t_vm	vm;
-	// unsigned int i = 0xff;
-
-	// i = 0xff;
-	// i= i << 26;
-	// DG("%b", i);
-	// i = 0xff;
-	// i= i << 25;
-	// DG("%b", i);
-	// i = 0xff;
-	// i= i << 24;
-	// DG("%b", i);
-	// i = 0xff;
-	// i= i << 23;
-	// DG("%b", i);
-	// DG("%b", 0xff000000);
-	// DG("%b", (unsigned int)0xff << 24);
-	// return (0);
 
 	if (init_vm(&vm, &ac, &av))
 		return (1);
