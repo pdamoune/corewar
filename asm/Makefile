@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
+#    By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/07/26 21:54:30 by clegoube         ###   ########.fr        #
+#    Updated: 2017/09/07 15:37:47 by tdebarge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ LIB_ASM/test_debug/test.c\
 parse_label.c\
 read.c\
 traduce_label.c\
+browse_label.c\
 write.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))

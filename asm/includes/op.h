@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/09/03 17:25:21 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/09/07 16:00:00 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,10 @@ typedef	struct	s_var
 /*
 **   FONCTIONS DE L'ASM
 */
-void		ft_controller(global_t *global);
-void		ft_parse_label(global_t *global);
-void		ft_exit(int nb, global_t *global, char **line);
-int			ft_write(global_t *global, char *string, int size);
+void	ft_controller(global_t *global);
+void	ft_parse_label(global_t *global);
+void	ft_exit(int nb, global_t *global, char **line);
+int		ft_write(global_t *global, char *string, int size);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
@@ -173,7 +173,19 @@ void	ft_stock_label(global_t *global);
 void	ft_initialize_content(content_t **content, char *line);
 void	ft_stock_content(global_t *global, char *line);
 void	ft_browse_label(global_t *global, int type);
-
+/*
+**	FONCTIONS TEST THIBAUT POUR LE REMANIEMENT
+*/
+int		ft_find_index(global_t *global, char *line);
+void	ft_counting(global_t *global, char *inst_line);
+void	ft_browse_file_counting(global_t *global);
+void	ft_browse_content(global_t *global);
+void	ft_get_opcode(global_t *global, char *line);
+void	ft_th_and_instruct(global_t *global);
+void	ft_calcul_octet(global_t *global, char **line);
+void	ft_get_values(global_t *global, char **line);
+char	*ft_compose_arg(global_t *global, char **line);
+char	*ft_compose_arg_bis(global_t *global, char **line, int i, char **arg);
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
 */
@@ -194,7 +206,6 @@ void	ft_free_tab(char **tab);
 int		ft_strlen_tab(char **tab);
 int		go_to_label(char *label, global_t *global);
 char	*ft_free_strjoin(char **s1, char **s2);
-
 /*
 **   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
 */
@@ -233,7 +244,7 @@ enum				e_conversion
 };
 void	ft_pointeur_tab(global_t *global, int index, int step);
 void	(*p_tab[25])(global_t *, int);
-void	live_instruct(global_t *global, int step);
+//void	live_instruct(global_t *global, int step);
 void	ld_instruct(global_t *global, int step);
 void	st_instruct(global_t *global, int step);
 void	add_instruct(global_t *global, int step);

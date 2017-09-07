@@ -1,6 +1,6 @@
 #include "../includes/op.h"
 
-static char	*ft_compose_arg_bis(global_t *global, char **line, int i, char **arg)
+char	*ft_compose_arg_bis(global_t *global, char **line, int i, char **arg)
 {
 	if (i == 2)
 	{
@@ -21,7 +21,7 @@ static char	*ft_compose_arg_bis(global_t *global, char **line, int i, char **arg
 	return(*arg);
 }
 
-static char	*ft_compose_arg(global_t *global, char **line)
+char	*ft_compose_arg(global_t *global, char **line)
 {
 	int		i;
 	char	*arg;
@@ -46,8 +46,10 @@ static char	*ft_compose_arg(global_t *global, char **line)
 	}
 	return(arg);
 }
-
-static void	ft_calcul_octet(global_t *global, char **line)
+/*
+** Cette fonction pourrait marcher pour toutes les instructions sans retouche
+*/
+void	ft_calcul_octet(global_t *global, char **line)
 {
 	int		i;
 	char	*val_tmp;
@@ -67,7 +69,7 @@ static void	ft_calcul_octet(global_t *global, char **line)
 	}
 }
 
-static void	ft_get_values(global_t *global, char **line)
+void	ft_get_values(global_t *global, char **line)
 {
 	int				*value;
 	unsigned short	*value_ind;

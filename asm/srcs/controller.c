@@ -6,7 +6,7 @@
 
 void		ft_pointeur_tab(global_t *global, int index, int step)
 {
-	p_tab[live] = live_instruct;
+	//p_tab[live] = live_instruct;
 	p_tab[ld] = ld_instruct;
 	p_tab[st] = st_instruct;
 	p_tab[add] = add_instruct;
@@ -39,8 +39,10 @@ void		ft_controller(global_t *global)
 	// DEBUG_read_map(global);
     ft_parse_label(global);
 	//DEBUG_read_labels(global);
-	ft_browse_label(global, OCTET);
-	ft_browse_label(global, STOCK);
+	ft_browse_file_counting(global);
+	ft_browse_content(global);
+//	ft_browse_label(global, OCTET);
+//	ft_browse_label(global, STOCK);
 	// ft_write_label(global);
 }
 
@@ -51,8 +53,10 @@ and, son OPcode, c'est 0x06
 passons au codage des parametres
 % signifie DIRECT, %: signifie INDIRECT
 binaire = 10110100
+<FAUX>
 10 pour DIRECT(le premier param est direct) 11 pour IND(comme le 2eme param)
 01 pour signifier un registre, et 00 pour arriver jusqu'a 8bits.
+</FAUX>
 10110100 = 0xB2 en hexa.
 pour le moment on a donc 0x06 0xB2
 maintenant faut traduire les valeurs.
