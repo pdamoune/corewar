@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:35:17 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/06 10:54:15 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/10 11:50:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ static GtkWidget		*create_area(t_vm *vm)
 	g_signal_connect(G_OBJECT(vm->gtk.draw), "motion-notify-event", G_CALLBACK(cb_mouse), vm);
 	g_signal_connect(G_OBJECT(vm->gtk.draw), "leave-notify-event", G_CALLBACK(cb_mouse), vm);
 	return (scrol);
+}
+
+static GtkWidget		*process_info(t_vm *vm)
+{
+	(void)vm;
+	GtkWidget *box;
+
+	box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+	return (box);
 }
 
 static GtkWidget		*create_panel(t_vm *vm)
@@ -53,6 +62,8 @@ static GtkWidget		*create_panel(t_vm *vm)
 	gtk_box_pack_start(GTK_BOX(box), (vm->gtk.cpt = gtk_label_new("0")), FALSE, FALSE, 0);
 	gtk_widget_set_margin_top(vm->gtk.cpt, 10);
 	gtk_widget_set_size_request(box, 400, -1);
+	gtk_box_pack_start(GTK_BOX(box), create_players_info(vm), FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), process_info(vm), FALSE, FALSE, 0);
 	return (box);
 }
 

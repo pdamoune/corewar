@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/06 14:50:22 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/10 15:07:47 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ struct		s_op
 
 struct		s_process
 {
+	unsigned int	id_process;
+	char			*name;
 	int				pc;
 	unsigned int	r[REG_NUMBER + 1];
 	int				carry;
@@ -72,6 +74,7 @@ struct		s_process
 
 typedef struct		s_player
 {
+	int				is_used:1;
 	int				live;
 	long			last_live;
 }					t_player;
@@ -138,6 +141,7 @@ int		set_value_in_area(t_vm *vm, int at, unsigned int value, unsigned int size);
 
 int		usage(char *name);
 int		free_vm(t_vm *vm);
+void	add_process(t_vm *vm, t_process *p);
 void	remove_process(t_vm *vm);
 void	process_del(t_vm *vm, t_process *process);
 int		move_pc(t_vm *vm, int origin, int len);
