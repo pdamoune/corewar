@@ -6,11 +6,25 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/12 11:47:40 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/12 14:03:49 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
+
+int		ft_find_index(global_t *global, char *line)
+{
+	int i;
+
+	i = 0;
+	while (global->index_tab[i])
+	{
+		if (ft_strstart(line, global->index_tab[i]))
+			return(i);
+		i++;
+	}
+	return(i);
+}
 
 void        ft_counting(global_t *global, char *inst_line)
 {
@@ -24,7 +38,7 @@ void        ft_counting(global_t *global, char *inst_line)
         ft_calcul_octet(global, global->s_label->s_content->line);
         global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet);
     }
-    else if (index == 0 || index == 6 || index == 9 || (index <= 14 && index <= 22))
+    else if (index == 0 || index == 6 || index == 9 || (index >= 14 && index <= 22))
     {
         ft_calcul_octet(global, global->s_label->s_content->line);
         global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet); 
@@ -93,35 +107,6 @@ void        ft_get_opcode(global_t *global, char *line)
     }
     else
         ft_exit(10, global, NULL);
-}
-
-void        ft_th_and_instruct(global_t *global)
-{
-    int     *arg;
-    char    *arg_tmp;
-
-    arg_tmp = ft_compose_arg(global, global->s_label->s_content->line);
-	arg = (int *)&(global->s_label->s_content->instruction[1]);
-	*arg = ft_atoi(ft_convert_base(arg_tmp, "01", "0123456789"));
-	printf("<%s> = arg\n", arg_tmp);
-	printf("<%d> = arg\n", *arg);
-	printf("<%X> = arg\n", *arg);
-	free(arg_tmp);
-
-	/* Get the values */
-	global->i = 0;
-	ft_get_values(global, global->s_label->s_content->line);
-
-	/* Write the instruction */
-	ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
-
-	/* DEBUG */
-	printf("\nvalue instruction : ");
-    int i = 0;
-	while(i < global->s_label->s_content->nb_octet)
-		printf("0x%X ", global->s_label->s_content->instruction[i++]);
-	printf("\n\n");
-	/* Fin DEBUG */
 }
 
 void        ft_browse_content(global_t *global)

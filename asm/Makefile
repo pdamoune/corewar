@@ -6,7 +6,7 @@
 #    By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/09/12 12:02:16 by tdebarge         ###   ########.fr        #
+#    Updated: 2017/09/12 14:11:36 by tdebarge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ FONCTIONS/sti_instruct.c\
 FONCTIONS/sub_instruct.c\
 FONCTIONS/xor_instruct.c\
 FONCTIONS/zjmp_instruct.c\
-FONCTIONS/new_instructs.c\
 INIT_STRUCT/init_content.c\
 INIT_STRUCT/init_global.c\
 INIT_STRUCT/init_label.c\
@@ -80,7 +79,6 @@ LIB_ASM/test_debug/ft_print_words_tables.c\
 LIB_ASM/test_debug/test.c\
 parse_label.c\
 read.c\
-traduce_label.c\
 browse_label.c\
 write.c
 
