@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/06 17:26:28 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/12 13:04:45 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ void 	disp_process(int fd, t_process *process, t_op op)
 	ft_dprintf(fd, CLEAR);
 	ft_dprintf(fd, "\n%10c===== Process [%d] =====\n\n", 0, process->pc);
 	ft_dprintf(fd, "{\n");
-	ft_dprintf(fd, "%4cregistre : %d\n", 0);
+	ft_dprintf(fd, "%4cregistre :\n", 0);
 	while (++i < REG_NUMBER + 1)
 		if (process->r[i])
 			ft_dprintf(fd, "       r[%d] = %#x | %d\n", i, process->r[i], process->r[i]);
+	ft_dprintf(fd, "=== r[1] = %#x | %d\n", i, process->r[1], process->r[1]);
 	ft_dprintf(fd, "%4cint      pc              : %d\n", 0, process->pc);
 	ft_dprintf(fd, "%4cint      carry           : %d\n", 0, process->carry);
 	ft_dprintf(fd, "%4cint      id_player       : %d\n", 0, process->id_player);

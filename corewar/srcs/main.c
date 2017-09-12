@@ -6,11 +6,11 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/06 17:37:40 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/12 13:53:35 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <vm.h>
+#include "vm.h"
 
 static int		gtk_cycle(t_vm *vm)
 {

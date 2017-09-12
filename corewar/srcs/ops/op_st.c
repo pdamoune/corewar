@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 18:04:48 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/06 14:02:37 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/12 16:18:38 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 int		op_st(t_vm *vm, t_process *process, unsigned int *args)
 {
 	(void)&vm;(void)&process;(void)&args;
+	DG("\nargs 0 = %d\n", args[0]);
+	DG("\nargs 1 = %d\n", args[1]);
+	DG("\nargs 2 = %d\n", args[2]);
+
+	args[1] = (IS_SET(process->op.params[1], T_REG) ? process->r[args[1]] : args[1]);
+	set_value_in_area(vm, process->pc + ((int)args[1] % IDX_MOD), args[0], 4);
+	process->carry = !args[0] ? 1 : 0;  // Pas sur
 	DG("");
 	return (0);
 }

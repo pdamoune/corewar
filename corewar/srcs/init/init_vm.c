@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/05 20:50:46 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/12 15:16:28 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ static int	init_process_players(t_vm *vm, t_file *file, int players)
 	while (++i < 4)
 		if (file[i].is_used)
 		{
-			file[i].pc = id_player * MEM_SIZE / players;
+			file[i].pc = ABS(id_player) * MEM_SIZE / players;
 			if (!(new_process = ft_memalloc(sizeof(t_process))))
 				return (ERR_COR("malloc failed"));
 			new_process->pc = file[i].pc;
-			new_process->id_player = ++id_player;
-			new_process->r[1] = INTREV32(id_player);
+			new_process->id_player = --id_player;
+			new_process->r[1] = id_player;
 			// TODO
 			/*
 			** ajout de l id player dans le registre r1.
