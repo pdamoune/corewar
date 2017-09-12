@@ -24,10 +24,10 @@ int		go_to_label(char *label, global_t *global)
 	global->s_label = tmp;
 	if (stop)
 	{
-		// printf("label_octet %d\n",label_octet);
-		// printf("begin_octet %d\n",begin_octet);
-		// printf("resultat us = %d\n",(unsigned short)(label_octet - begin_octet));
-		// printf("resultat s = %d\n",(int)(label_octet - begin_octet));
+		 printf("label_octet %d\n",label_octet);
+		 printf("begin_octet %d\n",begin_octet);
+		 printf("resultat us = %d\n",(unsigned short)(label_octet - begin_octet));
+		 printf("resultat s = %d\n",(int)(label_octet - begin_octet));
 		return(label_octet - begin_octet);
 	}
 	else

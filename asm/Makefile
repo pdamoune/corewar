@@ -6,7 +6,7 @@
 #    By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/09/07 15:37:47 by tdebarge         ###   ########.fr        #
+#    Updated: 2017/09/12 12:02:16 by tdebarge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ FONCTIONS/sti_instruct.c\
 FONCTIONS/sub_instruct.c\
 FONCTIONS/xor_instruct.c\
 FONCTIONS/zjmp_instruct.c\
+FONCTIONS/new_instructs.c\
 INIT_STRUCT/init_content.c\
 INIT_STRUCT/init_global.c\
 INIT_STRUCT/init_label.c\

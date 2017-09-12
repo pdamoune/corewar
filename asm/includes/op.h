@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/09/07 16:00:00 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/12 11:51:51 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,8 @@ void	ft_calcul_octet(global_t *global, char **line);
 void	ft_get_values(global_t *global, char **line);
 char	*ft_compose_arg(global_t *global, char **line);
 char	*ft_compose_arg_bis(global_t *global, char **line, int i, char **arg);
+void	ft_get_values_live(global_t *global, char **line);
+void	ft_th_live_instruct(global_t *global);
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
 */
@@ -242,28 +244,28 @@ enum				e_conversion
 	Comment_CHAR = 20,
 	Other_CMD_STRING = 21,
 };
-void	ft_pointeur_tab(global_t *global, int index, int step);
-void	(*p_tab[25])(global_t *, int);
-//void	live_instruct(global_t *global, int step);
-void	ld_instruct(global_t *global, int step);
-void	st_instruct(global_t *global, int step);
-void	add_instruct(global_t *global, int step);
-void	and_instruct(global_t *global, int step);
-void	sub_instruct(global_t *global, int step);
-void	and_instruct(global_t *global, int step);
-void	or_instruct(global_t *global, int step);
-void	xor_instruct(global_t *global, int step);
-void	zjmp_instruct(global_t *global, int step);
-void	ldi_instruct(global_t *global, int step);
-void	sti_instruct(global_t *global, int step);
-void	fork_instruct(global_t *global, int step);
-void	lld_instruct(global_t *global, int step);
-void	lldi_instruct(global_t *global, int step);
-void	lfork_instruct(global_t *global, int step);
-void	aff_instruct(global_t *global, int step);
-void	direct_param(global_t *global, int step);
-void	indirect_param(global_t *global, int step);
-void	register_param(global_t *global, int step);
-void	cmd_string(global_t *global, int step);
-void	comments_string(global_t *global, int step);
-void	others_string(global_t *global, int step);
+void	ft_pointeur_tab(global_t *global, int index);
+void	(*p_tab[25])(global_t *);
+//void	live_instruct(global_t *global);
+void	ld_instruct(global_t *global);
+void	st_instruct(global_t *global);
+void	add_instruct(global_t *global);
+//void	and_instruct(global_t *global);
+void	sub_instruct(global_t *global);
+void	and_instruct(global_t *global);
+void	or_instruct(global_t *global);
+void	xor_instruct(global_t *global);
+void	zjmp_instruct(global_t *global);
+void	ldi_instruct(global_t *global);
+void	sti_instruct(global_t *global);
+void	fork_instruct(global_t *global);
+void	lld_instruct(global_t *global);
+void	lldi_instruct(global_t *global);
+void	lfork_instruct(global_t *global);
+void	aff_instruct(global_t *global);
+void	direct_param(global_t *global);
+void	indirect_param(global_t *global);
+void	register_param(global_t *global);
+void	cmd_string(global_t *global);
+void	comments_string(global_t *global);
+void	others_string(global_t *global);

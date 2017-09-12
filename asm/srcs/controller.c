@@ -4,14 +4,14 @@
 **  UNE FOIS LE FICHIER LU, LE CONTROLLER VA NOUS PERMETTRE DE TRAITER LES INFORMATIONS STOCKEES
 */
 
-void		ft_pointeur_tab(global_t *global, int index, int step)
+void		ft_pointeur_tab(global_t *global, int index)
 {
-	//p_tab[live] = live_instruct;
+	p_tab[live] = ft_th_live_instruct;
 	p_tab[ld] = ld_instruct;
 	p_tab[st] = st_instruct;
 	p_tab[add] = add_instruct;
 	p_tab[sub] = sub_instruct;
-	p_tab[and] = and_instruct;
+	p_tab[and] = ft_th_and_instruct;
 	p_tab[or] = or_instruct;
 	p_tab[xor] = xor_instruct;
 	p_tab[zjmp] = zjmp_instruct;
@@ -31,7 +31,7 @@ void		ft_pointeur_tab(global_t *global, int index, int step)
 	p_tab[Other_CMD_STRING] = others_string;
 
 
-	p_tab[index](global, step);
+	p_tab[index](global);
 }
 
 void		ft_controller(global_t *global)
@@ -43,7 +43,6 @@ void		ft_controller(global_t *global)
 	ft_browse_content(global);
 //	ft_browse_label(global, OCTET);
 //	ft_browse_label(global, STOCK);
-	// ft_write_label(global);
 }
 
 /* Explications

@@ -1,7 +1,7 @@
 #include "../includes/op.h"
 
 
-void	register_param(global_t *global, int step)
+void	register_param(global_t *global)
 {
 	char	*nbr;
 	char	*registre;
@@ -13,5 +13,4 @@ void	register_param(global_t *global, int step)
 		printf("<%s> = REGISTRE 0x0%s\n", global->s_label->s_content->line[0], nbr);
 	}
 	ft_print_words_tables(global->s_label->s_content->line);
-	step = 0;
 }

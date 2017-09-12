@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/07 16:10:43 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/12 11:47:40 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,7 @@ void        ft_get_opcode(global_t *global, char *line)
     if (index >= 0 && index <= 15)
     {
         global->s_label->s_content->instruction[0] = opcode[index];
-        /* 
-        ** la ligne suivante c'est l'envoi dans la tableau de pointeurs sur fct
-        ** mais vu que je maitrise pas plus, jvais simplifier pour juste avoir and_instruct
-        */
-        ft_th_and_instruct(global);
+        ft_pointeur_tab(global, index);
     }
     else
         ft_exit(10, global, NULL);

@@ -18,16 +18,16 @@ int		ft_find_index(global_t *global, char *line)
 	return(i);
 }
 
-void		ft_traduce_label(global_t *global, char *line, int step)
+void		ft_traduce_label(global_t *global, char *line)
 {
 	int index;
 
 	index = ft_find_index(global,line);
 	printf("index %d\n", index);
 	if (index >= 0 && index < 18)
-		ft_pointeur_tab(global, index, step);
+		ft_pointeur_tab(global, index);
 	else if (index >= 18 && index <= 21)
-		ft_pointeur_tab(global, index, step);
+		ft_pointeur_tab(global, index);
 	else
 		ft_exit(10, global, NULL);
 }
@@ -58,11 +58,11 @@ void		ft_browse_label(global_t *global, int type)
 			{
 				global->s_label->s_content->nb_octet++;
 				global->s_label->s_content->begin_octet = global->total_octet;
-				ft_traduce_label(global, global->s_label->s_content->line[0], OCTET);
+				ft_traduce_label(global, global->s_label->s_content->line[0]);
 				global->total_octet += global->s_label->s_content->nb_octet;
 			}
 			else if (type == STOCK)
-				ft_traduce_label(global, global->s_label->s_content->line[0], STOCK);
+				ft_traduce_label(global, global->s_label->s_content->line[0]);
 
 			/* DEBUG */
 			printf("begin_octet : %d\n", global->s_label->s_content->begin_octet);
