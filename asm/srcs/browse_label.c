@@ -6,76 +6,11 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/12 14:03:49 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/12 14:32:02 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
-
-int		ft_find_index(global_t *global, char *line)
-{
-	int i;
-
-	i = 0;
-	while (global->index_tab[i])
-	{
-		if (ft_strstart(line, global->index_tab[i]))
-			return(i);
-		i++;
-	}
-	return(i);
-}
-
-void        ft_counting(global_t *global, char *inst_line)
-{
-    int     index;
-
-    index = ft_find_index(global, inst_line);
-    printf("index == %d\n", index);
-    if (index > 0 && index <= 13 && index != 6 && index != 9)
-    {
-        global->s_label->s_content->nb_octet++;
-        ft_calcul_octet(global, global->s_label->s_content->line);
-        global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet);
-    }
-    else if (index == 0 || index == 6 || index == 9 || (index >= 14 && index <= 22))
-    {
-        ft_calcul_octet(global, global->s_label->s_content->line);
-        global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet); 
-    }
-    else
-        ft_exit(10, global, NULL);
-}
-
-void        ft_browse_file_counting(global_t *global)
-{
-    global->s_label = global->begin_label;
-    while (!ft_strcmp(global->s_label->name, "HEADER") || !ft_strcmp(global->s_label->name, "COMMENTS"))
-        global->s_label = global->s_label->next;
-    while (global->s_label)
-    {
-        printf("/--------------- NEW LABEL n°%d --------------/\n", global->s_label->num);
-        printf("Name :%s \n", global->s_label->name);
-        printf("Content : \n");
-        global->s_label->s_content = global->s_label->begin_content;
-        while (global->s_label->s_content)
-        {
-            global->s_label->s_content->nb_octet++;
-            global->s_label->s_content->begin_octet = global->total_octet;
-            ft_counting(global, global->s_label->s_content->line[0]);
-            global->total_octet += global->s_label->s_content->nb_octet;
-             /* DEBUG */
-	    	printf("begin_octet : %d\n", global->s_label->s_content->begin_octet);
-	    	printf("nb_octet : %d\n", global->s_label->s_content->nb_octet);
-	    	printf("global->total_octet : %d\n\n", global->total_octet);
-		    /* FIN DEBUG */
-            global->s_label->s_content = global->s_label->s_content->next;
-        }
-       
-        printf("\n");
-        global->s_label = global->s_label->next;
-    }
-}
 
 void        ft_get_opcode(global_t *global, char *line)
 {
@@ -127,4 +62,94 @@ void        ft_browse_content(global_t *global)
         }
         global->s_label = global->s_label->next;
     }
+}
+
+void	ft_get_values(global_t *global, char **line)
+{
+	int				*value;
+	unsigned short	*value_ind;
+	char			*value_char;
+	char			*val_tmp;
+
+	global->j = 2;
+	val_tmp = NULL;
+	value = 0;
+	value_ind = 0;
+	value_char = 0;
+	while (line[++global->i] && !ft_strstart(line[global->i], "#"))
+	{
+		printf("global->j %d\n", global->j);
+
+		if ((val_tmp = ft_strstart(line[global->i], "%:"))
+		|| (val_tmp = ft_strstart(line[global->i], "%")))
+		{
+			printf("Je suis un DIRECT\n");
+			value = (int *)&(global->s_label->s_content->instruction[global->j]);
+			if(ft_isstrdigit(val_tmp))
+				*value = INTREV32(ft_atoi(val_tmp));
+			else
+				*value = INTREV32(go_to_label(val_tmp, global));
+			global->j += 4;
+
+		}
+		else if ((val_tmp = ft_strstart(line[global->i], "r"))
+				&& ft_isstrdigit(val_tmp))
+		{
+			printf("Je suis un REGISTRE\n");
+			printf("global->j %d\n", global->j);
+			value_char = (char *)&(global->s_label->s_content->instruction[global->j]);
+			*value_char = ft_atoi(val_tmp);
+			printf("value %d\n", *value_char);
+			if (global->s_label->s_content->nb_octet - 1 != global->j)
+				global->j++;
+
+		}
+		else if (ft_isstrdigit(line[global->i]))
+		{
+			printf("Je suis un INDIRECT valeur decimale\n");
+			value = (int *)&(global->s_label->s_content->instruction[global->j]);
+			printf("value %d\n", *value);
+			*value = INTREV16(ft_atoi(line[global->i]));
+			global->j += 2;
+
+		}
+		else if ((val_tmp = ft_strstart(line[global->i], ":")))
+		{
+			printf("Je suis un INDIRECT label\n");
+			printf("val_tmp %s\n", val_tmp);
+			value_ind = (unsigned short *)&(global->s_label->s_content->instruction[global->j]);
+			*value_ind = INTREV16((unsigned short)go_to_label(val_tmp, global));
+			printf("go_to_label %X\n", go_to_label(val_tmp, global));
+			printf("val_tmp %X\n", *value_ind);
+			global->j += 2;
+			// 0x6 0x74 0x1 0x1 0x0 0x0
+		}
+	}
+	printf("global->j %d\n", global->j);
+}
+/*
+** Specifique a live car pas d'octet de codage de parametre ==> global->j == 1, pas 2
+*/
+void	ft_get_values_live(global_t *global, char **line)
+{
+	int		i;
+	int		*value;
+	char	*val_tmp;
+
+	i = 0;
+	val_tmp = NULL;
+	value = 0;
+	while (line[++i] && !ft_strstart(line[i], "#"))
+	{
+		if ((val_tmp = ft_strstart(line[i], "%")))
+		{
+			value = (int *)&(global->s_label->s_content->instruction[1]);
+			if (ft_isstrdigit(val_tmp))
+				*value = INTREV32(ft_atoi(val_tmp));
+			else
+				*value = INTREV32(go_to_label(val_tmp, global));
+		}
+		else
+			ft_exit(12, global, NULL);
+	}
 }
