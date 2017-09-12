@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/06 17:37:40 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/12 17:24:08 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int		gtk_cycle(t_vm *vm)
 		if (do_one_cycle(vm))
 			return (1);
 		ft_itoa_nomalloc(vm->cycle, txt);
-		gtk_label_set_label(GTK_LABEL(vm->gtk.cpt), txt);
+		gtk_label_set_label(GTK_LABEL(vm->gtk.panel.cpt), txt);
 		vm->gtk.oldtime = vm->gtk.time;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/10 15:13:15 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/12 17:33:21 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static int	init_process_players(t_vm *vm, t_file *file, int players)
 	while (++i < MAX_PLAYERS)
 		if (file[i].is_used)
 		{
-			vm->player[i].is_used = 1;
 			file[i].pc = id_player++ * MEM_SIZE / players;
 			if (!(new_process = ft_memalloc(sizeof(t_process))))
 				return (ERR_COR("malloc failed"));

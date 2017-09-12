@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/10 15:07:47 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/12 17:28:41 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,17 @@ struct		s_process
 
 typedef struct		s_player
 {
-	int				is_used:1;
 	int				live;
 	long			last_live;
 }					t_player;
 
 typedef struct		s_header
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-  unsigned			prog[CHAMP_MAX_SIZE / 4 + 1];
+	unsigned int	magic;
+	char			prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int	prog_size;
+	char			comment[COMMENT_LENGTH + 1];
+	unsigned		prog[CHAMP_MAX_SIZE / 4 + 1];
 }					t_header;
 
 typedef struct		s_file

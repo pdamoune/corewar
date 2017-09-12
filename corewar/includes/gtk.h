@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/06 10:44:54 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/12 18:33:44 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@
 # define GTK_WIDTH			(AREA_WIDTH + 410)
 # define GTK_HEIGHT			1000
 
+/*
+** STATUS
+*/
+# define STATUS_NEW			"FŒTUS"
+# define STATUS_ALIVE		"ALIVE"
+# define STATUS_GOD			"GOD"
+# define STATUS_DEAD		"DEAD ?"
 
 /*
 ** COLOR
@@ -98,17 +105,32 @@ typedef struct	s_px
 	int				is_new:1;
 }				t_px;
 
+typedef struct	s_gtkplayer
+{
+	GtkWidget	*status;
+	GtkWidget	*last_live;
+	GtkWidget	*n_live;
+}				t_gtkplayer;
+
+typedef struct	s_panel
+{
+	GtkWidget	*pause;
+	GtkWidget	*cpt;
+	t_gtkplayer	players[MAX_PLAYERS];
+	GtkWidget	*repartition;
+	GtkWidget	*process_box;
+}				t_panel;
+
 typedef struct	s_gtk
 {
 	gint64		time;
 	gint64		oldtime;
 	int			speed;
 	GtkWidget	*win;
-	GtkWidget	*pause;
-	GtkWidget	*cpt;
+	t_panel		panel;
 	GtkWidget	*draw;
 	t_px		px[MEM_SIZE];
-	cairo_surface_t *surface;
+	cairo_surface_t		*surface;
 }				t_gtk;
 
 void			calcul_border(GtkWidget *widget, t_vm *vm, int at);
@@ -144,6 +166,9 @@ int				draw_pc(t_vm *vm, int at);
 void			gtk_init_env(int *ac, char ***av, t_vm *vm);
 int				gtk_init_area(t_vm *vm);
 void			create_gtk(t_vm *vm);
+GtkWidget		*create_panel(t_vm *vm);
+GtkWidget		*create_players_info(t_vm *vm);
+GtkWidget		*create_process_info(t_vm *vm);
 GtkMenuBar		*menu_new(gpointer data);
 GtkWidget		*menu_item_new(GtkMenu *menu, const gchar *title,
 								GCallback callback, gpointer data);
