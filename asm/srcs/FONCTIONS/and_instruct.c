@@ -1,6 +1,6 @@
 #include "../includes/op.h"
 
-char	*ft_compose_arg_bis(global_t *global, char **line, int i, char **arg)
+char	*ft_compose_arg_and_bis(global_t *global, char **line, int i, char **arg)
 {
 	if (i == 2)
 	{
@@ -21,7 +21,7 @@ char	*ft_compose_arg_bis(global_t *global, char **line, int i, char **arg)
 	return(*arg);
 }
 
-char	*ft_compose_arg(global_t *global, char **line)
+char	*ft_compose_arg_and(global_t *global, char **line)
 {
 	int		i;
 	char	*arg;
@@ -42,7 +42,7 @@ char	*ft_compose_arg(global_t *global, char **line)
 				arg = ft_arg(arg, 1, IND_CODE);
 		}
 		else
-			ft_compose_arg_bis(global, line, i, &arg);
+			ft_compose_arg_and_bis(global, line, i, &arg);
 	}
 	return(arg);
 }
@@ -52,7 +52,7 @@ void        and_instruct(global_t *global)
     int     *arg;
     char    *arg_tmp;
 
-    arg_tmp = ft_compose_arg(global, global->s_label->s_content->line);
+    arg_tmp = ft_compose_arg_and(global, global->s_label->s_content->line);
 	arg = (int *)&(global->s_label->s_content->instruction[1]);
 	*arg = ft_atoi(ft_convert_base(arg_tmp, "01", "0123456789"));
 	printf("<%s> = arg\n", arg_tmp);

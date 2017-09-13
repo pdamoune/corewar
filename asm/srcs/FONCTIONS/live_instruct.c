@@ -16,8 +16,6 @@ void	live_instruct(global_t *global)
 	ft_print_words_tables(global->s_label->s_content->line);
 	 /*End Debug */
 	printf("nb_octet STOCK = %d \n", global->s_label->s_content->nb_octet);
-	/* OPCODE  */
-	global->s_label->s_content->instruction[0] = 1;
 
 	/* Get the values */
 	ft_get_values_live(global, global->s_label->s_content->line);

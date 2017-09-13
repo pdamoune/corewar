@@ -31,6 +31,8 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 LIBS		=
 
 SRC_BASE	=	\
+browse_content.c\
+browse_counting.c\
 controller.c\
 FONCTIONS/add_instruct.c\
 FONCTIONS/aff_instruct.c\
@@ -79,8 +81,6 @@ LIB_ASM/test_debug/ft_print_words_tables.c\
 LIB_ASM/test_debug/test.c\
 parse_label.c\
 read.c\
-browse_label.c\
-browse_counting.c\
 write.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))

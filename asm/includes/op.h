@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/09/12 14:10:45 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/13 18:56:20 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,12 @@ void	ft_controller(global_t *global);
 void	ft_parse_label(global_t *global);
 void	ft_exit(int nb, global_t *global, char **line);
 int		ft_write(global_t *global, char *string, int size);
+int		ft_find_index(global_t *global, char *line);
+void	ft_counting(global_t *global, char *inst_line);
+void	ft_browse_file_counting(global_t *global);
+void	ft_browse_content(global_t *global);
+void	ft_get_opcode(global_t *global, char *line);
+void	ft_calcul_octet(global_t *global, char **line);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
@@ -173,18 +179,6 @@ void	ft_stock_label(global_t *global);
 void	ft_initialize_content(content_t **content, char *line);
 void	ft_stock_content(global_t *global, char *line);
 void	ft_browse_label(global_t *global, int type);
-/*
-**	FONCTIONS TEST THIBAUT POUR LE REMANIEMENT
-*/
-int		ft_find_index(global_t *global, char *line);
-void	ft_counting(global_t *global, char *inst_line);
-void	ft_browse_file_counting(global_t *global);
-void	ft_browse_content(global_t *global);
-void	ft_get_opcode(global_t *global, char *line);
-void	ft_calcul_octet(global_t *global, char **line);
-void	ft_get_values(global_t *global, char **line);
-char	*ft_compose_arg(global_t *global, char **line);
-char	*ft_compose_arg_bis(global_t *global, char **line, int i, char **arg);
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
 */
@@ -266,3 +260,30 @@ void	register_param(global_t *global);
 void	cmd_string(global_t *global);
 void	comments_string(global_t *global);
 void	others_string(global_t *global);
+/*
+**	SOUS-FONCTIONS DE TRADUCTION
+*/
+void	ft_get_values(global_t *global, char **line);
+void	ft_get_values_live(global_t *global, char **line);
+char	*ft_compose_arg_and(global_t *global, char **line);
+char	*ft_compose_arg_and_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_ld(global_t *global, char **line);
+char	*ft_compose_arg_ld_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_st(global_t *global, char **line);
+char	*ft_compose_arg_st_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_add(global_t *global, char **line);
+char	*ft_compose_arg_add_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_sub(global_t *global, char **line);
+char	*ft_compose_arg_sub_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_or(global_t *global, char **line);
+char	*ft_compose_arg_or_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_xor(global_t *global, char **line);
+char	*ft_compose_arg_xor_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_ldi(global_t *global, char **line);
+char	*ft_compose_arg_ldi_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_sti(global_t *global, char **line);
+char	*ft_compose_arg_sti_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_lld(global_t *global, char **line);
+char	*ft_compose_arg_lld_bis(global_t *global, char **line, int i, char **arg);
+char	*ft_compose_arg_lldi(global_t *global, char **line);
+char	*ft_compose_arg_lldi_bis(global_t *global, char **line, int i, char **arg);
