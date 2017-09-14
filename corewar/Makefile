@@ -70,6 +70,7 @@ gtk/px_manage/init_px.c\
 gtk/px_manage/calcul_px.c\
 gtk/px_manage/draw_px.c\
 gtk/px_manage/px_calc_color.c\
+gtk/update/update_process.c\
 gtk/pc_manage/init_pc.c\
 gtk/pc_manage/erase_pc.c\
 gtk/pc_manage/draw_pc.c\
@@ -79,6 +80,7 @@ gtk/callbacks/cb_mouse.c\
 gtk/callbacks/cb_speed.c\
 gtk/callbacks/cb_play.c\
 gtk/callbacks/cb_step.c\
+gtk/callbacks/cb_process_box.c\
 gtk/callbacks/cb_draw.c\
 gtk/callbacks/cb_quit.c\
 gtk/cairo/cairo.c\

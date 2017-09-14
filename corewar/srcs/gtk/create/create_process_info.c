@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 18:29:31 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/12 18:57:32 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/14 19:54:41 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ GtkWidget		*create_process_info(t_vm *vm)
 	gtk_box_pack_start(GTK_BOX(b), gtk_label_new("Select the processus you want to analyze"), FALSE, FALSE, 0);
 	vm->gtk.panel.process_box = gtk_combo_box_text_new();
 	gtk_box_pack_end(GTK_BOX(b), vm->gtk.panel.process_box, FALSE, TRUE, 0);
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT(vm->gtk.panel.process_box),
-		"hello");
-	// gtk_combo_box_set_button_sensitivity (GTK_COMBO_BOX(vm->gtk.panel.process_box),	GTK_SENSITIVITY_OFF);
+	g_signal_connect(G_OBJECT(vm->gtk.panel.process_box), "changed", G_CALLBACK(cb_process_box), vm);
 	return (frame);
 }

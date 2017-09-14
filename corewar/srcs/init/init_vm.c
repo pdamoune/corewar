@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/12 17:33:21 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/14 19:32:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_cliopts	g_read_opts[] =
 static int	init_area(t_vm *vm)
 {
 	int		i;
+	int		j;
 	int		pc;
 	int		prog_size;
 
@@ -36,6 +37,10 @@ static int	init_area(t_vm *vm)
 		pc = vm->file[i].pc;
 		prog_size = vm->file[i].header.prog_size;
 		ft_memcpy(&(vm->area[pc]), vm->file->header.prog, prog_size);
+		j = -1;
+		while (++j < (int)vm->file[i].header.prog_size)
+			if (init_px(vm, vm->file[i].pc + j, i))
+				return (1);
 	}
 	return (0);
 }
@@ -74,14 +79,14 @@ int			init_vm(t_vm *vm, int *ac, char ***av)
 				return (1);
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	INIT_LIST_HEAD(&(vm->process));
-	//TODO init gtk before everything
-	init_process_players(vm, vm->file, vm->nb_player);
+	if (IS_SET(vm->flag, GRAPHIC))
+		gtk_init_env(ac, av, vm);
+	if (init_process_players(vm, vm->file, vm->nb_player))
+		return (1);
 	if (list_empty(&vm->process))
 		return (ERR_COR("at least one player is needed."));
 	if (init_area(vm))
 		return (1);
-	if (IS_SET(vm->flag, GRAPHIC))
-		gtk_init_env(ac, av, vm);
 	if (IS_UNSET(vm->flag, GRAPHIC))
 		display(vm);
 	return (0);

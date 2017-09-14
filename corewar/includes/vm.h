@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/12 17:28:41 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/14 19:57:54 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ struct		s_op
 
 struct		s_process
 {
-	unsigned int	id_process;
+	unsigned int	id;
 	char			*name;
 	int				pc;
 	unsigned int	r[REG_NUMBER + 1];

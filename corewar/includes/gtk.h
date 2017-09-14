@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/12 18:33:44 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/14 19:57:33 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@
 # define STATUS_ALIVE		"ALIVE"
 # define STATUS_GOD			"GOD"
 # define STATUS_DEAD		"DEAD ?"
+# define STATUS_PRO_NEVER	"YOU LOOSE A STILLBORN PROCESS... Condolence."
+# define STATUS_PRO_DEAD	"THIS PROCESS IS DEAD. Condolence."
+
 
 /*
 ** COLOR
@@ -83,6 +86,7 @@
 
 
 typedef struct		s_vm t_vm;
+typedef struct		s_process t_process;
 
 typedef struct		s_ivec2
 {
@@ -119,6 +123,7 @@ typedef struct	s_panel
 	t_gtkplayer	players[MAX_PLAYERS];
 	GtkWidget	*repartition;
 	GtkWidget	*process_box;
+	t_process	*process;
 }				t_panel;
 
 typedef struct	s_gtk
@@ -136,6 +141,11 @@ typedef struct	s_gtk
 void			calcul_border(GtkWidget *widget, t_vm *vm, int at);
 void			draw_border(GtkWidget *widget, t_vm *vm, int at, const t_color color);
 int				draw_underline(t_vm *vm, int at, t_color color);
+
+/*
+** GTK UPDATE
+*/
+void 			update_process(t_process *process);
 
 /*
 ** PX MANAGE
@@ -189,5 +199,6 @@ gboolean		cb_step(GtkWidget *widget, GdkEvent  *event, t_vm *vm);
 gboolean		cb_draw (GtkWidget *widget, cairo_t *cr, t_vm *vm);
 gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
 									t_vm *vm);
+gboolean		cb_process_box(GtkComboBox *widget, t_vm *vm);
 
 #endif
