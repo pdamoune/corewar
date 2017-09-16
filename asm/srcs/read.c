@@ -8,6 +8,7 @@ void		ft_exit(int nb, global_t *global, char **line)
 	errors[2] = "Erreur dans l'ouverture du fichier de départ";
 	errors[3] = "Problème avec le get next line";
 	errors[4] = "Erreur dans l'ouverture du fichier de destination";
+	errors[9] = "Le parametre de aff n'est pas un registre";
 	errors[10] = "Ceci n'est pas une instruction valide";
 	errors[11] = "Le nombre d'arguments pour cette instruction n'est pas valide";
 	errors[12] = "Cet argument ne correspond pas aux arguments prévus pour cette instruction";
