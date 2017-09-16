@@ -12,7 +12,7 @@ void	lfork_instruct(global_t *global)
 	global->s_label->s_content->instruction[0] = 15;
 
 	/* Get the values */
-	ft_get_values_live(global, global->s_label->s_content->line);
+	ft_get_values_one_arg(global, global->s_label->s_content->line);
 
 	/* Write the instruction */
 	ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
