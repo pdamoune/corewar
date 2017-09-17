@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/14 19:57:54 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/17 11:31:38 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ int		set_value_in_area(t_vm *vm, int at, unsigned int value, unsigned int size);
 int		usage(char *name);
 int		free_vm(t_vm *vm);
 void	add_process(t_vm *vm, t_process *p);
-void	remove_process(t_vm *vm);
-void	process_del(t_vm *vm, t_process *process);
+void	remove_all_process(t_vm *vm);
+void	del_process(t_vm *vm, t_process *process);
 int		move_pc(t_vm *vm, int origin, int len);
 
 

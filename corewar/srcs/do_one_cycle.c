@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/06 17:18:05 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/17 22:57:45 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,28 +191,29 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	return (0);
 }
 
+//TODO il faudrait lire l'instruction un tour plus tôt (et donc dès l'initialisation), et enregistrer un nombre de cycle restan de la bonne taille, sans le -1
 static int		init_instruction(t_vm *vm, t_process *p)
 {
 	--p->nb_cycle_before_exec;
-	if (!p->nb_cycle_before_exec)//time to execute op
+	if (!p->nb_cycle_before_exec)
 	{
 		do_instruction(vm, p);
 	}
-	else if (p->nb_cycle_before_exec == -1) // time to check if new op is available
+	else if (p->nb_cycle_before_exec == -1)
 	{
-		if (vm->area[p->pc] < 1 || vm->area[p->pc] > 16) // n est pas une instruction
+		if (vm->area[p->pc] < 1 || vm->area[p->pc] > 16)
 		{
+			ft_bzero(&p->op, sizeof(t_op));//TODO check if no impact on result
 			p->pc = move_pc(vm, p->pc, 1);
 			p->nb_cycle_before_exec = 0;
-			// DG("area[pc] n est pas une instruction");
 			return (0);
 		}
 		p->op = g_op_tab[(unsigned)vm->area[p->pc]];
-		// p->nb_cycle_before_exec = p->op.cycle - 1;
+		p->nb_cycle_before_exec = p->op.cycle - 1;
 
 		// Decommenter la ligne precedente et commenter la suivante pour avoir
 		// les vrai nb_cycle_before_exec.
-		p->nb_cycle_before_exec = 1;
+		// p->nb_cycle_before_exec = 1;
 	}
 	return (0);
 }
@@ -231,7 +232,7 @@ int				do_one_cycle(t_vm *vm)
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);
-	// check_cycle(vm);
+	check_cycle(vm);
 	++vm->cycle;
 	return (0);
 }

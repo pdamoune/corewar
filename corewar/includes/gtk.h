@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/14 19:57:33 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/17 23:02:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define N_LINE				(MEM_SIZE / BOX_BY_LINE)
 # define NB_LINE			(N_LINE*BOX_BY_LINE==MEM_SIZE?N_LINE:N_LINE+1)
 # define SQUARE_WIDTH		16
-# define SQUARE_HEIGHT		16
+# define SQUARE_HEIGHT		10
 # define SQUARE_SPA			4
 # define SQUARE_BORDER		2
 
@@ -44,7 +44,7 @@
 */
 # define STATUS_NEW			"FŒTUS"
 # define STATUS_ALIVE		"ALIVE"
-# define STATUS_GOD			"GOD"
+# define STATUS_GOD			"GOD PLAYER"
 # define STATUS_DEAD		"DEAD ?"
 # define STATUS_PRO_NEVER	"YOU LOOSE A STILLBORN PROCESS... Condolence."
 # define STATUS_PRO_DEAD	"THIS PROCESS IS DEAD. Condolence."
@@ -123,18 +123,25 @@ typedef struct	s_panel
 	t_gtkplayer	players[MAX_PLAYERS];
 	GtkWidget	*repartition;
 	GtkWidget	*process_box;
+	GtkWidget	*process_status;
+	GtkWidget	*process_act;
+	GtkWidget	*process_desc_act;
+	GtkWidget	*process_owner;
+	GtkWidget	*process_owner_id;
+	GtkWidget	*process_cycle_wait;
+	GtkWidget	*process_pc;
 	t_process	*process;
 }				t_panel;
 
 typedef struct	s_gtk
 {
-	gint64		time;
-	gint64		oldtime;
-	int			speed;
-	GtkWidget	*win;
-	t_panel		panel;
-	GtkWidget	*draw;
-	t_px		px[MEM_SIZE];
+	gint64				time;
+	gint64				oldtime;
+	int					speed;
+	GtkWidget			*win;
+	t_panel				panel;
+	GtkWidget			*draw;
+	t_px				px[MEM_SIZE];
 	cairo_surface_t		*surface;
 }				t_gtk;
 
@@ -145,7 +152,8 @@ int				draw_underline(t_vm *vm, int at, t_color color);
 /*
 ** GTK UPDATE
 */
-void 			update_process(t_process *process);
+void 			update_process(t_vm *vm, t_process *process, int is_dead);
+void			update_players(t_vm *vm, int id);
 
 /*
 ** PX MANAGE

@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_one_process.c                               :+:      :+:    :+:   */
+/*   remove_all_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 19:09:00 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 13:13:21 by wescande         ###   ########.fr       */
+/*   Created: 2017/08/27 19:06:05 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/17 11:27:39 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-// void		remove_one_process(t_vm *vm, t_process *process)
-// {
-// 	t_process *cur;
-// 	t_process *tmp;
+void		remove_all_process(t_vm *vm)
+{
+	t_process *process;
+	t_process *tmp;
 
-// 	cur = vm->process;
-// 	if (vm->process == process)
-// 	{
-// 		vm->process = process->next;
-// 		process_del(process);
-// 		return ;
-// 	}
-// 	while (cur)
-// 	{
-// 		tmp = cur->next;
-// 		if (tmp == process)
-// 		{
-// 			cur->next = tmp->next;
-// 			process_del(process);
-// 		}
-// 		cur = cur->next;
-// 	}
-// }
+	LIST_FOR_EACH_ENTRY_SAFE(process, tmp, &vm->process, lx)
+	{
+		del_process(vm, process);
+	}
+}

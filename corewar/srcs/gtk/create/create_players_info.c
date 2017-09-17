@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 11:50:08 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/12 18:44:05 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/17 14:59:20 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,33 @@ static GtkWidget	*panel_player(t_vm *vm, int i)
 	GtkWidget	*frame;
 	GtkWidget	*box;
 	GtkWidget	*b;
+	char		id[12];
 
 	frame = gtk_frame_new(NULL);
 	box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	gtk_container_add(GTK_CONTAINER(frame), box);
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 5);
 	gtk_container_set_border_width(GTK_CONTAINER(box), 15);
+	b = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	gtk_box_pack_start(GTK_BOX(box), b, FALSE, FALSE, 0);
+	ft_itoa_nomalloc(i + 1, id);
+	gtk_box_pack_start(GTK_BOX(b), gtk_label_new(id), FALSE, FALSE, 0);	
 	gtk_box_pack_start(GTK_BOX(box), gtk_label_new(vm->file[i].header.prog_name), FALSE, FALSE, 10);
 	vm->gtk.panel.players[i].status = gtk_label_new(STATUS_NEW);
-	gtk_box_pack_start(GTK_BOX(box), vm->gtk.panel.players[i].status, FALSE, FALSE, 0);
+	b = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 15);
+	gtk_box_pack_start(GTK_BOX(box), b, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(b), gtk_label_new("Player Status:"), FALSE, FALSE, 15);
+	gtk_box_pack_end(GTK_BOX(b), vm->gtk.panel.players[i].status, FALSE, FALSE, 15);
 	b = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_box_pack_start(GTK_BOX(box), b, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(b), gtk_label_new(LAST_CYCLE), FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(b), gtk_label_new(LAST_CYCLE), FALSE, FALSE, 15);
 	vm->gtk.panel.players[i].last_live = gtk_label_new("Not alive yet");
-	gtk_box_pack_end(GTK_BOX(b), vm->gtk.panel.players[i].last_live, FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(b), vm->gtk.panel.players[i].last_live, FALSE, FALSE, 15);
 	b = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_box_pack_start(GTK_BOX(box), b, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(b), gtk_label_new(N_LIVE), FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(b), gtk_label_new(N_LIVE), FALSE, FALSE, 15);
 	vm->gtk.panel.players[i].n_live = gtk_label_new("0");
-	gtk_box_pack_end(GTK_BOX(b), vm->gtk.panel.players[i].n_live, FALSE, FALSE, 0);
-	
+	gtk_box_pack_end(GTK_BOX(b), vm->gtk.panel.players[i].n_live, FALSE, FALSE, 15);
 	return (frame);
 }
 

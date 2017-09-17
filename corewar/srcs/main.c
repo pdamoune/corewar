@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/15 18:39:24 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/17 22:46:57 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ static int		gtk_cycle(t_vm *vm)
 		iter_on_px(vm);
 		if (do_one_cycle(vm))
 			return (1);
-			//TODO remove next line
-		if (!list_empty(&vm->process))
-			process_del(vm, LIST_FIRST_ENTRY(&vm->process, t_process, lx));
+			//TODO remove next 2 line
+		// if (!list_empty(&vm->process))
+		// 	del_process(vm, LIST_FIRST_ENTRY(&vm->process, t_process, lx));
 		ft_itoa_nomalloc(vm->cycle, txt);
 		gtk_label_set_label(GTK_LABEL(vm->gtk.panel.cpt), txt);
+		if (vm->gtk.panel.process)
+			update_process(vm, vm->gtk.panel.process, 0);
 		vm->gtk.oldtime = vm->gtk.time;
 	}
 	return (0);
