@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 16:24:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 14:14:14 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/17 22:59:15 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ static void	reset_lives(t_vm *vm)
 
 	i = -1;
 	while (++i < MAX_PLAYERS)
+	{
 		vm->players[i].live = 0;
+		if (IS_SET(vm->flag, GRAPHIC))
+			update_players(vm, i);
+	}
 }
 
 static int	count_all_lives(t_vm *vm)

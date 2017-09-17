@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/06 10:44:54 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/18 00:21:39 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define N_LINE				(MEM_SIZE / BOX_BY_LINE)
 # define NB_LINE			(N_LINE*BOX_BY_LINE==MEM_SIZE?N_LINE:N_LINE+1)
 # define SQUARE_WIDTH		16
-# define SQUARE_HEIGHT		16
+# define SQUARE_HEIGHT		10
 # define SQUARE_SPA			4
 # define SQUARE_BORDER		2
 
@@ -38,6 +38,16 @@
 
 # define GTK_WIDTH			(AREA_WIDTH + 410)
 # define GTK_HEIGHT			1000
+
+/*
+** STATUS
+*/
+# define STATUS_NEW			"FŒTUS"
+# define STATUS_ALIVE		"ALIVE"
+# define STATUS_GOD			"GOD PLAYER"
+# define STATUS_DEAD		"DEAD ?"
+# define STATUS_PRO_NEVER	"YOU LOOSE A STILLBORN PROCESS... Condolence."
+# define STATUS_PRO_DEAD	"THIS PROCESS IS DEAD. Condolence."
 
 
 /*
@@ -76,6 +86,7 @@
 
 
 typedef struct		s_vm t_vm;
+typedef struct		s_process t_process;
 
 typedef struct		s_ivec2
 {
@@ -98,22 +109,52 @@ typedef struct	s_px
 	int				is_new:1;
 }				t_px;
 
-typedef struct	s_gtk
+typedef struct	s_gtkplayer
 {
-	gint64		time;
-	gint64		oldtime;
-	int			speed;
-	GtkWidget	*win;
+	GtkWidget	*status;
+	GtkWidget	*last_live;
+	GtkWidget	*n_live;
+}				t_gtkplayer;
+
+typedef struct	s_panel
+{
 	GtkWidget	*pause;
 	GtkWidget	*cpt;
-	GtkWidget	*draw;
-	t_px		px[MEM_SIZE];
-	cairo_surface_t *surface;
+	t_gtkplayer	players[MAX_PLAYERS];
+	GtkWidget	*repartition;
+	GtkWidget	*process_box;
+	GtkWidget	*process_status;
+	GtkWidget	*process_act;
+	GtkWidget	*process_desc_act;
+	GtkWidget	*process_owner;
+	GtkWidget	*process_owner_id;
+	GtkWidget	*process_cycle_wait;
+	GtkWidget	*process_pc;
+	t_process	*process;
+}				t_panel;
+
+typedef struct	s_gtk
+{
+	gint64				time;
+	gint64				oldtime;
+	int					speed;
+	GtkWidget			*win;
+	t_panel				panel;
+	GtkWidget			*draw;
+	t_px				px[MEM_SIZE];
+	cairo_surface_t		*surface;
+	int					god_players;
 }				t_gtk;
 
 void			calcul_border(GtkWidget *widget, t_vm *vm, int at);
 void			draw_border(GtkWidget *widget, t_vm *vm, int at, const t_color color);
 int				draw_underline(t_vm *vm, int at, t_color color);
+
+/*
+** GTK UPDATE
+*/
+void 			update_process(t_vm *vm, t_process *process, int is_dead);
+void			update_players(t_vm *vm, int id);
 
 /*
 ** PX MANAGE
@@ -144,6 +185,9 @@ int				draw_pc(t_vm *vm, int at);
 void			gtk_init_env(int *ac, char ***av, t_vm *vm);
 int				gtk_init_area(t_vm *vm);
 void			create_gtk(t_vm *vm);
+GtkWidget		*create_panel(t_vm *vm);
+GtkWidget		*create_players_info(t_vm *vm);
+GtkWidget		*create_process_info(t_vm *vm);
 GtkMenuBar		*menu_new(gpointer data);
 GtkWidget		*menu_item_new(GtkMenu *menu, const gchar *title,
 								GCallback callback, gpointer data);
@@ -164,5 +208,6 @@ gboolean		cb_step(GtkWidget *widget, GdkEvent  *event, t_vm *vm);
 gboolean		cb_draw (GtkWidget *widget, cairo_t *cr, t_vm *vm);
 gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
 									t_vm *vm);
+gboolean		cb_process_box(GtkComboBox *widget, t_vm *vm);
 
 #endif

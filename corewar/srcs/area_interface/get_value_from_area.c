@@ -6,13 +6,13 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 19:01:09 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/12 14:48:43 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/18 00:17:17 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-static int		get_int_from_area(t_vm *vm, t_process *p, int size, int *pc_inc)
+static unsigned int		get_int_from_area(t_vm *vm, t_process *p, int size, int *pc_inc)
 {
 	unsigned int		ret;
 	int					i;
@@ -25,7 +25,7 @@ static int		get_int_from_area(t_vm *vm, t_process *p, int size, int *pc_inc)
 	return (ret);
 }
 
-int				get_value_from_area(t_vm *vm, t_process *p, unsigned int type, int *pc_inc)
+unsigned int			get_value_from_area(t_vm *vm, t_process *p, unsigned int type, int *pc_inc)
 {
 	if (IS_SET(type, T_REG))
 		return (get_int_from_area(vm, p, 1, pc_inc));

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:46:51 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 18:25:13 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/12 17:21:06 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		stop_corewar(t_vm *vm)
 
 static int		play(t_vm *vm)
 {
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(vm->gtk.pause), IS_SET(vm->flag, PAUSE));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(vm->gtk.panel.pause), IS_SET(vm->flag, PAUSE));
 	return (0);
 }
 

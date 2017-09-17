@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/12 15:16:28 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/18 00:24:03 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,25 @@ t_cliopts	g_read_opts[] =
 	{0, 0, 0, 0, 0, 0},
 };
 
-int			init_area(t_vm *vm)
+static int	init_area(t_vm *vm)
 {
 	int		i;
+	int		j;
 	int		pc;
 	int		prog_size;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < MAX_PLAYERS)
 	{
 		if (!vm->file[i].is_used)
 			continue ;
 		pc = vm->file[i].pc;
 		prog_size = vm->file[i].header.prog_size;
 		ft_memcpy(&(vm->area[pc]), vm->file->header.prog, prog_size);
+		j = -1;
+		while (++j < (int)vm->file[i].header.prog_size)
+			if (init_px(vm, vm->file[i].pc + j, i))
+				return (1);
 	}
 	return (0);
 }
@@ -48,22 +53,22 @@ static int	init_process_players(t_vm *vm, t_file *file, int players)
 
 	id_player = 0;
 	i = -1;
-	while (++i < 4)
+	while (++i < MAX_PLAYERS)
 		if (file[i].is_used)
 		{
-			file[i].pc = ABS(id_player) * MEM_SIZE / players;
+			file[i].pc = id_player++ * MEM_SIZE / players;
 			if (!(new_process = ft_memalloc(sizeof(t_process))))
 				return (ERR_COR("malloc failed"));
 			new_process->pc = file[i].pc;
-			new_process->id_player = --id_player;
-			new_process->r[1] = id_player;
+			new_process->id_player = i;
+			new_process->r[1] = -(i + 1);// or should we use -id_player ?
 			// TODO
 			/*
 			** ajout de l id player dans le registre r1.
 			** Verifier lorsque REG_SIZE est inferieur a 4
 			** si cela fonctionne aussi
 			*/
-			list_add(&(new_process->lx), &(vm->process));
+			add_process(vm, new_process);
 		}
 	return (0);
 }
@@ -79,17 +84,15 @@ int			init_vm(t_vm *vm, int *ac, char ***av)
 				return (1);
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	INIT_LIST_HEAD(&(vm->process));
-	init_process_players(vm, vm->file, vm->nb_player);
+	if (IS_SET(vm->flag, GRAPHIC))
+		gtk_init_env(ac, av, vm);
+	if (init_process_players(vm, vm->file, vm->nb_player))
+		return (1);
 	if (list_empty(&vm->process))
 		return (ERR_COR("at least one player is needed."));
 	if (init_area(vm))
 		return (1);
-	if (IS_SET(vm->flag, GRAPHIC))
-		gtk_init_env(ac, av, vm);
 	if (IS_UNSET(vm->flag, GRAPHIC))
-	{
-		;
-		// display(vm);
-	}
+		display(vm);
 	return (0);
 }

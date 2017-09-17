@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/06 14:50:22 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/18 00:17:55 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ struct		s_op
 
 struct		s_process
 {
+	unsigned int	id;
+	// char			*name;
 	int				pc;
 	unsigned int	r[REG_NUMBER + 1];
 	int				carry;
@@ -78,11 +80,11 @@ typedef struct		s_player
 
 typedef struct		s_header
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-  unsigned			prog[CHAMP_MAX_SIZE / 4 + 1];
+	unsigned int	magic;
+	char			prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int	prog_size;
+	char			comment[COMMENT_LENGTH + 1];
+	unsigned		prog[CHAMP_MAX_SIZE / 4 + 1];
 }					t_header;
 
 typedef struct		s_file
@@ -128,9 +130,9 @@ void	check_live(t_vm *vm);
 /*
 ** Insignifiant func
 */
-int		get_value_from_area(t_vm *vm, t_process *p, unsigned int type, int *pc_inc);
-void	get_type_from_area(t_vm *vm, t_process *p, unsigned int *type);
-int		set_value_in_area(t_vm *vm, int at, unsigned int value, unsigned int size);
+unsigned int	get_value_from_area(t_vm *vm, t_process *p, unsigned int type, int *pc_inc);
+void			get_type_from_area(t_vm *vm, t_process *p, unsigned int *type);
+int				set_value_in_area(t_vm *vm, int at, unsigned int value, unsigned int size);
 
 /*
 ** Tools functions.
@@ -138,8 +140,9 @@ int		set_value_in_area(t_vm *vm, int at, unsigned int value, unsigned int size);
 
 int		usage(char *name);
 int		free_vm(t_vm *vm);
-void	remove_process(t_vm *vm);
-void	process_del(t_vm *vm, t_process *process);
+void	add_process(t_vm *vm, t_process *p);
+void	remove_all_process(t_vm *vm);
+void	del_process(t_vm *vm, t_process *process);
 int		move_pc(t_vm *vm, int origin, int len);
 
 

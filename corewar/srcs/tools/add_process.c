@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_del.c                                      :+:      :+:    :+:   */
+/*   add_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/27 19:11:06 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 16:24:18 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/10 10:18:33 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/15 23:20:21 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void		process_del(t_vm *vm, t_process *process)
+void		add_process(t_vm *vm, t_process *p)
 {
-	(void)vm;
-	//TODO play music ?
-	list_del(&process->lx);
+	static unsigned int		id = 0;
+	char					txt[12];
+
+	p->id = ++id;
+	list_add(&(p->lx), &(vm->process));
 	if (IS_SET(vm->flag, GRAPHIC))
 	{
-		--vm->gtk.px[process->pc].pc;
-		if (!vm->gtk.px[process->pc].pc)
-			erase_pc(vm, process->pc);
+		ft_uitoa_nomalloc(id, txt);
+		init_pc(vm, p->pc);
+		gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(vm->gtk.panel.process_box), txt);
 	}
-	free(process);
 }

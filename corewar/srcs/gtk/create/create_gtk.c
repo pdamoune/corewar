@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:35:17 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/06 10:54:15 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/12 17:23:46 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,6 @@ static GtkWidget		*create_area(t_vm *vm)
 	g_signal_connect(G_OBJECT(vm->gtk.draw), "motion-notify-event", G_CALLBACK(cb_mouse), vm);
 	g_signal_connect(G_OBJECT(vm->gtk.draw), "leave-notify-event", G_CALLBACK(cb_mouse), vm);
 	return (scrol);
-}
-
-static GtkWidget		*create_panel(t_vm *vm)
-{
-	GtkWidget *box;
-	GtkWidget *scale;
-	
-	box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-	pack_new_button(box, "ONE_STEP", G_CALLBACK(cb_step), vm);
-	vm->gtk.pause = pack_new_toggle_button(box, "PLAY", G_CALLBACK(cb_play), vm);
-	gtk_widget_set_margin_bottom(vm->gtk.pause, 50);
-	gtk_widget_set_margin_top(vm->gtk.pause, 10);
-	gtk_box_pack_start(GTK_BOX(box), gtk_label_new("Speed velocity:"), FALSE, FALSE, 0);
-	scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
-	gtk_box_pack_start(GTK_BOX(box), scale, FALSE, FALSE, 0);
-	gtk_range_set_value(GTK_RANGE(scale), (gdouble)INIT_SPEED);
-	gtk_scale_add_mark(GTK_SCALE(scale), 1, GTK_POS_BOTTOM, NULL);
-	gtk_scale_add_mark(GTK_SCALE(scale), 7, GTK_POS_BOTTOM, NULL);
-	gtk_scale_add_mark(GTK_SCALE(scale), 25, GTK_POS_BOTTOM, NULL);
-	gtk_scale_add_mark(GTK_SCALE(scale), 50, GTK_POS_BOTTOM, NULL);
-	gtk_scale_add_mark(GTK_SCALE(scale), 75, GTK_POS_BOTTOM, NULL);
-	gtk_scale_add_mark(GTK_SCALE(scale), 100, GTK_POS_BOTTOM, NULL);
-	g_signal_connect(G_OBJECT(scale), "value-changed", G_CALLBACK(cb_speed), vm);
-	gtk_box_pack_start(GTK_BOX(box), (vm->gtk.cpt = gtk_label_new("0")), FALSE, FALSE, 0);
-	gtk_widget_set_margin_top(vm->gtk.cpt, 10);
-	gtk_widget_set_size_request(box, 400, -1);
-	return (box);
 }
 
 static GtkWidget		*create_main_box(t_vm *vm)
