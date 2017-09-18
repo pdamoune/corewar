@@ -1,4 +1,5 @@
 #include "../includes/op.h"
+
 /*
 **  IDENTIFIE LE TYPE DE LIGNES
 ** 1) ligne vide - EMPTY_LINE
