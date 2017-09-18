@@ -79,6 +79,7 @@ LIB_ASM/strstart.c\
 LIB_ASM/strsubc.c\
 LIB_ASM/test_debug/ft_print_words_tables.c\
 LIB_ASM/test_debug/test.c\
+parse_header.c\
 parse_label.c\
 read.c\
 write.c

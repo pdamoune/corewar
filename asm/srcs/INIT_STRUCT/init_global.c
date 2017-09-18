@@ -50,6 +50,7 @@ void	ft_initialize_global(global_t **global)
 	(*global)->k = 0;
 	(*global)->total_octet = 1;
 	(*global)->fdIn = 0;
+	(*global)->fdOut = 0;
 	(*global)->begin_map = NULL;
 	(*global)->s_map = NULL;
 	(*global)->begin_label = NULL;

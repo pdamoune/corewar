@@ -70,6 +70,7 @@ void		ft_sort_lines(global_t *global)
     {
         ft_stock_content(global, global->s_map->line);
         global->s_label->name = "HEADER";
+		ft_check_header(global);
     }
 	else if (global->s_map && ft_kind_of_line(global->s_map->line) == EMPTY_LABEL)
 	{

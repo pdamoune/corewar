@@ -1,4 +1,4 @@
-.name "zork"
+.name zork
 .comment "just a basic living prog"
 live2: live %1
 and r1,%:live,r1

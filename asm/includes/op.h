@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/09/16 11:52:49 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/18 17:41:04 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct		global_s
 	int	    		j;
 	int	    		k;
 	int	    		fdIn;
+	int				fdOut;
 	struct map_s	*begin_map;
 	struct map_s	*s_map;
 	struct label_s	*begin_label;
@@ -151,7 +152,7 @@ typedef	struct	s_var
 #define COMMENT					2
 #define WITH_LABEL				3
 #define EMPTY_LABEL		       	4
-#define HEADER	     	       	5
+#define HEADER		     	    5
 
 #define OCTET					0
 #define STOCK					1
@@ -168,6 +169,8 @@ void	ft_browse_file_counting(global_t *global);
 void	ft_browse_content(global_t *global);
 void	ft_get_opcode(global_t *global, char *line);
 void	ft_calcul_octet(global_t *global, char **line);
+void	ft_check_header(global_t *global);
+void	ft_check_header_bis(global_t *global);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */

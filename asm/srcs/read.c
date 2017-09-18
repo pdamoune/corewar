@@ -8,6 +8,8 @@ void		ft_exit(int nb, global_t *global, char **line)
 	errors[2] = "Erreur dans l'ouverture du fichier de départ";
 	errors[3] = "Problème avec le get next line";
 	errors[4] = "Erreur dans l'ouverture du fichier de destination";
+	errors[5] = "Le nom du fichier est trop long";
+	errors[6] = "Le commentaire du fichier est trop long";
 	errors[9] = "Le parametre de aff n'est pas un registre";
 	errors[10] = "Ceci n'est pas une instruction valide";
 	errors[11] = "Le nombre d'arguments pour cette instruction n'est pas valide";
@@ -24,6 +26,16 @@ void		ft_exit(int nb, global_t *global, char **line)
         ft_strdel(line);
 	exit(0);
 	// exit(EXIT_FAILURE);
+}
+
+int			ft_open(global_t *global)
+{
+	global->fdOut = open("42.cor", O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	if (global->fdOut == -1)
+	{
+		ft_exit(4, global, NULL);
+	}
+	return(EXIT_SUCCESS);
 }
 
 /*
@@ -43,6 +55,7 @@ int			main(int argc, char **argv)
     global->fdIn = open(argv[1], O_RDONLY, 0666);
 	if (-1 == global->fdIn)
 		ft_exit(2, global, &line);
+	ft_open(global);
 	while ((gnl = get_next_line(global->fdIn, &line)))
 	{
 		if (gnl == -1)

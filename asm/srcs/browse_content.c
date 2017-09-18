@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   browse_label.c                                     :+:      :+:    :+:   */
+/*   browse_content.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/12 14:32:02 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/18 14:50:55 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void        ft_get_opcode(global_t *global, char *line)
 
 void        ft_browse_content(global_t *global)
 {
-   global->s_label = global->begin_label;
+    global->s_label = global->begin_label;
+	ft_check_header_bis(global);
     while (!ft_strcmp(global->s_label->name, "HEADER") || !ft_strcmp(global->s_label->name, "COMMENTS"))
         global->s_label = global->s_label->next;
     while (global->s_label)
