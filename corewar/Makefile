@@ -6,7 +6,7 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/09/17 11:27:39 by wescande         ###   ########.fr        #
+#    Updated: 2017/09/19 20:01:38 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,75 +31,83 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 LIBS		=	`pkg-config --libs gtk+-3.0`
 
 SRC_BASE	=	\
-area_interface/get_value_from_area.c\
-area_interface/get_type_from_area.c\
-area_interface/set_value_in_area.c\
-init/init_number.c\
-init/init_data.c\
-init/init_dump.c\
-init/init_vm.c\
-init/init_file.c\
-tools/free_vm.c\
-tools/move_pc.c\
-tools/add_process.c\
-tools/display.c\
-tools/usage.c\
 tools/del_process.c\
+tools/usage.c\
 tools/remove_all_process.c\
-check/check_live.c\
-check/check_cycle.c\
-check/check_arg.c\
-ops/op_fork.c\
-ops/op_live.c\
+tools/move_pc.c\
+tools/free_vm.c\
+tools/display.c\
+tools/add_process.c\
+init/init_file.c\
+init/init_process_list.c\
+init/init_data.c\
+init/init_area.c\
+init/init_vm_value.c\
+init/init_vm_memory.c\
+init/init_number.c\
+init/init_dump.c\
+do_one_cycle.c\
 ops/op_sub.c\
-ops/op_sti.c\
-ops/op_st.c\
 ops/op_xor.c\
-ops/op_lld.c\
-ops/op_lldi.c\
-ops/op_aff.c\
-ops/op_and.c\
-ops/op_ldi.c\
-ops/op_add.c\
-ops/op_or.c\
 ops/op_zjmp.c\
+ops/op_sti.c\
+ops/op_lldi.c\
 ops/op_lfork.c\
+ops/op_st.c\
+ops/op_fork.c\
 ops/op_ld.c\
-display/display_win.c\
+ops/op_lld.c\
+ops/op_and.c\
+ops/op_live.c\
+ops/op_add.c\
+ops/op_aff.c\
+ops/op_or.c\
+ops/op_ldi.c\
+main.c\
 display/dump.c\
-gtk/gtk_init.c\
+display/display_win.c\
+gtk/px_manage/iter_on_px.c\
+gtk/px_manage/erase_px.c\
+gtk/px_manage/init_px.c\
+gtk/px_manage/calcul_px.c\
+gtk/px_manage/draw_px.c\
+gtk/px_manage/px_calc_color.c\
+gtk/init_gtk_value.c\
+gtk/update/update_players.c\
+gtk/update/update_process.c\
+gtk/update/update_process_info.c\
+gtk/pc_manage/init_pc.c\
+gtk/pc_manage/erase_pc.c\
+gtk/pc_manage/draw_pc.c\
+gtk/callbacks/cb_key_event_release.c\
+gtk/callbacks/cb_configure_event.c\
+gtk/callbacks/cb_reboot.c\
+gtk/callbacks/cb_more_info.c\
+gtk/callbacks/cb_mouse.c\
+gtk/callbacks/cb_speed.c\
+gtk/callbacks/cb_play.c\
+gtk/callbacks/cb_step.c\
+gtk/callbacks/cb_process_box.c\
+gtk/callbacks/cb_draw.c\
+gtk/callbacks/cb_quit.c\
+gtk/cairo/cairo.c\
 gtk/draw/draw_underline.c\
 gtk/draw/draw_border.c\
 gtk/draw/calcul_border.c\
-gtk/update/update_process.c\
-gtk/update/update_players.c\
-gtk/cairo/cairo.c\
-gtk/callbacks/cb_mouse.c\
-gtk/callbacks/cb_process_box.c\
-gtk/callbacks/cb_quit.c\
-gtk/callbacks/cb_key_event_release.c\
-gtk/callbacks/cb_play.c\
-gtk/callbacks/cb_step.c\
-gtk/callbacks/cb_draw.c\
-gtk/callbacks/cb_speed.c\
-gtk/callbacks/cb_configure_event.c\
-gtk/pc_manage/draw_pc.c\
-gtk/pc_manage/erase_pc.c\
-gtk/pc_manage/init_pc.c\
-gtk/px_manage/erase_px.c\
-gtk/px_manage/init_px.c\
-gtk/px_manage/px_calc_color.c\
-gtk/px_manage/draw_px.c\
-gtk/px_manage/calcul_px.c\
-gtk/px_manage/iter_on_px.c\
+gtk/create/create_process_info.c\
+gtk/create/create_info_win.c\
 gtk/create/create_panel.c\
 gtk/create/create_gtk.c\
-gtk/create/create_menu.c\
-gtk/create/create_process_info.c\
 gtk/create/create_players_info.c\
+gtk/create/create_menu.c\
 gtk/create/create_widget.c\
-main.c\
-do_one_cycle.c
+gtk/init_gtk_memory.c\
+check/check_cycle.c\
+check/check_arg.c\
+check/check_live.c\
+area_interface/get_type_from_area.c\
+area_interface/get_value_from_area.c\
+area_interface/set_value_in_area.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))
@@ -109,7 +117,7 @@ SHELL		=	/bin/bash
 
 all :
 	@make -C $(LIBFT_DIR)
-	@make  $(NAME)
+	@make -j $(NAME)
 
 $(NAME):		$(LIBFT_LIB) $(OBJ_DIR) $(OBJS) Makefile
 	@$(CC) $(OBJS) -o $(NAME) \

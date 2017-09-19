@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/17 23:08:18 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/19 21:01:52 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ static int	console_run(t_vm *vm)
 		return (ERR_COR("WHAT THE FUCK IS NULL??"));
 	ret = 0;
 	DG("START");
-	while (IS_UNSET(vm->flag, STOP))
+	// while (IS_UNSET(vm->flag, STOP))
+	while (IS_ONEUNSET(vm->flag, STOP | PAUSE)) //TODO check if correct for ending in console
 	{
 		display(vm);
 		ret = do_one_cycle(vm);
@@ -90,7 +91,9 @@ int		main(int ac, char **av)
 {
 	t_vm	vm;
 
-	if (init_vm(&vm, &ac, &av))
+	if (init_vm_memory(&vm, &ac, &av))
+		return (1);
+	if (init_vm_value(&vm))
 		return (1);
 	if (IS_SET(vm.flag, GRAPHIC))
 		return (gtk_run(&vm));

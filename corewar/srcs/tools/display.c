@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/12 13:04:45 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/09/19 20:52:25 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void 	display_players(t_vm *vm)
 {
 	int fd;
 	int i = 0;
-	t_player *players;
+	t_file *players;
 
 	if ((fd = open("/dev/ttys002", O_WRONLY)) == -1)
 		return ;
-	players = vm->players;
+	players = vm->file;
 	ft_dprintf(fd, CLEAR);
 	ft_dprintf(fd, "\n%10c===== players =====\n\n", 0);
 	while (i < vm->nb_player)
@@ -36,7 +36,7 @@ void 	display_players(t_vm *vm)
 
 void 	disp_process(int fd, t_process *process, t_op op)
 {
-	int i = 0;
+	int i = -1;
 
 	(void)&fd;
 	(void)&i;
@@ -46,7 +46,7 @@ void 	disp_process(int fd, t_process *process, t_op op)
 	ft_dprintf(fd, "\n%10c===== Process [%d] =====\n\n", 0, process->pc);
 	ft_dprintf(fd, "{\n");
 	ft_dprintf(fd, "%4cregistre :\n", 0);
-	while (++i < REG_NUMBER + 1)
+	while (++i < REG_NUMBER)
 		if (process->r[i])
 			ft_dprintf(fd, "       r[%d] = %#x | %d\n", i, process->r[i], process->r[i]);
 	ft_dprintf(fd, "=== r[1] = %#x | %d\n", i, process->r[1], process->r[1]);

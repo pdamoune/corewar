@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 18:29:31 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/17 17:33:30 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/19 19:13:02 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ GtkWidget			*create_process_info(t_vm *vm)
 	gtk_box_pack_start(GTK_BOX(box), gtk_label_new("Processus display :"), FALSE, FALSE, 15);
 	gtk_box_pack_start(GTK_BOX(box), process_selection(vm), FALSE, FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(box), process_info(vm), FALSE, FALSE, 5);
+	vm->gtk.panel.p_win.btn = pack_new_button(box, "More info ...", G_CALLBACK(cb_more_info), vm);
+	gtk_widget_set_sensitive(vm->gtk.panel.p_win.btn, FALSE);
 	return (frame);
 }

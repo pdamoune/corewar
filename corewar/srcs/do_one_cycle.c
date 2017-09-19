@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/17 23:09:01 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/19 20:58:08 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,9 @@ static int		check_args(t_vm *vm, t_process *p, unsigned int *type, unsigned int 
 	{
 		if (IS_UNSET(p->op.params[i], type[i]))
 			return (1);
-		if (type[i] == T_REG && args[i] > REG_NUMBER)
+		if (type[i] == T_REG && args[i] >= REG_NUMBER)
 			return (DG("Invalid register"));
-		p->op.params[i] = type[i]; // je sais pas si c'est une bonne chose
+		p->op.params[i] = type[i];
 	}
 	return (0);
 }

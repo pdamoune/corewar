@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/18 00:17:55 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/19 20:53:32 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ struct		s_process
 	unsigned int	id;
 	// char			*name;
 	int				pc;
-	unsigned int	r[REG_NUMBER + 1];
+	unsigned int	r[REG_NUMBER];
 	int				carry;
 	int				id_player;
 	long			last_live;
@@ -72,11 +72,12 @@ struct		s_process
 	t_lx			lx;
 };
 
-typedef struct		s_player
-{
-	int				live;
-	long			last_live;
-}					t_player;
+// typedef struct		s_player
+// {
+// 	int				start_position;
+// 	int				live;
+// 	long			last_live;
+// }					t_player;
 
 typedef struct		s_header
 {
@@ -84,14 +85,16 @@ typedef struct		s_header
 	char			prog_name[PROG_NAME_LENGTH + 1];
 	unsigned int	prog_size;
 	char			comment[COMMENT_LENGTH + 1];
-	unsigned		prog[CHAMP_MAX_SIZE / 4 + 1];
+	unsigned		prog[CHAMP_MAX_SIZE / 4 + 1];// TODO pourquoi on divise par 4 ?
 }					t_header;
 
 typedef struct		s_file
 {
 	int				is_used:1;
-	int				pc;
 	t_header		header;
+	int				start_position;
+	int				live;
+	long			last_live;
 }					t_file;
 
 /*
@@ -104,7 +107,7 @@ typedef struct		s_vm
 	long int		flag;
 	char			**av_data;
 	t_file			file[MAX_PLAYERS];
-	t_player		players[MAX_PLAYERS];
+	// t_player		players[MAX_PLAYERS];
 	t_lx			process;
 	t_gtk			gtk;
 	int				nb_player;
@@ -150,11 +153,15 @@ int		move_pc(t_vm *vm, int origin, int len);
 ** INIT
 */
 
-int		init_vm(t_vm *vm, int *ac, char ***av);
+int		init_vm_memory(t_vm *vm, int *ac, char ***av);
+int		init_vm_value(t_vm *vm);
 int		init_dump(char **opt_arg, t_vm *vm, int n_args);
 int		init_number(char **opt_arg, t_vm *vm, int n_args);
 int		init_file(t_vm *vm, int num, char *filename);
 int		init_data(int fd, t_header *header);
+int		init_process_list(t_vm *vm);
+int		init_area(t_vm *vm);
+
 
 /*
 ** Instructions.

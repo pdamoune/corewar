@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:46:51 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/12 17:21:06 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/19 18:10:43 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ gboolean			cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm)
 		{
 			g_action[i].f(vm);
 			return (FALSE);
-			
-			break;
 		}
 	return (TRUE);
 }

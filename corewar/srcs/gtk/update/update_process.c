@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/14 19:45:01 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/17 23:49:10 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/19 20:07:32 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		update_nothing(t_vm *vm)
 {
-	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_status), "Undefined");
+	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_status), STATUS_PRO_NOT);
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_pc), "x");
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_owner), ". . .");
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_owner_id), "x");
@@ -47,12 +47,27 @@ static void		update_for_real(t_vm *vm, t_process *p)
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_cycle_wait), ft_itoa_nomalloc(p->nb_cycle_before_exec, txt));
 }
 
-void			update_process(t_vm *vm, t_process *process, int is_dead)
+void			update_process(t_vm *vm, t_process *p, int is_dead)
 {
-	if (!process)
+	if (!p)
+	{
 		update_nothing(vm);
+		gtk_widget_set_sensitive(vm->gtk.panel.p_win.btn, FALSE);
+		if (vm->gtk.panel.p_win.main_label)
+			gtk_label_set_text(GTK_LABEL(vm->gtk.panel.p_win.main_label), STATUS_PRO_NOT);
+	}
 	else if (is_dead)
-		update_dead(vm, process);
+	{
+		update_dead(vm, p);
+		gtk_widget_set_sensitive(vm->gtk.panel.p_win.btn, FALSE);
+		if (vm->gtk.panel.p_win.main_label)
+			gtk_label_set_text(GTK_LABEL(vm->gtk.panel.p_win.main_label), p->last_live ? STATUS_PRO_DEAD : STATUS_PRO_NEVER);
+	}
 	else
-		update_for_real(vm, process);
+	{
+		update_for_real(vm, p);
+		gtk_widget_set_sensitive(vm->gtk.panel.p_win.btn, TRUE);
+		if (vm->gtk.panel.p_win.main_label)
+			update_process_info(vm);
+	}
 }

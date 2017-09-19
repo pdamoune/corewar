@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:35:17 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/12 17:23:46 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/19 20:00:30 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static GtkWidget		*create_main_box(t_vm *vm)
 	box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	gtk_container_add(GTK_CONTAINER(win), box);
 	gtk_box_pack_start(GTK_BOX(box),
-						GTK_WIDGET(menu_new(win)), FALSE, FALSE, 0);
+						GTK_WIDGET(menu_new(vm)), FALSE, FALSE, 0);
 	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_box_pack_start(GTK_BOX(box), hbox, TRUE, TRUE, 5);
 	vm->gtk.win = win;

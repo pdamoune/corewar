@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/18 00:21:39 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/19 20:32:30 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 # include <libft.h>
 # include <gtk/gtk.h>
 # include <op.h>
-
-
-# define N_CHANNELS 		3
 
 # define BOX_BY_LINE		64
 # define N_LINE				(MEM_SIZE / BOX_BY_LINE)
@@ -48,7 +45,7 @@
 # define STATUS_DEAD		"DEAD ?"
 # define STATUS_PRO_NEVER	"YOU LOOSE A STILLBORN PROCESS... Condolence."
 # define STATUS_PRO_DEAD	"THIS PROCESS IS DEAD. Condolence."
-
+# define STATUS_PRO_NOT		"THIS IS NOT A PROCESS."
 
 /*
 ** COLOR
@@ -84,7 +81,6 @@
 # define LIVE				(1 << 1)
 # define MOUSE				(1 << 2)
 
-
 typedef struct		s_vm t_vm;
 typedef struct		s_process t_process;
 
@@ -116,6 +112,14 @@ typedef struct	s_gtkplayer
 	GtkWidget	*n_live;
 }				t_gtkplayer;
 
+typedef struct	s_process_win
+{
+	GtkWidget	*btn;
+	GtkWidget	*main_label;
+	GtkWidget	*reg[REG_NUMBER];
+	GtkWidget	*carry;
+}				t_process_win;
+
 typedef struct	s_panel
 {
 	GtkWidget	*pause;
@@ -130,6 +134,7 @@ typedef struct	s_panel
 	GtkWidget	*process_owner_id;
 	GtkWidget	*process_cycle_wait;
 	GtkWidget	*process_pc;
+	t_process_win	p_win;
 	t_process	*process;
 }				t_panel;
 
@@ -155,6 +160,7 @@ int				draw_underline(t_vm *vm, int at, t_color color);
 */
 void 			update_process(t_vm *vm, t_process *process, int is_dead);
 void			update_players(t_vm *vm, int id);
+void			update_process_info(t_vm *vm);
 
 /*
 ** PX MANAGE
@@ -177,18 +183,18 @@ void			init_pc(t_vm *vm, int at);
 int				erase_pc(t_vm *vm, int at);
 int				draw_pc(t_vm *vm, int at);
 
-
 /*
 ** GTK CONSTRUCT
 */
 
-void			gtk_init_env(int *ac, char ***av, t_vm *vm);
-int				gtk_init_area(t_vm *vm);
+void			init_gtk_memory(int *ac, char ***av, t_vm *vm);
+void			init_gtk_value(t_vm *vm);
 void			create_gtk(t_vm *vm);
+GtkWidget		*create_info_win(t_vm *vm);
 GtkWidget		*create_panel(t_vm *vm);
 GtkWidget		*create_players_info(t_vm *vm);
 GtkWidget		*create_process_info(t_vm *vm);
-GtkMenuBar		*menu_new(gpointer data);
+GtkMenuBar		*menu_new(t_vm *vm);
 GtkWidget		*menu_item_new(GtkMenu *menu, const gchar *title,
 								GCallback callback, gpointer data);
 GtkWidget		*pack_new_toggle_button(GtkWidget *widget, const gchar *title,
@@ -209,5 +215,7 @@ gboolean		cb_draw (GtkWidget *widget, cairo_t *cr, t_vm *vm);
 gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
 									t_vm *vm);
 gboolean		cb_process_box(GtkComboBox *widget, t_vm *vm);
+gboolean		cb_more_info(GtkWidget *widget, GdkEvent *event, t_vm *vm);
+gboolean		cb_reboot(GtkWidget *widget, t_vm *vm);
 
 #endif
