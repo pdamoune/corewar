@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/18 14:50:55 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/20 11:33:26 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	ft_get_values(global_t *global, char **line)
 /*
 ** Specifique a live car pas d'octet de codage de parametre ==> global->j == 1, pas 2
 */
-void	ft_get_values_live(global_t *global, char **line)
+void	ft_get_values_one_arg(global_t *global, char **line)
 {
 	int		i;
 	int		*value;
@@ -142,7 +142,15 @@ void	ft_get_values_live(global_t *global, char **line)
 	value = 0;
 	while (line[++i] && !ft_strstart(line[i], "#"))
 	{
-		if ((val_tmp = ft_strstart(line[i], "%")))
+		if ((val_tmp = ft_strstart(line[i], "%:")))
+		{
+			value = (int *)&(global->s_label->s_content->instruction[1]);
+			if (ft_isstrdigit(val_tmp))
+				*value = INTREV32(ft_atoi(val_tmp));
+			else
+				*value = INTREV32(go_to_label(val_tmp, global));
+		}
+		else if ((val_tmp = ft_strstart(line[i], "%")))
 		{
 			value = (int *)&(global->s_label->s_content->instruction[1]);
 			if (ft_isstrdigit(val_tmp))

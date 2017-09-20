@@ -18,7 +18,7 @@ void	live_instruct(global_t *global)
 	printf("nb_octet STOCK = %d \n", global->s_label->s_content->nb_octet);
 
 	/* Get the values */
-	ft_get_values_live(global, global->s_label->s_content->line);
+	ft_get_values_one_arg(global, global->s_label->s_content->line);
 
 	/* Write the instruction */
 	ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);

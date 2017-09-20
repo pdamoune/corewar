@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/09/18 17:41:04 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/20 13:53:58 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,8 +268,8 @@ void	others_string(global_t *global);
 */
 void	ft_get_values(global_t *global, char **line);
 void	ft_get_values_one_arg(global_t *global, char **line);
-void	ft_get_values_live(global_t *global, char **line);
 void	ft_get_values_aff(global_t *global, char **line);
+
 char	*ft_compose_arg_and(global_t *global, char **line);
 char	*ft_compose_arg_and_bis(global_t *global, char **line, int i, char **arg);
 char	*ft_compose_arg_ld(global_t *global, char **line);
