@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/19 20:53:32 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/20 19:13:05 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@
 # define GRAPHIC	(1 << 0)
 # define DUMP		(1 << 1)
 # define STOP		(1 << 2)
-# define PAUSE		(1 << 3)
-# define REDRAW		(1 << 4)
-# define VERBOSE	(1 << 5)
-# define QUIET		(1 << 6)
-# define STEP		(1 << 6)
+# define END		(1 << 3)
+# define PAUSE		(1 << 4)
+# define REDRAW		(1 << 5)
+# define VERBOSE	(1 << 6)
+# define QUIET		(1 << 7)
+# define STEP		(1 << 8)
 
 # if MAX_PLAYERS < 1
 #  error "macro MAX_PLAYERS must be strictly positive"
@@ -62,10 +63,10 @@ struct		s_process
 {
 	unsigned int	id;
 	// char			*name;
-	int				pc;
+	unsigned int	pc;
 	unsigned int	r[REG_NUMBER];
-	int				carry;
-	int				id_player;
+	int				carry:1;
+	short			id_player;
 	long			last_live;
 	t_op			op;
 	int				nb_cycle_before_exec;
@@ -90,11 +91,11 @@ typedef struct		s_header
 
 typedef struct		s_file
 {
-	int				is_used:1;
-	t_header		header;
+	long			last_live;
 	int				start_position;
 	int				live;
-	long			last_live;
+	t_header		header;
+	int				is_used:1;
 }					t_file;
 
 /*
@@ -129,6 +130,7 @@ int		main(int ac, char **av);
 int		do_one_cycle(t_vm *vm);
 void	check_cycle(t_vm *vm);
 void	check_live(t_vm *vm);
+void	war_end(t_vm *vm);
 
 /*
 ** Insignifiant func

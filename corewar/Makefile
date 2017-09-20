@@ -66,6 +66,7 @@ ops/op_ldi.c\
 main.c\
 display/dump.c\
 display/display_win.c\
+war_end.c\
 gtk/px_manage/iter_on_px.c\
 gtk/px_manage/erase_px.c\
 gtk/px_manage/init_px.c\
@@ -82,6 +83,7 @@ gtk/pc_manage/draw_pc.c\
 gtk/callbacks/cb_key_event_release.c\
 gtk/callbacks/cb_configure_event.c\
 gtk/callbacks/cb_reboot.c\
+gtk/callbacks/cb_key_event_press.c\
 gtk/callbacks/cb_more_info.c\
 gtk/callbacks/cb_mouse.c\
 gtk/callbacks/cb_speed.c\
@@ -91,6 +93,7 @@ gtk/callbacks/cb_process_box.c\
 gtk/callbacks/cb_draw.c\
 gtk/callbacks/cb_quit.c\
 gtk/cairo/cairo.c\
+gtk/do_one_step.c\
 gtk/draw/draw_underline.c\
 gtk/draw/draw_border.c\
 gtk/draw/calcul_border.c\

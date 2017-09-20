@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:35:17 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/19 20:00:30 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:55:41 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static GtkWidget		*create_main_box(t_vm *vm)
 	g_signal_connect(G_OBJECT(win), "destroy", G_CALLBACK(cb_quit), win);
 	g_signal_connect(G_OBJECT(win), "key-release-event",
 					G_CALLBACK(cb_key_event_release), vm);
+	g_signal_connect(G_OBJECT(win), "key-press-event",
+					G_CALLBACK(cb_key_event_press), vm);
 	box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	gtk_container_add(GTK_CONTAINER(win), box);
 	gtk_box_pack_start(GTK_BOX(box),

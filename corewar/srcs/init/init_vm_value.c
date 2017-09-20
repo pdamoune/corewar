@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 20:26:26 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/19 20:58:36 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:59:54 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int			init_vm_value(t_vm *vm)
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->last_check = 0;
 	vm->check_count = 0;
+	vm->cycle = 0;
 	i = -1;
 	while (++i < MAX_PLAYERS)
 	{

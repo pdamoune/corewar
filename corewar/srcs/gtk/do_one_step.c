@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_zjmp.c                                          :+:      :+:    :+:   */
+/*   do_one_step.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/28 19:12:51 by philippe          #+#    #+#             */
-/*   Updated: 2017/09/20 14:50:45 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/20 18:50:43 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/20 19:01:16 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <vm.h>
 
-int		op_zjmp(t_vm *vm, t_process *process, unsigned int *args)
+int		do_one_step(t_vm *vm)
 {
-	DG("\nargs 0 = %d\n", args[0]);
-	DG("\nargs 1 = %d\n", args[1]);
-	DG("\nargs 2 = %d\n", args[2]);
-	DG("\npc = %d\n", process->pc);
-	DG("\npc - arg = %d\n", process->pc + args[0]);
-	DG("\ncarry = %d\n", process->carry);
-	if (process->carry)
-		process->pc = move_pc(vm, process->pc, ((int)args[0]) % IDX_MOD - 3);
-	return (0);
+	DG("enter");
+	if (IS_SET(vm->flag, END))
+	{
+		DG("The game is over");
+		return (1);
+	}
+	else if (IS_UNSET(vm->flag, PAUSE))
+	{
+		DG("The game is not in pause mode");
+		return (1);
+	}
+	else
+	{
+		DG("will do one step");
+		SET(vm->flag, STEP);
+		return (0);
+	}
 }

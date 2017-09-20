@@ -1,43 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cb_key_event_release.c                             :+:      :+:    :+:   */
+/*   cb_key_event_press.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:46:51 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/20 14:57:08 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/20 18:54:45 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-static int		stop_corewar(t_vm *vm)
+static int		one_step(t_vm *vm)
 {
-	SET(vm->flag, STOP);
-	return (0);
-}
-
-static int		play(t_vm *vm)
-{
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(vm->gtk.panel.pause), IS_SET(vm->flag, PAUSE));
-	return (0);
+	return (do_one_step(vm));
 }
 
 static t_itof	g_action[] =
 {
-	{GTK_ESC, stop_corewar},
-	{GTK_SPA, play},
+	{GTK_RIGHT, one_step},
 	{0, 0},
 };
 
-gboolean			cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm)
+gboolean			cb_key_event_press(GtkWidget *win, GdkEventKey *event, t_vm *vm)
 {
 	int i;
 
 	(void)win;
 	i = -1;
-	DG("release %s of val %u", gdk_keyval_name(event->keyval),
+	DG("press %s of val %u", gdk_keyval_name(event->keyval),
 						event->hardware_keycode);
 	while (g_action[++i].id)
 		if (g_action[i].id == event->hardware_keycode)

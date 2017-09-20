@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 19:45:41 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/19 21:04:30 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:59:29 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	erase_draw_area(t_vm *vm)
 
 gboolean	cb_reboot(GtkWidget *widget, t_vm *vm)
 {
-
 	(void)widget;
 	if (IS_UNSET(vm->flag, PAUSE))
 	{	DG();

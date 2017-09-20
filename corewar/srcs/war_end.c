@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_zjmp.c                                          :+:      :+:    :+:   */
+/*   war_end.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/28 19:12:51 by philippe          #+#    #+#             */
-/*   Updated: 2017/09/20 14:50:45 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/20 19:02:23 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/20 19:14:26 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <vm.h>
 
-int		op_zjmp(t_vm *vm, t_process *process, unsigned int *args)
+void	war_end(t_vm *vm)
 {
-	DG("\nargs 0 = %d\n", args[0]);
-	DG("\nargs 1 = %d\n", args[1]);
-	DG("\nargs 2 = %d\n", args[2]);
-	DG("\npc = %d\n", process->pc);
-	DG("\npc - arg = %d\n", process->pc + args[0]);
-	DG("\ncarry = %d\n", process->carry);
-	if (process->carry)
-		process->pc = move_pc(vm, process->pc, ((int)args[0]) % IDX_MOD - 3);
-	return (0);
+	
+	SET(vm->flag, PAUSE | END);
+	if (IS_SET(vm->flag, GRAPHIC))
+	{
+		gtk_widget_set_sensitive(vm->gtk.panel.step, FALSE);
+		gtk_widget_set_sensitive(vm->gtk.panel.pause, FALSE);
+	}
 }

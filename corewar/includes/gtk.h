@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/19 20:32:30 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/20 19:00:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@
 # ifdef __linux__
 # define GTK_ESC			9
 # define GTK_SPA			65
+# define GTK_RIGHT			114
 # endif
 # define MAX_KEY			1024
 
@@ -122,6 +123,7 @@ typedef struct	s_process_win
 
 typedef struct	s_panel
 {
+	GtkWidget	*step;
 	GtkWidget	*pause;
 	GtkWidget	*cpt;
 	t_gtkplayer	players[MAX_PLAYERS];
@@ -154,6 +156,7 @@ typedef struct	s_gtk
 void			calcul_border(GtkWidget *widget, t_vm *vm, int at);
 void			draw_border(GtkWidget *widget, t_vm *vm, int at, const t_color color);
 int				draw_underline(t_vm *vm, int at, t_color color);
+int				do_one_step(t_vm *vm);
 
 /*
 ** GTK UPDATE
@@ -207,6 +210,7 @@ GtkWidget		*pack_new_button(GtkWidget *widget, const gchar *title,
 */
 gboolean		cb_speed(GtkWidget *widget, t_vm *vm);
 gboolean		cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm);
+gboolean		cb_key_event_press(GtkWidget *win, GdkEventKey *event, t_vm *vm);
 gboolean		cb_mouse(GtkWidget *win, GdkEventKey *event, t_vm *vm);
 gboolean		cb_play(GtkWidget *widget, t_vm *vm);
 gboolean		cb_quit(GtkWidget *widget, gpointer data);

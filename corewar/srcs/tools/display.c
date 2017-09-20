@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/19 20:52:25 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:50:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,11 @@ void 	disp_area(t_vm *vm, char *area)
 		while (j < 64)
 		{
 			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
-				if (i == process->pc)
+				if (i == (int)process->pc)
 					ft_printf("{red}", area[i]);
 			ft_printf("%0.2hhx ", area[i]);
 			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
-				if (i == process->pc)
+				if (i == (int)process->pc)
 					ft_printf("{eoc}", area[i]);
 			j++;
 			i++;

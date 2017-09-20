@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/19 20:58:08 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:50:01 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,14 +220,14 @@ static int		init_instruction(t_vm *vm, t_process *p)
 
 int				do_one_cycle(t_vm *vm)
 {
-	t_process 	*process;
-	int			*pc;
+	t_process		*process;
+	unsigned int	*pc;
 
 	LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
 	{
 		pc = &(process->pc);
 		if (IS_UNSET(vm->flag, GRAPHIC))
-			DG("IS_UNSET, pc = %d, nb_cycle_before_exec = %d", *pc, process->nb_cycle_before_exec);
+			DG("IS_UNSET, pc = %u, nb_cycle_before_exec = %d", *pc, process->nb_cycle_before_exec);
 		init_instruction(vm, process);
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
