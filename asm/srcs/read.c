@@ -30,11 +30,18 @@ void		ft_exit(int nb, global_t *global, char **line)
 
 int			ft_open(global_t *global)
 {
+	int		magic_bis;
+	int		magic_ter;
+
+	magic_bis = COREWAR_EXEC_MAGIC;
+	magic_ter = INTREV32(magic_bis);
 	global->fdOut = open("42.cor", O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (global->fdOut == -1)
 	{
 		ft_exit(4, global, NULL);
 	}
+	else
+		write(global->fdOut, &magic_ter, 4);
 	return(EXIT_SUCCESS);
 }
 

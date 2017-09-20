@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/18 17:20:19 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/20 15:53:11 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,49 @@
 
 void ft_check_header(global_t *global)
 {
-    int i;
-    int k;
-    char name[128];
+    int     i;
+    int     k;
+    char    **tmp;
+    char    name[PROG_NAME_LENGTH];
 
-    ft_bzero(name, 128);
-    i = 0;
+    k = 0;
     if (ft_strstart(global->s_map->line, NAME_CMD_STRING))
     {
+        tmp = ft_strsplit(global->s_map->line, '"');
         ft_putendl("NAME PICK UP\n");
-        while (global->s_map->line[i])
-            i++;
-        if (i > 134)
+        i = ft_strlen(tmp[1]);
+        if (i > PROG_NAME_LENGTH)
             ft_exit(5, global, NULL);
         else
         {
-            k = 0;
-            while (k < i - 5)
+            while (k < i)
             {
-                name[k] = (ft_strdup(ft_strstart(global->s_map->line, NAME_CMD_STRING)))[k + 1];
+                name[k] = tmp[1][k];
                 k++;
             }
+            while (k < PROG_NAME_LENGTH)
+            {
+                name[k] = '\0';
+                k++;
+            }
+            ft_write(global, name, PROG_NAME_LENGTH);
             printf("NAME === %s\n", name);
-            ft_write(global, name, 128);
         }
+        /*free(tmp);*/
     }
 }
 
 void ft_check_header_bis(global_t *global)
 {
-    char comment[2048];
-    int k;
-    int i;
+    char    comment[COMMENT_LENGTH];
+    int     k;
+    int     i;
+    int     rev;
 
     k = 0;
     i = 0;
-    ft_bzero(comment, 2048);
+    rev = INTREV32((global->total_octet - 1));
+    ft_bzero(comment, COMMENT_LENGTH);
     while (!ft_strcmp(global->s_label->name, "HEADER"))
     {
         if (!ft_strcmp(global->s_label->s_content->line[0], NAME_CMD_STRING))
@@ -60,18 +67,17 @@ void ft_check_header_bis(global_t *global)
         if (!ft_strcmp(global->s_label->s_content->line[0], COMMENT_CMD_STRING))
         {
             global->fdOut = open("42.cor", O_WRONLY | O_APPEND, 0666);
-            write(global->fdOut, &(global->total_octet), 4);
-            ft_putendl(global->s_label->s_content->line[1]);
+            write(global->fdOut, &rev, 4);
             while (global->s_label->s_content->line[1][i])
                 i++;
-            if (i > 2048)
+            if (i > COMMENT_LENGTH)
                 ft_exit(6, global, NULL);
             while (k < i)
             {
                 comment[k] = global->s_label->s_content->line[1][k];
                 k++;
             }
-            ft_write(global, comment, 2048);
+            ft_write(global, comment, COMMENT_LENGTH);
         }
         global->s_label = global->s_label->next;
     }
