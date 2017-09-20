@@ -24,35 +24,3 @@ void	zjmp_instruct(global_t *global)
 	printf("\n");
 	/* Fin DEBUG */
 }
-
-void	ft_get_values_one_arg(global_t *global, char **line)
-{
-	int		i;
-	int		*value;
-	char	*val_tmp;
-
-	i = 0;
-	val_tmp = NULL;
-	value = 0;
-	while (line[++i] && !ft_strstart(line[i], "#"))
-	{
-		if ((val_tmp = ft_strstart(line[i], "%:")))
-		{
-			value = (int *)&(global->s_label->s_content->instruction[1]);
-			if (ft_isstrdigit(val_tmp))
-				*value = INTREV32(ft_atoi(val_tmp));
-			else
-				*value = INTREV32(go_to_label(val_tmp, global));
-		}
-		else if ((val_tmp = ft_strstart(line[i], "%")))
-		{
-			value = (int *)&(global->s_label->s_content->instruction[1]);
-			if (ft_isstrdigit(val_tmp))
-				*value = INTREV32(ft_atoi(val_tmp));
-			else
-				*value = INTREV32(go_to_label(val_tmp, global));
-		}
-		else
-			ft_exit(12, global, NULL);
-	}
-}
