@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:11:09 by philippe          #+#    #+#             */
-/*   Updated: 2017/09/06 14:02:06 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/25 17:39:13 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		op_aff(t_vm *vm, t_process *process, unsigned int *args)
 {
-	(void)&vm;(void)&process;(void)&args;
-	DG("");
+	(void)vm;
+	//TODO aff in graphical mode ?
+	ft_putchar(process->r[args[0] - 1] % 256);
 	return (0);
 }

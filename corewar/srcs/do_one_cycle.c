@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/20 14:50:01 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/25 17:58:22 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,9 +183,12 @@ static int		do_instruction(t_vm *vm, t_process *p)
 		p->pc = move_pc(vm, p->pc, 1);
 		return (DG("Next process"));
 	}
-	p->op.instru(vm, p, args); // sending to instruction function
-
-	DG("not yet full implemented");
+	if (p->op.instru(vm, p, args)) // sending to instruction function
+	{
+		DG("Something went wrong");
+		p->pc = move_pc(vm, p->pc, 1);
+		return (1);
+	}
 	DG("make a pc jump of %d", pc_inc);
 	p->pc = move_pc(vm, p->pc, pc_inc);
 	return (0);
@@ -203,7 +206,8 @@ static int		init_instruction(t_vm *vm, t_process *p)
 	{
 		if (vm->area[p->pc] < 1 || vm->area[p->pc] > 16)
 		{
-			ft_bzero(&p->op, sizeof(t_op));//TODO check if no impact on result
+			if (IS_SET(vm->flag, GRAPHIC))//only in graphic because it's a display purpose
+				ft_bzero(&p->op, sizeof(t_op));//TODO check if no impact on result
 			p->pc = move_pc(vm, p->pc, 1);
 			p->nb_cycle_before_exec = 0;
 			return (0);

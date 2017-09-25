@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_fork.c                                          :+:      :+:    :+:   */
+/*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/28 19:11:27 by philippe          #+#    #+#             */
-/*   Updated: 2017/09/25 17:54:36 by wescande         ###   ########.fr       */
+/*   Created: 2017/09/25 17:43:23 by wescande          #+#    #+#             */
+/*   Updated: 2017/09/25 17:55:40 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <vm.h>
 
-int		op_fork(t_vm *vm, t_process *process, unsigned int *args)
+void	fork_process(t_vm *vm, t_process *p, unsigned int pc)
 {
-	unsigned int	new_pc;
+	t_process		*new_process;
+	int				i;
 
-	new_pc = (process->pc + (args[0] % IDX_MOD)) % MEM_SIZE;
-	return (fork_process(vm, process, new_pc));
+	if (!(new_process = ft_memalloc(sizeof(t_process))))
+		return (ERR_COR("malloc failed"));
+	ft_memcpy(new_process, process, sizeof(t_process));
+	new_process->pc = pc;
+	new_process->nb_cycle_before_exec = 0;
+	add_process(vm, new_process);
+	return (0);
 }

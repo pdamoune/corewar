@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/20 19:13:05 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/25 17:58:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void	add_process(t_vm *vm, t_process *p);
 void	remove_all_process(t_vm *vm);
 void	del_process(t_vm *vm, t_process *process);
 int		move_pc(t_vm *vm, int origin, int len);
+void	fork_process(t_vm *vm, t_process *p, unsigned int pc);
 
 
 /*
