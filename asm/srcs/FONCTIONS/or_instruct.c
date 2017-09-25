@@ -22,7 +22,7 @@ char	*ft_compose_arg_or_bis(global_t *global, char **line, int i, char **arg)
 	return(*arg);
 }
 
-char	*ft_compose_arg_or(global_t *global, char **line)
+char	*or_instruct(global_t *global, char **line)
 {
 	int		i;
 	char	*arg;
@@ -48,31 +48,31 @@ char	*ft_compose_arg_or(global_t *global, char **line)
 	return(arg);
 }
 
-void        or_instruct(global_t *global)
-{
-    int     *arg;
-    char    *arg_tmp;
-
-    arg_tmp = ft_compose_arg_or(global, global->s_label->s_content->line);
-	arg = (int *)&(global->s_label->s_content->instruction[1]);
-	*arg = ft_atoi(ft_convert_base(arg_tmp, "01", "0123456789"));
-	printf("<%s> = arg\n", arg_tmp);
-	printf("<%d> = arg\n", *arg);
-	printf("<%X> = arg\n", *arg);
-	free(arg_tmp);
-
-	/* Get the values */
-	global->i = 0;
-	ft_get_values(global, global->s_label->s_content->line);
-
-	/* Write the instruction */
-	ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
-
-	/* DEBUG */
-	printf("\nvalue instruction : ");
-    int i = 0;
-	while(i < global->s_label->s_content->nb_octet)
-		printf("0x%X ", global->s_label->s_content->instruction[i++]);
-	printf("\n\n");
-	/* Fin DEBUG */
-}
+// void        or_instruct(global_t *global)
+// {
+//     int     *arg;
+//     char    *arg_tmp;
+//
+//     arg_tmp = ft_compose_arg_or(global, global->s_label->s_content->line);
+// 	arg = (int *)&(global->s_label->s_content->instruction[1]);
+// 	*arg = ft_atoi(ft_convert_base(arg_tmp, "01", "0123456789"));
+// 	printf("<%s> = arg\n", arg_tmp);
+// 	printf("<%d> = arg\n", *arg);
+// 	printf("<%X> = arg\n", *arg);
+// 	free(arg_tmp);
+//
+// 	/* Get the values */
+// 	global->i = 0;
+// 	ft_get_values(global, global->s_label->s_content->line, 0);
+//
+// 	/* Write the instruction */
+// 	ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
+//
+// 	/* DEBUG */
+// 	printf("\nvalue instruction : ");
+//     int i = 0;
+// 	while(i < global->s_label->s_content->nb_octet)
+// 		printf("0x%X ", global->s_label->s_content->instruction[i++]);
+// 	printf("\n\n");
+// 	/* Fin DEBUG */
+// }

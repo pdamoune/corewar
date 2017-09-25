@@ -35,10 +35,15 @@ void        ft_get_opcode(global_t *global, char *line)
     opcode[14] = 15;
     opcode[15] = 16;
     index = ft_find_index(global, line);
-    if (index >= 0 && index <= 15)
+	if (index > 0 && index <= 13 && index != 6 && index != 9)
+	{
+		global->s_label->s_content->instruction[0] = opcode[index];
+		ft_pointeur_tab(global, index, 0);
+	}
+    else if (index == 0 || index == 6 || index == 9 || (index >= 14 && index <= 22))
     {
         global->s_label->s_content->instruction[0] = opcode[index];
-        ft_pointeur_tab(global, index);
+        ft_pointeur_tab(global, index, 1);
     }
     else
         ft_exit(10, global, NULL);
@@ -65,18 +70,22 @@ void        ft_browse_content(global_t *global)
     }
 }
 
-void	ft_get_values(global_t *global, char **line)
+void	ft_get_values(global_t *global, char **line, int one_arg)
 {
 	int				*value;
 	unsigned short	*value_ind;
 	char			*value_char;
 	char			*val_tmp;
 
-	global->j = 2;
+
 	val_tmp = NULL;
 	value = 0;
 	value_ind = 0;
 	value_char = 0;
+	if (one_arg)
+		global->j = 1;
+	else
+		global->j = 2;
 	while (line[++global->i] && !ft_strstart(line[global->i], "#"))
 	{
 		printf("global->j %d\n", global->j);
@@ -127,38 +136,4 @@ void	ft_get_values(global_t *global, char **line)
 		}
 	}
 	printf("global->j %d\n", global->j);
-}
-/*
-** Specifique a live car pas d'octet de codage de parametre ==> global->j == 1, pas 2
-*/
-void	ft_get_values_one_arg(global_t *global, char **line)
-{
-	int		i;
-	int		*value;
-	char	*val_tmp;
-
-	i = 0;
-	val_tmp = NULL;
-	value = 0;
-	while (line[++i] && !ft_strstart(line[i], "#"))
-	{
-		if ((val_tmp = ft_strstart(line[i], "%:")))
-		{
-			value = (int *)&(global->s_label->s_content->instruction[1]);
-			if (ft_isstrdigit(val_tmp))
-				*value = INTREV32(ft_atoi(val_tmp));
-			else
-				*value = INTREV32(go_to_label(val_tmp, global));
-		}
-		else if ((val_tmp = ft_strstart(line[i], "%")))
-		{
-			value = (int *)&(global->s_label->s_content->instruction[1]);
-			if (ft_isstrdigit(val_tmp))
-				*value = INTREV32(ft_atoi(val_tmp));
-			else
-				*value = INTREV32(go_to_label(val_tmp, global));
-		}
-		else
-			ft_exit(12, global, NULL);
-	}
 }

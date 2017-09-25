@@ -172,6 +172,13 @@ void	ft_calcul_octet(global_t *global, char **line);
 void	ft_check_header(global_t *global);
 void	ft_check_header_bis(global_t *global);
 /*
+**   FONCTIONS FREE
+*/
+void	ft_free_global(global_t *global);
+void	ft_free_map(global_t *global);
+void	ft_free_labels(global_t *global);
+void	ft_free_content(global_t *global);
+/*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
 void	ft_initialize_global(global_t **global);
@@ -238,38 +245,36 @@ enum				e_conversion
 	Comment_CHAR = 20,
 	Other_CMD_STRING = 21,
 };
-void	ft_pointeur_tab(global_t *global, int index);
-void	(*p_tab[25])(global_t *);
-void	live_instruct(global_t *global);
-void	ld_instruct(global_t *global);
-void	st_instruct(global_t *global);
-void	add_instruct(global_t *global);
-void	and_instruct(global_t *global);
-void	sub_instruct(global_t *global);
-void	and_instruct(global_t *global);
-void	or_instruct(global_t *global);
-void	xor_instruct(global_t *global);
-void	zjmp_instruct(global_t *global);
-void	ldi_instruct(global_t *global);
-void	sti_instruct(global_t *global);
-void	fork_instruct(global_t *global);
-void	lld_instruct(global_t *global);
-void	lldi_instruct(global_t *global);
-void	lfork_instruct(global_t *global);
-void	aff_instruct(global_t *global);
-void	direct_param(global_t *global);
-void	indirect_param(global_t *global);
-void	register_param(global_t *global);
-void	cmd_string(global_t *global);
-void	comments_string(global_t *global);
-void	others_string(global_t *global);
+void	ft_pointeur_tab(global_t *global, int index, int one_arg);
+char	*(*p_tab[25])(global_t *, char **line);
+// char	*live_instruct(global_t *global, char **line);
+char	*ld_instruct(global_t *global, char **line);
+char	*st_instruct(global_t *global, char **line);
+char	*add_instruct(global_t *global, char **line);
+char	*and_instruct(global_t *global, char **line);
+char	*sub_instruct(global_t *global, char **line);
+char	*and_instruct(global_t *global, char **line);
+char	*or_instruct(global_t *global, char **line);
+char	*xor_instruct(global_t *global, char **line);
+// char	*zjmp_instruct(global_t *global, char **line);
+char	*ldi_instruct(global_t *global, char **line);
+char	*sti_instruct(global_t *global, char **line);
+// char	*fork_instruct(global_t *global, char **line);
+char	*lld_instruct(global_t *global, char **line);
+char	*lldi_instruct(global_t *global, char **line);
+// char	*lfork_instruct(global_t *global, char **line);
+char	*aff_instruct(global_t *global, char **line);
+// char	*direct_param(global_t *global, char **line);
+// char	*indirect_param(global_t *global, char **line);
+// char	*register_param(global_t *global, char **line);
+// char	*cmd_string(global_t *global, char **line);
+// char	*comments_string(global_t *global, char **line);
+// char	*others_string(global_t *global, char **line);
 /*
 **	SOUS-FONCTIONS DE TRADUCTION
 */
-void	ft_get_values(global_t *global, char **line);
-void	ft_get_values_one_arg(global_t *global, char **line);
-void	ft_get_values_aff(global_t *global, char **line);
-
+void	ft_get_values(global_t *global, char **line, int one_arg);
+void        general_fct(global_t *global, int one_arg, char *arg_tmp);
 char	*ft_compose_arg_and(global_t *global, char **line);
 char	*ft_compose_arg_and_bis(global_t *global, char **line, int i, char **arg);
 char	*ft_compose_arg_ld(global_t *global, char **line);

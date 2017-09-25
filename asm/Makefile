@@ -56,6 +56,7 @@ FONCTIONS/sti_instruct.c\
 FONCTIONS/sub_instruct.c\
 FONCTIONS/xor_instruct.c\
 FONCTIONS/zjmp_instruct.c\
+free.c\
 INIT_STRUCT/init_content.c\
 INIT_STRUCT/init_global.c\
 INIT_STRUCT/init_label.c\
