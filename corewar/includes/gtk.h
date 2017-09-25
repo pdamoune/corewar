@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/20 19:00:27 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/25 17:18:03 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define GTK_WIDTH			(AREA_WIDTH + 410)
 # define GTK_HEIGHT			1000
 
+# define CYCLE_CHANGED		10
 /*
 ** STATUS
 */
@@ -80,7 +81,7 @@
 */
 # define USED				(1 << 0)
 # define LIVE				(1 << 1)
-# define MOUSE				(1 << 2)
+// # define MOUSE				(1 << 2)
 
 typedef struct		s_vm t_vm;
 typedef struct		s_process t_process;
@@ -103,7 +104,7 @@ typedef struct	s_px
 	unsigned long	flag;
 	unsigned short	player;
 	unsigned int	pc;
-	int				is_new:1;
+	unsigned short	is_new;
 }				t_px;
 
 typedef struct	s_gtkplayer

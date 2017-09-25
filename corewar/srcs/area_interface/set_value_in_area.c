@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 14:23:03 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/06 14:53:08 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/25 17:15:25 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		set_value_in_area(t_vm *vm, int at, unsigned int value, unsigned int size)
 		DG();
 		if (IS_SET(vm->flag, GRAPHIC))
 		{
-			vm->gtk.px[at].is_new = 1;
+			vm->gtk.px[at].is_new = CYCLE_CHANGED;
 			draw_px(vm, at);
 		}
 		++at;

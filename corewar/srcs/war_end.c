@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 19:02:23 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/20 19:14:26 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/25 16:01:19 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	war_end(t_vm *vm)
 {
-	
 	SET(vm->flag, PAUSE | END);
 	if (IS_SET(vm->flag, GRAPHIC))
 	{
