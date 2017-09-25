@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/09/20 13:53:58 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/25 15:24:33 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
 char	*ft_arg(char *arg, int param, int type);
 char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet);
 int		ft_isstrdigit(char *s);
+int		ft_isstrint(char *s);
 void	ft_free_tab(char **tab);
 int		ft_strlen_tab(char **tab);
 int		go_to_label(char *label, global_t *global);

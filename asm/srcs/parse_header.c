@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/20 15:53:11 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/25 16:13:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void ft_check_header_bis(global_t *global)
         }
         if (!ft_strcmp(global->s_label->s_content->line[0], COMMENT_CMD_STRING))
         {
+            ft_write(global, "\0\0\0\0", 4);
             global->fdOut = open("42.cor", O_WRONLY | O_APPEND, 0666);
             write(global->fdOut, &rev, 4);
             while (global->s_label->s_content->line[1][i])
