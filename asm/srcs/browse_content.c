@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/20 11:33:26 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/25 15:27:38 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_get_values(global_t *global, char **line)
 		{
 			printf("Je suis un DIRECT\n");
 			value = (int *)&(global->s_label->s_content->instruction[global->j]);
-			if(ft_isstrdigit(val_tmp))
+			if(ft_isstrint(val_tmp))
 				*value = INTREV32(ft_atoi(val_tmp));
 			else
 				*value = INTREV32(go_to_label(val_tmp, global));
@@ -105,7 +105,7 @@ void	ft_get_values(global_t *global, char **line)
 				global->j++;
 
 		}
-		else if (ft_isstrdigit(line[global->i]))
+		else if (ft_isstrint(line[global->i]))
 		{
 			printf("Je suis un INDIRECT valeur decimale\n");
 			value = (int *)&(global->s_label->s_content->instruction[global->j]);
@@ -153,7 +153,7 @@ void	ft_get_values_one_arg(global_t *global, char **line)
 		else if ((val_tmp = ft_strstart(line[i], "%")))
 		{
 			value = (int *)&(global->s_label->s_content->instruction[1]);
-			if (ft_isstrdigit(val_tmp))
+			if (ft_isstrint(val_tmp))
 				*value = INTREV32(ft_atoi(val_tmp));
 			else
 				*value = INTREV32(go_to_label(val_tmp, global));
