@@ -3,10 +3,42 @@
 /*
 **  UNE FOIS LE FICHIER LU, LE CONTROLLER VA NOUS PERMETTRE DE TRAITER LES INFORMATIONS STOCKEES
 */
-
-void		ft_pointeur_tab(global_t *global, int index)
+void        general_fct(global_t *global, int one_arg, char *arg_tmp)
 {
-	p_tab[live] = live_instruct;
+    int     *arg;
+
+	if (!one_arg)
+	{
+		arg = (int *)&(global->s_label->s_content->instruction[1]);
+		*arg = ft_atoi(ft_convert_base(arg_tmp, "01", "0123456789"));
+		printf("<%s> = arg\n", arg_tmp);
+		printf("<%d> = arg\n", *arg);
+		printf("<%X> = arg\n", *arg);
+		free(arg_tmp);
+	}
+
+	/* Get the values */
+	global->i = 0;
+	ft_get_values(global, global->s_label->s_content->line, one_arg);
+
+	/* Write the instruction */
+	ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
+
+	/* DEBUG */
+	printf("\nvalue instruction : ");
+    int i = 0;
+	while(i < global->s_label->s_content->nb_octet)
+		printf("0x%X ", global->s_label->s_content->instruction[i++]);
+	printf("\n\n");
+	/* Fin DEBUG */
+}
+
+
+void		ft_pointeur_tab(global_t *global, int index, int one_arg)
+{
+	char    *arg_tmp;
+
+	// p_tab[live] = live_instruct;
 	p_tab[ld] = ld_instruct;
 	p_tab[st] = st_instruct;
 	p_tab[add] = add_instruct;
@@ -14,24 +46,25 @@ void		ft_pointeur_tab(global_t *global, int index)
 	p_tab[and] = and_instruct;
 	p_tab[or] = or_instruct;
 	p_tab[xor] = xor_instruct;
-	p_tab[zjmp] = zjmp_instruct;
+	// p_tab[zjmp] = zjmp_instruct;
 	p_tab[ldi] = ldi_instruct;
 	p_tab[sti] = sti_instruct;
-	p_tab[FORK] = fork_instruct;
+	// p_tab[FORK] = fork_instruct;
 	p_tab[lld] = lld_instruct;
 	p_tab[lldi] = lldi_instruct;
-	p_tab[lfork] = lfork_instruct;
+	// p_tab[lfork] = lfork_instruct;
 	p_tab[aff] = aff_instruct;
-	p_tab[direct] = direct_param;
-	p_tab[indirect] = indirect_param;
-	p_tab[R] = register_param;
-	p_tab[Name_CMD_STRING] = cmd_string;
-	p_tab[Comment_CMD_STRING] = cmd_string;
-	p_tab[Comment_CHAR] = comments_string;
-	p_tab[Other_CMD_STRING] = others_string;
-
-
-	p_tab[index](global);
+	// p_tab[direct] = direct_param;
+	// p_tab[indirect] = indirect_param;
+	// p_tab[R] = register_param;
+	// p_tab[Name_CMD_STRING] = cmd_string;
+	// p_tab[Comment_CMD_STRING] = cmd_string;
+	// p_tab[Comment_CHAR] = comments_string;
+	// p_tab[Other_CMD_STRING] = others_string;
+	arg_tmp = NULL;
+	if (!one_arg)
+		arg_tmp = p_tab[index](global, global->s_label->s_content->line);
+	general_fct(global, one_arg, arg_tmp);
 }
 
 void		ft_controller(global_t *global)

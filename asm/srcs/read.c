@@ -21,7 +21,8 @@ void		ft_exit(int nb, global_t *global, char **line)
 	// nb = 0;
 	ft_printf("ERROR n°%d : %s\n", nb, errors[nb]);
 	close(global->fdIn);
-    free(global); // Penser à free la global en cas d'erreur (fct ft_free.c à créer)
+    ft_free_global(global);
+	free(global);
     if (line && *line)
         ft_strdel(line);
 	exit(0);
