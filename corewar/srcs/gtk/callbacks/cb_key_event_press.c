@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:46:51 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/20 18:54:45 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/26 19:43:29 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ gboolean			cb_key_event_press(GtkWidget *win, GdkEventKey *event, t_vm *vm)
 		if (g_action[i].id == event->hardware_keycode)
 		{
 			g_action[i].f(vm);
-			return (TRUE);
+			return (FALSE);
 		}
-	return (TRUE);
+	return (FALSE);
 }
