@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:45:35 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/25 16:46:35 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/26 19:36:39 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@
 
 #include "vm.h"
 
-int		op_ld(t_vm *vm, t_process *process, unsigned int *args)
+int		op_ld(t_vm *vm, t_process *p, unsigned int *args)
 {
-	DG("\nargs 0 = %d\n", args[0]);
-	DG("\nargs 1 = %d\n", args[1]);
-	DG("\nargs 2 = %d\n", args[2]);
-	DG("");
-	process->r[args[1] - 1] = args[0];
-	process->carry = !args[0] ? 1 : 0;
-	(void)&vm;(void)&process;(void)&args;
+	analyze_value(vm, p, args, 1);
+	// DG("\nargs 0 = %d\n", args[0]);
+	// DG("\nargs 1 = %d\n", args[1]);
+	// DG("\nargs 2 = %d\n", args[2]);
+	// DG("");
+	p->r[args[1] - 1] = args[0];
+	p->carry = !p->r[args[1] - 1];
 	return (0);
 }

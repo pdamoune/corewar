@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/20 13:37:59 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/26 16:49:49 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	console_run(t_vm *vm)
 
 int		main(int ac, char **av)
 {
-	DG("%b", -1);
+	DG("%d", -5 % 2);
 	t_vm	vm;
 
 	if (init_vm_memory(&vm, &ac, &av))

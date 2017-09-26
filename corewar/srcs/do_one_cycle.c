@@ -6,150 +6,68 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/25 17:58:22 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/26 16:59:29 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-t_op	g_op_tab[18] =
+t_op	g_op_tab[17] =
 {
-	{0, 0, {0}, 0, 0, 0, 0, 0, 0},
-	{
-		"live", 1,
-		{
-			T_DIR
-		},
-		1, 10, "alive", 0, 0, &op_live
-	},
-	{
-		"ld", 2,
-		{
-			T_DIR | T_IND,
-			T_REG
-		},
-		2, 5, "load", 1, 0, &op_ld
-	},
-	{
-		"st", 2,
-		{
-			T_REG,
-			T_IND | T_REG
-		},
-		3, 5, "store", 1, 0, &op_st
-	},
-	{
-		"add", 3,
-		{
-			T_REG,
-			T_REG,
-			T_REG
-		}, 4, 10, "addition", 1, 0, &op_add
-	},
-	{
-		"sub", 3,
-		{
-			T_REG, T_REG, T_REG
-		},
-		5, 10, "soustraction", 1, 0, &op_sub
-	},
-	{
-		"and", 3,
-		{
-			T_REG | T_IND | T_DIR,
-			T_REG | T_IND | T_DIR,
-			T_REG
-		},
-		6, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1, 0, &op_and
-	},
-	{
-		"or", 3,
-		{
-			T_REG | T_IND | T_DIR,
-			T_REG | T_IND | T_DIR,
-			T_REG
-		},
-		7, 6, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0, &op_or
-	},
-	{
-		"xor", 3,
-		{
-			T_REG | T_IND | T_DIR,
-			T_REG | T_IND | T_DIR,
-			T_REG
-		},
-		8, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0, &op_xor
-	},
-	{
-		"zjmp", 1,
-		{
-			T_DIR
-		},
-		9, 20, "jump if zero", 0, 1, &op_zjmp
-	},
-	{
-		"ldi", 3,
-		{
-			T_REG | T_DIR | T_IND,
-			T_DIR | T_REG,
-			T_REG
-		},
-		10, 25,	"load index", 1, 1, &op_ldi
-	},
-
-	{
-		"sti", 3,
-		{
-			T_REG,
-			T_REG | T_DIR | T_IND,
-			T_DIR | T_REG
-		},
-		11, 25,	"store index", 1, 1, &op_sti
-	},
-
-	{
-		"fork", 1,
-		{
-			T_DIR
-		},
-		12, 800, "fork", 0, 1, &op_fork
-	},
-	{
-		"lld", 2,
-		{
-			T_DIR | T_IND, T_REG
-		},
-		13, 10, "long load", 1, 0, &op_lld
-	},
-	{
-		"lldi", 3,
-		{
-			T_REG | T_DIR | T_IND,
-			T_DIR | T_REG,
-			T_REG
-		},
-		14, 50,	"long load index", 1, 1, &op_lldi
-	},
-	{
-		"lfork", 1,
-		{
-			T_DIR
-		},
-		15, 1000, "long fork", 0, 1, &op_lfork
-	},
-	{
-		"aff", 1,
-		{
-			T_REG}, 16, 2, "aff", 1, 0, &op_aff
-		},
-	{0, 0, {0}, 0, 0, 0, 0, 0, 0}
+	{"live", 1,
+		{T_DIR},
+		1, 10, "alive", 0, 0, &op_live},
+	{"ld", 2,
+		{T_DIR | T_IND, T_REG},
+		2, 5, "load", 1, 0, &op_ld},
+	{"st", 2,
+		{T_REG, T_IND | T_REG},
+		3, 5, "store", 1, 0, &op_st},
+	{"add", 3,
+		{T_REG, T_REG, T_REG},
+		4, 10, "addition", 1, 0, &op_add},
+	{"sub", 3,
+		{T_REG, T_REG, T_REG},
+		5, 10, "soustraction", 1, 0, &op_sub},
+	{"and", 3,
+		{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
+		6, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1, 0, &op_and},
+	{"or", 3,
+		{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
+		7, 6, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0, &op_or},
+	{"xor", 3,
+		{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
+		8, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0, &op_xor},
+	{"zjmp", 1,
+		{T_DIR},
+		9, 20, "jump if zero", 0, 1, &op_zjmp},
+	{"ldi", 3,
+		{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
+		10, 25,	"load index", 1, 1, &op_ldi},
+	{"sti", 3,
+		{T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG},
+		11, 25,	"store index", 1, 1, &op_sti},
+	{"fork", 1,
+		{T_DIR},
+		12, 800, "fork", 0, 1, &op_fork},
+	{"lld", 2,
+		{T_DIR | T_IND, T_REG},
+		13, 10, "long load", 1, 0, &op_lld},
+	{"lldi", 3,
+		{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
+		14, 50,	"long load index", 1, 1, &op_lldi},
+	{"lfork", 1,
+		{T_DIR},
+		15, 1000, "long fork", 0, 1, &op_lfork},
+	{"aff", 1,
+		{T_REG},
+		16, 2, "aff", 1, 0, &op_aff}
 };
 
-static int		check_args(t_vm *vm, t_process *p, unsigned int *type, unsigned int *args)
+static int		check_args(t_process *p, unsigned int *type, unsigned int *args)
 {
 	int		i;
 
-	(void)vm; // vm ne sert a rien mais tu en a besoin je crois
 	i = -1;
 	while (++i < p->op.nb_params)
 	{
@@ -177,8 +95,8 @@ static int		do_instruction(t_vm *vm, t_process *p)
 		type[0] = T_DIR;
 	i = -1;
 	while (++i < p->op.nb_params)
-		args[i] = get_value_from_area(vm, p, type[i], &pc_inc);
-	if (check_args(vm, p, type, (unsigned *)args)) //TODO check if args are type compatible others exceptions
+		args[i] = get_process_value_from_area(vm, p, type[i], &pc_inc);
+	if (check_args(p, type, (unsigned *)args)) //TODO check if args are type compatible others exceptions
 	{
 		p->pc = move_pc(vm, p->pc, 1);
 		return (DG("Next process"));
@@ -212,7 +130,7 @@ static int		init_instruction(t_vm *vm, t_process *p)
 			p->nb_cycle_before_exec = 0;
 			return (0);
 		}
-		p->op = g_op_tab[(unsigned)vm->area[p->pc]];
+		p->op = g_op_tab[(unsigned)vm->area[p->pc] - 1];
 		p->nb_cycle_before_exec = p->op.cycle - 1;
 
 		// Decommenter la ligne precedente et commenter la suivante pour avoir

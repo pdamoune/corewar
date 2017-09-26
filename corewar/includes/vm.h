@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/25 17:58:42 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/26 19:35:30 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,10 @@ void	war_end(t_vm *vm);
 /*
 ** Insignifiant func
 */
-unsigned int	get_value_from_area(t_vm *vm, t_process *p, unsigned int type, int *pc_inc);
+unsigned int	get_value_at(t_vm *vm, unsigned int pos, char size);
+unsigned int	get_process_value_from_area(t_vm *vm, t_process *p, unsigned int type, int *pc_inc);
+
+// unsigned int	get_value_from_area(t_vm *vm, t_process *p, unsigned int type, int *pc_inc);
 void			get_type_from_area(t_vm *vm, t_process *p, unsigned int *type);
 int				set_value_in_area(t_vm *vm, int at, unsigned int value, unsigned int size);
 
@@ -149,7 +152,11 @@ void	add_process(t_vm *vm, t_process *p);
 void	remove_all_process(t_vm *vm);
 void	del_process(t_vm *vm, t_process *process);
 int		move_pc(t_vm *vm, int origin, int len);
-void	fork_process(t_vm *vm, t_process *p, unsigned int pc);
+int		fork_process(t_vm *vm, t_process *p, unsigned int pc);
+int		calc_addr(int addr);
+void	analyze_value(t_vm *vm, t_process *p, unsigned int *args, int lim);
+void	analyze_long_value(t_vm *vm, t_process *p, unsigned int *args, int lim);
+
 
 
 /*

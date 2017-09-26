@@ -6,22 +6,22 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:44 by philippe          #+#    #+#             */
-/*   Updated: 2017/09/25 16:48:20 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/26 19:37:52 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int		op_xor(t_vm *vm, t_process *process, unsigned int *args)
+int		op_xor(t_vm *vm, t_process *p, unsigned int *args)
 {
-	(void)&vm;(void)&process;(void)&args;
-	args[0] = process->op.params[0] & T_REG ? process->r[args[0] - 1] : args[0];
-	args[1] = process->op.params[1] & T_REG ? process->r[args[1] - 1] : args[1];
-	process->r[args[2] - 1] = args[0] ^ args[1];
-	process->carry = !process->r[args[2] - 1] ? 1 : 0;
-	DG("\nargs 0 = %d\n", args[0]);
-	DG("\nargs 1 = %d\n", args[1]);
-	DG("\nargs 2 = %d\n", args[2]);
-	DG("\ncarry = %d\n", process->carry);
+	analyze_value(vm, p, args, 2);
+	// args[0] = process->op.params[0] & T_REG ? process->r[args[0] - 1] : args[0];
+	// args[1] = process->op.params[1] & T_REG ? process->r[args[1] - 1] : args[1];
+	p->r[args[2] - 1] = args[0] ^ args[1];
+	p->carry = !p->r[args[2] - 1];
+	// DG("\nargs 0 = %d\n", args[0]);
+	// DG("\nargs 1 = %d\n", args[1]);
+	// DG("\nargs 2 = %d\n", args[2]);
+	// DG("\ncarry = %d\n", process->carry);
 	return (0);
 }

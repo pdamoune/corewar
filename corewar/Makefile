@@ -34,10 +34,13 @@ SRC_BASE	=	\
 tools/del_process.c\
 tools/usage.c\
 tools/remove_all_process.c\
+tools/analyze_value.c\
+tools/fork_process.c\
 tools/move_pc.c\
 tools/free_vm.c\
 tools/display.c\
 tools/add_process.c\
+tools/calc_addr.c\
 init/init_file.c\
 init/init_process_list.c\
 init/init_data.c\

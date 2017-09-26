@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 18:04:48 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/25 16:47:28 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/26 19:39:11 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,21 @@
 
 #include "vm.h"
 
-int		op_st(t_vm *vm, t_process *process, unsigned int *args)
+int		op_st(t_vm *vm, t_process *p, unsigned int *args)
 {
-	(void)&vm;(void)&process;(void)&args;
-	DG("\nargs 0 = %d\n", args[0]);
-	DG("\nargs 1 = %d\n", args[1]);
-	DG("\nargs 2 = %d\n", args[2]);
+	// (void)&vm;(void)&process;(void)&args;
+	// DG("\nargs 0 = %d\n", args[0]);
+	// DG("\nargs 1 = %d\n", args[1]);
+	// DG("\nargs 2 = %d\n", args[2]);
 
-	args[1] = (IS_SET(process->op.params[1], T_REG) ? process->r[args[1] - 1] : args[1]);
-	set_value_in_area(vm, process->pc + ((int)args[1] % IDX_MOD), args[0], 4);
-	process->carry = !args[0] ? 1 : 0;  // Pas sur
-	DG("");
+	analyze_value(vm, p, args, 1);
+	if (p->op.params[1] == T_REG)
+		p->r[args[1] - 1] = args[0];
+	else
+		set_value_in_area(vm, calc_addr(p->pc + (int)args[1] % IDX_MOD), args[0], REG_SIZE);
+	// args[1] = (IS_SET(process->op.params[1], T_REG) ? process->r[args[1] - 1] : args[1]);
+	// set_value_in_area(vm, process->pc + ((int)args[1] % IDX_MOD), args[0], 4);
+	// process->carry = !args[0] ? 1 : 0;  // Pas sur// pas de carry dans le sujet
+	// DG("");
 	return (0);
 }
