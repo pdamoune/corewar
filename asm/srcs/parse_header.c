@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/25 16:13:45 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/26 17:51:08 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void ft_check_header_bis(global_t *global)
                 k++;
             }
             ft_write(global, comment, COMMENT_LENGTH);
+            ft_write(global, "\0\0\0\0", 4);
         }
         global->s_label = global->s_label->next;
     }

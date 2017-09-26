@@ -19,7 +19,7 @@ void	live_instruct(global_t *global)
 
 	/* Get the values */
 	global->i = 0;
-	ft_get_values(global, global->s_label->s_content->line, 1);
+	ft_get_values(global, global->s_label->s_content->line, 1, 0);
 
 	/* Write the instruction */
 	ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);

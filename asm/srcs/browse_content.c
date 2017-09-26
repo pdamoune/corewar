@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/25 15:27:38 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/26 17:42:34 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,26 @@ void        ft_get_opcode(global_t *global, char *line)
     opcode[14] = 15;
     opcode[15] = 16;
     index = ft_find_index(global, line);
-	if (index > 0 && index <= 13 && index != 6 && index != 9)
+	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11)
 	{
 		global->s_label->s_content->instruction[0] = opcode[index];
-		ft_pointeur_tab(global, index, 0);
+		ft_pointeur_tab(global, index, 0, 0);
 	}
-    else if (index == 0 || index == 6 || index == 9 || (index >= 14 && index <= 22))
-    {
-        global->s_label->s_content->instruction[0] = opcode[index];
-        ft_pointeur_tab(global, index, 1);
-    }
+	else if (index == 0 || index == 15)
+	{
+		global->s_label->s_content->instruction[0] = opcode[index];
+		ft_pointeur_tab(global, index, 1, 0);
+	}
+	else if (index == 6 || index == 9 || index == 14)
+	{
+		global->s_label->s_content->instruction[0] = opcode[index];
+		ft_pointeur_tab(global, index, 1, 1);
+	}
+	else if (index == 7 || index == 10 || index == 12)
+	{
+		global->s_label->s_content->instruction[0] = opcode[index];
+		ft_pointeur_tab(global, index, 0, 1);
+	}
     else
         ft_exit(10, global, NULL);
 }
@@ -70,7 +80,7 @@ void        ft_browse_content(global_t *global)
     }
 }
 
-void	ft_get_values(global_t *global, char **line, int one_arg)
+void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind)
 {
 	int				*value;
 	unsigned short	*value_ind;
@@ -90,8 +100,8 @@ void	ft_get_values(global_t *global, char **line, int one_arg)
 	{
 		printf("global->j %d\n", global->j);
 
-		if ((val_tmp = ft_strstart(line[global->i], "%:"))
-		|| (val_tmp = ft_strstart(line[global->i], "%")))
+		if (!arg_ind && ((val_tmp = ft_strstart(line[global->i], "%:"))
+			|| (val_tmp = ft_strstart(line[global->i], "%"))))
 		{
 			printf("Je suis un DIRECT\n");
 			value = (int *)&(global->s_label->s_content->instruction[global->j]);
@@ -100,7 +110,6 @@ void	ft_get_values(global_t *global, char **line, int one_arg)
 			else
 				*value = INTREV32(go_to_label(val_tmp, global));
 			global->j += 4;
-
 		}
 		else if ((val_tmp = ft_strstart(line[global->i], "r"))
 				&& ft_isstrdigit(val_tmp))
@@ -112,18 +121,9 @@ void	ft_get_values(global_t *global, char **line, int one_arg)
 			printf("value %d\n", *value_char);
 			if (global->s_label->s_content->nb_octet - 1 != global->j)
 				global->j++;
-
 		}
-		else if (ft_isstrint(line[global->i]))
-		{
-			printf("Je suis un INDIRECT valeur decimale\n");
-			value = (int *)&(global->s_label->s_content->instruction[global->j]);
-			printf("value %d\n", *value);
-			*value = INTREV16(ft_atoi(line[global->i]));
-			global->j += 2;
-
-		}
-		else if ((val_tmp = ft_strstart(line[global->i], ":")))
+		else if ((arg_ind && (val_tmp = ft_strstart(line[global->i], "%:")))
+			|| (val_tmp = ft_strstart(line[global->i], ":")))
 		{
 			printf("Je suis un INDIRECT label\n");
 			printf("val_tmp %s\n", val_tmp);
@@ -132,45 +132,16 @@ void	ft_get_values(global_t *global, char **line, int one_arg)
 			printf("go_to_label %X\n", go_to_label(val_tmp, global));
 			printf("val_tmp %X\n", *value_ind);
 			global->j += 2;
-			// 0x6 0x74 0x1 0x1 0x0 0x0
+		}
+		else if ((ft_isstrint(line[global->i]))
+			|| (arg_ind && (val_tmp = ft_strstart(line[global->i], "%"))))
+		{
+			printf("Je suis un INDIRECT valeur decimale\n");
+			value_ind = (unsigned short *)&(global->s_label->s_content->instruction[global->j]);
+			printf("value %d\n", *value_ind);
+			*value_ind = INTREV16(ft_atoi(line[global->i]));
+			global->j += 2;
 		}
 	}
 	printf("global->j %d\n", global->j);
 }
-<<<<<<< HEAD
-/*
-** Specifique a live car pas d'octet de codage de parametre ==> global->j == 1, pas 2
-*/
-void	ft_get_values_one_arg(global_t *global, char **line)
-{
-	int		i;
-	int		*value;
-	char	*val_tmp;
-
-	i = 0;
-	val_tmp = NULL;
-	value = 0;
-	while (line[++i] && !ft_strstart(line[i], "#"))
-	{
-		if ((val_tmp = ft_strstart(line[i], "%:")))
-		{
-			value = (int *)&(global->s_label->s_content->instruction[1]);
-			if (ft_isstrdigit(val_tmp))
-				*value = INTREV32(ft_atoi(val_tmp));
-			else
-				*value = INTREV32(go_to_label(val_tmp, global));
-		}
-		else if ((val_tmp = ft_strstart(line[i], "%")))
-		{
-			value = (int *)&(global->s_label->s_content->instruction[1]);
-			if (ft_isstrint(val_tmp))
-				*value = INTREV32(ft_atoi(val_tmp));
-			else
-				*value = INTREV32(go_to_label(val_tmp, global));
-		}
-		else
-			ft_exit(12, global, NULL);
-	}
-}
-=======
->>>>>>> a7c86550375a2a346d723e5e378f53b7ab76cccc

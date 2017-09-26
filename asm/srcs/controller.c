@@ -3,7 +3,7 @@
 /*
 **  UNE FOIS LE FICHIER LU, LE CONTROLLER VA NOUS PERMETTRE DE TRAITER LES INFORMATIONS STOCKEES
 */
-void        general_fct(global_t *global, int one_arg, char *arg_tmp)
+void        general_fct(global_t *global, int one_arg, char *arg_tmp, int arg_ind)
 {
     int     *arg;
 
@@ -19,7 +19,7 @@ void        general_fct(global_t *global, int one_arg, char *arg_tmp)
 
 	/* Get the values */
 	global->i = 0;
-	ft_get_values(global, global->s_label->s_content->line, one_arg);
+	ft_get_values(global, global->s_label->s_content->line, one_arg, arg_ind);
 
 	/* Write the instruction */
 	ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
@@ -34,7 +34,7 @@ void        general_fct(global_t *global, int one_arg, char *arg_tmp)
 }
 
 
-void		ft_pointeur_tab(global_t *global, int index, int one_arg)
+void		ft_pointeur_tab(global_t *global, int index, int one_arg, int arg_ind)
 {
 	char    *arg_tmp;
 
@@ -64,7 +64,7 @@ void		ft_pointeur_tab(global_t *global, int index, int one_arg)
 	arg_tmp = NULL;
 	if (!one_arg)
 		arg_tmp = p_tab[index](global, global->s_label->s_content->line);
-	general_fct(global, one_arg, arg_tmp);
+	general_fct(global, one_arg, arg_tmp, arg_ind);
 }
 
 void		ft_controller(global_t *global)

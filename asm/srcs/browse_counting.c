@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:27:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/13 19:56:31 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/09/26 17:27:14 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,33 @@ void        ft_counting(global_t *global, char *inst_line)
 
     index = ft_find_index(global, inst_line);
     printf("index == %d\n", index);
-    if (index > 0 && index <= 13 && index != 6 && index != 9)
-    {
+    if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11)
+	{
         global->s_label->s_content->nb_octet++;
-        ft_calcul_octet(global, global->s_label->s_content->line);
+        ft_calcul_octet(global, global->s_label->s_content->line, 0);
         global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet);
-    }
-    else if (index == 0 || index == 6 || index == 9 || (index >= 14 && index <= 22))
-    {
-        ft_calcul_octet(global, global->s_label->s_content->line);
+	}
+	else if (index == 0 || index == 15)
+	{
+        ft_calcul_octet(global, global->s_label->s_content->line, 0);
         global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet); 
-    }
+	}
+	else if (index == 6 || index == 9 || index == 14)
+	{
+        ft_calcul_octet(global, global->s_label->s_content->line, 1);
+        global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet);
+	}
+	else if (index == 7 || index == 10 || index == 12)
+	{
+        global->s_label->s_content->nb_octet++;
+        ft_calcul_octet(global, global->s_label->s_content->line, 1);
+        global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet);
+	}
     else
         ft_exit(10, global, NULL);
 }
 
-void	ft_calcul_octet(global_t *global, char **line)
+void	ft_calcul_octet(global_t *global, char **line, int arg_ind)
 {
 	int		i;
 	char	*val_tmp;
@@ -58,12 +69,11 @@ void	ft_calcul_octet(global_t *global, char **line)
 	{
 		if ((val_tmp = ft_strstart(line[i], "r")) && ft_isstrdigit(val_tmp))
 			global->s_label->s_content->nb_octet++;
-		else if ((val_tmp = ft_strstart(line[i], ":")))
+        else if (!arg_ind && ((val_tmp = ft_strstart(line[i], "%:"))
+            || (val_tmp = ft_strstart(line[i], "%"))))
+            global->s_label->s_content->nb_octet += 4;
+        else
 			global->s_label->s_content->nb_octet += 2;
-		else if (ft_isstrdigit(line[i]))
-			global->s_label->s_content->nb_octet += 2;
-		else
-			global->s_label->s_content->nb_octet += 4;
 	}
 }
 
