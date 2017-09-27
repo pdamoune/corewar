@@ -87,7 +87,6 @@ void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind)
 	char			*value_char;
 	char			*val_tmp;
 
-
 	val_tmp = NULL;
 	value = 0;
 	value_ind = 0;
@@ -98,7 +97,9 @@ void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind)
 		global->j = 2;
 	while (line[++global->i] && !ft_strstart(line[global->i], "#"))
 	{
-		printf("global->j %d\n", global->j);
+
+		printf("line[global->i] *%s*\n", line[global->i]);
+		printf("AVANT global->j %d\n", global->j);
 
 		if (!arg_ind && ((val_tmp = ft_strstart(line[global->i], "%:"))
 			|| (val_tmp = ft_strstart(line[global->i], "%"))))
@@ -112,7 +113,7 @@ void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind)
 			global->j += 4;
 		}
 		else if ((val_tmp = ft_strstart(line[global->i], "r"))
-				&& ft_isstrdigit(val_tmp))
+				&& ft_isdigitspace(val_tmp))
 		{
 			printf("Je suis un REGISTRE\n");
 			printf("global->j %d\n", global->j);
@@ -133,13 +134,11 @@ void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind)
 			printf("val_tmp %X\n", *value_ind);
 			global->j += 2;
 		}
-		else if ((ft_isstrint(line[global->i]))
-			|| (arg_ind && (val_tmp = ft_strstart(line[global->i], "%"))))
+		else if ((arg_ind && (val_tmp = ft_strstart(line[global->i], "%"))) || ft_isstrint(val_tmp))
 		{
 			printf("Je suis un INDIRECT valeur decimale\n");
 			value_ind = (unsigned short *)&(global->s_label->s_content->instruction[global->j]);
-			printf("value %d\n", *value_ind);
-			*value_ind = INTREV16(ft_atoi(line[global->i]));
+			*value_ind = INTREV16(ft_atoi(val_tmp));
 			global->j += 2;
 		}
 	}

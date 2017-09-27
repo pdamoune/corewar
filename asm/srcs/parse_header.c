@@ -55,7 +55,7 @@ void ft_check_header_bis(global_t *global)
 
     k = 0;
     i = 0;
-    rev = INTREV32((global->total_octet - 1));
+    rev = INTREV32(global->total_octet);
     ft_bzero(comment, COMMENT_LENGTH);
     while (!ft_strcmp(global->s_label->name, "HEADER"))
     {

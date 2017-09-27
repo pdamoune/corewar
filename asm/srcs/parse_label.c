@@ -59,25 +59,21 @@ void		ft_with_label(global_t *global)
 */
 void		ft_sort_lines(global_t *global)
 {
-	char	*tmp;
-
-	tmp = NULL;
 	if (global->s_map && ft_kind_of_line(global->s_map->line) == COMMENT)
 	{
         ft_stock_content(global, global->s_map->line);
-		global->s_label->name = "COMMENTS";
+		global->s_label->name = ft_strdup("COMMENTS");
 	}
     else if (global->s_map && ft_kind_of_line(global->s_map->line) == HEADER)
     {
         ft_stock_content(global, global->s_map->line);
-        global->s_label->name = "HEADER";
+        global->s_label->name = ft_strdup("HEADER");
 		ft_check_header(global);
     }
 	else if (global->s_map && ft_kind_of_line(global->s_map->line) == EMPTY_LABEL)
 	{
 		ft_stock_content(global, global->s_map->line);
-		tmp = "_EMPTY";
-		global->s_label->name = ft_strjoin(ft_itoa(global->j++), tmp);
+		global->s_label->name = ft_strjoin(ft_itoa(global->j++), "_EMPTY");
 	}
 	else if (global->s_map && ft_kind_of_line(global->s_map->line) == WITH_LABEL)
 		ft_with_label(global);
@@ -101,4 +97,5 @@ void		ft_parse_label(global_t *global)
         if (global->s_map)
 		      global->s_map = global->s_map->next;
     }
+	//ft_free_map(global);
 }

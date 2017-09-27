@@ -112,7 +112,6 @@ typedef struct		label_s
 	struct content_s	*begin_content;
 	struct content_s	*s_content;
 	char				*name;
-	char				*result;
 	int					index;
 	int					num;
 	struct label_s		*next;
@@ -205,6 +204,7 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
 char	*ft_arg(char *arg, int param, int type);
 char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet);
 int		ft_isstrdigit(char *s);
+int		ft_isdigitspace(char *s);
 int		ft_isstrint(char *s);
 void	ft_free_tab(char **tab);
 int		ft_strlen_tab(char **tab);

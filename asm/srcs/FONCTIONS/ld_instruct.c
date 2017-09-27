@@ -28,8 +28,14 @@ char		*ld_instruct(global_t *global, char **line)
 
 char		*ft_compose_arg_ld_bis(global_t *global, char **line, int i, char **arg)
 {
+	char	*comment_tmp;
+
+	comment_tmp = NULL;
 	if (i == 2)
 	{
+		printf("line[i] avant : -%s- \n", line[i]);
+		if ((comment_tmp = ft_strchr(line[i], COMMENT_CHAR)))
+			*comment_tmp = '\0';
 		if (ft_strstart(line[i], "r"))
 			*arg = ft_arg(*arg, 2, REG_CODE);
 		else

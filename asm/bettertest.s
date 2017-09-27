@@ -9,7 +9,9 @@ sub	r3,r5,r3
 sti	r10,%-510,%0
 add	r3,r4,r3
 st	r5,r2
-xor	r10,r10,r10	# pour rien
-or	r2,r2,r2
+xor	r10,r10,r10
+or	r2,r2,r1
+#bgdksfgndfsjk
 zjmp	%0
-live: live %1
+ldi     %23,%3,r2
+live: live %1        #fjksbgsdjkbgvds

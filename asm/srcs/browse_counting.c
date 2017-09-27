@@ -41,7 +41,7 @@ void        ft_counting(global_t *global, char *inst_line)
 	else if (index == 0 || index == 15)
 	{
         ft_calcul_octet(global, global->s_label->s_content->line, 0);
-        global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet); 
+        global->s_label->s_content->instruction = ft_strnew(global->s_label->s_content->nb_octet);
 	}
 	else if (index == 6 || index == 9 || index == 14)
 	{
@@ -67,7 +67,7 @@ void	ft_calcul_octet(global_t *global, char **line, int arg_ind)
 	val_tmp = NULL;
 	while (line[++i] && !ft_strstart(line[i], "#"))
 	{
-		if ((val_tmp = ft_strstart(line[i], "r")) && ft_isstrdigit(val_tmp))
+		if ((val_tmp = ft_strstart(line[i], "r")) && ft_isdigitspace(val_tmp))
 			global->s_label->s_content->nb_octet++;
         else if (!arg_ind && ((val_tmp = ft_strstart(line[i], "%:"))
             || (val_tmp = ft_strstart(line[i], "%"))))
@@ -101,7 +101,7 @@ void        ft_browse_file_counting(global_t *global)
 		    /* FIN DEBUG */
             global->s_label->s_content = global->s_label->s_content->next;
         }
-       
+
         printf("\n");
         global->s_label = global->s_label->next;
     }

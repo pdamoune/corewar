@@ -22,7 +22,6 @@ void		ft_exit(int nb, global_t *global, char **line)
 	ft_printf("ERROR n°%d : %s\n", nb, errors[nb]);
 	close(global->fdIn);
     ft_free_global(global);
-	free(global);
     if (line && *line)
         ft_strdel(line);
 	exit(0);

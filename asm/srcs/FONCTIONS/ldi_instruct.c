@@ -2,6 +2,9 @@
 
 char	*ft_compose_arg_ldi_bis(global_t *global, char **line, int i, char **arg)
 {
+	char *comment_tmp;
+
+	comment_tmp = NULL;
 	if (i == 2)
 	{
 		if (ft_strstart(line[i], "%"))
@@ -13,6 +16,10 @@ char	*ft_compose_arg_ldi_bis(global_t *global, char **line, int i, char **arg)
 	}
 	else if (i == 3)
 	{
+		printf("line[i] avant : -%s- \n", line[i]);
+		if ((comment_tmp = ft_strchr(line[i], COMMENT_CHAR)))
+			*comment_tmp = '\0';
+		printf("line[i] apres : -%s- \n", line[i]);
 		if (ft_strstart(line[i], "r"))
 			*arg = ft_arg(*arg, 3, REG_CODE);
 		else
