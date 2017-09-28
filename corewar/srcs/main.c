@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/26 16:49:49 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/28 18:01:24 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static gboolean	gtk_loop(void *data)
 	vm->gtk.time = g_get_monotonic_time();
 	while(IS_UNSET(vm->flag, STOP))
 	{
-		if (IS_UNSET(vm->flag, PAUSE) || IS_SET(vm->flag, STEP))
+		if (IS_UNSET(vm->flag, END) && (IS_UNSET(vm->flag, PAUSE) || IS_SET(vm->flag, STEP)))
 		{
 			if (gtk_cycle(vm))
 				break;
@@ -69,12 +69,10 @@ static int	console_run(t_vm *vm)
 {
 	int ret;
 
-	if (!vm)
-		return (ERR_COR("WHAT THE FUCK IS NULL??"));
 	ret = 0;
 	DG("START");
 	// while (IS_UNSET(vm->flag, STOP))
-	while (IS_ONEUNSET(vm->flag, STOP | PAUSE)) //TODO check if correct for ending in console
+	while (IS_ONEUNSET(vm->flag, END | STOP | PAUSE)) //TODO check if correct for ending in console
 	{
 		display(vm);
 		ret = do_one_cycle(vm);
@@ -82,14 +80,13 @@ static int	console_run(t_vm *vm)
 			break;
 	}
 	DG("END at cycle %d", vm->cycle);
-	if (!ret)
-		ret = display_win(vm);
+	// if (!ret)//retiré car normalement c'est fait dans le check
+	// 	ret = display_win(vm);
 	return (free_vm(vm) || ret);
 }
 
 int		main(int ac, char **av)
 {
-	DG("%d", -5 % 2);
 	t_vm	vm;
 
 	if (init_vm_memory(&vm, &ac, &av))

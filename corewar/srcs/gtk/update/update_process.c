@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/14 19:45:01 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/19 20:07:32 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/28 17:48:53 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		update_for_real(t_vm *vm, t_process *p)
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_status), p->last_live ? STATUS_ALIVE : STATUS_NEW);
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_pc), ft_itoa_nomalloc(p->pc, txt));
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_owner), vm->file[p->id_player].header.prog_name);
-	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_owner_id), ft_itoa_nomalloc(p->id_player, txt));
+	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_owner_id), ft_itoa_nomalloc(p->id_player + 1, txt));
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_act), p->op.label ? p->op.label : "Undefined");
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_desc_act), p->op.label ? p->op.description : ". . .");
 	gtk_label_set_text(GTK_LABEL(vm->gtk.panel.process_cycle_wait), ft_itoa_nomalloc(p->nb_cycle_before_exec, txt));

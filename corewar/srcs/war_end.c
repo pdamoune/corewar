@@ -6,14 +6,21 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 19:02:23 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/26 19:49:03 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/28 18:18:22 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
+
+
 void	war_end(t_vm *vm)
 {
+	if (IS_SET(vm->flag, DUMP))
+	{
+		ft_printf("Sorry, you asked for a dump at %d but the game is already over at %d. Do you want to dump current memory?[Y/n]");
+	}
+	display_win(vm);
 	if (IS_SET(vm->flag, GRAPHIC))
 	{
 		if (IS_UNSET(vm->flag, PAUSE))

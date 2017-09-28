@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:59 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/27 14:39:42 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/28 17:41:11 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 
 int		usage(char *name)
 {
+	//TODO usage is false. need to be change
 	ft_printf("%s %s ", USG, FILE_NAME);
 	ft_printf("%s %s %s %s\n", OPT1, OPT2, OPT3, OPT4);
 	ft_printf("%*c-a %*c: %s\n", TAB(5), TAB(8), USG1);

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:42:19 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/03 10:53:27 by wescande         ###   ########.fr       */
+/*   Updated: 2017/09/28 17:49:30 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int		dump(t_vm *vm)
 {
 	int		i;
 
-	SET(vm->flag, STOP);
+	SET(vm->flag, END | PAUSE);
+	UNSET(vm->flag, DUMP);
 	//TODO what if we can't reach the dump cycle
 	i = -1;
 	while (++i < MEM_SIZE)
