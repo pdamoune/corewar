@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calcul_border.c                                    :+:      :+:    :+:   */
+/*   px_change_owner.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/02 17:32:51 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 12:00:57 by wescande         ###   ########.fr       */
+/*   Created: 2017/10/02 16:20:16 by wescande          #+#    #+#             */
+/*   Updated: 2017/10/02 16:23:26 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void	calcul_border(GtkWidget *widget, t_vm *vm, int at)
+void	px_change_owner(t_vm *vm, unsigned int at, int size, short owner)
 {
-	static int			previous = -1;
+	int		i;
 
-	if (at == previous)
-		return ;
-	if (previous != -1)
+	i = -1;
+	while (++i < size)
 	{
-		draw_border(widget, vm, previous, COLOR_WHITE);
-		// UNSET(vm->gtk.px[previous].flag, MOUSE);
-		previous = -1;
+		vm->gtk.px[at + i].player = owner;
 	}
-	if (at != -1)
-	{
-		draw_border(widget, vm, at, COLOR_GREEN);
-		// SET(vm->gtk.px[at].flag, MOUSE);
-		previous = at;
-	}
-	SET(vm->flag, REDRAW);
 }

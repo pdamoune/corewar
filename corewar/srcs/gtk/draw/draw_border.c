@@ -6,13 +6,13 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 17:35:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/04 19:03:04 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 12:02:34 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-static void	draw_cairo_border(cairo_t *cr, t_ivec2 pos, const t_color color)
+static void		draw_cairo_border(cairo_t *cr, t_ivec2 pos, const t_color color)
 {
 	cairo_set_source_rgb(cr, color.r, color.g, color.b);
 	cairo_rectangle(cr, pos.x, pos.y,
@@ -26,10 +26,11 @@ static void	draw_cairo_border(cairo_t *cr, t_ivec2 pos, const t_color color)
 						SQUARE_WIDTH + SQUARE_BORDER, SQUARE_BORDER);
 }
 
-void	draw_border(GtkWidget *widget, t_vm *vm, int at, const t_color color)
+void			draw_border(GtkWidget *widget, t_vm *vm, int at,
+							const t_color color)
 {
 	t_ivec2		pos;
-	cairo_t 	*cr;
+	cairo_t		*cr;
 
 	cr = cairo_create(vm->gtk.surface);
 	pos.x = ((at % BOX_BY_LINE) * PX_WIDTH + SQUARE_SPA / 2);

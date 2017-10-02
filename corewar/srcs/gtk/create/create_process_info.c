@@ -6,56 +6,63 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 18:29:31 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/19 19:13:02 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 14:56:40 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 #define SELECT_TXT "Select the processus you want to analyze:                 "
 
-static GtkWidget	*process_info(t_vm *vm)
+/*
+** Following cb is cut to respect the norm. should have plenty more params.
+*/
+static void		cb_search_insert(GtkEditable *editable, gchar *new_text)
 {
-	GtkWidget	*box;
-	GtkWidget	*b;
+	if (new_text && !ft_isdigit(*new_text))
+		g_signal_stop_emission_by_name(editable, "insert_text");
+}
 
-	box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-	b = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_box_pack_start(GTK_BOX(box), b, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(b), gtk_label_new("Process status:"), FALSE, FALSE, 15);
-	gtk_box_pack_start(GTK_BOX(b), (vm->gtk.panel.process_status = gtk_label_new("Undefined")), FALSE, FALSE, 15);
-	gtk_box_pack_start(GTK_BOX(b), gtk_label_new("At position:"), FALSE, FALSE, 15);
-	gtk_box_pack_start(GTK_BOX(b), (vm->gtk.panel.process_pc = gtk_label_new("x")), FALSE, FALSE, 15);
+static void cb_process_activate(GtkEntry *entry, t_vm *vm)
+{
+	t_process		*process;
+	int				position;
+	unsigned int	process_id;
 
-	b = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_box_pack_start(GTK_BOX(box), b, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(b), gtk_label_new("Owner:"), FALSE, FALSE, 15);
-	gtk_box_pack_end(GTK_BOX(b), (vm->gtk.panel.process_owner_id = gtk_label_new("x")), FALSE, FALSE, 15);
-	gtk_box_pack_end(GTK_BOX(b), (vm->gtk.panel.process_owner = gtk_label_new(". . .")), FALSE, FALSE, 15);
-	
-	b = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_box_pack_start(GTK_BOX(box), b, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(b), gtk_label_new("Process cmd:"), FALSE, FALSE, 15);
-	gtk_box_pack_end(GTK_BOX(b), (vm->gtk.panel.process_desc_act = gtk_label_new(". . .")), FALSE, FALSE, 15);
-	gtk_box_pack_end(GTK_BOX(b), gtk_label_new(" : "), FALSE, FALSE, 15);
-	gtk_box_pack_end(GTK_BOX(b), (vm->gtk.panel.process_act = gtk_label_new("Undefined")), FALSE, FALSE, 15);
-	
-	b = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_box_pack_start(GTK_BOX(box), b, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(b), gtk_label_new("Cycle before cmd exec:"), FALSE, FALSE, 15);
-	gtk_box_pack_end(GTK_BOX(b), (vm->gtk.panel.process_cycle_wait = gtk_label_new("x")), FALSE, FALSE, 15);
-	return (box);
+	process_id = ft_atoui(gtk_entry_get_text(entry));
+	position = 0;
+	LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
+	while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
+	{
+		if (process_id == process->id)
+		{
+			gtk_combo_box_set_active(GTK_COMBO_BOX(vm->gtk.panel.process_box), position);
+			return ;
+		}
+		++position;
+	}
+	ERR_COR("%s: No process match this value", gtk_entry_get_text(entry));
 }
 
 static GtkWidget	*process_selection(t_vm *vm)
 {
 	GtkWidget	*box;
+	GtkWidget	*text_entry;
 
 	box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-	gtk_box_pack_start(GTK_BOX(box), gtk_label_new(SELECT_TXT), FALSE, FALSE, 15);
-	vm->gtk.panel.process_box = gtk_combo_box_text_new_with_entry();
+	gtk_box_pack_start(GTK_BOX(box), gtk_label_new(SELECT_TXT), FALSE, FALSE,
+								15);
+	vm->gtk.panel.process_box = gtk_combo_box_text_new();
 	gtk_widget_set_can_focus(vm->gtk.panel.process_box, FALSE);
 	gtk_box_pack_end(GTK_BOX(box), vm->gtk.panel.process_box, FALSE, TRUE, 15);
-	g_signal_connect(G_OBJECT(vm->gtk.panel.process_box), "changed", G_CALLBACK(cb_process_box), vm);
+	g_signal_connect(G_OBJECT(vm->gtk.panel.process_box), "changed",
+							G_CALLBACK(cb_process_box), vm);
+	text_entry = gtk_search_entry_new();
+	gtk_entry_set_max_length(GTK_ENTRY(text_entry), 10);
+	gtk_box_pack_end(GTK_BOX(box), text_entry, FALSE, TRUE, 15);
+	g_signal_connect(G_OBJECT(text_entry), "insert-text",
+							G_CALLBACK(cb_search_insert), vm);
+	g_signal_connect(G_OBJECT(text_entry), "activate",
+							G_CALLBACK(cb_process_activate), vm);
 	return (box);
 }
 
@@ -64,13 +71,16 @@ GtkWidget			*create_process_info(t_vm *vm)
 	GtkWidget	*frame;
 	GtkWidget	*box;
 
-	frame = gtk_frame_new(NULL);	
+	frame = gtk_frame_new(NULL);
 	box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	gtk_container_add(GTK_CONTAINER(frame), box);
-	gtk_box_pack_start(GTK_BOX(box), gtk_label_new("Processus display :"), FALSE, FALSE, 15);
+	gtk_box_pack_start(GTK_BOX(box), gtk_label_new("Processus display :"),
+						FALSE, FALSE, 15);
 	gtk_box_pack_start(GTK_BOX(box), process_selection(vm), FALSE, FALSE, 5);
-	gtk_box_pack_start(GTK_BOX(box), process_info(vm), FALSE, FALSE, 5);
-	vm->gtk.panel.p_win.btn = pack_new_button(box, "More info ...", G_CALLBACK(cb_more_info), vm);
+	gtk_box_pack_start(GTK_BOX(box), create_process_info_display(vm),
+						FALSE, FALSE, 5);
+	vm->gtk.panel.p_win.btn = pack_new_button(box, "More info ...",
+						G_CALLBACK(cb_more_info), vm);
 	gtk_widget_set_sensitive(vm->gtk.panel.p_win.btn, FALSE);
 	return (frame);
 }

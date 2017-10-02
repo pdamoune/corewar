@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/25 17:18:03 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 17:11:45 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define N_LINE				(MEM_SIZE / BOX_BY_LINE)
 # define NB_LINE			(N_LINE*BOX_BY_LINE==MEM_SIZE?N_LINE:N_LINE+1)
 # define SQUARE_WIDTH		16
-# define SQUARE_HEIGHT		10
+# define SQUARE_HEIGHT		12
 # define SQUARE_SPA			4
 # define SQUARE_BORDER		2
 
@@ -34,7 +34,7 @@
 # define INIT_SPEED			7
 
 # define GTK_WIDTH			(AREA_WIDTH + 410)
-# define GTK_HEIGHT			1000
+# define GTK_HEIGHT			1300
 
 # define CYCLE_CHANGED		10
 /*
@@ -67,12 +67,14 @@
 #  define GTK_ADD			69
 #  define GTK_SUB			78
 #  define GTK_RIGHT			124
+#  define GTK_DOWN			125
 # endif
 
 # ifdef __linux__
 # define GTK_ESC			9
 # define GTK_SPA			65
 # define GTK_RIGHT			114
+# define GTK_DOWN			115
 # endif
 # define MAX_KEY			1024
 
@@ -127,6 +129,8 @@ typedef struct	s_panel
 	GtkWidget	*step;
 	GtkWidget	*pause;
 	GtkWidget	*cpt;
+	GtkWidget	*next_chk;
+	GtkWidget	*cycle_to_die;
 	t_gtkplayer	players[MAX_PLAYERS];
 	GtkWidget	*repartition;
 	GtkWidget	*process_box;
@@ -165,6 +169,7 @@ int				do_one_step(t_vm *vm);
 void 			update_process(t_vm *vm, t_process *process, int is_dead);
 void			update_players(t_vm *vm, int id);
 void			update_process_info(t_vm *vm);
+gboolean		update_process_select(t_vm *vm, unsigned int process_id);
 
 /*
 ** PX MANAGE
@@ -178,6 +183,7 @@ int				calcul_px(t_vm *vm, int at);
 int				erase_px(t_vm *vm, int at);
 void			cairo_pango_draw_text(t_vm *vm, int at, t_ivec2 pos);
 void			iter_on_px(t_vm *vm);
+void			px_change_owner(t_vm *vm, unsigned int at, int size, short owner);
 
 /*
 ** PC MANAGE
@@ -205,6 +211,8 @@ GtkWidget		*pack_new_toggle_button(GtkWidget *widget, const gchar *title,
 										GCallback callback, gpointer data);
 GtkWidget		*pack_new_button(GtkWidget *widget, const gchar *title,
 									GCallback callback, gpointer data);
+GtkWidget		*create_process_info_display(t_vm *vm);
+GtkWidget		*create_players_info_display(t_vm *vm, int i);
 
 /*
 ** CALLBACK FUNCTION FOR GTK

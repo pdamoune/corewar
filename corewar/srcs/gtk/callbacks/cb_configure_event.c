@@ -6,13 +6,13 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 10:39:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/06 11:09:10 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 10:40:07 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-static void		clear_surface (cairo_surface_t *surface)
+static void		clear_surface(cairo_surface_t *surface)
 {
 	cairo_t			*cr;
 

@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calcul_border.c                                    :+:      :+:    :+:   */
+/*   update_process_select.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/02 17:32:51 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 12:00:57 by wescande         ###   ########.fr       */
+/*   Created: 2017/10/02 13:45:01 by wescande          #+#    #+#             */
+/*   Updated: 2017/10/02 13:46:53 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-void	calcul_border(GtkWidget *widget, t_vm *vm, int at)
+gboolean		update_process_select(t_vm *vm, unsigned int process_id)
 {
-	static int			previous = -1;
+	t_process		*process;
 
-	if (at == previous)
-		return ;
-	if (previous != -1)
+	LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
+	while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
 	{
-		draw_border(widget, vm, previous, COLOR_WHITE);
-		// UNSET(vm->gtk.px[previous].flag, MOUSE);
-		previous = -1;
+		if (process_id == process->id)
+		{
+			vm->gtk.panel.process = process;
+			update_process(vm, process, 0);
+			return (TRUE);
+		}
 	}
-	if (at != -1)
-	{
-		draw_border(widget, vm, at, COLOR_GREEN);
-		// SET(vm->gtk.px[at].flag, MOUSE);
-		previous = at;
-	}
-	SET(vm->flag, REDRAW);
+	return (FALSE);
 }

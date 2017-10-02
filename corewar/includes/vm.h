@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/26 19:35:30 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 17:06:14 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct		s_vm
 	t_lx			process;
 	t_gtk			gtk;
 	int				nb_player;
+	int				livetmp;
 	char			area[MEM_SIZE];
 	int				cycle;
 	int				cycle_to_dump;

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/20 14:50:27 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 12:24:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,13 @@ void 	disp_area(t_vm *vm, char *area)
 	{
 		while (j < 64)
 		{
-			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
+			LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
+			while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
 				if (i == (int)process->pc)
 					ft_printf("{red}", area[i]);
 			ft_printf("%0.2hhx ", area[i]);
-			LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
+			LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
+			while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
 				if (i == (int)process->pc)
 					ft_printf("{eoc}", area[i]);
 			j++;
@@ -153,7 +155,8 @@ void 	display(t_vm *vm)
 	display_players(vm);
 	t_process	*process;
 
-	LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
+	LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
+	while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
 	{
 		++i;
 		disp_process(fd[i], process, process->op);

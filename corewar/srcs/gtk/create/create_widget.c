@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 16:27:32 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/17 18:09:03 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 11:31:06 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ GtkWidget		*menu_item_new(GtkMenu *menu, const gchar *title,
 {
 	GtkWidget	*menu_item;
 
-	menu_item = gtk_menu_item_new_with_mnemonic (title);
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
+	menu_item = gtk_menu_item_new_with_mnemonic(title);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
 	g_signal_connect(G_OBJECT(menu_item), "activate", callback, data);
 	return (menu_item);
 }

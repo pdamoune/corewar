@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 20:20:25 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/19 20:50:58 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 15:49:01 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ int		init_process_list(t_vm *vm)
 			*/
 			add_process(vm, new_process);
 		}
+	if (IS_SET(vm->flag, GRAPHIC))
+		gtk_combo_box_set_active(GTK_COMBO_BOX(vm->gtk.panel.process_box), 0);
 	return (0);
 }

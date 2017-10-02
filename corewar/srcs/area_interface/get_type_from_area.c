@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 19:01:52 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/18 00:09:14 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 17:35:59 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ void		get_type_from_area(t_vm *vm, t_process *p, unsigned int *type)
 		{
 			if ((bit >> 1) & 1)
 			{
-				DG("IND");
+				// DG("IND");
 				type[i] = T_IND;
 			}
 			else
 			{
 				type[i] = T_REG;
-				DG("REG");
+				// DG("REG");
 			}
 		}
 		else if (bit & 2)
 		{
 			type[i] = T_DIR;
-			DG("DIR");
+			// DG("DIR");
 			
 		}
 		else

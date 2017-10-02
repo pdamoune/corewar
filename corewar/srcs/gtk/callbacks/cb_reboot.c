@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 19:45:41 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/26 19:51:26 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 11:22:33 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ gboolean	cb_reboot(GtkWidget *widget, t_vm *vm)
 	(void)widget;
 	UNSET(vm->flag, END);
 	if (IS_UNSET(vm->flag, PAUSE))
-	{
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(vm->gtk.panel.pause), IS_SET(vm->flag, PAUSE));
-	}
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(vm->gtk.panel.pause),
+									IS_SET(vm->flag, PAUSE));
 	gtk_widget_set_sensitive(vm->gtk.panel.step, TRUE);
 	gtk_widget_set_sensitive(vm->gtk.panel.pause, TRUE);
 	remove_all_process(vm);

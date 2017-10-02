@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/28 17:40:54 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 16:32:37 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_cliopts	g_read_opts[] =
 {
-	{'d', "dump", DUMP, GRAPHIC, init_dump, 1},
+	{'d', "dump", DUMP, 0, init_dump, 1},
 	{'n', "number", 0, 0, init_number, 2},
-	{'g', "graphic", GRAPHIC, DUMP, NULL, 0},
+	{'g', "graphic", GRAPHIC, 0, NULL, 0},
 	{'v', "verbose", VERBOSE, QUIET, NULL, 0},
 	{'q', "quiet", QUIET, VERBOSE, NULL, 0},
 	{0, 0, 0, 0, 0, 0},

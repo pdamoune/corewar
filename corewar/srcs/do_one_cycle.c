@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/26 16:59:29 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 17:35:47 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	}
 	if (p->op.instru(vm, p, args)) // sending to instruction function
 	{
-		DG("Something went wrong");
+		// DG("Something went wrong");
 		p->pc = move_pc(vm, p->pc, 1);
 		return (1);
 	}
-	DG("make a pc jump of %d", pc_inc);
+	// DG("make a pc jump of %d", pc_inc);
 	p->pc = move_pc(vm, p->pc, pc_inc);
 	return (0);
 }
@@ -145,7 +145,8 @@ int				do_one_cycle(t_vm *vm)
 	t_process		*process;
 	unsigned int	*pc;
 
-	LIST_FOR_EACH_ENTRY(process, &vm->process, lx)
+	LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
+	while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
 	{
 		pc = &(process->pc);
 		if (IS_UNSET(vm->flag, GRAPHIC))

@@ -6,11 +6,11 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/09/28 18:01:24 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/02 17:35:13 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <vm.h>
 
 static int		gtk_cycle(t_vm *vm)
 {
@@ -19,7 +19,7 @@ static int		gtk_cycle(t_vm *vm)
 	vm->gtk.time = g_get_monotonic_time();
 	if (IS_SETREMOVE(vm->flag, STEP) || (vm->gtk.time - vm->gtk.oldtime) * vm->gtk.speed > 1000000)
 	{
-		DG("Start cycle %lu:", vm->cycle);
+		// DG("Start cycle %lu:", vm->cycle);
 		iter_on_px(vm);
 		if (do_one_cycle(vm))
 			return (1);
@@ -98,3 +98,31 @@ int		main(int ac, char **av)
 	else
 		return (console_run(&vm));
 }
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <gtk/gtk.h>
+
+// int main( int   argc,
+//           char *argv[] )
+// {
+//     GtkWidget *window;
+
+//     gtk_init (&argc, &argv);
+
+//     /* create a new window */
+//     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+//     gtk_widget_set_size_request (GTK_WIDGET (window), 200, 100);
+//     gtk_window_set_title (GTK_WINDOW (window), "GTK Entry");
+//     g_signal_connect (window, "destroy",
+//                       G_CALLBACK (gtk_main_quit), NULL);
+//     g_signal_connect_swapped (window, "delete-event",
+//                               G_CALLBACK (gtk_widget_destroy), 
+//                               window);
+
+   
+//     gtk_widget_show (window);
+
+//     gtk_main();
+
+//     return 0;
+// }
