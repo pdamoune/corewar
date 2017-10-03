@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 20:30:19 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 21:40:26 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 21:57:26 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int init_allegro(t_vm *vm)
 	allegro = &vm->allegro;
 	// float longest_sample;
 
+DG();
 	if (!al_init())
 		return (verbose(vm, MSG_ERROR, "Could not init Allegro.", NULL));
 	al_init_acodec_addon();

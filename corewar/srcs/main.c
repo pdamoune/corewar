@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/03 21:41:04 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 21:59:39 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,18 @@ int		main(int ac, char **av)
 {
 	t_vm	vm;
 
+DG();
+init_allegro(&vm);
+DG();
+play_allegro(&vm);
+DG();
+sleep(3);
+DG();
+stop_allegro(&vm);
+DG();
+destroy_allegro(&vm);
+DG();
+return (0);
 	if (init_vm_memory(&vm, &ac, &av))
 		return (1);
 	if (init_vm_value(&vm))

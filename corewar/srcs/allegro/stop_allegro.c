@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 21:10:52 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 21:11:25 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 21:57:45 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void		stop_allegro(t_vm *vm)
 {
 	t_allegro *allegro;
 
+DG();
 	allegro = &(vm->allegro);
 	al_stop_sample_instance(allegro->sample);
 }
