@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 11:53:01 by wescande          #+#    #+#             */
-/*   Updated: 2017/08/29 23:08:06 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 19:17:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,20 @@ int		init_file(t_vm *vm, int num, char *filename)
 	int			fd;
 
 	if (num == -1 && (num = get_empty_file(vm)) == -1)
-		return (ERR_COR("max player is %d", MAX_PLAYERS));
+		return (verbose(vm, MSG_ERROR, "max player is %d", MAX_PLAYERS));
 	file = &(vm->file[num]);
 	if (file->is_used++)
-		return (ERR_COR("player number already used"));
+		return (verbose(vm, MSG_ERROR, "player number already used: %d", num));
 	if ((fd = open(filename, O_RDONLY)) == -1)
+		return (verbose(vm, MSG_ERROR, "{yel}%s:{red} %s",
+				filename, strerror(errno)));
+	if (init_data(vm, fd, file))
 	{
-		perror(filename);
-		return (1);
+		close(fd);
+		return (verbose(vm, MSG_ERROR, "{yel}%s:{red} Invalid champion file",
+				filename));
 	}
-	if (init_data(fd, &(file->header)))
-		return (1);
+	close(fd);
 	vm->nb_player++;
 	return (0);
 }

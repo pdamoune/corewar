@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 20:20:25 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 15:49:01 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 17:13:25 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		init_process_list(t_vm *vm)
 		{
 			vm->file[i].start_position = id_player++ * MEM_SIZE / vm->nb_player;
 			if (!(new_process = ft_memalloc(sizeof(t_process))))
-				return (ERR_COR("malloc failed"));
+				return (verbose(vm, MSG_ERROR, "%s: malloc failed", __func__));
 			new_process->pc = vm->file[i].start_position;
 			new_process->id_player = i;
 			new_process->r[0] = -(i + 1);// or should we use -id_player ?

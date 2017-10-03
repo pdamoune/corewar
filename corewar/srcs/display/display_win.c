@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:29:10 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/28 17:46:50 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 19:03:47 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ int		display_win(t_vm *vm)
 	t_file	*winner;
 	int		id_win;
 
-	//TODO check if need to dump & has dump or not. act in consequences
 	if ((id_win = who_is_the_winner(vm, &winner)) == -1)
-		ft_printf("Nobody win the game.\n");
+		verbose(vm, MSG_SUCESS, "There is no winner.", NULL);
 	else
-		ft_printf("Congrats to \"%s\" (player %d).\n", winner->header.prog_name, id_win + 1);
+		verbose(vm, MSG_SUCESS, "Contestant %d, \"%s\", has won !", id_win + 1, winner->header.prog_name);
 	return (0);
 }

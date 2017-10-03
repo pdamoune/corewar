@@ -19,6 +19,6 @@ void		remove_all_process(t_vm *vm)
 
 	LIST_FOR_EACH_ENTRY_SAFE(process, tmp, &vm->process, lx)
 	{
-		del_process(vm, process);
+		del_process(vm, process, 0);
 	}
 }

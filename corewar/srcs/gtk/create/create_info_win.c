@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 18:24:47 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 11:26:58 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 12:22:19 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static GtkWidget	*create_one_register(t_process_win *p_win, int id)
 	char		*str;
 
 	box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	ft_asprintf(&str, "Registre [%d] :", id);
+	ft_asprintf(&str, "Registre [%d] :", id + 1);
 	gtk_box_pack_start(GTK_BOX(box), gtk_label_new(str), FALSE, FALSE, 15);
 	p_win->reg[id] = gtk_label_new(str);
 	free(str);

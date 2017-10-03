@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:46:51 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 12:27:07 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 19:20:25 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ static int		stop_corewar(t_vm *vm)
 
 static int		play(t_vm *vm)
 {
-	DG();
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(vm->gtk.panel.pause),
 			IS_SET(vm->flag, PAUSE));
-	DG();
 	return (0);
 }
 
@@ -41,8 +39,8 @@ gboolean		cb_key_event_release(GtkWidget *win, GdkEventKey *event,
 
 	(void)win;
 	i = -1;
-	DG("release %s of val %u", gdk_keyval_name(event->keyval),
-						event->hardware_keycode);//TODO erase this
+	verbose(vm, MSG_DEBUG, "release key %s (val %u)",
+					gdk_keyval_name(event->keyval), event->hardware_keycode);
 	while (g_action[++i].id)
 		if (g_action[i].id == event->hardware_keycode)
 		{

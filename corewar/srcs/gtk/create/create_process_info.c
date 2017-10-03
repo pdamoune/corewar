@@ -6,23 +6,24 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 18:29:31 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 14:56:40 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 19:23:47 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
-#define SELECT_TXT "Select the processus you want to analyze:                 "
+#define SELECT_TXT "Select the processus you want to analyze:"
 
 /*
 ** Following cb is cut to respect the norm. should have plenty more params.
 */
-static void		cb_search_insert(GtkEditable *editable, gchar *new_text)
+
+static void			cb_search_insert(GtkEditable *editable, gchar *new_text)
 {
 	if (new_text && !ft_isdigit(*new_text))
 		g_signal_stop_emission_by_name(editable, "insert_text");
 }
 
-static void cb_process_activate(GtkEntry *entry, t_vm *vm)
+static void			cb_process_activate(GtkEntry *entry, t_vm *vm)
 {
 	t_process		*process;
 	int				position;
@@ -35,12 +36,14 @@ static void cb_process_activate(GtkEntry *entry, t_vm *vm)
 	{
 		if (process_id == process->id)
 		{
-			gtk_combo_box_set_active(GTK_COMBO_BOX(vm->gtk.panel.process_box), position);
+			gtk_combo_box_set_active(GTK_COMBO_BOX(vm->gtk.panel.process_box),
+									position);
 			return ;
 		}
 		++position;
 	}
-	ERR_COR("%s: No process match this value", gtk_entry_get_text(entry));
+	verbose(vm, MSG_STD_G, "%s: No process match this value",
+			gtk_entry_get_text(entry));
 }
 
 static GtkWidget	*process_selection(t_vm *vm)
@@ -57,8 +60,9 @@ static GtkWidget	*process_selection(t_vm *vm)
 	g_signal_connect(G_OBJECT(vm->gtk.panel.process_box), "changed",
 							G_CALLBACK(cb_process_box), vm);
 	text_entry = gtk_search_entry_new();
+	gtk_widget_set_margin_start(text_entry, 100);
 	gtk_entry_set_max_length(GTK_ENTRY(text_entry), 10);
-	gtk_box_pack_end(GTK_BOX(box), text_entry, FALSE, TRUE, 15);
+	gtk_box_pack_end(GTK_BOX(box), text_entry, FALSE, TRUE, 0);
 	g_signal_connect(G_OBJECT(text_entry), "insert-text",
 							G_CALLBACK(cb_search_insert), vm);
 	g_signal_connect(G_OBJECT(text_entry), "activate",

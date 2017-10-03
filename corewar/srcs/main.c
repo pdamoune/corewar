@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/02 17:35:13 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 21:41:04 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,17 @@ static int	console_run(t_vm *vm)
 	int ret;
 
 	ret = 0;
-	DG("START");
+	// DG("START");
+	//TODO introducing contestants
 	// while (IS_UNSET(vm->flag, STOP))
 	while (IS_ONEUNSET(vm->flag, END | STOP | PAUSE)) //TODO check if correct for ending in console
 	{
-		display(vm);
+		// display(vm);
 		ret = do_one_cycle(vm);
 		if (ret)
 			break;
 	}
-	DG("END at cycle %d", vm->cycle);
+	// DG("END at cycle %d", vm->cycle);
 	// if (!ret)//retiré car normalement c'est fait dans le check
 	// 	ret = display_win(vm);
 	return (free_vm(vm) || ret);

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 20:26:26 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/20 14:59:54 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 17:13:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ int			init_vm_value(t_vm *vm)
 	if (init_process_list(vm))
 		return (1);
 	if (list_empty(&vm->process))
-		return (ERR_COR("at least one player is needed."));
+		return (verbose(vm, MSG_ERROR ,
+				"At least one player is needed.", NULL));
 	if (init_area(vm))
 		return (1);
-	if (IS_UNSET(vm->flag, GRAPHIC))
-		display(vm);
+	// if (IS_UNSET(vm->flag, GRAPHIC))
+		// display(vm);
 	return (0);
 }

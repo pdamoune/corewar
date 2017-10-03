@@ -3,46 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 13:29:58 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/08/29 18:03:46 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/10/03 17:12:31 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#define T_HEAD "Invalid header: "
 
-int 	init_read(int fd, void *ptr, int size)
+static int		analyze_header(t_vm *vm, t_header *header)
 {
-	int ret;
-
-	ret = read(fd, ptr, size);
-	return (ret);
-	// ft_printf("magic     = %x \n", ptr);
-	// E_TITLE
+	if ((header->magic = INTREV32(header->magic)) != COREWAR_EXEC_MAGIC)
+		return (verbose(vm, MSG_ERROR,
+				"Invalid magic: %x: Magic number should be %x",
+				header->magic, COREWAR_EXEC_MAGIC));
+	else if (header->prog_name[PROG_NAME_LENGTH])
+		return (verbose(vm, MSG_ERROR,
+				"Invalid name: Should be null terminated '%c' (%d)",
+				header->prog_name[PROG_NAME_LENGTH],
+				header->prog_name[PROG_NAME_LENGTH]));
+	else if ((header->prog_size = INTREV32(header->prog_size)) > CHAMP_MAX_SIZE)
+		return (verbose(vm, MSG_ERROR,
+				"Invalid program size: %u: Max program size is %d",
+				header->prog_size, CHAMP_MAX_SIZE));
+	else if (!header->prog_size)
+		return (verbose(vm, MSG_ERROR,
+				"Invalid program size: Program cannot be empty", NULL));
+	else if (header->comment[COMMENT_LENGTH])
+		return (verbose(vm, MSG_ERROR,
+				"Invalid comment: Should be null terminated '%c' (%d)",
+				header->comment[COMMENT_LENGTH],
+				header->comment[COMMENT_LENGTH]));
+	return (0);
 }
 
-int		init_data(int fd, t_header *header)
+int				init_data(t_vm *vm, int fd, t_file *file)
 {
-	if (init_read(fd, &header->magic, 4) != 4)
-		DG("\nError : Bad header, bad size of file\n");
-	else if ((header->magic = INTREV32(header->magic)) != COREWAR_EXEC_MAGIC)
-		DG("\nError : Bad header, bad magic number\n");
-	else if (init_read(fd, header->prog_name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)
-		DG("\nError : Bad header, bad name\n");
-	else if (init_read(fd, &header->prog[0], 4) != 4)
-		DG("\nError : Bad header, bad size of file\n");
-	else if (init_read(fd, &header->prog_size, 4) != 4)
-		DG("\nError : Bad header, bad size of file\n");
-	else if ((header->prog_size = INTREV32(header->prog_size)) > CHAMP_MAX_SIZE)
-		DG("\nError : Bad header, program size is too long\n");
-	else if (init_read(fd, header->comment, COMMENT_LENGTH) != COMMENT_LENGTH)
-		DG("\nError : Bad header, bad comment\n");
-	else if (init_read(fd, &header->prog[0], 4) != 4)
-		DG("\nError : Bad header, bad size of file\n");
-	else if (init_read(fd, header->prog, CHAMP_MAX_SIZE + 1) != (int)header->prog_size)
-		DG("\nError : Bad header, program size differs from what its header says\n");
-	else
-		return (0);
-	return (1);
+	int		n_read;
+
+	if ((n_read = read(fd, &(file->header), sizeof(t_header)))
+				!= sizeof(t_header))
+		return (verbose(vm, MSG_ERROR,
+				"Invalid header: %d: Failed to read full header (%d)",
+				n_read, sizeof(t_header)));
+	if (analyze_header(vm, &(file->header)))
+		return (1);
+	else if ((n_read = read(fd, file->prog, CHAMP_MAX_SIZE + 1))
+					!= (int)file->header.prog_size)
+		return (verbose(vm, MSG_ERROR,
+				"Invalid program: %d: Program size expected is %u",
+				n_read, file->header.prog_size));
+	return (0);
 }

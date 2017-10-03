@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 16:24:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 17:37:43 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 19:01:35 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ static void	reset_lives(t_vm *vm)
 	i = -1;
 	while (++i < MAX_PLAYERS)
 	{
-		vm->file[i].live = 0;
-		if (IS_SET(vm->flag, GRAPHIC))
-			update_players(vm, i);
+		if (vm->file[i].is_used)
+		{
+			vm->file[i].live = 0;
+			if (IS_SET(vm->flag, GRAPHIC))
+				update_players(vm, i);
+		}
 	}
 }
 
@@ -63,22 +66,15 @@ void		check_cycle(t_vm *vm)
 {
 	if ((vm->last_check + vm->cycle_to_die) > vm->cycle)
 		return ;
+	verbose(vm, MSG_DEBUG, "start a check", NULL);
 	check_live(vm);
-	if (list_empty(&vm->process)) // TODO on devrait faire ce check apres avoir supprime les process ? la vm de zz sembe le faire avant.
-	{
-		war_end(vm);
-		return ;
-	}
+	if (list_empty(&vm->process))
+		return (war_end(vm));
 	vm->last_check = vm->cycle;
 	++vm->check_count;
 	// if (count_all_lives(vm) < NBR_LIVE && vm->check_count <= MAX_CHECKS)
 	if (vm->livetmp < NBR_LIVE && vm->check_count <= MAX_CHECKS)
-	{
-		DG("%d && %d", vm->livetmp, vm->check_count);
 		return (update_chk_cpt(vm));
-	}
-	DG("%d && %d", vm->livetmp, vm->check_count);
-	
 	reset_lives(vm);
 	vm->check_count = 0;
 	vm->cycle_to_die -= CYCLE_DELTA;

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 17:11:45 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 16:35:41 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define INIT_SPEED			7
 
 # define GTK_WIDTH			(AREA_WIDTH + 410)
-# define GTK_HEIGHT			1300
+# define GTK_HEIGHT			1282
 
 # define CYCLE_CHANGED		10
 /*

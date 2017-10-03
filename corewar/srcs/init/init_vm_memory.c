@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 16:32:37 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 21:38:35 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ t_cliopts	g_read_opts[] =
 {
 	{'d', "dump", DUMP, 0, init_dump, 1},
 	{'n', "number", 0, 0, init_number, 2},
-	{'g', "graphic", GRAPHIC, 0, NULL, 0},
+	{'g', "graphic", WILL_GRAPHIC, 0, NULL, 0},
 	{'v', "verbose", VERBOSE, QUIET, NULL, 0},
+	{'D', "debug", DEBUG | VERBOSE, QUIET, NULL, 0},
 	{'q', "quiet", QUIET, VERBOSE, NULL, 0},
+	{'m', "music", MUSIC, 0, NULL, 0},
 	{0, 0, 0, 0, 0, 0},
 };
 
@@ -32,7 +34,10 @@ int			init_vm_memory(t_vm *vm, int *ac, char ***av)
 			if (init_file(vm, -1, *vm->av_data++))
 				return (1);
 	INIT_LIST_HEAD(&(vm->process));
-	if (IS_SET(vm->flag, GRAPHIC))
+	if (IS_SET(vm->flag, MUSIC))
+		if (init_allegro(vm))
+			return (verbose(vm, MSG_ERROR, "Failed to init allegro", NULL));
+	if (IS_SET(vm->flag, WILL_GRAPHIC))
 		init_gtk_memory(ac, av, vm);
 	return (0);
 }

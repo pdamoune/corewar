@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 17:22:22 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 17:14:58 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 11:36:20 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static GtkWidget		*create_cycle_display(t_vm * vm)
 	ft_itoa_nomalloc(CYCLE_TO_DIE, txt);
 	gtk_box_pack_end(GTK_BOX(box), (vm->gtk.panel.cycle_to_die = gtk_label_new(txt)), FALSE, FALSE, 0);
 	gtk_widget_set_margin_end(vm->gtk.panel.cycle_to_die, 150);
-	gtk_box_pack_end(GTK_BOX(box), gtk_label_new("CYCLE TO DIE:  "), FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(box), gtk_label_new("Cycle to die:  "), FALSE, FALSE, 0);
 	gtk_widget_set_margin_top(box, 10);
 	return (box);
 }
@@ -65,9 +65,8 @@ GtkWidget				*create_panel(t_vm *vm)
 										FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), create_scale_bar(vm), FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), create_cycle_display(vm), FALSE, FALSE, 0);
-
 	gtk_widget_set_size_request(box, 400, -1);
-	gtk_box_pack_start(GTK_BOX(box), create_players_info(vm), FALSE, FALSE, 10);
+	gtk_box_pack_start(GTK_BOX(box), create_players_info(vm), FALSE, FALSE, 15);
 	gtk_box_pack_start(GTK_BOX(box), create_process_info(vm), FALSE, FALSE, 10);
 	return (box);
 }

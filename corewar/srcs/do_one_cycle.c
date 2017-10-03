@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 17:35:47 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 19:01:50 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_op	g_op_tab[17] =
 		16, 2, "aff", 1, 0, &op_aff}
 };
 
-static int		check_args(t_process *p, unsigned int *type, unsigned int *args)
+static int		check_args(t_vm *vm, t_process *p, unsigned int *type, unsigned int *args)
 {
 	int		i;
 
@@ -72,9 +72,16 @@ static int		check_args(t_process *p, unsigned int *type, unsigned int *args)
 	while (++i < p->op.nb_params)
 	{
 		if (IS_UNSET(p->op.params[i], type[i]))
+		{
+			verbose(vm, MSG_WARNING, "%b: Invalid type (allowed %b)", type[i], p->op.params[i]);
 			return (1);
+			
+		}
 		if (type[i] == T_REG && args[i] >= REG_NUMBER)
-			return (DG("Invalid register"));
+		{
+			verbose(vm, MSG_WARNING, "%u: max register is %d", args[i], REG_NUMBER);
+			return (1);
+		}
 		p->op.params[i] = type[i];
 	}
 	return (0);
@@ -96,18 +103,18 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	i = -1;
 	while (++i < p->op.nb_params)
 		args[i] = get_process_value_from_area(vm, p, type[i], &pc_inc);
-	if (check_args(p, type, (unsigned *)args)) //TODO check if args are type compatible others exceptions
+	if (check_args(vm, p, type, (unsigned *)args)) //TODO check if args are type compatible others exceptions
 	{
-		p->pc = move_pc(vm, p->pc, 1);
-		return (DG("Next process"));
+		p->pc = move_pc(vm, p->pc, pc_inc);
+		return (verbose(vm, MSG_WARNING, "%s: Instruction has invalid type parameters", p->op.label));
 	}
-	if (p->op.instru(vm, p, args)) // sending to instruction function
+	if (p->op.instru(vm, p, args)) //sending to instruction function
 	{
-		// DG("Something went wrong");
-		p->pc = move_pc(vm, p->pc, 1);
+		verbose(vm, MSG_ERROR, "Something as failed in instruction. Vm will properly stop now", NULL);
+		SET(vm->flag, STOP);
+		// p->pc = move_pc(vm, p->pc, 1);
 		return (1);
 	}
-	// DG("make a pc jump of %d", pc_inc);
 	p->pc = move_pc(vm, p->pc, pc_inc);
 	return (0);
 }
@@ -117,25 +124,19 @@ static int		init_instruction(t_vm *vm, t_process *p)
 {
 	--p->nb_cycle_before_exec;
 	if (!p->nb_cycle_before_exec)
-	{
-		do_instruction(vm, p);
-	}
-	else if (p->nb_cycle_before_exec == -1)
+		return (do_instruction(vm, p));
+	if (p->nb_cycle_before_exec == -1)
 	{
 		if (vm->area[p->pc] < 1 || vm->area[p->pc] > 16)
 		{
-			if (IS_SET(vm->flag, GRAPHIC))//only in graphic because it's a display purpose
-				ft_bzero(&p->op, sizeof(t_op));//TODO check if no impact on result
+			if (IS_SET(vm->flag, GRAPHIC))
+				ft_bzero(&p->op, sizeof(t_op));
 			p->pc = move_pc(vm, p->pc, 1);
 			p->nb_cycle_before_exec = 0;
 			return (0);
 		}
 		p->op = g_op_tab[(unsigned)vm->area[p->pc] - 1];
 		p->nb_cycle_before_exec = p->op.cycle - 1;
-
-		// Decommenter la ligne precedente et commenter la suivante pour avoir
-		// les vrai nb_cycle_before_exec.
-		// p->nb_cycle_before_exec = 1;
 	}
 	return (0);
 }
@@ -145,12 +146,13 @@ int				do_one_cycle(t_vm *vm)
 	t_process		*process;
 	unsigned int	*pc;
 
+	verbose(vm, MSG_INFO, "Start of cycle: %d", vm->cycle);
 	LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
 	while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
 	{
 		pc = &(process->pc);
-		if (IS_UNSET(vm->flag, GRAPHIC))
-			DG("IS_UNSET, pc = %u, nb_cycle_before_exec = %d", *pc, process->nb_cycle_before_exec);
+		// if (IS_UNSET(vm->flag, GRAPHIC))
+			// DG("IS_UNSET, pc = %u, nb_cycle_before_exec = %d", *pc, process->nb_cycle_before_exec);
 		init_instruction(vm, process);
 	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)

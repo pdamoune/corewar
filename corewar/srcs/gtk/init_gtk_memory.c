@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/04 18:29:14 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 15:47:56 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 16:08:18 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		init_gtk_memory(int *ac, char ***av, t_vm *vm)
 {
+	SET(vm->flag, GRAPHIC);
 	init_gtk_value(vm);
 	gtk_init(ac, av);
 	create_gtk(vm);

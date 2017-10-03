@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:44 by philippe          #+#    #+#             */
-/*   Updated: 2017/09/26 19:37:52 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 17:19:00 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 int		op_xor(t_vm *vm, t_process *p, unsigned int *args)
 {
+	verbose(vm, MSG_DEBUG, "%s", __func__);
 	analyze_value(vm, p, args, 2);
-	// args[0] = process->op.params[0] & T_REG ? process->r[args[0] - 1] : args[0];
-	// args[1] = process->op.params[1] & T_REG ? process->r[args[1] - 1] : args[1];
 	p->r[args[2] - 1] = args[0] ^ args[1];
 	p->carry = !p->r[args[2] - 1];
-	// DG("\nargs 0 = %d\n", args[0]);
-	// DG("\nargs 1 = %d\n", args[1]);
-	// DG("\nargs 2 = %d\n", args[2]);
-	// DG("\ncarry = %d\n", process->carry);
 	return (0);
 }

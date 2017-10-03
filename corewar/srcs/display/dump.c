@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:42:19 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 12:17:41 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 16:38:44 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,15 @@ int		dump(t_vm *vm)
 {
 	int		i;
 
-	SET(vm->flag, END | PAUSE);
+	if (IS_UNSET(vm->flag, PAUSE))
+	{
+		if (IS_SET(vm->flag, GRAPHIC))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(vm->gtk.panel.pause),
+										IS_SET(vm->flag, PAUSE));
+		else
+			SET(vm->flag, PAUSE);
+	}
 	UNSET(vm->flag, DUMP);
-	//TODO what if we can't reach the dump cycle
 	i = -1;
 	while (++i < MEM_SIZE)
 	{

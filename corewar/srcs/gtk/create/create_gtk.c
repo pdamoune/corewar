@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:35:17 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 15:00:59 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 19:20:44 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static GtkWidget		*create_main_box(t_vm *vm)
 	gtk_window_set_position(GTK_WINDOW(win), GTK_WIN_POS_CENTER);
 	// gtk_window_set_decorated(GTK_WINDOW(win), FALSE);
 	// gtk_window_set_default_size(GTK_WINDOW(win), GTK_WIDTH, GTK_HEIGHT);
-	
 	gtk_window_set_title(GTK_WINDOW(win), "~   C . O . R . E . W . A . R   ~");
 	g_signal_connect(G_OBJECT(win), "destroy", G_CALLBACK(cb_quit), win);
 	g_signal_connect(G_OBJECT(win), "key-release-event",
@@ -65,9 +64,7 @@ void					create_gtk(t_vm *vm)
 {
 	GtkWidget *box;
 
-
 	box = create_main_box(vm);
-
 	gtk_box_pack_start(GTK_BOX(box), create_panel(vm), FALSE, FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(box), create_area(vm), FALSE, FALSE, 5);
 	gtk_widget_show_all(vm->gtk.win);

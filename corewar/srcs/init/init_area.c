@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 20:24:10 by wescande          #+#    #+#             */
-/*   Updated: 2017/09/19 21:02:44 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/03 15:59:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int			init_area(t_vm *vm)
 			continue ;
 		pc = vm->file[i].start_position;
 		prog_size = vm->file[i].header.prog_size;
-		ft_memcpy(&(vm->area[pc]), vm->file->header.prog, prog_size);
+		ft_memcpy(&(vm->area[pc]), vm->file[i].prog, prog_size);
+		if (IS_UNSET(vm->flag, GRAPHIC))
+			continue;
 		j = -1;
 		while (++j < (int)vm->file[i].header.prog_size)
 			if (init_px(vm, pc + j, i))
