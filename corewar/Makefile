@@ -6,16 +6,18 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/10/03 21:45:44 by wescande         ###   ########.fr        #
+#    Updated: 2017/10/04 15:59:37 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	corewar
 
 CC			?=	gcc
-FLAGS		=	-Wall -Wextra -O3 -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror -O3 #-fsanitize=address
 MAIN_FLAGS	=	
-OBJ_FLAGS	=	`pkg-config --cflags gtk+-3.0` -I ../allegro/addons/acodec/ -I ../allegro/addons/audio/ -I ../allegro/include/ -I ../allegro/build/include/
+OBJ_FLAGS	=	`pkg-config --cflags gtk+-3.0` `pkg-config --cflags sdl2`
+# -I ../portaudio/include -I ../libsndfile/src
+# -I ../allegro/addons/acodec/ -I ../allegro/addons/audio/ -I ../allegro/include/ -I ../allegro/build/include/
 
 LEN_NAME	=	`echo $(NAME) |wc -c`
 DELTA		=	$$(echo "$$(tput cols)-31-$(LEN_NAME)"|bc)
@@ -28,16 +30,15 @@ LIBFT_DIR	=	../libft/
 LIBFT_LIB	=	$(LIBFT_DIR)libft.a
 LIBFT_INC	=	$(LIBFT_DIR)includes/
 
-LIBS		=	-L../allegro/build/lib -lallegro_acodec -lallegro_audio -lallegro -lallegro_main `pkg-config --libs gtk+-3.0`
+LIBS		=	`pkg-config --libs gtk+-3.0` `pkg-config --libs sdl2`
+# -L../portaudio/lib/.libs -lportaudio -L../libsndfile/src/.libs -lsndfile -lc
+# -L../allegro/build/lib -lallegro_acodec -lallegro_audio -lallegro -lallegro_main 
 
 SRC_BASE	=	\
-allegro/destroy_allegro.c\
-allegro/init_allegro.c\
-allegro/play_allegro.c\
-allegro/stop_allegro.c\
 area_interface/get_type_from_area.c\
 area_interface/get_value_from_area.c\
 area_interface/set_value_in_area.c\
+audio.c\
 check/check_arg.c\
 check/check_cycle.c\
 check/check_live.c\
@@ -90,6 +91,7 @@ init/init_area.c\
 init/init_data.c\
 init/init_dump.c\
 init/init_file.c\
+init/init_music.c\
 init/init_number.c\
 init/init_process_list.c\
 init/init_vm_memory.c\

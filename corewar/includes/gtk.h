@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 16:35:41 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/04 15:03:17 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@
 ** KEY MANAGEMENT FOR GTK
 */
 # ifdef __APPLE__
-#  define GTK_ESC			53
+#  define GTK_B				11
+#  define GTK_M				46
 #  define GTK_SPA			49
+#  define GTK_ESC			53
 #  define GTK_ADD			69
 #  define GTK_SUB			78
 #  define GTK_RIGHT			124

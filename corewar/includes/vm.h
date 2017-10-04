@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/03 21:41:39 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/04 16:18:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <gtk.h>
 # include <usage.h>
 # include <op.h>
+# include <SDL.h>
+# include "audio.h"
 
 // # define TITLE ft_printf("===   %s   ===\n", __func__);
 // # define E_TITLE ft_printf("=== fin %s ===\n", __func__);
@@ -26,10 +28,13 @@
 // # define MSG_COR(s) ("{red}corewar: " s "{eoc}\n")
 // # define ERR_COR(s, ...) (ft_dprintf(2, MSG_COR(s), ##__VA_ARGS__) * 0 + 1)
 
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
-# define MUSIC_FILE		"./slash.wav"
+// # include <sndfile.h>
+// # include <portaudio.h>
+// #include <allegro5/allegro.h>
+// #include <allegro5/allegro_audio.h>
+// #include <allegro5/allegro_acodec.h>
+# define MUSIC_FILE_SLASH		"slash.wav"
+# define MUSIC_FILE_BACK		"play.wav"
 
 /*
 ** FLAGS
@@ -47,6 +52,8 @@
 # define WILL_GRAPHIC	(1 << 9)
 # define DEBUG			(1 << 10)
 # define MUSIC			(1 << 11)
+# define SOUND			(1 << 12)
+# define NEVER_START	(1 << 12)
 
 # define MSG_STD		0
 # define MSG_INFO		1
@@ -120,13 +127,29 @@ typedef struct		s_file
 ** it's forbidden to change the order of the 2 first params in the following struct
 ** she is cast in another one after
 */
-typedef struct		s_allegro
+// typedef struct		s_allegro
+// {
+// 	ALLEGRO_VOICE				*voice;
+// 	ALLEGRO_MIXER				*mixer;
+// 	ALLEGRO_SAMPLE_INSTANCE		*sample;
+// 	ALLEGRO_SAMPLE				*sample_data;
+// }					t_allegro;
+typedef struct		s_audio
 {
-	ALLEGRO_VOICE				*voice;
-	ALLEGRO_MIXER				*mixer;
-	ALLEGRO_SAMPLE_INSTANCE		*sample;
-	ALLEGRO_SAMPLE				*sample_data;
-}					t_allegro;
+	uint8_t			*audio_pos;
+	uint32_t		audio_len;
+	uint8_t			*audio_pos_tmp;
+	uint32_t		audio_len_tmp;
+	uint8_t			*audio_pos_slash;
+	uint32_t		audio_len_slash;
+	uint8_t			*audio_pos_intro;
+	uint32_t		audio_len_intro;
+	uint8_t			*audio_pos_play;
+	uint32_t		audio_len_play;
+	uint8_t			*audio_pos_final;
+	uint32_t		audio_len_final;
+	int				is_play:1;
+}					t_audio;
 
 typedef struct		s_vm
 {
@@ -136,7 +159,9 @@ typedef struct		s_vm
 	// t_player		players[MAX_PLAYERS];
 	t_lx			process;
 	t_gtk			gtk;
-	t_allegro		allegro;
+	t_audio			audio;
+	t_sound			*sound;
+	// t_allegro		allegro;
 	int				nb_player;
 	int				livetmp;
 	char			area[MEM_SIZE];
@@ -174,7 +199,7 @@ int				set_value_in_area(t_vm *vm, int at, unsigned int value, unsigned int size
 
 int		usage(char *name);
 int		free_vm(t_vm *vm);
-void	destroy_allegro(t_vm *vm);
+// void	destroy_allegro(t_vm *vm);
 void	add_process(t_vm *vm, t_process *p);
 void	remove_all_process(t_vm *vm);
 void	del_process(t_vm *vm, t_process *process, int sound);
@@ -196,7 +221,8 @@ int		init_file(t_vm *vm, int num, char *filename);
 int		init_data(t_vm *vm, int fd, t_file *file);
 int		init_process_list(t_vm *vm);
 int		init_area(t_vm *vm);
-int		init_allegro(t_vm *vm);
+// int		init_allegro(t_vm *vm);
+int		init_music(t_vm *vm);
 
 /*
 ** Instructions.
@@ -224,8 +250,8 @@ int		op_aff(t_vm *vm, t_process *process, unsigned int *args);
 */
 int		display_win(t_vm *vm);
 int		dump(t_vm *vm);
-void	play_allegro(t_vm *vm);
-void	stop_allegro(t_vm *vm);
+// void	play_allegro(t_vm *vm);
+// void	stop_allegro(t_vm *vm);
 
 
 #endif

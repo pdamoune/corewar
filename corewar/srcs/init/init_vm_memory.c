@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 21:38:35 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/04 15:40:55 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_cliopts	g_read_opts[] =
 	{'D', "debug", DEBUG | VERBOSE, QUIET, NULL, 0},
 	{'q', "quiet", QUIET, VERBOSE, NULL, 0},
 	{'m', "music", MUSIC, 0, NULL, 0},
+	{'s', "sound", SOUND, 0, NULL, 0},
 	{0, 0, 0, 0, 0, 0},
 };
 
@@ -35,8 +36,8 @@ int			init_vm_memory(t_vm *vm, int *ac, char ***av)
 				return (1);
 	INIT_LIST_HEAD(&(vm->process));
 	if (IS_SET(vm->flag, MUSIC))
-		if (init_allegro(vm))
-			return (verbose(vm, MSG_ERROR, "Failed to init allegro", NULL));
+		if (init_music(vm))
+			return (verbose(vm, MSG_ERROR, "Failed to init music module", NULL));
 	if (IS_SET(vm->flag, WILL_GRAPHIC))
 		init_gtk_memory(ac, av, vm);
 	return (0);
