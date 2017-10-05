@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/05 17:04:13 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 19:23:25 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,8 @@ int				fork_process(t_vm *vm, t_process *p, unsigned int pc);
 int				calc_addr(int addr);
 void			analyze_value(t_vm *vm, t_process *p,
 								unsigned int *args, int lim);
-void			analyze_long_value(t_vm *vm, t_process *p,
-								unsigned int *args, int lim);
+// void			analyze_long_value(t_vm *vm, t_process *p,
+// 								unsigned int *args, int lim);
 int				text_to_speech(t_vm *vm, char *str);
 
 /*

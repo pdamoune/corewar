@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 16:23:32 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 18:46:31 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 t_cliopts	g_read_opts[] =
 {
 	{'d', "dump", DUMP, 0, init_dump, 1},
-	{'n', "number", 0, 0, init_number, 2},
+	{'D', "debug", DEBUG, QUIET, NULL, 0},
 	{'g', "graphic", WILL_GRAPHIC, 0, NULL, 0},
-	{'v', "verbose", VERBOSE, QUIET, NULL, 0},
-	{'D', "debug", DEBUG | VERBOSE, QUIET, NULL, 0},
-	{'q', "quiet", QUIET, VERBOSE, NULL, 0},
-	{'m', "music", MUSIC, 0, NULL, 0},
-	{'s', "sound", SOUND, 0, NULL, 0},
-	{'V', "voice", VOICE, 0, NULL, 0},
 	{'i', "introduce", INTRO, 0, NULL, 0},
+	{'m', "music", MUSIC, 0, NULL, 0},
+	{'n', "number", 0, 0, init_number, 2},
+	{'q', "quiet", QUIET, VERBOSE, NULL, 0},
+	{'s', "sound", SOUND, 0, NULL, 0},
+	{'v', "verbose", VERBOSE, QUIET, NULL, 0},
+	{'V', "voice", VOICE, 0, NULL, 0},
 	{0, 0, 0, 0, 0, 0},
 };
 

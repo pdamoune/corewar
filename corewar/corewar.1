@@ -1,0 +1,81 @@
+.Dd October 5, 2017
+.Dt Corewar 1
+.Sh NAME
+.Nm corewar
+.Nd Algorithmic Project
+.Sh SYNOPSIS
+.Nm
+.Bk -words
+.Op Fl d Ar n_cycle \*(Ba Fl Fl dump Ar n_cycle
+.Op Fl g \*(Ba Fl Fl graphic
+.Oo
+.Op Fl D \*(Ba Fl Fl debug
+.Op Fl i \*(Ba Fl Fl introduce
+.Op Fl q \*(Ba Fl Fl quiet
+.Op Fl v \*(Ba Fl Fl verbose
+.Oc
+.Oo
+.Op Fl m \*(Ba Fl Fl music
+.Op Fl s \*(Ba Fl Fl sound
+.Op Fl V \*(Ba Fl Fl voice
+.Oc
+.Op Fl n Ar number champion-file \*(Ba Fl Fl number Ar number champion-file
+.Ar champion-file ...
+.Ek
+.Sh DESCRIPTION
+.Nm
+is a emulation of a virtual "arena" in which programs will fight against one another (the "Champions").
+.Pp
+Options supported:
+.Bl -tag -width Ds
+.It Fl d Ar n_cycle , Fl Fl dump Ar n_cycle
+Dumps memory afer
+.Ar n_cycle
+cycles then exits
+.It Fl g , Fl Fl graphic
+Graphical output mode
+.It Fl D , Fl Fl debug , Fl v , Fl Fl verbose, Fl q , Fl Fl quiet , Fl i , Fl Fl introduce
+Verbosity levels, can be added together to enable several:
+.Bl -tag -width XXX -offset indent
+.It <no_flag>
+Show only lives, aff and winner
+.It Fl D , Fl Fl debug
+Show debug output, (pc moves, kill process, callback function, instruction, ...)
+.It Fl v , Fl Fl verbose
+Include all possible information and warning (not debug) and unset
+.Op Fl q \*(Ba Fl Fl quiet
+.It Fl q , Fl Fl quiet
+Do not show the live, do not show the aff output and unset
+.Op Fl v \*(Ba Fl Fl verbose
+.It Fl i , Fl Fl introduce
+Introduce the contestant in terminal
+.El
+.Pp
+.It Fl m , Fl Fl music , Fl s , Fl Fl sound , Fl V , Fl Fl voice
+Sound level, can be added together to enable several:
+.Bl -tag -width XXX -offset indent
+.It <no_flag>
+The corewar is mute
+.It Fl m , Fl Fl music
+Active music output when introduce, fighting and compliment the looser
+.It Fl s , Fl Fl sound
+Each dead process will emit a sound
+.It Fl V , Fl Fl voice
+Text-to-speech to introduce contestant, and announce the winner
+.El
+.Pp
+.It Fl n Ar number champion-file , Fl Fl number Ar number champion-file
+Specify the
+.Ar number
+of the player incarned by
+.Ar champion-file
+file.
+.Ar number
+should be 0 <
+.Ar numbers
+< MAX_PLAYERS
+.Pp
+.El
+.Sh SEE ALSO
+.Xr asm 1 ,
+.Xr asm-r 1
