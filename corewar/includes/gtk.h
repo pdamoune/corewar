@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/04 15:03:17 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:51:12 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define GTK_HEIGHT			1282
 
 # define CYCLE_CHANGED		10
+
 /*
 ** STATUS
 */
@@ -73,10 +74,10 @@
 # endif
 
 # ifdef __linux__
-# define GTK_ESC			9
-# define GTK_SPA			65
-# define GTK_RIGHT			114
-# define GTK_DOWN			115
+#  define GTK_ESC			9
+#  define GTK_SPA			65
+#  define GTK_RIGHT			114
+#  define GTK_DOWN			115
 # endif
 # define MAX_KEY			1024
 
@@ -85,23 +86,22 @@
 */
 # define USED				(1 << 0)
 # define LIVE				(1 << 1)
-// # define MOUSE				(1 << 2)
 
-typedef struct		s_vm t_vm;
-typedef struct		s_process t_process;
+typedef struct s_vm			t_vm;
+typedef struct s_process	t_process;
 
-typedef struct		s_ivec2
+typedef struct	s_ivec2
 {
-	int				x;
-	int				y;
-}					t_ivec2;
+	int			x;
+	int			y;
+}				t_ivec2;
 
-typedef struct		s_color
+typedef struct	s_color
 {
-	double			r;
-	double			g;
-	double			b;
-}					t_color;
+	double		r;
+	double		g;
+	double		b;
+}				t_color;
 
 typedef struct	s_px
 {
@@ -128,23 +128,23 @@ typedef struct	s_process_win
 
 typedef struct	s_panel
 {
-	GtkWidget	*step;
-	GtkWidget	*pause;
-	GtkWidget	*cpt;
-	GtkWidget	*next_chk;
-	GtkWidget	*cycle_to_die;
-	t_gtkplayer	players[MAX_PLAYERS];
-	GtkWidget	*repartition;
-	GtkWidget	*process_box;
-	GtkWidget	*process_status;
-	GtkWidget	*process_act;
-	GtkWidget	*process_desc_act;
-	GtkWidget	*process_owner;
-	GtkWidget	*process_owner_id;
-	GtkWidget	*process_cycle_wait;
-	GtkWidget	*process_pc;
+	GtkWidget		*step;
+	GtkWidget		*pause;
+	GtkWidget		*cpt;
+	GtkWidget		*next_chk;
+	GtkWidget		*cycle_to_die;
+	t_gtkplayer		players[MAX_PLAYERS];
+	GtkWidget		*repartition;
+	GtkWidget		*process_box;
+	GtkWidget		*process_status;
+	GtkWidget		*process_act;
+	GtkWidget		*process_desc_act;
+	GtkWidget		*process_owner;
+	GtkWidget		*process_owner_id;
+	GtkWidget		*process_cycle_wait;
+	GtkWidget		*process_pc;
 	t_process_win	p_win;
-	t_process	*process;
+	t_process		*process;
 }				t_panel;
 
 typedef struct	s_gtk
@@ -161,14 +161,15 @@ typedef struct	s_gtk
 }				t_gtk;
 
 void			calcul_border(GtkWidget *widget, t_vm *vm, int at);
-void			draw_border(GtkWidget *widget, t_vm *vm, int at, const t_color color);
+void			draw_border(GtkWidget *widget, t_vm *vm,
+							int at, const t_color color);
 int				draw_underline(t_vm *vm, int at, t_color color);
 int				do_one_step(t_vm *vm);
 
 /*
 ** GTK UPDATE
 */
-void 			update_process(t_vm *vm, t_process *process, int is_dead);
+void			update_process(t_vm *vm, t_process *process, int is_dead);
 void			update_players(t_vm *vm, int id);
 void			update_process_info(t_vm *vm);
 gboolean		update_process_select(t_vm *vm, unsigned int process_id);
@@ -185,7 +186,8 @@ int				calcul_px(t_vm *vm, int at);
 int				erase_px(t_vm *vm, int at);
 void			cairo_pango_draw_text(t_vm *vm, int at, t_ivec2 pos);
 void			iter_on_px(t_vm *vm);
-void			px_change_owner(t_vm *vm, unsigned int at, int size, short owner);
+void			px_change_owner(t_vm *vm, unsigned int at,
+								int size, short owner);
 
 /*
 ** PC MANAGE
@@ -220,12 +222,14 @@ GtkWidget		*create_players_info_display(t_vm *vm, int i);
 ** CALLBACK FUNCTION FOR GTK
 */
 gboolean		cb_speed(GtkWidget *widget, t_vm *vm);
-gboolean		cb_key_event_release(GtkWidget *win, GdkEventKey *event, t_vm *vm);
-gboolean		cb_key_event_press(GtkWidget *win, GdkEventKey *event, t_vm *vm);
+gboolean		cb_key_event_release(GtkWidget *win, GdkEventKey *event,
+									t_vm *vm);
+gboolean		cb_key_event_press(GtkWidget *win, GdkEventKey *event,
+									t_vm *vm);
 gboolean		cb_mouse(GtkWidget *win, GdkEventKey *event, t_vm *vm);
 gboolean		cb_play(GtkWidget *widget, t_vm *vm);
-gboolean		cb_quit(GtkWidget *widget, gpointer data);
-gboolean		cb_step(GtkWidget *widget, GdkEvent  *event, t_vm *vm);
+gboolean		cb_quit(GtkWidget *widget, t_vm *vm);
+gboolean		cb_step(GtkWidget *widget, GdkEvent *event, t_vm *vm);
 gboolean		cb_draw (GtkWidget *widget, cairo_t *cr, t_vm *vm);
 gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
 									t_vm *vm);

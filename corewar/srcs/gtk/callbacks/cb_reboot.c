@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 19:45:41 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 18:55:46 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 13:19:53 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ gboolean	cb_reboot(GtkWidget *widget, t_vm *vm)
 	int		tmp;
 
 	(void)widget;
+	verbose(vm, MSG_DEBUG, "%s", __func__);
 	verbose(vm, MSG_INFO, "Reinitialisation of vm", NULL);
 	UNSET(vm->flag, END);
 	if (IS_UNSET(vm->flag, PAUSE))
@@ -64,6 +65,8 @@ gboolean	cb_reboot(GtkWidget *widget, t_vm *vm)
 	erase_draw_area(vm);
 	tmp = vm->gtk.speed;
 	init_gtk_value(vm);
+	if (IS_SET(vm->flag, MUSIC))
+		play_music(&(vm->audio), MUSIC_FILE_INTRO, SDL_MIX_MAXVOLUME);
 	if (init_vm_value(vm))
 		SET(vm->flag, STOP);
 	vm->gtk.speed = tmp;

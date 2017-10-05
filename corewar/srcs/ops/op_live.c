@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:42:01 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/03 17:17:49 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:36:38 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		op_live(t_vm *vm, t_process *p, unsigned int *args)
 	++vm->file[args[0]].live;
 	vm->file[args[0]].last_live = vm->cycle;
 	p->id_player = args[0];
-	verbose(vm, MSG_STD, "Le joueur %d est en vie au cycle %d", args[0], vm->cycle);
+	verbose(vm, MSG_STD, "Le joueur %d est en vie au cycle %d",
+				args[0], vm->cycle);
 	if (IS_SET(vm->flag, GRAPHIC))
 	{
 		update_players(vm, args[0]);

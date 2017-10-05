@@ -6,14 +6,15 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/10/04 15:59:37 by wescande         ###   ########.fr        #
+#    Updated: 2017/10/05 14:12:15 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	corewar
 
 CC			?=	gcc
-FLAGS		=	-Wall -Wextra -Werror -O3 #-fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror -O3
+#-fsanitize=address
 MAIN_FLAGS	=	
 OBJ_FLAGS	=	`pkg-config --cflags gtk+-3.0` `pkg-config --cflags sdl2`
 # -I ../portaudio/include -I ../libsndfile/src
@@ -38,8 +39,11 @@ SRC_BASE	=	\
 area_interface/get_type_from_area.c\
 area_interface/get_value_from_area.c\
 area_interface/set_value_in_area.c\
-audio.c\
-check/check_arg.c\
+audio/audio_play_interface.c\
+audio/audio_tools.c\
+audio/init_audio.c\
+audio/internal_audio.c\
+audio/text_to_speech.c\
 check/check_cycle.c\
 check/check_live.c\
 display/display_win.c\
@@ -88,6 +92,7 @@ gtk/update/update_process.c\
 gtk/update/update_process_info.c\
 gtk/update/update_process_select.c\
 init/init_area.c\
+init/init_contestant.c\
 init/init_data.c\
 init/init_dump.c\
 init/init_file.c\

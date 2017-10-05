@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 17:27:58 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 16:36:10 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 12:37:40 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ gboolean	cb_mouse(GtkWidget *widget, GdkEventKey *event, t_vm *vm)
 	GdkEventMotion		*e;
 	int					at;
 
+	verbose(vm, MSG_DEBUG, "%s", __func__);
 	if (event->type == GDK_MOTION_NOTIFY)
 	{
 		e = (GdkEventMotion *)event;

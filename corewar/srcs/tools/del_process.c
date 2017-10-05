@@ -6,18 +6,11 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 19:11:06 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/04 16:40:42 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:40:52 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
-
-// static void	play_music(t_vm *vm)
-// {
-// 	(void)vm;
-// 	// play_allegro(vm);
-// 	DG("not yet implemented");
-// }
 
 static void	gtk_del_process(t_vm *vm, t_process *process)
 {
@@ -50,10 +43,8 @@ static void	gtk_del_process(t_vm *vm, t_process *process)
 
 void		del_process(t_vm *vm, t_process *process, int sound)
 {
-	// TODO play music ?
-	if (sound && IS_SET(vm->flag, MUSIC))
-		play_sound_from_memory(vm->sound, SDL_MIX_MAXVOLUME);
-		// play_music(vm);
+	if (sound && IS_SET(vm->flag, SOUND))
+		play_sound_from_memory(&(vm->audio), vm->slash, SDL_MIX_MAXVOLUME);
 	list_del(&process->lx);
 	if (IS_SET(vm->flag, GRAPHIC))
 	{

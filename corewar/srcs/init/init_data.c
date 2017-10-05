@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 13:29:58 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/03 17:12:31 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:28:50 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ static int		analyze_header(t_vm *vm, t_header *header)
 		return (verbose(vm, MSG_ERROR,
 				"Invalid program size: Program cannot be empty", NULL));
 	else if (header->comment[COMMENT_LENGTH])
+	{
 		return (verbose(vm, MSG_ERROR,
 				"Invalid comment: Should be null terminated '%c' (%d)",
 				header->comment[COMMENT_LENGTH],
 				header->comment[COMMENT_LENGTH]));
+	}
 	return (0);
 }
 
@@ -45,15 +47,19 @@ int				init_data(t_vm *vm, int fd, t_file *file)
 
 	if ((n_read = read(fd, &(file->header), sizeof(t_header)))
 				!= sizeof(t_header))
+	{
 		return (verbose(vm, MSG_ERROR,
 				"Invalid header: %d: Failed to read full header (%d)",
 				n_read, sizeof(t_header)));
+	}
 	if (analyze_header(vm, &(file->header)))
 		return (1);
 	else if ((n_read = read(fd, file->prog, CHAMP_MAX_SIZE + 1))
 					!= (int)file->header.prog_size)
+	{
 		return (verbose(vm, MSG_ERROR,
 				"Invalid program: %d: Program size expected is %u",
 				n_read, file->header.prog_size));
+	}
 	return (0);
 }

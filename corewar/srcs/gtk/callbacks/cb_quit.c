@@ -6,16 +6,16 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:39:15 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 11:21:17 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 17:05:10 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-gboolean	cb_quit(GtkWidget *widget, gpointer data)
+gboolean	cb_quit(GtkWidget *widget, t_vm *vm)
 {
 	(void)widget;
-	(void)data;
-	gtk_main_quit();
+	verbose(vm, MSG_DEBUG, "%s", __func__);
+	SET(vm->flag, STOP);
 	return (FALSE);
 }

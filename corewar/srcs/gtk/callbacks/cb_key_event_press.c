@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 15:46:51 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 14:57:41 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:01:27 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ gboolean			cb_key_event_press(GtkWidget *win, GdkEventKey *event,
 	int i;
 
 	(void)win;
+	verbose(vm, MSG_DEBUG, "press key %s (val %u)",
+					gdk_keyval_name(event->keyval), event->hardware_keycode);
 	i = -1;
 	while (g_action[++i].id)
 		if (g_action[i].id == event->hardware_keycode)

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:57:47 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 11:23:24 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 12:37:09 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ gboolean			cb_more_info(GtkWidget *widget, GdkEvent *event, t_vm *vm)
 	GtkWidget	*win;
 
 	(void)event;
+	verbose(vm, MSG_DEBUG, "%s", __func__);
 	win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_sensitive(widget, FALSE);
 	gtk_window_set_position(GTK_WINDOW(win), GTK_WIN_POS_NONE);

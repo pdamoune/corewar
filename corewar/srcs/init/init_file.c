@@ -6,23 +6,24 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 11:53:01 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 19:17:27 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:35:51 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-static int	get_empty_file(t_vm *vm)
+static int		get_empty_file(t_vm *vm)
 {
-	int i = -1;
+	int i;
 
+	i = -1;
 	while (++i < MAX_PLAYERS)
 		if (!vm->file[i].is_used)
 			return (i);
 	return (-1);
 }
 
-int		init_file(t_vm *vm, int num, char *filename)
+int				init_file(t_vm *vm, int num, char *filename)
 {
 	t_file		*file;
 	int			fd;
@@ -33,8 +34,10 @@ int		init_file(t_vm *vm, int num, char *filename)
 	if (file->is_used++)
 		return (verbose(vm, MSG_ERROR, "player number already used: %d", num));
 	if ((fd = open(filename, O_RDONLY)) == -1)
+	{
 		return (verbose(vm, MSG_ERROR, "{yel}%s:{red} %s",
 				filename, strerror(errno)));
+	}
 	if (init_data(vm, fd, file))
 	{
 		close(fd);

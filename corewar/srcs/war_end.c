@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 19:02:23 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 12:18:16 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:44:46 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		does_the_user_still_want_the_dump(t_vm *vm)
 		dialog = gtk_message_dialog_new(GTK_WINDOW(vm->gtk.win),
 				GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
 				GTK_BUTTONS_YES_NO, TXT_ASK_G, vm->cycle_to_dump, vm->cycle);
-		if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES)
+		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES)
 			dump(vm);
 		gtk_widget_destroy(dialog);
 	}
@@ -43,6 +43,8 @@ static void		does_the_user_still_want_the_dump(t_vm *vm)
 
 void			war_end(t_vm *vm)
 {
+	if (IS_SET(vm->flag, MUSIC))
+		play_music(&(vm->audio), MUSIC_FILE_END, SDL_MIX_MAXVOLUME);
 	if (IS_SET(vm->flag, DUMP))
 		does_the_user_still_want_the_dump(vm);
 	display_win(vm);

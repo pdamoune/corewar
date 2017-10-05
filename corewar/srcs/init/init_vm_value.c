@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 20:26:26 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 17:13:42 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:27:23 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,9 @@ int			init_vm_value(t_vm *vm)
 		init_gtk_value(vm);
 	if (init_process_list(vm))
 		return (1);
-	if (list_empty(&vm->process))
-		return (verbose(vm, MSG_ERROR ,
-				"At least one player is needed.", NULL));
 	if (init_area(vm))
 		return (1);
-	// if (IS_UNSET(vm->flag, GRAPHIC))
-		// display(vm);
+	if (init_contestant(vm))
+		return (verbose(vm, MSG_ERROR, "Failed to present contestant", NULL));
 	return (0);
 }

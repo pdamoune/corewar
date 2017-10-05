@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 10:39:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 10:40:07 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 12:35:58 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void		clear_surface(cairo_surface_t *surface)
 gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
 							t_vm *vm)
 {
+	verbose(vm, MSG_DEBUG, "%s", __func__);
 	(void)event;
 	if (vm->gtk.surface)
 		return (TRUE);

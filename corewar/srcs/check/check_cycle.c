@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 16:24:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 19:01:35 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:14:43 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ static void	reset_lives(t_vm *vm)
 		}
 	}
 }
-
-// static int	count_all_lives(t_vm *vm)
-// {
-// 	int		lives;
-// 	int		i;
-
-// 	lives = 0;
-// 	i = -1;
-// 	while (++i < MAX_PLAYERS)
-// 		lives += vm->file[i].live;
-// 	return (lives);
-// }
 
 static void	update_cycle_to_die(t_vm *vm)
 {
@@ -72,7 +60,6 @@ void		check_cycle(t_vm *vm)
 		return (war_end(vm));
 	vm->last_check = vm->cycle;
 	++vm->check_count;
-	// if (count_all_lives(vm) < NBR_LIVE && vm->check_count <= MAX_CHECKS)
 	if (vm->livetmp < NBR_LIVE && vm->check_count <= MAX_CHECKS)
 		return (update_chk_cpt(vm));
 	reset_lives(vm);

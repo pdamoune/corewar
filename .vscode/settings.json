@@ -13,6 +13,9 @@
 		"locale": "c",
 		"algorithm": "c",
 		"stdint.h": "c",
-		"stdarg.h": "c"
+		"stdarg.h": "c",
+		"vm.h": "c",
+		"audio.h": "c",
+		"sstream": "c"
 	}
 }

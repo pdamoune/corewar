@@ -6,28 +6,34 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 17:22:22 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 11:36:20 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 17:09:17 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-static GtkWidget		*create_cycle_display(t_vm * vm)
+static GtkWidget		*create_cycle_display(t_vm *vm)
 {
 	GtkWidget	*box;
 	char		txt[12];
-	
+
 	box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_box_pack_start(GTK_BOX(box), gtk_label_new("Current cycle:  "), FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), gtk_label_new("Current cycle:  "),
+				FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), (vm->gtk.panel.cpt = gtk_label_new("0")),
-									FALSE, FALSE, 0);
+				FALSE, FALSE, 0);
 	ft_itoa_nomalloc(CYCLE_TO_DIE, txt);
-	gtk_box_pack_end(GTK_BOX(box), (vm->gtk.panel.next_chk = gtk_label_new(txt)), FALSE, FALSE, 0);
-	gtk_box_pack_end(GTK_BOX(box), gtk_label_new("Next check at:  "), FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(box),
+				(vm->gtk.panel.next_chk = gtk_label_new(txt)), FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(box), gtk_label_new("Next check at:  "),
+				FALSE, FALSE, 0);
 	ft_itoa_nomalloc(CYCLE_TO_DIE, txt);
-	gtk_box_pack_end(GTK_BOX(box), (vm->gtk.panel.cycle_to_die = gtk_label_new(txt)), FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(box),
+				(vm->gtk.panel.cycle_to_die = gtk_label_new(txt)),
+				FALSE, FALSE, 0);
 	gtk_widget_set_margin_end(vm->gtk.panel.cycle_to_die, 150);
-	gtk_box_pack_end(GTK_BOX(box), gtk_label_new("Cycle to die:  "), FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(box), gtk_label_new("Cycle to die:  "),
+				FALSE, FALSE, 0);
 	gtk_widget_set_margin_top(box, 10);
 	return (box);
 }

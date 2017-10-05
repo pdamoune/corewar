@@ -6,13 +6,14 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 14:23:03 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/02 16:22:49 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:11:13 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-int		set_value_in_area(t_vm *vm, int at, unsigned int value, unsigned int size)
+int		set_value_in_area(t_vm *vm, int at, unsigned int value,
+							unsigned int size)
 {
 	if (at < 0)
 		at = MEM_SIZE + at;

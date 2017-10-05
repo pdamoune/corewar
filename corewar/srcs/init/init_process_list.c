@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 20:20:25 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 17:13:25 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:27:50 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,12 @@ int		init_process_list(t_vm *vm)
 				return (verbose(vm, MSG_ERROR, "%s: malloc failed", __func__));
 			new_process->pc = vm->file[i].start_position;
 			new_process->id_player = i;
-			new_process->r[0] = -(i + 1);// or should we use -id_player ?
-			// TODO
-			/*
-			** ajout de l id player dans le registre r1.
-			** Verifier lorsque REG_SIZE est inferieur a 4
-			** si cela fonctionne aussi
-			*/
+			new_process->r[0] = -(i + 1);
 			add_process(vm, new_process);
 		}
 	if (IS_SET(vm->flag, GRAPHIC))
 		gtk_combo_box_set_active(GTK_COMBO_BOX(vm->gtk.panel.process_box), 0);
+	if (list_empty(&vm->process))
+		return (verbose(vm, MSG_ERROR, "At least one player is needed.", NULL));
 	return (0);
 }

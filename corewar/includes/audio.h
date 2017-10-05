@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:10:12 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/04 16:24:53 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:45:17 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define AUDIO_H
 
 # include <SDL.h>
+# include <libft.h>
 
+# define AUDIO_START		0
+# define AUDIO_STOP			1
 # define AUDIO_FORMAT		AUDIO_S16LSB
 # define AUDIO_FREQUENCY	48000
 # define AUDIO_CHANNELS		2
@@ -49,30 +52,52 @@ typedef struct		s_sound
 	uint8_t			*buffer;
 	uint8_t			loop;
 	uint8_t			fade;
-	uint8_t			free;
+	uint8_t			free_data;
 	uint8_t			volume;
 	SDL_AudioSpec	audio;
-	struct s_sound	*next;
+	t_lx			lx;
 }					t_sound;
+
+typedef struct		s_private_audio
+{
+	SDL_AudioDeviceID		id;
+	SDL_AudioSpec			spec;
+	uint8_t					audio_enabled;
+	uint32_t				sound_count;
+	t_lx					sound;
+}					t_private_audio;
 
 t_sound				*create_audio(const char *filename, uint8_t loop, int vol);
 
 void				free_audio(t_sound *audio);
 
-void				play_sound(const char *filename, int volume);
+int					play_sound(t_private_audio *device,
+								const char *filename, int volume);
 
-void				play_music(const char *filename, int volume);
+int					play_music(t_private_audio *device,
+								const char *filename, int volume);
 
-void				play_sound_from_memory(t_sound *audio, int volume);
+int					play_sound_from_memory(t_private_audio *device,
+								t_sound *audio, int volume);
 
-void				play_music_from_memory(t_sound *audio, int volume);
+int					play_music_from_memory(t_private_audio *device,
+								t_sound *audio, int volume);
 
-void				end_audio(void);
+int					end_audio(t_private_audio *device);
 
-int					init_audio(void);
+int					init_audio(t_private_audio *device);
 
-void				pause_audio(void);
+int					pause_audio(t_private_audio *device);
 
-void				unpause_audio(void);
+int					unpause_audio(t_private_audio *device);
+
+/*
+** Internal functions
+*/
+extern int			play_audio(t_private_audio *device, const char *filename,
+								uint8_t loop, int volume);
+extern int			play_audio_from_memory(t_private_audio *device,
+								t_sound *audio,
+								uint8_t loop, int volume);
 
 #endif
