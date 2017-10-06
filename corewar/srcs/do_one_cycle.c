@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/03 19:01:50 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/06 23:30:56 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ t_op	g_op_tab[17] =
 		9, 20, "jump if zero", 0, 1, &op_zjmp},
 	{"ldi", 3,
 		{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
-		10, 25,	"load index", 1, 1, &op_ldi},
+		10, 25, "load index", 1, 1, &op_ldi},
 	{"sti", 3,
 		{T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG},
-		11, 25,	"store index", 1, 1, &op_sti},
+		11, 25, "store index", 1, 1, &op_sti},
 	{"fork", 1,
 		{T_DIR},
 		12, 800, "fork", 0, 1, &op_fork},
@@ -55,7 +55,7 @@ t_op	g_op_tab[17] =
 		13, 10, "long load", 1, 0, &op_lld},
 	{"lldi", 3,
 		{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
-		14, 50,	"long load index", 1, 1, &op_lldi},
+		14, 50, "long load index", 1, 1, &op_lldi},
 	{"lfork", 1,
 		{T_DIR},
 		15, 1000, "long fork", 0, 1, &op_lfork},
@@ -71,15 +71,19 @@ static int		check_args(t_vm *vm, t_process *p, unsigned int *type, unsigned int 
 	i = -1;
 	while (++i < p->op.nb_params)
 	{
-		if (IS_UNSET(p->op.params[i], type[i]))
+		if (IS_UNSET(p->op.params[i], type[i]) || !type[i])
 		{
 			verbose(vm, MSG_WARNING, "%b: Invalid type (allowed %b)", type[i], p->op.params[i]);
 			return (1);
-			
 		}
 		if (type[i] == T_REG && args[i] >= REG_NUMBER)
 		{
 			verbose(vm, MSG_WARNING, "%u: max register is %d", args[i], REG_NUMBER);
+			return (1);
+		}
+		if (type[i] == T_REG && args[i] == 0)
+		{
+			verbose(vm, MSG_WARNING, "%u: register min is %d", args[i], 1);
 			return (1);
 		}
 		p->op.params[i] = type[i];
@@ -92,8 +96,8 @@ static int		do_instruction(t_vm *vm, t_process *p)
 {
 	unsigned int		type[MAX_ARGS_NUMBER];
 	unsigned int		args[MAX_ARGS_NUMBER];
-	int		pc_inc;
-	int		i;
+	int					pc_inc;
+	int					i;
 
 	pc_inc = p->op.ocp ? 2 : 1;
 	if (p->op.ocp)
@@ -146,7 +150,8 @@ int				do_one_cycle(t_vm *vm)
 	t_process		*process;
 	unsigned int	*pc;
 
-	verbose(vm, MSG_INFO, "Start of cycle: %d", vm->cycle);
+	++vm->cycle;
+	verbose(vm, MSG_INFO, "It is now cycle %d", vm->cycle);
 	LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
 	while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
 	{
@@ -158,6 +163,5 @@ int				do_one_cycle(t_vm *vm)
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);
 	check_cycle(vm);
-	++vm->cycle;
 	return (0);
 }

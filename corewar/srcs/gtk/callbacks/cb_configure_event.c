@@ -6,21 +6,12 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 10:39:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 12:35:58 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/07 01:06:12 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-static void		clear_surface(cairo_surface_t *surface)
-{
-	cairo_t			*cr;
-
-	cr = cairo_create(surface);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_paint(cr);
-	cairo_destroy(cr);
-}
 
 gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
 							t_vm *vm)
@@ -34,6 +25,8 @@ gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
 					CAIRO_CONTENT_COLOR,
 					gtk_widget_get_allocated_width(widget),
 					gtk_widget_get_allocated_height(widget));
-	clear_surface(vm->gtk.surface);
+	vm->gtk.cr = cairo_create(vm->gtk.surface);
+	cairo_set_source_rgb(vm->gtk.cr, 1, 1, 1);
+	cairo_paint(vm->gtk.cr);
 	return (TRUE);
 }

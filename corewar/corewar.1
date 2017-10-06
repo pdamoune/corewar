@@ -7,24 +7,26 @@
 .Nm
 .Bk -words
 .Op Fl d Ar n_cycle \*(Ba Fl Fl dump Ar n_cycle
-.Op Fl g \*(Ba Fl Fl graphic
 .Oo
 .Op Fl D \*(Ba Fl Fl debug
 .Op Fl i \*(Ba Fl Fl introduce
+.Op Fl o \*(Ba Fl Fl operation
 .Op Fl q \*(Ba Fl Fl quiet
 .Op Fl v \*(Ba Fl Fl verbose
 .Oc
+.Op Fl g \*(Ba Fl Fl graphic
 .Oo
 .Op Fl m \*(Ba Fl Fl music
 .Op Fl s \*(Ba Fl Fl sound
 .Op Fl V \*(Ba Fl Fl voice
 .Oc
 .Op Fl n Ar number champion-file \*(Ba Fl Fl number Ar number champion-file
+.Op Fl z \*(Ba Fl Fl zaz
 .Ar champion-file ...
 .Ek
 .Sh DESCRIPTION
 .Nm
-is a emulation of a virtual "arena" in which programs will fight against one another (the "Champions").
+is an emulation of a virtual "arena" in which programs will fight against one another (the "Champions").
 .Pp
 Options supported:
 .Bl -tag -width Ds
@@ -32,8 +34,6 @@ Options supported:
 Dumps memory afer
 .Ar n_cycle
 cycles then exits
-.It Fl g , Fl Fl graphic
-Graphical output mode
 .It Fl D , Fl Fl debug , Fl v , Fl Fl verbose, Fl q , Fl Fl quiet , Fl i , Fl Fl introduce
 Verbosity levels, can be added together to enable several:
 .Bl -tag -width XXX -offset indent
@@ -41,16 +41,20 @@ Verbosity levels, can be added together to enable several:
 Show only lives, aff and winner
 .It Fl D , Fl Fl debug
 Show debug output, (pc moves, kill process, callback function, instruction, ...)
-.It Fl v , Fl Fl verbose
-Include all possible information and warning (not debug) and unset
-.Op Fl q \*(Ba Fl Fl quiet
+.It Fl i , Fl Fl introduce
+Introduce the contestant in terminal
+.It Fl o , Fl Fl operation
+Display operations
 .It Fl q , Fl Fl quiet
 Do not show the live, do not show the aff output and unset
 .Op Fl v \*(Ba Fl Fl verbose
-.It Fl i , Fl Fl introduce
-Introduce the contestant in terminal
+.It Fl v , Fl Fl verbose
+Include all possible information and warning (not debug) and unset
+.Op Fl q \*(Ba Fl Fl quiet
 .El
 .Pp
+.It Fl g , Fl Fl graphic
+Graphical output mode
 .It Fl m , Fl Fl music , Fl s , Fl Fl sound , Fl V , Fl Fl voice
 Sound level, can be added together to enable several:
 .Bl -tag -width XXX -offset indent
@@ -74,6 +78,14 @@ file.
 should be 0 <
 .Ar numbers
 < MAX_PLAYERS
+.It Fl z , Fl Fl zaz
+Set output to be like Zaz vm. That should be use for a diff of output. Cumul it with
+.Op Fl o \*(Ba Fl Fl operation
+,
+.Op Fl i \*(Ba Fl Fl introduce
+and with
+.Op Fl v \*(Ba Fl Fl verbose
+to have a perfect result
 .Pp
 .El
 .Sh SEE ALSO

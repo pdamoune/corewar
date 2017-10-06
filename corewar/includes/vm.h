@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/05 19:23:25 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/06 20:10:06 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@
 # define VOICE			(1 << 13)
 # define INTRO			(1 << 14)
 # define NEVER_START	(1 << 15)
+# define ZAZ			(1 << 16)
+# define KILL			(1 << 17)
+# define OPERATION		(1 << 18)
 
 # define MSG_STD		0
 # define MSG_INFO		1
-# define MSG_DEBUG		2
-# define MSG_WARNING	3
+# define MSG_WARNING	2
+# define MSG_DEBUG		3
 # define MSG_ERROR		4
 # define MSG_SUCESS		5
 # define MSG_STD_G		6
@@ -122,7 +125,7 @@ struct			s_vm
 	t_sound			*slash;
 	int				nb_player;
 	int				livetmp;
-	char			area[MEM_SIZE];
+	unsigned char	area[MEM_SIZE];
 	int				cycle;
 	int				cycle_to_dump;
 	long			cycle_to_die;
@@ -162,7 +165,7 @@ void			remove_all_process(t_vm *vm);
 void			del_process(t_vm *vm, t_process *process, int sound);
 int				move_pc(t_vm *vm, int origin, int len);
 int				fork_process(t_vm *vm, t_process *p, unsigned int pc);
-int				calc_addr(int addr);
+unsigned int	calc_addr(int addr);
 void			analyze_value(t_vm *vm, t_process *p,
 								unsigned int *args, int lim);
 // void			analyze_long_value(t_vm *vm, t_process *p,

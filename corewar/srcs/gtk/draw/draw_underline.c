@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 15:59:58 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 17:07:29 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/07 01:07:38 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@ int				draw_underline(t_vm *vm, int at, t_color color)
 	t_ivec2		pos;
 	cairo_t		*cr;
 
-	cr = cairo_create(vm->gtk.surface);
+	cr = vm->gtk.cr;
 	pos.x = ((at % BOX_BY_LINE) * PX_WIDTH + SQUARE_SPA / 2) - SQUARE_BORDER;
 	pos.y = ((at / BOX_BY_LINE) * PX_HEIGHT + SQUARE_SPA / 2) - SQUARE_BORDER;
 	draw_cairo_border(cr, pos, color);
 	cairo_fill(cr);
-	cairo_destroy(cr);
+	DG();
 	gtk_widget_queue_draw_area(vm->gtk.draw, pos.x, pos.y,
 			SQUARE_WIDTH + 4 * SQUARE_BORDER,
 			SQUARE_HEIGHT + 4 * SQUARE_BORDER);
+	DG();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/29 16:55:36 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/02 12:24:42 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/06 18:02:11 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void 	disp_vm(t_vm *vm)
 	close(fd);
 }
 
-void 	disp_area(t_vm *vm, char *area)
+void 	disp_area(t_vm *vm, unsigned char *area)
 {
 	t_process *process;
 	int i = 0;

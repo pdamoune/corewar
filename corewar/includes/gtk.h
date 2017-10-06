@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 16:51:12 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/07 01:03:08 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct	s_panel
 {
 	GtkWidget		*step;
 	GtkWidget		*pause;
+	GtkWidget		*mouse;
 	GtkWidget		*cpt;
 	GtkWidget		*next_chk;
 	GtkWidget		*cycle_to_die;
@@ -147,8 +148,11 @@ typedef struct	s_panel
 	t_process		*process;
 }				t_panel;
 
+//TODO analyze why crash when surface move
 typedef struct	s_gtk
 {
+	cairo_surface_t		*surface;
+	cairo_t				*cr;
 	gint64				time;
 	gint64				oldtime;
 	int					speed;
@@ -156,7 +160,6 @@ typedef struct	s_gtk
 	t_panel				panel;
 	GtkWidget			*draw;
 	t_px				px[MEM_SIZE];
-	cairo_surface_t		*surface;
 	int					god_players;
 }				t_gtk;
 

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:11:50 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/03 17:17:17 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/07 01:02:00 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int		op_lfork(t_vm *vm, t_process *p, unsigned int *args)
 {
-	unsigned int	new_pc;
+	unsigned int	addr;
+	int				val;
 
-	verbose(vm, MSG_DEBUG, "%s", __func__);
-	new_pc = calc_addr(p->pc + args[0]);
-	return (fork_process(vm, p, new_pc));
+	val = args[0];
+	addr = p->pc + val;
+	if (IS_SET(vm->flag, OPERATION))
+		verbose(vm, MSG_STD,
+		"P %4d | lfork %d (%d)", p->id, val, p->pc + val);
+	addr = calc_addr(addr);
+	return (fork_process(vm, p, addr));
 }

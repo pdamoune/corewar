@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 10:18:33 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 16:39:35 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/06 20:31:04 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void		add_process(t_vm *vm, t_process *p)
 	char					txt[12];
 
 	p->id = ++id;
+	verbose(vm, MSG_DEBUG, "new process %d at pos %u", p->id, p->pc);
 	list_add(&(p->lx), &(vm->process));
 	if (IS_SET(vm->flag, GRAPHIC))
 	{

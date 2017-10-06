@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 19:45:41 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 13:19:53 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/07 01:07:10 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ static void	erase_draw_area(t_vm *vm)
 {
 	cairo_t		*cr;
 
-	cr = cairo_create(vm->gtk.surface);
+	cr = vm->gtk.cr;
 	cairo_set_source_rgb(cr, 1., 1., 1.);
 	cairo_rectangle(cr, 0, 0, AREA_WIDTH, AREA_HEIGHT);
 	cairo_fill(cr);
-	cairo_destroy(cr);
+	DG();
 	gtk_widget_queue_draw_area(vm->gtk.draw, 0, 0, AREA_WIDTH, AREA_HEIGHT);
+	DG();
 }
 
 gboolean	cb_reboot(GtkWidget *widget, t_vm *vm)

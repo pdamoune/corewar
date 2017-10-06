@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:11:58 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/05 19:23:18 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/06 19:19:56 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int		op_lld(t_vm *vm, t_process *p, unsigned int *args)
 {
+	//TODO log as zaz
+	DG("TO BE IMPLEMENTED");
+	if (IS_SET(vm->flag, OPERATION))
+		verbose(vm, MSG_STD, "HEHO", NULL);
 	verbose(vm, MSG_DEBUG, "%s", __func__);
 	// analyze_long_value(vm, p, args, 1);
 	analyze_value(vm, p, args, 1);

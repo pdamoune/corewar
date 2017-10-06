@@ -6,15 +6,14 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/10/05 14:12:15 by wescande         ###   ########.fr        #
+#    Updated: 2017/10/06 23:20:58 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	corewar
 
 CC			?=	gcc
-FLAGS		=	-Wall -Wextra -Werror -O3
-#-fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
 MAIN_FLAGS	=	
 OBJ_FLAGS	=	`pkg-config --cflags gtk+-3.0` `pkg-config --cflags sdl2`
 # -I ../portaudio/include -I ../libsndfile/src

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 19:02:23 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 16:44:46 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/06 12:48:21 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 static void		does_the_user_still_want_the_dump(t_vm *vm)
 {
 	GtkWidget	*dialog;
-	char		ans;
+	char		ans[128];
 	int			n_read;
 
 	if (IS_SET(vm->flag, GRAPHIC))
@@ -36,8 +36,9 @@ static void		does_the_user_still_want_the_dump(t_vm *vm)
 	else
 	{
 		ft_printf(TXT_ASK, vm->cycle_to_dump, vm->cycle);
-		n_read = read(0, &ans, 1);
-		dump(vm);
+		n_read = read(0, ans, 128);
+		if (!n_read || ft_tolower(ans[0]) == 'y' || ans[0] == '\n')
+			dump(vm);
 	}
 }
 
@@ -45,7 +46,7 @@ void			war_end(t_vm *vm)
 {
 	if (IS_SET(vm->flag, MUSIC))
 		play_music(&(vm->audio), MUSIC_FILE_END, SDL_MIX_MAXVOLUME);
-	if (IS_SET(vm->flag, DUMP))
+	if (IS_SET(vm->flag, DUMP) && IS_UNSET(vm->flag, ZAZ))
 		does_the_user_still_want_the_dump(vm);
 	display_win(vm);
 	if (IS_SET(vm->flag, GRAPHIC))

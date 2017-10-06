@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:45:35 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/03 17:16:21 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/06 22:27:50 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int		op_ld(t_vm *vm, t_process *p, unsigned int *args)
 {
-	verbose(vm, MSG_DEBUG, "%s", __func__);
-	analyze_value(vm, p, args, 1);
-	p->r[args[1] - 1] = args[0];
+	unsigned int		val[MAX_ARGS_NUMBER];
+
+	ft_memcpy(val, args, sizeof(unsigned int) * 1);
+	analyze_value(vm, p, val, 1);
+	if (IS_SET(vm->flag, OPERATION))
+		verbose(vm, MSG_STD,
+		"P %4d | ld %d r%d", p->id, val[0], args[1]);
+	p->r[args[1] - 1] = val[0];
 	p->carry = !p->r[args[1] - 1];
 	return (0);
 }

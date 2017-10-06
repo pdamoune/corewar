@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 16:24:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 16:14:43 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/07 01:05:24 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	reset_lives(t_vm *vm)
 {
 	int		i;
 
+	vm->livetmp = 0;
 	i = -1;
 	while (++i < MAX_PLAYERS)
 	{
@@ -32,6 +33,7 @@ static void	update_cycle_to_die(t_vm *vm)
 {
 	char	txt[12];
 
+	verbose(vm, MSG_INFO, "Cycle to die is now %d", vm->cycle_to_die);
 	if (IS_SET(vm->flag, GRAPHIC))
 	{
 		ft_itoa_nomalloc(vm->cycle_to_die, txt);
@@ -54,20 +56,21 @@ void		check_cycle(t_vm *vm)
 {
 	if ((vm->last_check + vm->cycle_to_die) > vm->cycle)
 		return ;
-	verbose(vm, MSG_DEBUG, "start a check", NULL);
+	verbose(vm, MSG_DEBUG, "TIME TO CHECK", NULL);
 	check_live(vm);
 	if (list_empty(&vm->process))
 		return (war_end(vm));
+	if (vm->cycle_to_die <= 0)
+		return (war_end(vm));
 	vm->last_check = vm->cycle;
-	++vm->check_count;
-	if (vm->livetmp < NBR_LIVE && vm->check_count <= MAX_CHECKS)
+	if (vm->livetmp < NBR_LIVE && (++vm->check_count) < MAX_CHECKS)
+	{
+		reset_lives(vm);
 		return (update_chk_cpt(vm));
+	}
 	reset_lives(vm);
 	vm->check_count = 0;
 	vm->cycle_to_die -= CYCLE_DELTA;
 	update_cycle_to_die(vm);
-	vm->livetmp = 0;
-	if (vm->cycle_to_die <= 0)
-		return (war_end(vm));
 	update_chk_cpt(vm);
 }

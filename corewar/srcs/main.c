@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/05 19:41:08 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/07 00:26:15 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ static gboolean		gtk_loop(void *data)
 				break ;
 		}
 		while (gtk_events_pending())
+		{
+			DG();
 			if (gtk_main_iteration())
 				return (FALSE);
+		}
 	}
 	DG();
 	vm->gtk.time = g_get_monotonic_time();
