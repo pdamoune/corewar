@@ -92,6 +92,8 @@ int					main(int ac, char **av)
 {
 	t_vm		vm;
 
+	if (ac == 1)
+		return (usage(NULL));
 	if (init_vm_memory(&vm, &ac, &av))
 		return (1);
 	if (init_vm_value(&vm))

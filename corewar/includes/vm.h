@@ -20,6 +20,7 @@
 # include <op.h>
 # include <SDL.h>
 # include "audio.h"
+# include <sys/wait.h>
 
 # define MUSIC_FILE_SLASH		"slash.wav"
 # define MUSIC_FILE_FIGHT		"fight.wav"

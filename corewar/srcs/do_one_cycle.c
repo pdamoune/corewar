@@ -148,18 +148,12 @@ static int		init_instruction(t_vm *vm, t_process *p)
 int				do_one_cycle(t_vm *vm)
 {
 	t_process		*process;
-	unsigned int	*pc;
 
 	++vm->cycle;
 	verbose(vm, MSG_INFO, "It is now cycle %d", vm->cycle);
 	LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
 	while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
-	{
-		pc = &(process->pc);
-		// if (IS_UNSET(vm->flag, GRAPHIC))
-			// DG("IS_UNSET, pc = %u, nb_cycle_before_exec = %d", *pc, process->nb_cycle_before_exec);
 		init_instruction(vm, process);
-	}
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);
 	check_cycle(vm);
