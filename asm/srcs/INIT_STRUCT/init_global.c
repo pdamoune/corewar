@@ -56,7 +56,7 @@ void	ft_initialize_global(global_t **global)
 	(*global)->begin_label = NULL;
 	(*global)->s_label = NULL;
 	(*global)->header = NULL;
-	(*global)->str_till_now = ft_strnew(0);
+	(*global)->str_till_now = NULL;
 	(*global)->index_tab = ft_index_tab();
 }
 

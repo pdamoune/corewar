@@ -6,7 +6,7 @@ int		ft_write(global_t *global, char *string, int size)
     char buffer[1000];
 
     /* Ouverture du fichier de destination */
-    global->fdOut = open("42.cor", O_TRUNC, O_CREAT, O_WRONLY, 0666);
+    global->fdOut = open("42.cor", O_CREAT | O_APPEND | O_WRONLY, 0666);
     if (-1 == global->fdOut) {
 		ft_exit(4, global, NULL);
         exit(EXIT_FAILURE);

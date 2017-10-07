@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/07 13:21:11 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/07 15:50:21 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void ft_check_header_bis(global_t *global)
                ft_exit(5, global, NULL);
             while (k < i)
             {
-	           ft_putendl("LALALALALLALALALALALALALALALALALALALLALA");
                global->header->prog_name[k] = global->s_label->s_content->line[1][k];
                k++;
             } 
