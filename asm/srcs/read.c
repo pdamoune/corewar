@@ -35,7 +35,7 @@ int			ft_open(global_t *global)
 
 	magic_bis = COREWAR_EXEC_MAGIC;
 	magic_ter = INTREV32(magic_bis);
-	global->fdOut = open("42.cor", O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	global->fdOut = open("42.cor", O_TRUNC | O_CREAT | O_WRONLY, 0666);
 	if (global->fdOut == -1)
 	{
 		ft_exit(4, global, NULL);
@@ -84,14 +84,12 @@ int			main(int argc, char **argv)
 
 	ft_controller(global);
 	ft_open(global);
-	global->fdOut = open("42.cor", O_CREAT | O_APPEND | O_WRONLY, 0666);
-    if (-1 == global->fdOut)
-		ft_exit(4, global, NULL);
-	write(global->fdOut, global->header->prog_name, 132);
+	write(global->fdOut, global->header->prog_name, 128);
+	write(global->fdOut, "\0\0\0\0", 4);
 	write(global->fdOut, &global->header->prog_size, 4);
-	write(global->fdOut, global->header->comment, 2049);
-	printf("global->str %s\n", global->str_till_now);
-	write(global->fdOut, global->str_till_now, global->header->prog_size);
+	write(global->fdOut, global->header->comment, 2048);
+	write(global->fdOut, "\0\0\0\0", 4);
+	write(global->fdOut, global->str_till_now, global->total_octet);
 	close(global->fdIn);
 	return (0);
 }

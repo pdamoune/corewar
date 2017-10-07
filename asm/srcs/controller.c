@@ -23,7 +23,7 @@ void        general_fct(global_t *global, int one_arg, char *arg_tmp, int arg_in
 
 	/* Write the instruction */
 	//ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
-	global->str_till_now = ft_memjoinf(global->str_till_now, global->s_label->s_content->instruction, global->s_label->s_content->begin_octet, global->s_label->s_content->nb_octet);
+	ft_memcpy((global->str_till_now + global->s_label->s_content->begin_octet), global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
 	//printf("STRTIIIILLLLLNOOOOOOOOW %s\n", global->str_till_now);
 	/* DEBUG */
 	printf("\nvalue instruction : ");

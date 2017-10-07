@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/07 15:50:21 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/07 18:22:50 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void ft_check_header_bis(global_t *global)
     ft_initialize_header(&header);
     global->header = header;
     global->header->prog_size = rev;
+    global->str_till_now = ft_memalloc(global->total_octet);
 
     while (!ft_strcmp(global->s_label->name, "HEADER"))
     {
