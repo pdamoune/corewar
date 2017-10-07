@@ -11,7 +11,6 @@ add	r3,r4,r3
 st	r5,r2
 xor	r10,r10,r10
 or	r2,r2,r1
-#bgdksfgndfsjk
 zjmp	%0
 ldi     %23,%3,r2
 live: live %1        #fjksbgsdjkbgvds

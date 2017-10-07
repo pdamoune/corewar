@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/09/26 17:25:04 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/07 12:27:10 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct		global_s
 	struct map_s	*s_map;
 	struct label_s	*begin_label;
 	struct label_s	*s_label;
+	struct header_s	*header;
+	char			*str_till_now;
 }					global_t;
 
 typedef struct		label_s
@@ -188,6 +190,7 @@ void	ft_stock_label(global_t *global);
 void	ft_initialize_content(content_t **content, char *line);
 void	ft_stock_content(global_t *global, char *line);
 void	ft_browse_label(global_t *global, int type);
+void	ft_initialize_header(header_t **header);
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
 */

@@ -28,23 +28,6 @@ void		ft_exit(int nb, global_t *global, char **line)
 	// exit(EXIT_FAILURE);
 }
 
-int			ft_open(global_t *global)
-{
-	int		magic_bis;
-	int		magic_ter;
-
-	magic_bis = COREWAR_EXEC_MAGIC;
-	magic_ter = INTREV32(magic_bis);
-	global->fdOut = open("42.cor", O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	if (global->fdOut == -1)
-	{
-		ft_exit(4, global, NULL);
-	}
-	else
-		write(global->fdOut, &magic_ter, 4);
-	return(EXIT_SUCCESS);
-}
-
 /*
 **  LIS LE FICHIER ET STOCK CHAQUE LINE DANS LA STRUCT MAP
 */
@@ -62,7 +45,6 @@ int			main(int argc, char **argv)
     global->fdIn = open(argv[1], O_RDONLY, 0666);
 	if (-1 == global->fdIn)
 		ft_exit(2, global, &line);
-	ft_open(global);
 	while ((gnl = get_next_line(global->fdIn, &line)))
 	{
 		if (gnl == -1)
@@ -84,6 +66,11 @@ int			main(int argc, char **argv)
 	/* Fin debug Philippe */
 
 	ft_controller(global);
+	printf("str_till_now %s\n", global->str_till_now);
+	global->fdOut = open("42.cor", O_TRUNC, O_CREAT, O_WRONLY, 0666);
+    if (-1 == global->fdOut) 
+		ft_exit(4, global, NULL);
+	write(global->fdOut, &global->str_till_now, global->header->prog_size);
 	close(global->fdIn);
 	return (0);
 }

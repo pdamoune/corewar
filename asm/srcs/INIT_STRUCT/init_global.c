@@ -55,5 +55,20 @@ void	ft_initialize_global(global_t **global)
 	(*global)->s_map = NULL;
 	(*global)->begin_label = NULL;
 	(*global)->s_label = NULL;
+	(*global)->header = NULL;
+	(*global)->str_till_now = ft_strnew(0);
 	(*global)->index_tab = ft_index_tab();
+}
+
+void	ft_initialize_header(header_t **new)
+{
+	unsigned int	magic_bis;
+
+	magic_bis = COREWAR_EXEC_MAGIC;
+	if (!(*new = (header_t*)malloc(sizeof(header_t))))
+		return ;
+	(*new)->magic = INTREV32(magic_bis);
+	ft_bzero((*new)->prog_name, PROG_NAME_LENGTH + 1);
+	(*new)->prog_size = 0;
+	ft_bzero((*new)->comment, COMMENT_LENGTH + 1);
 }
