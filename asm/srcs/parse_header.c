@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/07 18:22:50 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/08 17:52:40 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,14 @@ void ft_check_header_bis(global_t *global)
         }
         global->s_label = global->s_label->next;
     }
+}
+
+void    ft_str_is_header(global_t *global)
+{
+    global->str_header = ft_memalloc(2188);
+    ft_memcpy(global->str_header, global->header->prog_name, 128);
+    ft_memcpy(global->str_header + 128, "\0\0\0\0", 4);
+    ft_memcpy(global->str_header + 132, &global->header->prog_size, 4);
+    ft_memcpy(global->str_header + 136, global->header->comment, 2048);
+    ft_memcpy(global->str_header + 2184, "\0\0\0\0", 4);
 }

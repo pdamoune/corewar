@@ -84,11 +84,8 @@ int			main(int argc, char **argv)
 
 	ft_controller(global);
 	ft_open(global);
-	write(global->fdOut, global->header->prog_name, 128);
-	write(global->fdOut, "\0\0\0\0", 4);
-	write(global->fdOut, &global->header->prog_size, 4);
-	write(global->fdOut, global->header->comment, 2048);
-	write(global->fdOut, "\0\0\0\0", 4);
+	ft_str_is_header(global);
+	write(global->fdOut, global->str_header, 2188);
 	write(global->fdOut, global->str_till_now, global->total_octet);
 	close(global->fdIn);
 	return (0);

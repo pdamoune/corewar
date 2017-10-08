@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/07 12:41:54 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/08 17:03:33 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind)
 
 		printf("line[global->i] *%s*\n", line[global->i]);
 		printf("AVANT global->j %d\n", global->j);
+		printf("Val tmp %s\n", val_tmp);
 
 		if (!arg_ind && ((val_tmp = ft_strstart(line[global->i], "%:"))
 			|| (val_tmp = ft_strstart(line[global->i], "%"))))
@@ -134,7 +135,7 @@ void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind)
 			printf("val_tmp %X\n", *value_ind);
 			global->j += 2;
 		}
-		else if ((arg_ind && (val_tmp = ft_strstart(line[global->i], "%"))) || ft_isstrint(val_tmp))
+		else if ((arg_ind && (val_tmp = ft_strstart(line[global->i], "%"))) || ((val_tmp = ft_strdup(line[global->i])) && ft_isstrint(val_tmp)))
 		{
 			printf("Je suis un INDIRECT valeur decimale\n");
 			value_ind = (unsigned short *)&(global->s_label->s_content->instruction[global->j]);
