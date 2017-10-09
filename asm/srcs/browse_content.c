@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/08 17:03:33 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/09 16:55:26 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,26 @@ void        ft_get_opcode(global_t *global, char *line)
     index = ft_find_index(global, line);
 	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11)
 	{
-		global->s_label->s_content->instruction[0] = opcode[index];
+		global->res[global->res_pc] = opcode[index];
+		++global->res_pc;
 		ft_pointeur_tab(global, index, 0, 0);
 	}
 	else if (index == 0 || index == 15)
 	{
-		global->s_label->s_content->instruction[0] = opcode[index];
+		global->res[global->res_pc] = opcode[index];
+		global->res_pc++;
 		ft_pointeur_tab(global, index, 1, 0);
 	}
 	else if (index == 6 || index == 9 || index == 14)
 	{
-		global->s_label->s_content->instruction[0] = opcode[index];
+		global->res[global->res_pc] = opcode[index];
+		global->res_pc++;
 		ft_pointeur_tab(global, index, 1, 1);
 	}
 	else if (index == 7 || index == 10 || index == 12)
 	{
-		global->s_label->s_content->instruction[0] = opcode[index];
+		global->res[global->res_pc] = opcode[index];
+		global->res_pc++;
 		ft_pointeur_tab(global, index, 0, 1);
 	}
     else
@@ -80,7 +84,7 @@ void        ft_browse_content(global_t *global)
     }
 }
 
-void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind)
+void	ft_get_values(global_t *global, char **line, int arg_ind)
 {
 	int				*value;
 	unsigned short	*value_ind;
@@ -91,56 +95,42 @@ void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind)
 	value = 0;
 	value_ind = 0;
 	value_char = 0;
-	if (one_arg)
-		global->j = 1;
-	else
-		global->j = 2;
 	while (line[++global->i] && !ft_strstart(line[global->i], "#"))
 	{
-
-		printf("line[global->i] *%s*\n", line[global->i]);
-		printf("AVANT global->j %d\n", global->j);
-		printf("Val tmp %s\n", val_tmp);
 
 		if (!arg_ind && ((val_tmp = ft_strstart(line[global->i], "%:"))
 			|| (val_tmp = ft_strstart(line[global->i], "%"))))
 		{
 			printf("Je suis un DIRECT\n");
-			value = (int *)&(global->s_label->s_content->instruction[global->j]);
+			value = (int*)(global->res + global->res_pc);
 			if(ft_isstrint(val_tmp))
 				*value = INTREV32(ft_atoi(val_tmp));
 			else
 				*value = INTREV32(go_to_label(val_tmp, global));
-			global->j += 4;
+			global->res_pc += 4;
 		}
 		else if ((val_tmp = ft_strstart(line[global->i], "r"))
 				&& ft_isdigitspace(val_tmp))
 		{
 			printf("Je suis un REGISTRE\n");
-			printf("global->j %d\n", global->j);
-			value_char = (char *)&(global->s_label->s_content->instruction[global->j]);
+			value_char = (global->res + global->res_pc);
 			*value_char = ft_atoi(val_tmp);
-			printf("value %d\n", *value_char);
-			if (global->s_label->s_content->nb_octet - 1 != global->j)
-				global->j++;
+			global->res_pc++;
 		}
 		else if ((arg_ind && (val_tmp = ft_strstart(line[global->i], "%:")))
 			|| (val_tmp = ft_strstart(line[global->i], ":")))
 		{
 			printf("Je suis un INDIRECT label\n");
-			printf("val_tmp %s\n", val_tmp);
-			value_ind = (unsigned short *)&(global->s_label->s_content->instruction[global->j]);
+			value_ind = (unsigned short*)(global->res + global->res_pc);
 			*value_ind = INTREV16((unsigned short)go_to_label(val_tmp, global));
-			printf("go_to_label %X\n", go_to_label(val_tmp, global));
-			printf("val_tmp %X\n", *value_ind);
-			global->j += 2;
+			global->res_pc += 2;
 		}
 		else if ((arg_ind && (val_tmp = ft_strstart(line[global->i], "%"))) || ((val_tmp = ft_strdup(line[global->i])) && ft_isstrint(val_tmp)))
 		{
 			printf("Je suis un INDIRECT valeur decimale\n");
-			value_ind = (unsigned short *)&(global->s_label->s_content->instruction[global->j]);
+			value_ind = (unsigned short*)(global->res + global->res_pc);
 			*value_ind = INTREV16(ft_atoi(val_tmp));
-			global->j += 2;
+			global->res_pc += 2;
 		}
 	}
 	printf("global->j %d\n", global->j);

@@ -9,29 +9,15 @@ void        general_fct(global_t *global, int one_arg, char *arg_tmp, int arg_in
 
 	if (!one_arg)
 	{
-		arg = (int *)&(global->s_label->s_content->instruction[1]);
+		arg = (int *)(global->res + global->res_pc);
 		*arg = ft_atoi(ft_convert_base(arg_tmp, "01", "0123456789"));
-		printf("<%s> = arg\n", arg_tmp);
-		printf("<%d> = arg\n", *arg);
-		printf("<%X> = arg\n", *arg);
 		free(arg_tmp);
+		global->res_pc++;
 	}
 
 	/* Get the values */
 	global->i = 0;
-	ft_get_values(global, global->s_label->s_content->line, one_arg, arg_ind);
-
-	/* Write the instruction */
-	//ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
-	ft_memcpy((global->str_till_now + global->s_label->s_content->begin_octet), global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
-	//printf("STRTIIIILLLLLNOOOOOOOOW %s\n", global->str_till_now);
-	/* DEBUG */
-	printf("\nvalue instruction : ");
-    int i = 0;
-	while(i < global->s_label->s_content->nb_octet)
-		printf("0x%X ", global->s_label->s_content->instruction[i++]);
-	printf("\n\n");
-	/* Fin DEBUG */
+	ft_get_values(global, global->s_label->s_content->line, arg_ind);
 }
 
 

@@ -76,7 +76,9 @@ void	ft_stock_content(global_t *global, char *line)
     content_t	*previous;
 
     new = NULL;
-    previous = NULL;
+	previous = NULL;
+	if (!line)
+		return ;
 	if (!ft_strncmp(line, ".comment", 8))
 		ft_initialize_content_header(&new, line);
 	else if (!ft_strncmp(line, ".name", 5))

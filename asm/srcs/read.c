@@ -10,6 +10,7 @@ void		ft_exit(int nb, global_t *global, char **line)
 	errors[4] = "Erreur dans l'ouverture du fichier de destination";
 	errors[5] = "Le nom du fichier est trop long";
 	errors[6] = "Le commentaire du fichier est trop long";
+	errors[7] = "Le champion a mangé trop de nougat, il est trop gros";
 	errors[9] = "Le parametre de aff n'est pas un registre";
 	errors[10] = "Ceci n'est pas une instruction valide";
 	errors[11] = "Le nombre d'arguments pour cette instruction n'est pas valide";
@@ -28,20 +29,19 @@ void		ft_exit(int nb, global_t *global, char **line)
 	// exit(EXIT_FAILURE);
 }
 
-int			ft_open(global_t *global)
+int			ft_open(global_t *global, char *str)
 {
 	int		magic_bis;
-	int		magic_ter;
 
 	magic_bis = COREWAR_EXEC_MAGIC;
-	magic_ter = INTREV32(magic_bis);
-	global->fdOut = open("42.cor", O_TRUNC | O_CREAT | O_WRONLY, 0666);
+	global->header.magic = INTREV32(magic_bis);
+	global->fdOut = open(str, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 	if (global->fdOut == -1)
 	{
 		ft_exit(4, global, NULL);
 	}
 	else
-		write(global->fdOut, &magic_ter, 4);
+		write(global->fdOut, &global->header, sizeof(header_t));
 	return(EXIT_SUCCESS);
 }
 
@@ -53,15 +53,33 @@ int			main(int argc, char **argv)
 {
 	char		*line;
 	global_t	*global;
-    int			gnl;
+	int			gnl;
+	char		*title;
+	size_t		i;
 
+	i = -1;
     ft_initialize_global(&global);
     if (argc != 2)
         ft_exit(1, global, &line);
 	line = NULL;
+	
+
     global->fdIn = open(argv[1], O_RDONLY, 0666);
 	if (-1 == global->fdIn)
-		ft_exit(2, global, &line);
+		 ft_exit(2, global, &line);
+	size_t len;
+	len = ft_strlen(argv[1]);
+	title = malloc(len + 4);
+	ft_memcpy(title, argv[1], len - 1);
+	ft_memcpy(title + len - 2 , "1.cor", 6);
+
+	/*while (++i < ft_strlen(argv[1]) - 1)
+		title[i] = argv[1][i];
+	title[++i] = 'c';
+	title[++i] = 'o';
+	title[++i] = 'r';
+	title[++i] = 0;
+	*/printf("ICIIIIIIIIIIIIIIII    = = > %s\n", title);
 	while ((gnl = get_next_line(global->fdIn, &line)))
 	{
 		if (gnl == -1)
@@ -83,10 +101,10 @@ int			main(int argc, char **argv)
 	/* Fin debug Philippe */
 
 	ft_controller(global);
-	ft_open(global);
-	ft_str_is_header(global);
-	write(global->fdOut, global->str_header, 2188);
-	write(global->fdOut, global->str_till_now, global->total_octet);
+	ft_open(global, title);
+	//write(global->fdOut, global->str_header, 2188);
+	//write(global->fdOut, global->str_till_now, global->total_octet);
+	write(global->fdOut, global->res, global->total_octet);
 	close(global->fdIn);
 	return (0);
 }

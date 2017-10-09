@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/08 17:54:22 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/09 17:24:35 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ typedef struct		global_s
 	struct map_s	*s_map;
 	struct label_s	*begin_label;
 	struct label_s	*s_label;
-	struct header_s	*header;
-	char			*str_header;
-	char			*str_till_now;
+	struct header_s	header;
+	char			res[CHAMP_MAX_SIZE + 1];
+	int				res_pc;
 }					global_t;
 
 typedef struct		label_s
@@ -172,7 +172,7 @@ void	ft_browse_content(global_t *global);
 void	ft_get_opcode(global_t *global, char *line);
 void	ft_calcul_octet(global_t *global, char **line, int arg_ind);
 void	ft_check_header_bis(global_t *global);
-int		ft_open(global_t *global);
+int		ft_open(global_t *global, char *str);
 void	ft_str_is_header(global_t *global);
 /*
 **   FONCTIONS FREE
@@ -279,7 +279,7 @@ char	*aff_instruct(global_t *global, char **line);
 /*
 **	SOUS-FONCTIONS DE TRADUCTION
 */
-void	ft_get_values(global_t *global, char **line, int one_arg, int arg_ind);
+void	ft_get_values(global_t *global, char **line, int arg_ind);
 void        general_fct(global_t *global, int one_arg, char *arg_tmp, int arg_ind);
 char	*ft_compose_arg_and_bis(global_t *global, char **line, int i, char **arg);
 char	*ft_compose_arg_ld_bis(global_t *global, char **line, int i, char **arg);

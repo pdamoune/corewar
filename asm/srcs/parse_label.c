@@ -41,6 +41,9 @@ int		ft_kind_of_line(char *line)
 void		ft_with_label(global_t *global)
 {
 	global->s_label->name = ft_strsubc(&(global->s_map->line), LABEL_CHAR);
+	printf("LABEL NAME *%s*\n", global->s_label->name);
+	printf("MAP line *%s*\n", global->s_map->line);
+	if (global->s_map->line)
 	ft_stock_content(global, global->s_map->line);
 	global->s_map = global->s_map->next;
 	global->i = 1;
