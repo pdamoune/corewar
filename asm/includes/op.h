@@ -171,7 +171,7 @@ void	ft_browse_file_counting(global_t *global);
 void	ft_browse_content(global_t *global);
 void	ft_get_opcode(global_t *global, char *line);
 void	ft_calcul_octet(global_t *global, char **line, int arg_ind);
-void	ft_check_header_bis(global_t *global);
+void	ft_parse_header(global_t *global);
 int		ft_open(global_t *global, char *str);
 void	ft_str_is_header(global_t *global);
 /*

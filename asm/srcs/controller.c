@@ -60,6 +60,7 @@ void		ft_controller(global_t *global)
     ft_parse_label(global);
 	//DEBUG_read_labels(global);
 	ft_browse_file_counting(global);
+	ft_parse_header(global);
 	ft_browse_content(global);
 }
 

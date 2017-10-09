@@ -66,7 +66,6 @@ void        ft_get_opcode(global_t *global, char *line)
 void        ft_browse_content(global_t *global)
 {
 	global->s_label = global->begin_label;
-	ft_check_header_bis(global);
     while (!ft_strcmp(global->s_label->name, "HEADER") || !ft_strcmp(global->s_label->name, "COMMENTS"))
         global->s_label = global->s_label->next;
     while (global->s_label)
