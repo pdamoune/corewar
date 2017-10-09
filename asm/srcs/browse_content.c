@@ -77,7 +77,8 @@ void        ft_browse_content(global_t *global)
         global->s_label->s_content = global->s_label->begin_content;
         while (global->s_label->s_content)
         {
-            ft_get_opcode(global, global->s_label->s_content->line[0]);
+			if (global->s_label->s_content->line[0])
+				ft_get_opcode(global, global->s_label->s_content->line[0]);
             global->s_label->s_content = global->s_label->s_content->next;
         }
         global->s_label = global->s_label->next;

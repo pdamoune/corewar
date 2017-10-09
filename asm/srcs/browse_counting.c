@@ -19,7 +19,7 @@ int		ft_find_index(global_t *global, char *line)
 	i = 0;
 	while (global->index_tab[i])
 	{
-		if (ft_strstart(line, global->index_tab[i]))
+		if (line && ft_strstart(line, global->index_tab[i]))
 			return(i);
 		i++;
 	}
@@ -90,10 +90,15 @@ void        ft_browse_file_counting(global_t *global)
         global->s_label->s_content = global->s_label->begin_content;
         while (global->s_label->s_content)
         {
-            global->s_label->s_content->nb_octet++;
             global->s_label->s_content->begin_octet = global->total_octet;
-            ft_counting(global, global->s_label->s_content->line[0]);
-            global->total_octet += global->s_label->s_content->nb_octet;
+			printf("global->s_label->s_content->line[0] %s: \n", global->s_label->s_content->line[0]);
+			if (global->s_label->s_content->line[0])
+			{
+				global->s_label->s_content->nb_octet++;
+				ft_counting(global, global->s_label->s_content->line[0]);
+	            global->total_octet += global->s_label->s_content->nb_octet;
+			}
+
              /* DEBUG */
 	    	printf("begin_octet : %d\n", global->s_label->s_content->begin_octet);
 	    	printf("nb_octet : %d\n", global->s_label->s_content->nb_octet);
