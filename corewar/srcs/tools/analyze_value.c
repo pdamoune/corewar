@@ -6,19 +6,26 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:34:11 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/07 01:16:23 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 17:41:53 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
 static int		calc_value(t_vm *vm, t_process *p,
-								int type, unsigned int arg)
+								int type, int arg)
 {
 	if (type == T_IND)
-		return (get_value_at(vm, calc_addr(p->pc + arg), REG_SIZE));
+	{
+		// DG("IND : pc %u | delta %u | addr %u", p->pc, arg, calc_addr(p->pc + arg));
+		return (get_value_at(vm, calc_addr(p->pc + arg % IDX_MOD), REG_SIZE));
+	}
 	else if (type == T_REG)
+	{
+		// DG("REG");
 		return (p->r[arg - 1]);
+	}
+	// DG("DIR");
 	return (arg);
 }
 
@@ -31,6 +38,36 @@ void			analyze_value(t_vm *vm, t_process *p,
 	while (++i < lim)
 	{
 		args[i] = calc_value(vm, p, p->op.params[i], args[i]);
+		verbose(vm, MSG_DEBUG, "ARG[%d] is %d", i, args[i]);
+	}
+}
+
+static int		calc_long_value(t_vm *vm, t_process *p,
+								int type, int arg)
+{
+	if (type == T_IND)
+	{
+		// DG("IND : pc %u | delta %u | addr %u", p->pc, arg, calc_addr(p->pc + arg));
+		return (get_value_at(vm, calc_addr(p->pc + arg), REG_SIZE));
+	}
+	else if (type == T_REG)
+	{
+		// DG("REG");
+		return (p->r[arg - 1]);
+	}
+	// DG("DIR");
+	return (arg);
+}
+
+void			analyze_long_value(t_vm *vm, t_process *p,
+								unsigned int *args, int lim)
+{
+	short	i;
+
+	i = -1;
+	while (++i < lim)
+	{
+		args[i] = calc_long_value(vm, p, p->op.params[i], args[i]);
 		verbose(vm, MSG_DEBUG, "ARG[%d] is %d", i, args[i]);
 	}
 }

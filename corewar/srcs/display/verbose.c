@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 12:26:12 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/07 00:28:03 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 11:21:48 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int					verbose(t_vm *vm, const int level, const char *message, ...)
 	ft_vasprintf(&str, message, va);
 	if (IS_SET(vm->flag, GRAPHIC) && level >= MSG_ERROR && level != MSG_SUCESS)
 		gtk_verbose(vm, level, str);
-	else if (IS_UNSET(vm->flag, ZAZ))
+	else if (IS_UNSET(vm->flag, ZAZ) || level == MSG_ERROR)
 		corewar_verbose(level, str);
 	else if (level != MSG_WARNING)
 		ft_printf("%s\n", str);

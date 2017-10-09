@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:30 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/06 23:03:34 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 16:37:39 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		op_sti(t_vm *vm, t_process *p, unsigned int *args)
 	unsigned int		addr;
 
 	ft_memcpy(val, args, sizeof(unsigned int) * 3);
-	analyze_value(vm, p, val, 3);
+	analyze_long_value(vm, p, val, 3);
 	addr = p->pc + ((int)(val[1] + val[2]) % IDX_MOD);
 	if (IS_SET(vm->flag, OPERATION))
 	{

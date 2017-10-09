@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/06 23:30:56 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 13:38:26 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int		check_args(t_vm *vm, t_process *p, unsigned int *type, unsigned int 
 			verbose(vm, MSG_WARNING, "%b: Invalid type (allowed %b)", type[i], p->op.params[i]);
 			return (1);
 		}
-		if (type[i] == T_REG && args[i] >= REG_NUMBER)
+		if (type[i] == T_REG && args[i] > REG_NUMBER)
 		{
 			verbose(vm, MSG_WARNING, "%u: max register is %d", args[i], REG_NUMBER);
 			return (1);
@@ -153,7 +153,8 @@ int				do_one_cycle(t_vm *vm)
 	verbose(vm, MSG_INFO, "It is now cycle %d", vm->cycle);
 	LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
 	while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
-		init_instruction(vm, process);
+		if (init_instruction(vm, process))
+			return (1);
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);
 	check_cycle(vm);

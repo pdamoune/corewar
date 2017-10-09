@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:29:10 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/06 18:25:20 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 18:02:20 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		who_is_the_winner(t_vm *vm, t_file **winner)
 	i = -1;
 	while (++i < MAX_PLAYERS)
 		if (vm->file[i].is_used && vm->file[i].last_live
-			&& (!(*winner) || vm->file[i].last_live > (*winner)->last_live))
+			&& (!(*winner) || vm->file[i].last_live >= (*winner)->last_live))
 		{
 			*winner = &(vm->file[i]);
 			id = i;
@@ -32,7 +32,7 @@ static int		who_is_the_winner(t_vm *vm, t_file **winner)
 		i = -1;
 		while (++i < MAX_PLAYERS)
 			if (vm->file[i].is_used
-				&& (!(*winner) || vm->file[i].last_live > (*winner)->last_live))
+				&& (!(*winner) || vm->file[i].last_live >= (*winner)->last_live))
 			{
 				*winner = &(vm->file[i]);
 				id = i;

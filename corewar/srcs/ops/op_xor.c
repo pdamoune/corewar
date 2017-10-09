@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:44 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/07 01:02:20 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 16:37:48 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		op_xor(t_vm *vm, t_process *p, unsigned int *args)
 	unsigned int		val[MAX_ARGS_NUMBER];
 
 	ft_memcpy(val, args, sizeof(unsigned int) * 2);
-	analyze_value(vm, p, val, 2);
+	analyze_long_value(vm, p, val, 2);
 	if (IS_SET(vm->flag, OPERATION))
 		verbose(vm, MSG_STD,
 		"P %4d | xor %d %d r%d", p->id, val[0], val[1], args[2]);

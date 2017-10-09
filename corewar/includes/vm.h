@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/06 20:10:06 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 18:56:17 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ typedef struct	s_header
 	char			prog_name[PROG_NAME_LENGTH + 1];
 	unsigned int	prog_size;
 	char			comment[COMMENT_LENGTH + 1];
-	// unsigned		prog[CHAMP_MAX_SIZE / 4 + 1];// TODO pourquoi unsigned et on divise par 4 ?
 }				t_header;
 
 typedef struct	s_file
@@ -121,7 +120,6 @@ struct			s_vm
 	char			**av_data;
 	t_file			file[MAX_PLAYERS];
 	t_lx			process;
-	t_gtk			gtk;
 	t_private_audio	audio;
 	t_sound			*slash;
 	int				nb_player;
@@ -132,6 +130,7 @@ struct			s_vm
 	long			cycle_to_die;
 	long			last_check;
 	long			check_count;
+	t_gtk			gtk;
 };
 
 /*
@@ -159,7 +158,7 @@ int				set_value_in_area(t_vm *vm, int at, unsigned int value,
 ** Tools functions.
 */
 
-int				usage(char *name);
+int				usage(void);
 int				free_vm(t_vm *vm);
 void			add_process(t_vm *vm, t_process *p);
 void			remove_all_process(t_vm *vm);
@@ -169,8 +168,8 @@ int				fork_process(t_vm *vm, t_process *p, unsigned int pc);
 unsigned int	calc_addr(int addr);
 void			analyze_value(t_vm *vm, t_process *p,
 								unsigned int *args, int lim);
-// void			analyze_long_value(t_vm *vm, t_process *p,
-// 								unsigned int *args, int lim);
+void			analyze_long_value(t_vm *vm, t_process *p,
+								unsigned int *args, int lim);
 int				text_to_speech(t_vm *vm, char *str);
 
 /*

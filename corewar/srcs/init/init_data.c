@@ -6,12 +6,11 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/23 13:29:58 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/05 16:28:50 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 14:01:56 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#define T_HEAD "Invalid header: "
 
 static int		analyze_header(t_vm *vm, t_header *header)
 {

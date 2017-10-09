@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:06:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/06 19:51:27 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 16:03:48 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			init_vm_memory(t_vm *vm, int *ac, char ***av)
 {
 	ft_bzero(vm, sizeof(t_vm));
 	if ((cliopts_get(*av, g_read_opts, vm)))
-		return (ft_perror("corewar") && usage("corewar"));
+		return (ft_perror("corewar") && usage());
 	if (vm->av_data)
 		while (*vm->av_data)
 			if (init_file(vm, -1, *vm->av_data++))

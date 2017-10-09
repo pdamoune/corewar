@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 19:01:09 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/07 00:04:14 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 18:07:29 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static unsigned char	get_char_at(t_vm *vm, int at)
 	return (vm->area[at]);
 }
 
-static int		get_int_from_area(t_vm *vm, unsigned int pos,
+static unsigned int		get_int_from_area(t_vm *vm, unsigned int pos,
 										char size, int *pc_inc)
 {
 	unsigned int		ret;
@@ -54,5 +54,9 @@ unsigned int			get_value_at(t_vm *vm, unsigned int pos, char size)
 	int		tmp_inc;
 
 	tmp_inc = 0;
+	if (size == 1)
+		return ((char)get_int_from_area(vm, pos, size, &tmp_inc));
+	if (size == 2)
+		return ((short)get_int_from_area(vm, pos, size, &tmp_inc));
 	return (get_int_from_area(vm, pos, size, &tmp_inc));
 }

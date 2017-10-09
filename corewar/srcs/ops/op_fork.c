@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:11:27 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/06 22:27:36 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 15:36:30 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int		op_fork(t_vm *vm, t_process *p, unsigned int *args)
 	addr = p->pc + (val % IDX_MOD);
 	if (IS_SET(vm->flag, OPERATION))
 		verbose(vm, MSG_STD,
-		"P %4d | fork %d (%d)", p->id, val, p->pc + val);
+		"P %4d | fork %d (%d)", p->id, val, addr);
 	addr = calc_addr(addr);
+	// verbose(vm, MSG_ERROR, "pc %u, val %d, val mod %d, pre addr: %u addr %u", p->pc, val, val %IDX_MOD, p->pc + (val % IDX_MOD), addr);
 	return (fork_process(vm, p, addr));
 }

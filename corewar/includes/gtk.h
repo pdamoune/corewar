@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/07 01:03:08 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 18:56:06 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,8 @@ typedef struct	s_gtk
 	GtkWidget			*win;
 	t_panel				panel;
 	GtkWidget			*draw;
-	t_px				px[MEM_SIZE];
 	int					god_players;
+	t_px				px[MEM_SIZE];
 }				t_gtk;
 
 void			calcul_border(GtkWidget *widget, t_vm *vm, int at);

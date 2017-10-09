@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/07 00:26:15 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/09 16:03:57 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static gboolean		gtk_loop(void *data)
 		}
 		while (gtk_events_pending())
 		{
-			DG();
+			// DG();
 			if (gtk_main_iteration())
 				return (FALSE);
 		}
@@ -93,7 +93,7 @@ int					main(int ac, char **av)
 	t_vm		vm;
 
 	if (ac == 1)
-		return (usage(NULL));
+		return (usage());
 	if (init_vm_memory(&vm, &ac, &av))
 		return (1);
 	if (init_vm_value(&vm))
