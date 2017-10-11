@@ -36,7 +36,10 @@ void	ft_initialize_content_header(content_t **content, char *line)
 	if (!((*content)->line = (char**)malloc(sizeof(char*) * 3)))
 		return ;
 	(*content)->line[0] = ft_strdup(".comment");
-	(*content)->line[1] = ft_strdup(tmp[1]);
+	if (tmp[1] == NULL)
+		(*content)->line[1] = NULL;
+	else
+		(*content)->line[1] = ft_strdup(tmp[1]);
 	(*content)->line[2] = NULL;
 	// 	ft_free_tab(tmp);
 	(*content)->nb_octet = 0;

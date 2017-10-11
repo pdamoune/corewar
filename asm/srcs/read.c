@@ -105,13 +105,7 @@ int			main(int argc, char **argv)
 	ft_open(global, title);
 	//write(global->fdOut, global->str_header, 2188);
 	//write(global->fdOut, global->str_till_now, global->total_octet);
-	int		k;
-	k = 0;
-	while (k < global->total_octet)
-	{
-		write(global->fdOut, &global->res[k], 1/*global->total_octet*/);
-		k++;
-	}
+	write(global->fdOut, global->res, global->total_octet);
 	close(global->fdIn);
 	return (0);
 }
