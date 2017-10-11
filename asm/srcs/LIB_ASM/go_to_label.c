@@ -15,6 +15,9 @@ int		go_to_label(char *label, global_t *global)
 	global->s_label = global->begin_label;
     while (global->s_label && !stop)
     {
+		printf("STOP == %d\n", stop);
+		printf("global->s_label->name == %s-\n", global->s_label->name);
+		printf("LE label cherché == %s-\n", label);
 		if (!ft_strcmp(label, global->s_label->name))
 		{
 			stop = 1;

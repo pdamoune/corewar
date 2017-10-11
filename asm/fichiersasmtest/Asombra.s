@@ -31,7 +31,7 @@ ld %0, r16
 zjmp %:assaut2
 
 fork:
-ldi %:shield, %1, r13
+ldi %:init, %1, r13
 ld %0, r16
 st r13, 6
 forkcycle:

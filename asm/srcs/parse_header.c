@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/09 18:37:42 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/11 13:57:29 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_parse_header(global_t *global)
 	printf("CHAMP_MAX_SIZE %d\n", CHAMP_MAX_SIZE);
 	global->s_label = global->begin_label;
     if (global->total_octet > CHAMP_MAX_SIZE)
-        ft_exit(7, global, NULL);
+        printf(" WARNING your champ size (%d) > CHAMP_MAX_SIZE(%d)\n", global->total_octet, CHAMP_MAX_SIZE);
     rev = INTREV32(global->total_octet);
     ft_bzero(&global->header, sizeof(header_t));
     ft_bzero(global->res, CHAMP_MAX_SIZE + 1);

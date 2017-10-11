@@ -84,7 +84,8 @@ int			main(int argc, char **argv)
 	{
 		if (gnl == -1)
 			ft_exit(3, global, &line);
-		ft_stock_map(global, line);
+		if (line[0] != COMMENT_CHAR)
+			ft_stock_map(global, line);
 		free(line);
 		global->nb_lines++;
 	}
@@ -104,7 +105,13 @@ int			main(int argc, char **argv)
 	ft_open(global, title);
 	//write(global->fdOut, global->str_header, 2188);
 	//write(global->fdOut, global->str_till_now, global->total_octet);
-	write(global->fdOut, global->res, global->total_octet);
+	int		k;
+	k = 0;
+	while (k < global->total_octet)
+	{
+		write(global->fdOut, &global->res[k], 1/*global->total_octet*/);
+		k++;
+	}
 	close(global->fdIn);
 	return (0);
 }

@@ -1,6 +1,7 @@
 .name    "sebc"
 .comment "sebc"
 
+l2:
 	st	r1, :l1+1
 	ld	%4, r3
 l1:	live	%1
@@ -11,4 +12,3 @@ l3:	ldi	%:l2, r2, r4
 live:	zjmp	%:l1 - 100
 	xor	r4, r4, r4
 	zjmp	%:l3
-l2:

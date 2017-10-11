@@ -78,7 +78,7 @@ void	ft_stock_content(global_t *global, char *line)
     new = NULL;
 	previous = NULL;
 	if (!line)
-		return ;
+		ft_initialize_content_null(&new, NULL);
 	if (!ft_strncmp(line, ".comment", 8))
 		ft_initialize_content_header(&new, line);
 	else if (!ft_strncmp(line, ".name", 5))
@@ -94,4 +94,18 @@ void	ft_stock_content(global_t *global, char *line)
         previous->next = new;
     }
     global->s_label->s_content = new;
+}
+
+void	ft_initialize_content_null(content_t **content, char *line)
+{
+	(*content)->line = &line;
+	// if (tab1)
+	// 	ft_free_tab(tab1);
+	// if (tab2)
+	// 	ft_free_tab(tab2);
+	(*content)->nb_octet = 0;
+	(*content)->begin_octet = 0;
+	(*content)->next = NULL;
+    (*content)->instruction = NULL;
+	(*content)->previous = NULL;
 }

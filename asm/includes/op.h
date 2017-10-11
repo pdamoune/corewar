@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/09 17:24:35 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/11 14:57:28 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,11 +193,14 @@ void	ft_initialize_content(content_t **content, char *line);
 void	ft_stock_content(global_t *global, char *line);
 void	ft_browse_label(global_t *global, int type);
 void	ft_initialize_header(header_t **header);
+void	ft_initialize_content_null(content_t **content, char *line);
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
 */
 int		is_labelchars(int c);
 char	*ft_strstart(const char *big, const char *little);
+char	*ft_strstart_modif(const char *big, const char *little);
+char	*ft_big_till_space(char *big);
 char	*ft_strsubc(char **s, char c);
 char	*ft_strdup_asm(const char *s);
 char	**ft_strsplit_spa(char const *str);
