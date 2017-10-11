@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/09 18:56:17 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/11 18:58:57 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ struct			s_vm
 	t_lx			process;
 	t_private_audio	audio;
 	t_sound			*slash;
+	int				winner;
 	int				nb_player;
 	int				livetmp;
 	unsigned char	area[MEM_SIZE];

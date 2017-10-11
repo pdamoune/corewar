@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:42:01 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/07 01:13:48 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/11 18:59:13 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		op_live(t_vm *vm, t_process *p, unsigned int *args)
 	++vm->file[args[0]].live;
 	vm->file[args[0]].last_live = vm->cycle;
 	p->id_player = args[0];
+	vm->winner = args[0];
 	verbose(vm, MSG_STD, "Player %d (%s) is said to be alive",
 				args[0] + 1, vm->file[args[0]].header.prog_name);
 	if (IS_SET(vm->flag, GRAPHIC))

@@ -57,12 +57,40 @@ fight_list = [
     ]
 
 cmd_list = [
+        '-d 10 ',
+        '-d 20 ',
+        '-d 30 ',
         '-d 50 ',
+        '-d 150 ',
+        '-d 250 ',
+        '-d 300 ',
+        '-d 350 ',
+        '-d 400 ',
+        '-d 450 ',
         '-d 500 ',
+        '-d 600 ',
+        '-d 700 ',
+        '-d 800 ',
+        '-d 900 ',
         '-d 1000 ',
+        '-d 1500 ',
         '-d 2000 ',
+        '-d 2500 ',
+        '-d 3000 ',
+        '-d 3500 ',
+        '-d 4000 ',
+        '-d 4500 ',
         '-d 5000 ',
+        '-d 6000 ',
+        '-d 7000 ',
+        '-d 8000 ',
+        '-d 9000 ',
+        '-d 10000 ',
+        '-d 20000 ',
+        '-d 30000 ',
+        '-d 40000 ',
         '-d 50000 ',
+        '-d 100000 ',
         ' ',
         ]
 
@@ -71,7 +99,7 @@ def check_if_ended(file):
     stdin,stdout = os.popen2("tail -n 1 "+file + " | head -c 10")
     stdin.close()
     lines = stdout.readlines(); stdout.close()
-    if lines == "Contestant":
+    if lines == ["Contestant"]:
         return 1
     return 0
 
@@ -85,8 +113,8 @@ def all_cmd_test(cur_cmd):
     for index,command in enumerate(cmd_list):
         res = my_execute(corewarzaz + command + cur_cmd + ' > ' + outzaz)
         if res == 1:
-            if (check_if_ended(outzaz)):
-                return (-1)
+            if not (check_if_ended(outzaz)):
+                return (1)
         if res == 31744:
             print "\033[33mCommand take too much time. next fight\033[00m"
             return (index)
@@ -99,6 +127,9 @@ def all_cmd_test(cur_cmd):
         if os.system('diff ' + out + ' ' + outzaz + ' > corewar.diff'):
             print "\033[31mDIFF ON: '" + command + cur_cmd + "'\033[00m"
             return (-1)
+        if (check_if_ended(outzaz)):
+            print "\033[33mFight already over at command: '" + command + "'\033[00m"
+            return (-2)
     return (0)
 
 def main_func(final):
@@ -112,12 +143,22 @@ def main_func(final):
                 print champdir + champ + ': Is not a valid file'
                 return (1)
             cur_cmd += ' ' + champdir + champ
-        cur_cmd = ' ../ressources/champs/championships/youforkmytralala.cor ../ressources/champs/championships/justin_bee.cor ../ressources/champs/championships/Misaka_Mikoto.cor'
-        print 'Init of the fight: ' + str(fight)
+        # cur_cmd = ' ../ressources/champs/championships/youforkmytralala.cor ../ressources/champs/championships/justin_bee.cor ../ressources/champs/championships/Misaka_Mikoto.cor'
+        # cur_cmd = ' ../ressources/champs/championships/salamahenagalabadoun.cor ../ressources/champs/championships/salamahenagalabadoun.cor ../ressources/champs/championships/salamahenagalabadoun.cor ../ressources/champs/championships/salamahenagalabadoun.cor'
+        cur_cmd = ' ../ressources/champs/championships/salamahenagalabadoun.cor'
+        # cur_cmd = ' ../ressources/champs/zork.cor'
+        # cur_cmd = ' ../ressources/champs/championships/corelol.cor ../ressources/champs/championships/Varimathras.cor ../ressources/champs/championships/MarineKing.cor' <<<<<<<<< !!!!!!!!!!!!!!!!
+#         250258c250258
+# < Contestant 2, "Varimathras", has won !
+# ---
+# > Contestant 1, "laugh", has won !
+
+        # print 'Init of the fight: ' + str(fight)
+        print 'Init of the fight: ' + cur_cmd
         test_done = all_cmd_test(cur_cmd)
         if (test_done == -1):
             return (1)
-        if (test_done):
+        if (test_done != -2 and test_done):
             print "\033[33mTest success: " + str(test_done) + "/" + str(len(cmd_list)) + "\033[00m"
             print "\033[33mWe skip " + str(len(cmd_list) - test_done) + " tests because the command as timeout\033[00m"
         else:
