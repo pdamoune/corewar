@@ -45,12 +45,18 @@ char	*ft_strstart_modif(const char *big, const char *little)
 char	*ft_big_till_space(char *big)
 {
 	int		i;
+	int		k;
 
+	k = ft_strlen(big);
 	i = 0;
 	while (big[i] != '\0' && big[i] != ' ' && big[i] != '\t')
 	{
 		i++;
 	}
-	big[i] = '\0';
+	while (i < k)
+	{
+		big[i] = '\0';
+		i++;
+	}
 	return ((char*)big);
 }

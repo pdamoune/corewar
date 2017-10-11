@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/11 15:19:16 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/11 16:54:56 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	ft_get_values(global_t *global, char **line, int arg_ind)
 	value_char = 0;
 	while (line[++global->i] && !ft_strstart_modif(line[global->i], "#"))
 	{
+		//printf("\n\n LINE === == == = = = =    %s\n", line[global->i]);
 
 		if (!arg_ind && ((val_tmp = ft_strstart_modif(line[global->i], "%:"))
 			|| (val_tmp = ft_strstart_modif(line[global->i], "%"))))

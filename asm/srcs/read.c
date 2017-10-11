@@ -56,6 +56,7 @@ int			main(int argc, char **argv)
 	int			gnl;
 	char		*title;
 	size_t		i;
+	int			k;
 
 	i = -1;
     ft_initialize_global(&global);
@@ -82,9 +83,14 @@ int			main(int argc, char **argv)
 	*/printf("ICIIIIIIIIIIIIIIII    = = > %s\n", title);
 	while ((gnl = get_next_line(global->fdIn, &line)))
 	{
+		k = 0;
 		if (gnl == -1)
 			ft_exit(3, global, &line);
-		if (line[0] != COMMENT_CHAR)
+		while (line[k] == ' ' || line[k] == '\t')
+		{
+			k++;
+		}
+		if (line[k] != COMMENT_CHAR)
 			ft_stock_map(global, line);
 		free(line);
 		global->nb_lines++;
