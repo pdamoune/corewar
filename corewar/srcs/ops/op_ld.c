@@ -6,14 +6,15 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:45:35 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/11 17:24:52 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/12 15:02:31 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int		op_ld(t_vm *vm, t_process *p, unsigned int *args)
+int		op_ld(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 {
+	(void)pc_inc;
 	unsigned int		val[MAX_ARGS_NUMBER];
 
 	ft_memcpy(val, args, sizeof(unsigned int) * 1);

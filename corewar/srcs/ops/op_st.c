@@ -6,19 +6,20 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 18:04:48 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/11 17:11:39 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/12 15:02:15 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-int		op_st(t_vm *vm, t_process *p, unsigned int *args)
+int		op_st(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 {
+	(void)pc_inc;
 	unsigned int		val[MAX_ARGS_NUMBER];
 	unsigned int		addr;
 
 	ft_memcpy(val, args, sizeof(unsigned int) * 2);
-	analyze_long_value(vm, p, val, 2);
+	analyze_value(vm, p, val, 2);
 	if (IS_SET(vm->flag, OPERATION))
 		verbose(vm, MSG_STD,
 		"P %4d | st r%d %d", p->id, args[0], args[1]);

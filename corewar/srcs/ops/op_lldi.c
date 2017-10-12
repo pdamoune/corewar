@@ -6,19 +6,20 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:07 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/11 16:56:35 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/12 15:12:15 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int		op_lldi(t_vm *vm, t_process *p, unsigned int *args)
+int		op_lldi(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 {
+	(void)pc_inc;
 	unsigned int		val[MAX_ARGS_NUMBER];
 	unsigned int		addr;
 
 	ft_memcpy(val, args, sizeof(unsigned int) * 2);
-	analyze_long_value(vm, p, val, 2);
+	analyze_value(vm, p, val, 2);
 	addr = p->pc + (int)(val[0] + val[1]);
 	if (IS_SET(vm->flag, OPERATION))
 	{

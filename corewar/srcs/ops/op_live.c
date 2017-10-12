@@ -6,14 +6,15 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:42:01 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/11 18:59:13 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/12 15:02:43 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int		op_live(t_vm *vm, t_process *p, unsigned int *args)
+int		op_live(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 {
+	(void)pc_inc;
 	if (IS_SET(vm->flag, OPERATION))
 		verbose(vm, MSG_STD,
 		"P %4d | live %d", p->id, args[0]);

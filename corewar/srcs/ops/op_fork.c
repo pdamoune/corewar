@@ -6,14 +6,15 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:11:27 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/09 15:36:30 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/12 15:02:28 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int		op_fork(t_vm *vm, t_process *p, unsigned int *args)
+int		op_fork(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 {
+	(void)pc_inc;
 	unsigned int	addr;
 	int				val;
 

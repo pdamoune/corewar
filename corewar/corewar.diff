@@ -1,6 +1,192 @@
-59,60c59,60
-< P    1 | lldi 0 1409615107 r5
-<        | -> load from 0 + 1409615107 = 1409615107 (with pc 1409615112)
+42071c42071
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
 ---
-> P    1 | lldi 248776704 1409615107 r5
->        | -> load from 248776704 + 1409615107 = 1658391811 (with pc 1658391816)
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+42074c42074
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+49385c49385
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+49391c49391
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+50946c50946
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+50952c50952
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+51390c51390
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+51393c51393
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+59351c59351
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+59357c59357
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+59826c59826
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+59829c59829
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+61583c61583
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+61586c61586
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+66150c66150
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+66165c66165
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+67913c67913
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+67928c67928
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+70295c70295
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+70298c70298
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+75123c75123
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+75129c75129
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+76968c76968
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+76983c76983
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+77493c77493
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+77496c77496
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+79438c79438
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+79441c79441
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+84753c84753
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+84765c84765
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+86778c86778
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+86790c86790
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+87354c87354
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+87357c87357
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+89389c89389
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+89392c89392
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+94718c94718
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+94733c94733
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+96760c96760
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+96775c96775
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+97322c97322
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+97325c97325
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+99367c99367
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+99370c99370
+< ADV 5 (0x0fff -> 0x0004) 01 ff ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 ff ff ff fe 
+107346c107346
+< ADV 5 (0x0fff -> 0x0004) 01 00 ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 00 ff ff fe 
+107348c107348
+< ADV 5 (0x0fff -> 0x0004) 01 00 ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 00 ff ff fe 
+109482c109482
+< ADV 5 (0x0fff -> 0x0004) 01 00 ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 00 ff ff fe 
+109484c109484
+< ADV 5 (0x0fff -> 0x0004) 01 00 ff ff fe 
+---
+> ADV 5 (0x0fff -> 0x1004) 01 00 ff ff fe 

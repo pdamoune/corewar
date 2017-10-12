@@ -4,7 +4,7 @@ import sys
 import random
 
 corewar = './corewar -izvko '
-corewarzaz = '../ressources/corewar -a -v 15 '
+corewarzaz = '../ressources/corewar -a -v 31 '
 # corewar = './corewar -izq '
 # corewarzaz = '../ressources/corewar -v 0 '
 out = 'corewar.out'
@@ -104,12 +104,10 @@ def check_if_ended(file):
     return 0
 
 def my_execute(cur_cmd):
-    # print 'I will execute: \"' + str + '\"'
     cmd = "gtimeout 5 " + cur_cmd
     return os.system(cmd)
 
 def all_cmd_test(cur_cmd):
-    # iter = 0
     for index,command in enumerate(cmd_list):
         res = my_execute(corewarzaz + command + cur_cmd + ' > ' + outzaz)
         if res == 1:
@@ -145,16 +143,10 @@ def main_func(final):
             cur_cmd += ' ' + champdir + champ
         # cur_cmd = ' ../ressources/champs/championships/youforkmytralala.cor ../ressources/champs/championships/justin_bee.cor ../ressources/champs/championships/Misaka_Mikoto.cor'
         # cur_cmd = ' ../ressources/champs/championships/salamahenagalabadoun.cor ../ressources/champs/championships/salamahenagalabadoun.cor ../ressources/champs/championships/salamahenagalabadoun.cor ../ressources/champs/championships/salamahenagalabadoun.cor'
-        cur_cmd = ' ../ressources/champs/championships/salamahenagalabadoun.cor'
+        # cur_cmd = ' ../ressources/champs/championships/salamahenagalabadoun.cor'
         # cur_cmd = ' ../ressources/champs/zork.cor'
-        # cur_cmd = ' ../ressources/champs/championships/corelol.cor ../ressources/champs/championships/Varimathras.cor ../ressources/champs/championships/MarineKing.cor' <<<<<<<<< !!!!!!!!!!!!!!!!
-#         250258c250258
-# < Contestant 2, "Varimathras", has won !
-# ---
-# > Contestant 1, "laugh", has won !
-
-        # print 'Init of the fight: ' + str(fight)
-        print 'Init of the fight: ' + cur_cmd
+        print 'Init of the fight: ' + str(fight)
+        # print 'Init of the fight: ' + cur_cmd
         test_done = all_cmd_test(cur_cmd)
         if (test_done == -1):
             return (1)

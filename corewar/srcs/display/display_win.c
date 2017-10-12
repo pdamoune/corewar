@@ -12,7 +12,19 @@
 
 #include <vm.h>
 
-// static int		who_is_the_winner(t_vm *vm, t_file **winner)
+static void		who_is_the_winner(t_vm *vm)
+{
+	int		i;
+
+	i = -1;
+	while (++i < MAX_PLAYERS)
+		if (vm->file[i].is_used
+			&& (vm->winner == -1
+				|| vm->file[i].last_live >= vm->file[vm->winner].last_live))
+		{
+			vm->winner = i;
+		}
+}
 // {
 // 	int		i;
 // 	int		id;
@@ -58,8 +70,10 @@ int				display_win(t_vm *vm)
 	{
 		str = "Contestant %d, \"%s\", has won !";
 		strtmp = "Contestant %d, \"%s\", has won !";
+		if (vm->winner == -1)
+			who_is_the_winner(vm);
 	}
-	else if (vm->file[vm->winner].last_live)
+	else if (vm->winner != -1)
 	{
 		str = "Contestant %d, \"{red}%s{gre}\", has won !";
 		strtmp = "Contestant %d, \"%s\", has won !";

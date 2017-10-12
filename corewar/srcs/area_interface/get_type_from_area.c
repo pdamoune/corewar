@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 19:01:52 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/09 15:34:32 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/12 13:17:53 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,6 @@ void		get_type_from_area(t_vm *vm, t_process *p, unsigned int *type)
 	while (++i < p->op.nb_params)
 	{
 		bit = (ocp >> (6 - 2 * i));
-		// if (bit & 1)
-		// {
-		// 	if ((bit >> 1) & 1)
-		// 		{
-		// 			DG("IND");
-		// 			type[i] = T_IND;
-		// 		}
-		// 	else
-		// 		{
-		// 			DG("REG");
-		// 			type[i] = T_REG;
-		// 		}
-		// }
-		// else if (bit & 2)
-		// {
-		// 	DG("DIR");
-		// 	type[i] = T_DIR;
-		// }
 		if (bit & 1)
 		{
 			if ((bit >> 1) & 1)

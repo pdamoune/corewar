@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/09 13:38:26 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/12 14:49:46 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,26 +100,25 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	int					i;
 
 	pc_inc = p->op.ocp ? 2 : 1;
+	type[0] = T_DIR;
 	if (p->op.ocp)
 		get_type_from_area(vm, p, type);
-	else
-		type[0] = T_DIR;
 	i = -1;
 	while (++i < p->op.nb_params)
 		args[i] = get_process_value_from_area(vm, p, type[i], &pc_inc);
-	if (check_args(vm, p, type, (unsigned *)args)) //TODO check if args are type compatible others exceptions
+	if (check_args(vm, p, type, (unsigned *)args))
 	{
-		p->pc = move_pc(vm, p->pc, pc_inc);
+		p->pc = move_pc(vm, p->pc, pc_inc, 1);
 		return (verbose(vm, MSG_WARNING, "%s: Instruction has invalid type parameters", p->op.label));
 	}
-	if (p->op.instru(vm, p, args)) //sending to instruction function
+	if (p->op.instru(vm, p, args, &pc_inc))
 	{
 		verbose(vm, MSG_ERROR, "Something as failed in instruction. Vm will properly stop now", NULL);
 		SET(vm->flag, STOP);
-		// p->pc = move_pc(vm, p->pc, 1);
 		return (1);
 	}
-	p->pc = move_pc(vm, p->pc, pc_inc);
+	if (pc_inc)
+		p->pc = move_pc(vm, p->pc, pc_inc, 1);
 	return (0);
 }
 
@@ -135,7 +134,7 @@ static int		init_instruction(t_vm *vm, t_process *p)
 		{
 			if (IS_SET(vm->flag, GRAPHIC))
 				ft_bzero(&p->op, sizeof(t_op));
-			p->pc = move_pc(vm, p->pc, 1);
+			p->pc = move_pc(vm, p->pc, 1, 0);
 			p->nb_cycle_before_exec = 0;
 			return (0);
 		}

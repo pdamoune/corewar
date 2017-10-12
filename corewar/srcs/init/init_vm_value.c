@@ -21,6 +21,7 @@ int			init_vm_value(t_vm *vm)
 	vm->last_check = 0;
 	vm->check_count = 0;
 	vm->cycle = 0;
+	vm->winner = -1;
 	i = -1;
 	while (++i < MAX_PLAYERS)
 	{
