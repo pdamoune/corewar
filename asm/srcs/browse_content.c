@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/11 16:54:56 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/12 17:22:11 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void	ft_get_values(global_t *global, char **line, int arg_ind)
 		if (!arg_ind && ((val_tmp = ft_strstart_modif(line[global->i], "%:"))
 			|| (val_tmp = ft_strstart_modif(line[global->i], "%"))))
 		{
-			printf("Je suis un DIRECT\n");
 			value = (int*)(global->res + global->res_pc);
 			if(ft_isstrint(val_tmp))
 				*value = INTREV32(ft_atoi(val_tmp));
@@ -113,7 +112,6 @@ void	ft_get_values(global_t *global, char **line, int arg_ind)
 		else if ((val_tmp = ft_strstart_modif(line[global->i], "r"))
 				&& ft_isdigitspace(val_tmp))
 		{
-			printf("Je suis un REGISTRE\n");
 			value_char = (global->res + global->res_pc);
 			*value_char = ft_atoi(val_tmp);
 			global->res_pc++;
@@ -121,18 +119,16 @@ void	ft_get_values(global_t *global, char **line, int arg_ind)
 		else if ((arg_ind && (val_tmp = ft_strstart_modif(line[global->i], "%:")))
 			|| (val_tmp = ft_strstart_modif(line[global->i], ":")))
 		{
-			printf("Je suis un INDIRECT label\n");
 			value_ind = (unsigned short*)(global->res + global->res_pc);
 			*value_ind = INTREV16((unsigned short)go_to_label(val_tmp, global));
 			global->res_pc += 2;
 		}
-		else if ((arg_ind && (val_tmp = ft_strstart_modif(line[global->i], "%"))) || ((val_tmp = ft_strdup(line[global->i])) && ft_isstrint(val_tmp)))
+		else if ((arg_ind && (val_tmp = ft_strstart_modif(line[global->i], "%")))
+			|| ((val_tmp = ft_strdup(line[global->i])) && ft_isstrint(val_tmp)))
 		{
-			printf("Je suis un INDIRECT valeur decimale\n");
 			value_ind = (unsigned short*)(global->res + global->res_pc);
 			*value_ind = INTREV16(ft_atoi(val_tmp));
 			global->res_pc += 2;
 		}
 	}
-	printf("global->j %d\n", global->j);
 }

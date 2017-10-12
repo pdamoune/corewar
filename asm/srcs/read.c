@@ -49,38 +49,20 @@ int			ft_open(global_t *global, char *str)
 **  LIS LE FICHIER ET STOCK CHAQUE LINE DANS LA STRUCT MAP
 */
 
-int			main(int argc, char **argv)
+void		ft_read(global_t *global, char *filename, char *line)
 {
-	char		*line;
-	global_t	*global;
 	int			gnl;
 	char		*title;
-	size_t		i;
 	int			k;
 
-	i = -1;
-    ft_initialize_global(&global);
-    if (argc != 2)
-        ft_exit(1, global, &line);
-	line = NULL;
-	
-
-    global->fdIn = open(argv[1], O_RDONLY, 0666);
+	global->fdIn = open(filename, O_RDONLY, 0666);
 	if (-1 == global->fdIn)
 		 ft_exit(2, global, &line);
 	size_t len;
-	len = ft_strlen(argv[1]);
+	len = ft_strlen(filename);
 	title = malloc(len + 4);
-	ft_memcpy(title, argv[1], len - 1);
+	ft_memcpy(title, filename, len - 1);
 	ft_memcpy(title + len - 2 , "1.cor", 6);
-
-	/*while (++i < ft_strlen(argv[1]) - 1)
-		title[i] = argv[1][i];
-	title[++i] = 'c';
-	title[++i] = 'o';
-	title[++i] = 'r';
-	title[++i] = 0;
-	*/printf("ICIIIIIIIIIIIIIIII    = = > %s\n", title);
 	while ((gnl = get_next_line(global->fdIn, &line)))
 	{
 		k = 0;
@@ -112,6 +94,26 @@ int			main(int argc, char **argv)
 	//write(global->fdOut, global->str_header, 2188);
 	//write(global->fdOut, global->str_till_now, global->total_octet);
 	write(global->fdOut, global->res, global->total_octet);
-	close(global->fdIn);
+	close(global->fdIn);	
+}
+
+int			main(int argc, char **argv)
+{
+	char		*line;
+	global_t	*global;
+	int		i;
+
+	i = 0;
+    ft_initialize_global(&global);
+    if (argc < 2)
+        ft_exit(1, global, &line);
+	line = NULL;
+	
+	while (++i < argc)
+	{
+		ft_read(global, argv[i], line);
+		ft_putstr("Writing output in ");
+		ft_putendl(argv[i]);
+	}
 	return (0);
 }

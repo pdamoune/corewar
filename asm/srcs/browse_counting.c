@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:27:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/26 17:27:14 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/12 17:21:38 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void	ft_calcul_octet(global_t *global, char **line, int arg_ind)
 
 	i = 0;
 	val_tmp = NULL;
-	while (line[++i] && !ft_strstart(line[i], "#"))
+	while (line[++i] && !ft_strstart_modif(line[i], "#"))
 	{
-		if ((val_tmp = ft_strstart(line[i], "r")) && ft_isdigitspace(val_tmp))
+		if ((val_tmp = ft_strstart_modif(line[i], "r")) && ft_isdigitspace(val_tmp))
 			global->s_label->s_content->nb_octet++;
-        else if (!arg_ind && ((val_tmp = ft_strstart(line[i], "%:"))
-            || (val_tmp = ft_strstart(line[i], "%"))))
+        else if (!arg_ind && ((val_tmp = ft_strstart_modif(line[i], "%:"))
+            || (val_tmp = ft_strstart_modif(line[i], "%"))))
             global->s_label->s_content->nb_octet += 4;
         else
 			global->s_label->s_content->nb_octet += 2;
@@ -86,12 +86,10 @@ void        ft_browse_file_counting(global_t *global)
     {
         printf("/--------------- NEW LABEL n°%d --------------/\n", global->s_label->num);
         printf("Name :%s \n", global->s_label->name);
-        printf("Content : \n");
         global->s_label->s_content = global->s_label->begin_content;
         while (global->s_label->s_content)
         {
             global->s_label->s_content->begin_octet = global->total_octet;
-			printf("global->s_label->s_content->line[0] %s: \n", global->s_label->s_content->line[0]);
 			if (global->s_label->s_content->line[0])
 			{
 				global->s_label->s_content->nb_octet++;
@@ -102,7 +100,6 @@ void        ft_browse_file_counting(global_t *global)
              /* DEBUG */
 	    	printf("begin_octet : %d\n", global->s_label->s_content->begin_octet);
 	    	printf("nb_octet : %d\n", global->s_label->s_content->nb_octet);
-	    	printf("global->total_octet : %d\n\n", global->total_octet);
 		    /* FIN DEBUG */
             global->s_label->s_content = global->s_label->s_content->next;
         }
