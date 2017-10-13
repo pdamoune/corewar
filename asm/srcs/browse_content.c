@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/12 17:22:11 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/13 21:37:06 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	ft_get_values(global_t *global, char **line, int arg_ind)
 		else if ((val_tmp = ft_strstart_modif(line[global->i], "r"))
 				&& ft_isdigitspace(val_tmp))
 		{
+			//global->res[global->res_pc++] = ft_atoi(val_tmp);
 			value_char = (global->res + global->res_pc);
 			*value_char = ft_atoi(val_tmp);
 			global->res_pc++;

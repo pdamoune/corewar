@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/13 21:55:37 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/13 22:10:31 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	ft_comment_is_done(global_t *global, char *com)
 	size_t k;
 	int drift;
 
-	i = 0;
 	nb_quote = 0;
 	drift = 0;
 	while (nb_quote < 2 && drift < COMMENT_LENGTH)
 	{
+		i = 0;
 		while (global->s_map->line[i])
 		{
 			if (global->s_map->line[i] == '"')

@@ -23,10 +23,11 @@ char	*add_instruct(global_t *global, char **line)
 {
 	int		i;
 	char	*arg;
+	static char comment[2]={COMMENT_CHAR,0};
 
 	arg = ft_strdup("00000000");
 	i = 0;
-	while (line[++i] && !ft_strstart(line[i], "#"))
+	while (line[++i] && !ft_strstart(line[i], comment))
 	{
 		if (i > 3)
 			ft_exit(11, global, NULL);
