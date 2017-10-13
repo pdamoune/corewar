@@ -1,5 +1,5 @@
 #include "../includes/op.h"
-static char		*g_errors[20] = 
+static char		*g_errors[20] =
 {
 	"Le nombre d'arguments en ligne de commande est différent de 2",
 	"Erreur dans l'ouverture du fichier de départ",
@@ -16,6 +16,7 @@ static char		*g_errors[20] =
 	"Le nombre d'octets renseignés pour ce DIRECT n'est pas correct",
 	"Problème de conversion de base en hexa",
 	"Le label recherché n'existe pas",
+	"Le header donne n'est ni un name, ni un comment",
 };
 
 void		ft_exit(int nb, global_t *global, char **line)
@@ -94,7 +95,7 @@ void		ft_read(global_t *global, char *filename, char *line)
 	//write(global->fdOut, global->str_header, 2188);
 	//write(global->fdOut, global->str_till_now, global->total_octet);
 	write(global->fdOut, global->res, global->total_octet);
-	close(global->fdIn);	
+	close(global->fdIn);
 }
 
 int			main(int argc, char **argv)
@@ -108,7 +109,7 @@ int			main(int argc, char **argv)
     if (argc < 2)
         ft_exit(1, global, &line);
 	line = NULL;
-	
+
 	while (++i < argc)
 	{
 		ft_read(global, argv[i], line);

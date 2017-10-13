@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/13 19:09:36 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/13 20:24:46 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 #define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
 #define COMMENT_CHAR			'#'
+#define COMMENT_CHAR_VIRG		';'
 #define LABEL_CHAR				':'
 #define DIRECT_CHAR				'%'
 #define SEPARATOR_CHAR			','
