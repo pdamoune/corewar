@@ -23,6 +23,11 @@ char	*ft_strstart(const char *big, const char *little)
 
 char	*ft_strstart_modif(const char *big, const char *little)
 {
+	char *str;
+	str = ft_strstr(big, little);
+	if (str)
+	return (str + ft_strlen(little));
+	return (NULL);
 	int		i;
 
 	i = 0;
@@ -46,12 +51,22 @@ char	*ft_big_till_space(char *big)
 {
 	int		i;
 	int		k;
+	int		m;
 
 	k = ft_strlen(big);
 	i = 0;
+	m = 0;
 	while (big[i] != '\0' && big[i] != ' ' && big[i] != '\t')
 	{
 		i++;
+	}
+	while (big[i + m] == ' ' || big[i + m] == '\t')
+		m++;
+	if (big[i + m] != '\0' && big[i + m] != COMMENT_CHAR)
+	{
+		DG("Hey you [%s]", big);
+
+		return (NULL);
 	}
 	while (i < k)
 	{
