@@ -1,26 +1,26 @@
 #include "../includes/op.h"
+static char		*g_errors[20] = 
+{
+	"Le nombre d'arguments en ligne de commande est différent de 2",
+	"Erreur dans l'ouverture du fichier de départ",
+	"Problème avec le get next line",
+	"Erreur dans l'ouverture du fichier de destination",
+	"Le nom du fichier est trop long",
+	"Le commentaire du fichier est trop long",
+	"Le champion a mangé trop de nougat, il est trop gros",
+	"Lexical error",
+	"Le parametre de aff n'est pas un registre",
+	"Ceci n'est pas une instruction valide",
+	"Le nombre d'arguments pour cette instruction n'est pas valide",
+	"Cet argument ne correspond pas aux arguments prévus pour cette instruction",
+	"Le nombre d'octets renseignés pour ce DIRECT n'est pas correct",
+	"Problème de conversion de base en hexa",
+	"Le label recherché n'existe pas",
+};
 
 void		ft_exit(int nb, global_t *global, char **line)
 {
-	char	*errors[20];
-
-	errors[1] = "Le nombre d'arguments en ligne de commande est différent de 2";
-	errors[2] = "Erreur dans l'ouverture du fichier de départ";
-	errors[3] = "Problème avec le get next line";
-	errors[4] = "Erreur dans l'ouverture du fichier de destination";
-	errors[5] = "Le nom du fichier est trop long";
-	errors[6] = "Le commentaire du fichier est trop long";
-	errors[7] = "Le champion a mangé trop de nougat, il est trop gros";
-	errors[9] = "Le parametre de aff n'est pas un registre";
-	errors[10] = "Ceci n'est pas une instruction valide";
-	errors[11] = "Le nombre d'arguments pour cette instruction n'est pas valide";
-	errors[12] = "Cet argument ne correspond pas aux arguments prévus pour cette instruction";
-	errors[13] = "Le nombre d'octets renseignés pour ce DIRECT n'est pas correct";
-	errors[14] = "Problème de conversion de base en hexa";
-	errors[15] = "Le label recherché n'existe pas";
-	errors[19] = NULL;
-	// nb = 0;
-	ft_printf("ERROR n°%d : %s\n", nb, errors[nb]);
+	ft_printf("ERROR n°%d : %s\n", nb, g_errors[nb]);
 	close(global->fdIn);
     ft_free_global(global);
     if (line && *line)

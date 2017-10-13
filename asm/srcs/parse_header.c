@@ -6,11 +6,41 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/11 15:59:08 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/13 19:34:48 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
+
+void	ft_comment_is_done(global_t *global, char *com)
+{
+	int i;
+	int nb_quote;
+	size_t k;
+	int drift;
+
+	i = 0;
+	nb_quote = 0;
+	drift = 0;
+	while (nb_quote < 2 && drift < COMMENT_LENGTH)
+	{
+		while (global->s_map->line[i])
+		{
+			if (global->s_map->line[i] == '"')
+				nb_quote++;
+			if (nb_quote > 2)
+				ft_exit(8, global, NULL);
+			i++;
+		}
+		k = -1;
+		while (++k < ft_strlen(global->s_map->line))
+			com[drift + k] = global->s_map->line[k];
+		drift = drift + k;
+		if (nb_quote == 2)
+			return;
+		global->s_map = global->s_map->next;
+	}
+}
 
 static void ft_kind_of_header(global_t *global, char *header, int size, int error)
 {

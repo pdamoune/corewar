@@ -66,6 +66,8 @@ void		ft_with_label(global_t *global)
 */
 void		ft_sort_lines(global_t *global)
 {
+	char	comment_line[COMMENT_LENGTH + 1];
+
 	if (global->s_map && ft_kind_of_line(global->s_map->line) == COMMENT)
 	{
         ft_stock_content(global, global->s_map->line);
@@ -73,7 +75,8 @@ void		ft_sort_lines(global_t *global)
 	}
     else if (global->s_map && ft_kind_of_line(global->s_map->line) == HEADER)
     {
-        ft_stock_content(global, global->s_map->line);
+		ft_comment_is_done(global, comment_line);
+        ft_stock_content(global, comment_line);
         global->s_label->name = ft_strdup("HEADER");
     }
 	else if (global->s_map && ft_kind_of_line(global->s_map->line) == EMPTY_LABEL)

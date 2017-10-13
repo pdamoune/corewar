@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/12 17:12:15 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/13 19:09:36 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ void	ft_browse_content(global_t *global);
 void	ft_get_opcode(global_t *global, char *line);
 void	ft_calcul_octet(global_t *global, char **line, int arg_ind);
 void	ft_parse_header(global_t *global);
+void	ft_comment_is_done(global_t *global, char *com);
 int		ft_open(global_t *global, char *str);
 void	ft_str_is_header(global_t *global);
 /*
