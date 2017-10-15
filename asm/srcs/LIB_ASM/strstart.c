@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   strstart.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 15:52:52 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/15 18:54:11 by tdebarge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/op.h"
 
 char	*ft_strstart(const char *big, const char *little)
@@ -28,14 +40,9 @@ char	*ft_strstart(const char *big, const char *little)
 	return (NULL);
 }
 
-char	*ft_strstart_modif(const char *big, const char *little)
+char	*ft_str_mod(const char *big, const char *little)
 {
-/*	char *str;
-	str = ft_strstr(big, little);
-	if (str)
-	return (str + ft_strlen(little));
-	return (NULL);
-*/	int		i;
+	int		i;
 
 	i = 0;
 	if (little[0] == '\0')
@@ -64,14 +71,11 @@ char	*ft_big_till_space(char *big)
 	i = 0;
 	m = 0;
 	while (big[i] != '\0' && big[i] != ' ' && big[i] != '\t')
-	{
 		i++;
-	}
 	while (big[i + m] == ' ' || big[i + m] == '\t')
 		m++;
 	if (big[i + m] != '\0' && big[i + m] != COMMENT_CHAR)
 	{
-		DG("Hey you [%s]", big);
 		ft_putstr("The chararcter used '");
 		ft_putchar(big[i + m]);
 		ft_putendl("' is not suitable.");

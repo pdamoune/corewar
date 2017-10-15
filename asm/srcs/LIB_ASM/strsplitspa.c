@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   strsplitspa.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:52:43 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/15 18:52:48 by tdebarge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/op.h"
 
 static int		ft_isseparator(int c)
@@ -5,7 +17,6 @@ static int		ft_isseparator(int c)
 	return (c == ' ' || c == '\t' || c == '\v'
 			|| c == '\f' || c == '\r' || c == '\n' || c == '#');
 }
-
 
 static int		ft_strcpy_c(char *dest, char const *src)
 {

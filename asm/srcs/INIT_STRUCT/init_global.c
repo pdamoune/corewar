@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_global.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:26:43 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/15 18:32:00 by tdebarge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/op.h"
 
-char	**ft_index_tab()
+char		**ft_index_tab(void)
 {
-	char **tab;
+	char	**tab;
 
-	if (!(tab = (char **)malloc(25 * sizeof(*tab))))
+	if (!(tab = (char **)malloc(17 * sizeof(*tab))))
 		return (NULL);
-
 	tab[0] = ft_strdup("live");
 	tab[1] = ft_strdup("add");
 	tab[2] = ft_strdup("sub");
@@ -23,14 +34,7 @@ char	**ft_index_tab()
 	tab[13] = ft_strdup("ld");
 	tab[14] = ft_strdup("lfork");
 	tab[15] = ft_strdup("aff");
-	tab[16] = ft_strdup("%");
-	tab[17] = ft_strdup("r");
-	tab[18] = ft_strdup(NAME_CMD_STRING);
-	tab[19] = ft_strdup(COMMENT_CMD_STRING);
-	tab[20] = ft_strdup("#");
-	tab[21] = ft_strdup(".");
-	tab[22] = ft_strdup("");
-	tab[23] = NULL;
+	tab[16] = NULL;
 	return (tab);
 }
 
@@ -38,12 +42,11 @@ char	**ft_index_tab()
 **  INITIALISE LA GLOBALE UTILISEE DANS TOUT LE PROGRAMME
 */
 
-void	ft_initialize_global(global_t **global)
+void		ft_initialize_global(global_t **global)
 {
-
 	if (!(*global = (global_t*)malloc(sizeof(global_t))))
 		return ;
-    (*global)->nb_empty = 0;
+	(*global)->nb_empty = 0;
 	(*global)->nb_lines = 0;
 	(*global)->i = 0;
 	(*global)->j = 0;

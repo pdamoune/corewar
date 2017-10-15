@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:08:29 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/15 18:24:07 by tdebarge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/op.h"
 
 void		ft_initialize_map(map_t **map, char *line)
@@ -5,7 +17,7 @@ void		ft_initialize_map(map_t **map, char *line)
 	if (!(*map = (map_t*)malloc(sizeof(map_t))))
 		return ;
 	(*map)->line = ft_strdup(line);
-    (*map)->next = NULL;
+	(*map)->next = NULL;
 	(*map)->previous = NULL;
 }
 
@@ -15,19 +27,19 @@ void		ft_initialize_map(map_t **map, char *line)
 
 void		ft_stock_map(global_t *global, char *line)
 {
-    map_t	*new;
-    map_t	*previous;
+	map_t	*new;
+	map_t	*previous;
 
-    new = NULL;
-    previous = NULL;
-    ft_initialize_map(&new, line);
-    if (!global->begin_map)
-        global->begin_map = new;
-    else
-    {
-        previous = global->s_map;
-        new->previous = previous;
-        previous->next = new;
-    }
-    global->s_map = new;
+	new = NULL;
+	previous = NULL;
+	ft_initialize_map(&new, line);
+	if (!global->begin_map)
+		global->begin_map = new;
+	else
+	{
+		previous = global->s_map;
+		new->previous = previous;
+		previous->next = new;
+	}
+	global->s_map = new;
 }

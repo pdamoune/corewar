@@ -1,34 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   live_instruct.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 17:59:44 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/15 17:59:45 by tdebarge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/op.h"
 
-/*
-**  INSTRUCTION : LIVE
-**  OPCODE = 1
-**	PARAM = T_DIR
-**	Label_size = 4
-**	Nombre d'octet = 4 + opcode
-*/
-
-//faire fonction pour param
 void	live_instruct(global_t *global)
 {
-	/* Debug */
-	printf("<%s> = 0x01\n", global->s_label->s_content->line[0]);
-	ft_print_words_tables(global->s_label->s_content->line);
-	 /*End Debug */
-	printf("nb_octet STOCK = %d \n", global->s_label->s_content->nb_octet);
-
-	/* Get the values */
 	global->i = 0;
 	ft_get_values(global, global->s_label->s_content->line, 0);
-
-	/* Write the instruction */
-	//ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
-
-	/* DEBUG */
-    printf("value instruction : ");
-	int i = 0;
-	while(i < global->s_label->s_content->nb_octet)
-		printf("0x%X ", global->s_label->s_content->instruction[i++]);
-	printf("\n");
-	/* Fin DEBUG */
 }

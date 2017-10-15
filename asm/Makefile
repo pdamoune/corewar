@@ -37,11 +37,7 @@ controller.c\
 FONCTIONS/add_instruct.c\
 FONCTIONS/aff_instruct.c\
 FONCTIONS/and_instruct.c\
-FONCTIONS/cmd_string.c\
-FONCTIONS/comments_string.c\
-FONCTIONS/direct_param.c\
 FONCTIONS/fork_instruct.c\
-FONCTIONS/indirect_param.c\
 FONCTIONS/ld_instruct.c\
 FONCTIONS/ldi_instruct.c\
 FONCTIONS/lfork_instruct.c\
@@ -49,8 +45,6 @@ FONCTIONS/live_instruct.c\
 FONCTIONS/lld_instruct.c\
 FONCTIONS/lldi_instruct.c\
 FONCTIONS/or_instruct.c\
-FONCTIONS/others_string.c\
-FONCTIONS/register_param.c\
 FONCTIONS/st_instruct.c\
 FONCTIONS/sti_instruct.c\
 FONCTIONS/sub_instruct.c\
@@ -68,7 +62,6 @@ LIB_ASM/free_tab.c\
 LIB_ASM/get_the_argument.c\
 LIB_ASM/go_to_label.c\
 LIB_ASM/is_labelchars.c\
-LIB_ASM/print_lines.c\
 LIB_ASM/strdup.c\
 LIB_ASM/strisdigit.c\
 LIB_ASM/strlen_tab.c\
@@ -78,8 +71,6 @@ LIB_ASM/strsplitspa.c\
 LIB_ASM/strsplitvirg.c\
 LIB_ASM/strstart.c\
 LIB_ASM/strsubc.c\
-LIB_ASM/test_debug/ft_print_words_tables.c\
-LIB_ASM/test_debug/test.c\
 parse_header.c\
 parse_label.c\
 read.c
