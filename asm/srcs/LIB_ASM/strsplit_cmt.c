@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   strsplit_cmt.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:52:10 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/15 18:52:12 by tdebarge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/op.h"
 
 static int		ft_isseparator(int c)
 {
 	return (c == '#');
 }
-
 
 static int		ft_strcpy_c(char *dest, char const *src)
 {

@@ -6,79 +6,86 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/09/20 15:53:11 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/15 16:52:11 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-void ft_check_header(global_t *global)
+void			ft_comment_is_done(global_t *global, char *com)
 {
-    int     i;
-    int     k;
-    char    **tmp;
-    char    name[PROG_NAME_LENGTH];
+	int		i;
+	int		nb_quote;
+	size_t	k;
+	int		drift;
 
-    k = 0;
-    if (ft_strstart(global->s_map->line, NAME_CMD_STRING))
-    {
-        tmp = ft_strsplit(global->s_map->line, '"');
-        ft_putendl("NAME PICK UP\n");
-        i = ft_strlen(tmp[1]);
-        if (i > PROG_NAME_LENGTH)
-            ft_exit(5, global, NULL);
-        else
-        {
-            while (k < i)
-            {
-                name[k] = tmp[1][k];
-                k++;
-            }
-            while (k < PROG_NAME_LENGTH)
-            {
-                name[k] = '\0';
-                k++;
-            }
-            ft_write(global, name, PROG_NAME_LENGTH);
-            printf("NAME === %s\n", name);
-        }
-        /*free(tmp);*/
-    }
+	nb_quote = 0;
+	drift = 0;
+	while (nb_quote < 2 && drift < COMMENT_LENGTH)
+	{
+		i = 0;
+		while (global->s_map->line[i++])
+		{
+			if (global->s_map->line[i] == '"')
+				nb_quote++;
+			if (nb_quote > 2)
+				ft_exit(8, global, NULL);
+		}
+		k = -1;
+		while (++k <= ft_strlen(global->s_map->line))
+			com[drift + k] = global->s_map->line[k];
+		drift = drift + k;
+		if (nb_quote == 2)
+			return ;
+		global->s_map = global->s_map->next;
+	}
 }
 
-void ft_check_header_bis(global_t *global)
+static void		ft_kind_of_header(global_t *global,
+			char *header, int size, int error)
 {
-    char    comment[COMMENT_LENGTH];
-    int     k;
-    int     i;
-    int     rev;
+	int k;
+	int i;
 
-    k = 0;
-    i = 0;
-    rev = INTREV32((global->total_octet - 1));
-    ft_bzero(comment, COMMENT_LENGTH);
-    while (!ft_strcmp(global->s_label->name, "HEADER"))
-    {
-        if (!ft_strcmp(global->s_label->s_content->line[0], NAME_CMD_STRING))
-        {
-            ft_putendl(global->s_label->s_content->line[1]);
-            global->s_label = global->s_label->next;
-        }
-        if (!ft_strcmp(global->s_label->s_content->line[0], COMMENT_CMD_STRING))
-        {
-            global->fdOut = open("42.cor", O_WRONLY | O_APPEND, 0666);
-            write(global->fdOut, &rev, 4);
-            while (global->s_label->s_content->line[1][i])
-                i++;
-            if (i > COMMENT_LENGTH)
-                ft_exit(6, global, NULL);
-            while (k < i)
-            {
-                comment[k] = global->s_label->s_content->line[1][k];
-                k++;
-            }
-            ft_write(global, comment, COMMENT_LENGTH);
-        }
-        global->s_label = global->s_label->next;
-    }
+	i = 0;
+	k = 0;
+	if (global->s_label->s_content->line[1] == NULL)
+		header = NULL;
+	else
+	{
+		while (global->s_label->s_content->line[1][i])
+			i++;
+		if (i > size)
+			ft_exit(error, global, NULL);
+		while (k < i)
+		{
+			header[k] = global->s_label->s_content->line[1][k];
+			k++;
+		}
+	}
+}
+
+void			ft_parse_header(global_t *global)
+{
+	unsigned int	rev;
+
+	global->s_label = global->begin_label;
+	if (global->total_octet > CHAMP_MAX_SIZE)
+		ft_exit(7, global, NULL);
+	rev = INTREV32(global->total_octet);
+	ft_bzero(&global->header, sizeof(header_t));
+	ft_bzero(global->res, CHAMP_MAX_SIZE + 1);
+	global->header.prog_size = rev;
+	while (!ft_strcmp(global->s_label->name, "HEADER"))
+	{
+		if (!ft_strcmp(global->s_label->s_content->line[0],
+			NAME_CMD_STRING))
+			ft_kind_of_header(global, global->header.prog_name,
+				PROG_NAME_LENGTH, 5);
+		if (!ft_strcmp(global->s_label->s_content->line[0],
+			COMMENT_CMD_STRING))
+			ft_kind_of_header(global, global->header.comment,
+				COMMENT_LENGTH, 6);
+		global->s_label = global->s_label->next;
+	}
 }

@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   strsplit_asm.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:50:34 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/15 18:51:01 by tdebarge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/op.h"
 
 char			**ft_keep_first(char **tab2)
 {
-	int i;
-	int j;
-	int k;
-	int len;
-	char **tab3;
+	int		i;
+	int		j;
+	int		k;
+	int		len;
+	char	**tab3;
 
 	if (!tab2)
 		return (NULL);
@@ -51,7 +63,6 @@ char			**ft_split_tab(char **tab1)
 	tab3 = ft_keep_first(tab2);
 	if (!tab3)
 		return (tab1);
-// ft_print_words_tables(tab2);
 	len = ft_strlen_tab(tab3) + ft_strlen_tab(tab1);
 	if (!(tab = (char**)malloc(sizeof(*tab) * (len + 1))))
 		return (NULL);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   xor_instruct.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:04:30 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/15 18:04:31 by tdebarge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/op.h"
 
-char	*ft_compose_arg_xor_bis(global_t *global, char **line, int i, char **arg)
+char	*ft_arg_xor_bis(global_t *global, char **line, int i, char **arg)
 {
 	if (i == 2)
 	{
@@ -18,10 +30,10 @@ char	*ft_compose_arg_xor_bis(global_t *global, char **line, int i, char **arg)
 		else
 			ft_exit(12, global, NULL);
 	}
-	return(*arg);
+	return (*arg);
 }
 
-char	*ft_compose_arg_xor(global_t *global, char **line)
+char	*xor_instruct(global_t *global, char **line)
 {
 	int		i;
 	char	*arg;
@@ -42,36 +54,7 @@ char	*ft_compose_arg_xor(global_t *global, char **line)
 				arg = ft_arg(arg, 1, IND_CODE);
 		}
 		else
-			ft_compose_arg_xor_bis(global, line, i, &arg);
+			ft_arg_xor_bis(global, line, i, &arg);
 	}
-	return(arg);
-}
-
-void        xor_instruct(global_t *global)
-{
-    int     *arg;
-    char    *arg_tmp;
-
-    arg_tmp = ft_compose_arg_xor(global, global->s_label->s_content->line);
-	arg = (int *)&(global->s_label->s_content->instruction[1]);
-	*arg = ft_atoi(ft_convert_base(arg_tmp, "01", "0123456789"));
-	printf("<%s> = arg\n", arg_tmp);
-	printf("<%d> = arg\n", *arg);
-	printf("<%X> = arg\n", *arg);
-	free(arg_tmp);
-
-	/* Get the values */
-	global->i = 0;
-	ft_get_values(global, global->s_label->s_content->line);
-
-	/* Write the instruction */
-	ft_write(global, global->s_label->s_content->instruction, global->s_label->s_content->nb_octet);
-
-	/* DEBUG */
-	printf("\nvalue instruction : ");
-    int i = 0;
-	while(i < global->s_label->s_content->nb_octet)
-		printf("0x%X ", global->s_label->s_content->instruction[i++]);
-	printf("\n\n");
-	/* Fin DEBUG */
+	return (arg);
 }
