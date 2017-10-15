@@ -4,7 +4,7 @@
 init:
 rest:
 fork %:go
-live %0
+live %0         
 fork %:go2
 prelive:
 ld %251658255, r2

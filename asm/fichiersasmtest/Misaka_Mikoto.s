@@ -123,7 +123,7 @@ f3_e:
 	zjmp	%:run
 
 f3_h:							
-	ld		%15, r9               			^fhgkasjhgkjsdf
+	ld		%15, r9               
 	ldi     %4, %:run, r8       
 	add     r3, r3, r3
 	zjmp	%:run

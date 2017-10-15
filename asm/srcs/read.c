@@ -21,7 +21,7 @@ static char		*g_errors[20] =
 
 void		ft_exit(int nb, global_t *global, char **line)
 {
-	ft_printf("ERROR n°%d : %s\n", nb, g_errors[nb]);
+	ft_printf("ERROR n°%d : %s\n", nb, g_errors[nb - 1]);
 	close(global->fdIn);
     ft_free_global(global);
     if (line && *line)

@@ -42,15 +42,25 @@ int		ft_kind_of_line(global_t *global, char *line)
 
 void		ft_with_label(global_t *global)
 {
+	int		i;
+
+	i = 0;
 	global->s_label->name = ft_strsubc(&(global->s_map->line), LABEL_CHAR);
 	printf("LABEL NAME *%s*\n", global->s_label->name);
 	printf("MAP line *%s*\n", global->s_map->line);
-	/*if (!ft_strcmp(global->s_map->line, ""))
+	while (global->s_map->line[i])
 	{
-		global->s_map = global->s_map->next;
-		printf("MAP line la ligne suivante - %s -\n", global->s_map->line);
+		if (ft_isspa(global->s_map->line[i]))
+			i++;
+		if (global->s_map->line[i] == COMMENT_CHAR)
+		{
+			global->s_map = global->s_map->next;
+			break;
+		}
+		else
+			break;
 	}
-	*/ft_stock_content(global, global->s_map->line);
+	ft_stock_content(global, global->s_map->line);
 	global->s_map = global->s_map->next;
 	global->i = 1;
 	while (global->s_map && ft_kind_of_line(global, global->s_map->line) == EMPTY_LABEL)
@@ -68,7 +78,7 @@ void		ft_with_label(global_t *global)
 */
 void		ft_sort_lines(global_t *global)
 {
-	char	comment_line[COMMENT_LENGTH + 1];
+	char	comment_line[COMMENT_LENGTH + 256];
 
 	if (global->s_map && ft_kind_of_line(global, global->s_map->line) == COMMENT)
 	{
