@@ -6,11 +6,30 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:52:52 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:54:11 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/16 17:29:12 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/op.h"
+
+char	*ft_strchrstart(const char *big, const char *little)
+{
+	int		i;
+	int		k;
+
+	i = 0;
+	k = 0;
+	while (big[i])
+	{
+		if (ft_isspa(big[i]))
+			i++;
+		else if (ft_strchr(little, big[i]))
+			return ((char *)big + i);
+		else
+			return (NULL);
+	}
+	return (NULL);
+}
 
 char	*ft_strstart(const char *big, const char *little)
 {
@@ -74,7 +93,7 @@ char	*ft_big_till_space(char *big)
 		i++;
 	while (big[i + m] == ' ' || big[i + m] == '\t')
 		m++;
-	if (big[i + m] != '\0' && big[i + m] != COMMENT_CHAR)
+	if (big[i + m] != '\0' && !ft_strchr(COMMENT_CHAR, big[i + m]))
 	{
 		ft_putstr("The chararcter used '");
 		ft_putchar(big[i + m]);

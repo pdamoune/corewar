@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:48:58 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 17:52:13 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/16 14:40:29 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ char	*add_instruct(global_t *global, char **line)
 {
 	int			i;
 	char		*arg;
-	static char comment[2] = {COMMENT_CHAR, 0};
 
 	arg = ft_strdup("00000000");
 	i = 0;
-	while (line[++i] && !ft_strstart(line[i], comment))
+	while (line[++i] && !ft_strchrstart(line[i], COMMENT_CHAR))
 	{
 		if (i > 3)
 			ft_exit(11, global, NULL);

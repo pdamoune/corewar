@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/15 17:56:00 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/16 18:55:08 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@
 #define IDX_MOD					(MEM_SIZE / 8)
 #define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
-#define COMMENT_CHAR			'#'
-#define COMMENT_CHAR_VIRG		';'
+#define COMMENT_CHAR			"#;"
 #define LABEL_CHAR				':'
 #define DIRECT_CHAR				'%'
 #define SEPARATOR_CHAR			','
@@ -107,7 +106,7 @@ typedef struct		global_s
 	struct label_s	*begin_label;
 	struct label_s	*s_label;
 	struct header_s	header;
-	char			res[CHAMP_MAX_SIZE + 1];
+	char			res[(2 * CHAMP_MAX_SIZE) + 1];
 	int				res_pc;
 }					global_t;
 
@@ -202,6 +201,7 @@ void	ft_initialize_content_null(content_t **content, char *line);
 */
 int		is_labelchars(int c);
 char	*ft_strstart(const char *big, const char *little);
+char	*ft_strchrstart(const char *big, const char *little);
 char	*ft_str_mod(const char *big, const char *little);
 char	*ft_big_till_space(char *big);
 char	*ft_strsubc(char **s, char c);
@@ -249,13 +249,6 @@ enum				e_conversion
 	lldi = 10,
 	lfork = 14,
 	aff = 15,
-	direct = 16,
-	indirect = 22,
-	R = 17,
-	Name_CMD_STRING = 18,
-	Comment_CMD_STRING = 19,
-	Comment_CHAR = 20,
-	Other_CMD_STRING = 21,
 };
 void	ft_ptr_tab(global_t *global, int index, int one_arg, int arg_ind);
 char	*(*p_tab[25])(global_t *, char **line);

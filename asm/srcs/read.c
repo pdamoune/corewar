@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 17:47:41 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/16 14:43:44 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void			ft_read(global_t *global, char *filename, char *line)
 			ft_exit(3, global, &line);
 		while (line[k] == ' ' || line[k] == '\t')
 			k++;
-		if (line[k] != COMMENT_CHAR)
+		if (!ft_strchr(COMMENT_CHAR, line[k]))
 			ft_stock_map(global, line);
 		free(line);
 		global->nb_lines++;

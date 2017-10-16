@@ -6,15 +6,14 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 19:00:10 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/16 15:55:26 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-void		ft_get_opcode(global_t *global, char *line)
+static int			ft_opcode(int index)
 {
-	int		index;
 	int		opcode[16];
 
 	opcode[0] = 1;
@@ -33,8 +32,15 @@ void		ft_get_opcode(global_t *global, char *line)
 	opcode[13] = 2;
 	opcode[14] = 15;
 	opcode[15] = 16;
+	return (opcode[index]);
+}
+
+void				ft_get_opcode(global_t *global, char *line)
+{
+	int		index;
+
 	index = ft_find_index(global, line);
-	global->res[global->res_pc] = opcode[index];
+	global->res[global->res_pc] = ft_opcode(index);
 	++global->res_pc;
 	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11)
 		ft_ptr_tab(global, index, 0, 0);
@@ -48,7 +54,7 @@ void		ft_get_opcode(global_t *global, char *line)
 		ft_exit(10, global, NULL);
 }
 
-void		ft_browse_content(global_t *global)
+void				ft_browse_content(global_t *global)
 {
 	global->s_label = global->begin_label;
 	while (!ft_strcmp(global->s_label->name, "HEADER")
@@ -67,7 +73,7 @@ void		ft_browse_content(global_t *global)
 	}
 }
 
-void		ft_get_values(global_t *global, char **line, int arg_ind)
+void				ft_get_values(global_t *global, char **line, int arg_ind)
 {
 	char			*val_tmp;
 
