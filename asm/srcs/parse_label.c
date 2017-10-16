@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 16:56:46 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 11:40:45 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/16 17:33:32 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				ft_kind_of_line(global_t *global, char *line)
 	i = 0;
 	if (line[i] == '\n')
 		return (EMPTY_LINE);
-	else if (line[i] == COMMENT_CHAR || line[i] == COMMENT_CHAR_VIRG)
+	else if (ft_strchr(COMMENT_CHAR, line[i]))
 		return (COMMENT);
 	else if (ft_strstart(line, NAME_CMD_STRING)
 			|| ft_strstart(line, COMMENT_CMD_STRING))
@@ -48,16 +48,29 @@ int				ft_kind_of_line(global_t *global, char *line)
 	return (0);
 }
 
-void			ft_with_label(global_t *global)
+static void		ft_follow_lab(global_t *global)
 {
-	int		i;
+	int			i;
 
 	i = 0;
+	while (global->s_map->line[i])
+	{
+		if (ft_isspa(global->s_map->line[i]))
+			i++;
+		else if (ft_strchr(COMMENT_CHAR, global->s_map->line[i]))
+		{
+			global->s_map = global->s_map->next;
+			return ;
+		}
+		else
+			return ;
+	}
+}
+
+void			ft_with_label(global_t *global)
+{
 	global->s_label->name = ft_strsubc(&(global->s_map->line), LABEL_CHAR);
-	while (ft_isspa(global->s_map->line[i]))
-		i++;
-	if (global->s_map->line[i] == COMMENT_CHAR)
-		global->s_map = global->s_map->next;
+	ft_follow_lab(global);
 	ft_stock_content(global, global->s_map->line);
 	global->s_map = global->s_map->next;
 	global->i = 1;

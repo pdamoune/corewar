@@ -13,7 +13,7 @@
 .name		"lazer"
 .comment	"Mundo dit beaucoup son nom pour pas l'oublier, pck c deja arriver!"
 
-entry:
+entry:           
 	sti		r1, %:live, %1
 	sti		r1, %:mov, %1
 	sti		r1, %:wall, %1

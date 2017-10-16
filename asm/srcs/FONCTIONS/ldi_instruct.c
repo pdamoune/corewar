@@ -6,11 +6,25 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:59:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 17:59:05 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/16 14:04:16 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
+
+static char		*ft_strstrchr(char *line, char *pool)
+{
+	int		i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_strchr(pool, line[i]))
+			return (line + i);
+		i++;
+	}
+	return (NULL);
+}
 
 char	*ft_arg_ldi_bis(global_t *global, char **line, int i, char **arg)
 {
@@ -28,7 +42,7 @@ char	*ft_arg_ldi_bis(global_t *global, char **line, int i, char **arg)
 	}
 	else if (i == 3)
 	{
-		if ((comment_tmp = ft_strchr(line[i], COMMENT_CHAR)))
+		if ((comment_tmp = ft_strstrchr(line[i], COMMENT_CHAR)))
 			*comment_tmp = '\0';
 		if (ft_strstart(line[i], "r"))
 			*arg = ft_arg(*arg, 3, REG_CODE);
