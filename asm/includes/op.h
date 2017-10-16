@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 17:23:26 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/16 18:55:08 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct		global_s
 	struct label_s	*begin_label;
 	struct label_s	*s_label;
 	struct header_s	header;
-	char			res[CHAMP_MAX_SIZE + 1];
+	char			res[(2 * CHAMP_MAX_SIZE) + 1];
 	int				res_pc;
 }					global_t;
 
