@@ -6,7 +6,7 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/10/17 17:15:52 by pdamoune         ###   ########.fr        #
+#    Updated: 2017/10/18 00:13:07 by pdamoune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,11 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 
 SRC_BASE	=	\
 main.c\
-init/init_asm_r.c\
-ops/op.c\
-display/verbose.c
+verbose.c\
+init_file.c\
+create_file.c\
+get_info.c\
+instru.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

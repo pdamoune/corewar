@@ -6,13 +6,13 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 17:46:58 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/16 19:03:57 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/10/17 23:48:30 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm_r.h>
 
-static void			asm_r_verbose(const int level, const char *str)
+static void	asm_r_verbose(const int level, const char *str)
 {
 	if (level == MSG_ERROR)
 		ft_dprintf(2, "{pur}Corewar:{red} %s{eoc}\n", str);
@@ -28,14 +28,15 @@ static void			asm_r_verbose(const int level, const char *str)
 		ft_printf("{pur}Corewar: {YEL}{bla}DEBUG:{eoc} {yel}%s{eoc}\n", str);
 }
 
-int					verbose(t_asm_r *asm_r, const int level, const char *message, ...)
+int			verbose(t_asm_r *asm_r, const int level, const char *message, ...)
 {
 	va_list		va;
 	char		*str;
 
-	if ((IS_SET(asm_r->flag, QUIET) && level < MSG_DEBUG) || (IS_UNSET(asm_r->flag,
-		DEBUG) && level == MSG_DEBUG) || (IS_UNSET(asm_r->flag, VERBOSE)
-		&& (level == MSG_INFO || level == MSG_WARNING)))
+	if ((IS_SET(asm_r->flag, QUIET) && level < MSG_DEBUG) ||
+	(IS_UNSET(asm_r->flag, DEBUG) && level == MSG_DEBUG) ||
+	(IS_UNSET(asm_r->flag, VERBOSE) && (level == MSG_INFO ||
+		level == MSG_WARNING)))
 		return (0);
 	va_start(va, message);
 	ft_vasprintf(&str, message, va);

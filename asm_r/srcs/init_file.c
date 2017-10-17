@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_asm_r.c                                       :+:      :+:    :+:   */
+/*   init_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/16 17:41:29 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/17 17:31:59 by pdamoune         ###   ########.fr       */
+/*   Created: 2017/10/17 23:59:35 by pdamoune          #+#    #+#             */
+/*   Updated: 2017/10/18 00:18:46 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm_r.h>
-
-static t_cliopts	g_read_opts[] =
-{
-	// {'d', "dump", DUMP, 0, init_dump, 1},
-	{'D', "debug", DEBUG, 0, NULL, 0},
-	// {'g', "graphic", WILL_GRAPHIC, 0, NULL, 0},
-	// {'i', "introduce", INTRO, 0, NULL, 0},
-	// {'k', "kill", KILL, 0, NULL, 0},
-	// {'m', "music", MUSIC, 0, NULL, 0},
-	// {'n', "number", 0, 0, init_number, 2},
-	// {'o', "operation", OPERATION, 0, NULL, 0},
-	{'q', "quiet", QUIET, VERBOSE, NULL, 0},
-	// {'s', "sound", SOUND, 0, NULL, 0},
-	{'v', "verbose", VERBOSE, QUIET, NULL, 0},
-	// {'V', "voice", VOICE, 0, NULL, 0},
-	// {'z', "zaz", ZAZ, 0, NULL, 0},
-	{0, 0, 0, 0, 0, 0},
-};
 
 static int		analyze_header(t_asm_r *asm_r, t_header *header)
 {
@@ -88,7 +70,7 @@ int				init_file(t_asm_r *asm_r, t_file *file, char *filename)
 	if ((fd = open(filename, O_RDONLY)) == -1)
 	{
 		return (verbose(asm_r, MSG_ERROR, "{yel}%s:{red} %s",
-				filename, strerror(errno))); // TODO Gestion erreur puis fichier suivant
+				filename, strerror(errno)));
 	}
 	if (init_data(asm_r, fd, file))
 	{
@@ -97,25 +79,5 @@ int				init_file(t_asm_r *asm_r, t_file *file, char *filename)
 				filename));
 	}
 	close(fd);
-	return (0);
-}
-
-int			init_asm_r(t_asm_r *asm_r, char ***av)
-{
-	if ((cliopts_get(*av, g_read_opts, asm_r)))
-		return (ft_perror("asm-r") && usage());
-
-	if (asm_r->av_data)
-	{
-		while (*asm_r->av_data)
-		{
-			asm_r->file.filename = *asm_r->av_data;
-			if (init_file(asm_r, &asm_r->file, *asm_r->av_data++))
-				continue ;
-			if (create_asm_r(asm_r, &asm_r->file))
-				continue ;
-		}
-	}
-
 	return (0);
 }

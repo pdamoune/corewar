@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 17:27:04 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/17 23:34:12 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/10/18 00:18:48 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct		s_header
 
 typedef struct		s_file
 {
-	char			*filename; // .cor
+	char			*filename;
 	t_header		header;
 	char			prog[CHAMP_MAX_SIZE + 1];
 }					t_file;
@@ -64,12 +64,13 @@ typedef struct		s_op
 	int		index;
 }					t_op;
 
-void 		display(t_file *file);
-
-int			main(int ac, char **av);
-int 		usage(void);
-int			verbose(t_asm_r *asm_r, const int level, const char *message, ...);
-int			init_asm_r(t_asm_r *asm_r, char ***av);
-int			create_asm_r(t_asm_r *asm_r, t_file *file);
+int		usage(void);
+int		verbose(t_asm_r *asm_r, const int level, const char *message, ...);
+int		main(int ac, char **av);
+int		init_file(t_asm_r *asm_r, t_file *file, char *filename);
+int		create_file(t_asm_r *asm_r, t_file *file);
+int		instru(t_asm_r *asm_r, int fd, t_op op, char **prog);
+void	get_type(unsigned char ocp, int nb_params, unsigned int *type);
+unsigned int	get_value(char *prog, t_op op, unsigned int type, int *pc_inc);
 
 #endif
