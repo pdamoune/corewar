@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 17:26:48 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/16 20:05:20 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/10/17 17:08:53 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void 	display(t_file *file)
 {
-	ft_printf("filename     = %s\n", file->filename);
+	ft_printf("\nfilename     = %s\n", file->filename);
 	ft_printf("magic        = %x\n", file->header.magic);
-	ft_printf("prog_name    = %s\n", file->header.prog_name);
+	ft_printf("prog_name    = %.5s [...] len = %d\n", file->header.prog_name, ft_strlen(file->header.prog_name));
 	ft_printf("prog_size    = %d\n", file->header.prog_size);
-	ft_printf("comment      = %s\n", file->header.comment);
-	ft_printf("prog         = %x\n", file->prog[0]);
+	ft_printf("comment      = %.5s [...] len = %d\n", file->header.comment, ft_strlen(file->header.comment));
+	ft_printf("prog         = %02x\n\n", file->prog[0]);
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 17:41:29 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/16 20:07:59 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/10/17 17:31:59 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,6 @@ int				init_data(t_asm_r *asm_r, int fd, t_file *file)
 	return (0);
 }
 
-int			analizer(t_file *file)
-{
-	display(file);
-
-	return (1);
-}
-
 int				init_file(t_asm_r *asm_r, t_file *file, char *filename)
 {
 	int			fd;
@@ -118,8 +111,9 @@ int			init_asm_r(t_asm_r *asm_r, char ***av)
 		{
 			asm_r->file.filename = *asm_r->av_data;
 			if (init_file(asm_r, &asm_r->file, *asm_r->av_data++))
-				return (1);
-			analizer(&asm_r->file);
+				continue ;
+			if (create_asm_r(asm_r, &asm_r->file))
+				continue ;
 		}
 	}
 

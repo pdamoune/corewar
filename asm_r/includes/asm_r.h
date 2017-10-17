@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 17:27:04 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/16 19:43:39 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/10/17 23:34:12 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <libft.h>
 # include <op.h>
 # include <errno.h>
+
+# define FILE_EXT		"des"
 
 # define DEBUG			(1 << 0)
 # define VERBOSE		(1 << 1)
@@ -27,7 +29,6 @@
 # define MSG_DEBUG		3
 # define MSG_ERROR		4
 # define MSG_SUCESS		5
-# define MSG_STD_G		6
 
 typedef struct		s_header
 {
@@ -51,11 +52,24 @@ typedef struct		s_asm_r
 	t_file			file;
 }					t_asm_r;
 
+typedef struct		s_op
+{
+	char	*label;
+	int		nb_params;
+	int		params[MAX_ARGS_NUMBER];
+	int		op_code;
+	int		cycle;
+	char	*description;
+	int		ocp;
+	int		index;
+}					t_op;
+
 void 		display(t_file *file);
 
 int			main(int ac, char **av);
 int 		usage(void);
 int			verbose(t_asm_r *asm_r, const int level, const char *message, ...);
 int			init_asm_r(t_asm_r *asm_r, char ***av);
+int			create_asm_r(t_asm_r *asm_r, t_file *file);
 
 #endif
