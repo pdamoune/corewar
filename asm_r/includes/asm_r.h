@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 17:27:04 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/18 00:18:48 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/10/18 00:32:26 by pdamoune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <op.h>
 # include <errno.h>
 
-# define FILE_EXT		"des"
+# define FILE_EXT				"des"
 
 # define DEBUG			(1 << 0)
 # define VERBOSE		(1 << 1)
@@ -54,23 +54,26 @@ typedef struct		s_asm_r
 
 typedef struct		s_op
 {
-	char	*label;
-	int		nb_params;
-	int		params[MAX_ARGS_NUMBER];
-	int		op_code;
-	int		cycle;
-	char	*description;
-	int		ocp;
-	int		index;
+	char			*label;
+	int				nb_params;
+	int				params[MAX_ARGS_NUMBER];
+	int				op_code;
+	int				cycle;
+	char			*description;
+	int				ocp;
+	int				index;
 }					t_op;
 
-int		usage(void);
-int		verbose(t_asm_r *asm_r, const int level, const char *message, ...);
-int		main(int ac, char **av);
-int		init_file(t_asm_r *asm_r, t_file *file, char *filename);
-int		create_file(t_asm_r *asm_r, t_file *file);
-int		instru(t_asm_r *asm_r, int fd, t_op op, char **prog);
-void	get_type(unsigned char ocp, int nb_params, unsigned int *type);
-unsigned int	get_value(char *prog, t_op op, unsigned int type, int *pc_inc);
+int					usage(void);
+int					verbose(t_asm_r *asm_r, const int level,
+	const char *message, ...);
+int					main(int ac, char **av);
+int					init_file(t_asm_r *asm_r, t_file *file, char *filename);
+int					create_file(t_asm_r *asm_r, t_file *file);
+int					instru(t_asm_r *asm_r, int fd, t_op op, char **prog);
+void				get_type(unsigned char ocp, int nb_params,
+	unsigned int *type);
+unsigned int		get_value(char *prog, t_op op, unsigned int type,
+	int *pc_inc);
 
 #endif
