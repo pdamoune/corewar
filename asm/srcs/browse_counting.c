@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:27:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 19:08:11 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_find_index(t_global *global, char *line)
 	i = 0;
 	while (global->index_tab[i])
 	{
-		if (line && ft_strstart(line, global->index_tab[i]))
+		if (line && !ft_strcmp(line, global->index_tab[i]))
 			return (i);
 		i++;
 	}

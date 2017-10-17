@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 18:29:29 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,14 @@ int				main(int argc, char **argv)
 	while (++i < argc)
 	{
 		len = ft_strlen(argv[i]);
-		title = malloc(len + 4);
+		title = malloc(len + 3);
 		ft_memcpy(title, argv[i], len - 1);
-		ft_memcpy(title + len - 2, "1.cor", 6);
+		ft_memcpy(title + len - 1, "cor", 4);
 		ft_read(global, argv[i], line);
 		ft_open(global, title);
 		write(global->fdout, global->res, global->total_octet);
 		close(global->fdin);
-		ft_putstr("Writing output in ");
+		ft_putstr("Writing output program to ");
 		ft_putendl(title);
 	}
 	return (0);
