@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:34:26 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:34:30 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/op.h"
 
-char	*ft_construct_octets(global_t *global, int type, int nb_octet)
+char	*ft_construct_octets(t_global *global, int type, int nb_octet)
 {
 	char	*result;
 
@@ -33,7 +33,7 @@ char	*ft_construct_octets(global_t *global, int type, int nb_octet)
 	return (result);
 }
 
-char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet)
+char	*ft_convert_hexa(t_global *global, char *arg, int type, int nb_octet)
 {
 	char	*result;
 	char	*value;

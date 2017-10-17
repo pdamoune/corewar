@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 15:55:26 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int			ft_opcode(int index)
 	return (opcode[index]);
 }
 
-void				ft_get_opcode(global_t *global, char *line)
+void				ft_get_opcode(t_global *global, char *line)
 {
 	int		index;
 
@@ -43,18 +43,18 @@ void				ft_get_opcode(global_t *global, char *line)
 	global->res[global->res_pc] = ft_opcode(index);
 	++global->res_pc;
 	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11)
-		ft_ptr_tab(global, index, 0, 0);
+		ft_g_ptr_tab(global, index, 0, 0);
 	else if (index == 0 || index == 15)
-		ft_ptr_tab(global, index, 1, 0);
+		ft_g_ptr_tab(global, index, 1, 0);
 	else if (index == 6 || index == 9 || index == 14)
-		ft_ptr_tab(global, index, 1, 1);
+		ft_g_ptr_tab(global, index, 1, 1);
 	else if (index == 7 || index == 10 || index == 12)
-		ft_ptr_tab(global, index, 0, 1);
+		ft_g_ptr_tab(global, index, 0, 1);
 	else
 		ft_exit(10, global, NULL);
 }
 
-void				ft_browse_content(global_t *global)
+void				ft_browse_content(t_global *global)
 {
 	global->s_label = global->begin_label;
 	while (!ft_strcmp(global->s_label->name, "HEADER")
@@ -73,7 +73,7 @@ void				ft_browse_content(global_t *global)
 	}
 }
 
-void				ft_get_values(global_t *global, char **line, int arg_ind)
+void				ft_get_values(t_global *global, char **line, int arg_ind)
 {
 	char			*val_tmp;
 

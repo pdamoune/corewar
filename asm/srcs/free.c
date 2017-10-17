@@ -6,22 +6,22 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:55:30 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:56:51 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-void		ft_free_global(global_t *global)
+void		ft_free_global(t_global *global)
 {
 	ft_free_tab(global->index_tab);
 	ft_free_labels(global);
 	free(global);
 }
 
-void		ft_free_map(global_t *global)
+void		ft_free_map(t_global *global)
 {
-	map_t	*tmp;
+	t_map	*tmp;
 
 	global->s_map = global->begin_map;
 	while (global->s_map)
@@ -34,9 +34,9 @@ void		ft_free_map(global_t *global)
 	}
 }
 
-void		ft_free_labels(global_t *global)
+void		ft_free_labels(t_global *global)
 {
-	label_t	*tmp;
+	t_label	*tmp;
 
 	global->s_label = global->begin_label;
 	while (global->s_label)
@@ -49,9 +49,9 @@ void		ft_free_labels(global_t *global)
 	}
 }
 
-void		ft_free_content(global_t *global)
+void		ft_free_content(t_global *global)
 {
-	content_t	*tmp;
+	t_content	*tmp;
 
 	global->s_label->s_content = global->s_label->begin_content;
 	while (global->s_label->s_content)

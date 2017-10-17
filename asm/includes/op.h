@@ -6,14 +6,14 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 18:55:08 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:19:15 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include "../../libft/includes/ft_printf.h"
-# include "../../libft/includes/get_next_line.h"
-# include "../../libft/includes/libft.h"
+#include <stdio.h>
+#include "../../libft/includes/ft_printf.h"
+#include "../../libft/includes/get_next_line.h"
+#include "../../libft/includes/libft.h"
 
 /*
 ** Toutes les tailles sont en octets.
@@ -24,12 +24,10 @@
 #define REG_SIZE				4
 #define DIR_SIZE				REG_SIZE
 
-
-# define REG_CODE				1
-# define DIR_CODE				2
-# define IND_CODE				3
-# define ARG_CODE				4
-
+#define REG_CODE				1
+#define DIR_CODE				2
+#define IND_CODE				3
+#define ARG_CODE				4
 
 #define MAX_ARGS_NUMBER			4
 #define MAX_PLAYERS				4
@@ -54,10 +52,6 @@
 #define NBR_LIVE				21
 #define MAX_CHECKS				10
 
-/*
-**
-*/
-
 typedef char	t_arg_type;
 
 #define T_REG					1
@@ -65,21 +59,17 @@ typedef char	t_arg_type;
 #define T_IND					4
 #define T_LAB					8
 
-/*
-**
-*/
+#define PROG_NAME_LENGTH		(128)
+#define COMMENT_LENGTH			(2048)
+#define COREWAR_EXEC_MAGIC		0xea83f3
 
-# define PROG_NAME_LENGTH		(128)
-# define COMMENT_LENGTH			(2048)
-# define COREWAR_EXEC_MAGIC		0xea83f3
-
-typedef struct		header_s
+typedef struct			s_header
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-}					header_t;
+	unsigned int		magic;
+	char				prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int		prog_size;
+	char				comment[COMMENT_LENGTH + 1];
+}						t_header;
 
 /*
 *****************************************************************************
@@ -90,66 +80,67 @@ typedef struct		header_s
 **  STRUCTURES DE BASES DE L'ASM
 */
 
-typedef struct		global_s
+typedef struct			s_global
 {
-	int				nb_empty;
-	int	    		nb_lines;
-	char			**index_tab;
-	int				total_octet;
-	int	    		i;
-	int	    		j;
-	int	    		k;
-	int	    		fdIn;
-	int				fdOut;
-	struct map_s	*begin_map;
-	struct map_s	*s_map;
-	struct label_s	*begin_label;
-	struct label_s	*s_label;
-	struct header_s	header;
-	char			res[(2 * CHAMP_MAX_SIZE) + 1];
-	int				res_pc;
-}					global_t;
+	int					nb_empty;
+	int					nb_lines;
+	char				**index_tab;
+	int					total_octet;
+	int					i;
+	int					j;
+	int					k;
+	int					fdin;
+	int					fdout;
+	struct s_map		*begin_map;
+	struct s_map		*s_map;
+	struct s_label		*begin_label;
+	struct s_label		*s_label;
+	struct s_header		header;
+	char				res[(2 * CHAMP_MAX_SIZE) + 1];
+	int					res_pc;
+}						t_global;
 
-typedef struct		label_s
+typedef struct			s_label
 {
-	struct content_s	*begin_content;
-	struct content_s	*s_content;
+	struct s_content	*begin_content;
+	struct s_content	*s_content;
 	char				*name;
 	int					index;
 	int					num;
-	struct label_s		*next;
-	struct label_s		*previous;
+	struct s_label		*next;
+	struct s_label		*previous;
 
-}					label_t;
+}						t_label;
 
-typedef struct		content_s
+typedef struct			s_content
 {
 	char				**line;
 	int					nb_octet;
 	int					begin_octet;
 	char				*instruction;
-	struct content_s	*next;
-	struct content_s	*previous;
-}					content_t;
+	struct s_content	*next;
+	struct s_content	*previous;
+}						t_content;
 
-typedef struct		map_s
+typedef struct			s_map
 {
-	char			*line;
-	struct map_s	*next;
-	struct map_s	*previous;
-}					map_t;
+	char				*line;
+	struct s_map		*next;
+	struct s_map		*previous;
+}						t_map;
 
-typedef	struct	s_var
+typedef	struct			s_var
 {
-	int				chaine;
-	int				mot;
-	int				lettre;
-	struct s_var	*next;
-}				t_var;
+	int					chaine;
+	int					mot;
+	int					lettre;
+	struct s_var		*next;
+}						t_var;
 
 /*
 **   DEFINE
 */
+
 #define EMPTY_LINE				1
 #define COMMENT					2
 #define WITH_LABEL				3
@@ -158,44 +149,48 @@ typedef	struct	s_var
 
 #define OCTET					0
 #define STOCK					1
+
 /*
 **   FONCTIONS DE L'ASM
 */
-void	ft_controller(global_t *global);
-void	ft_parse_label(global_t *global);
-void	ft_exit(int nb, global_t *global, char **line);
-int		ft_write(global_t *global, char *string, int size);
-void	ft_read(global_t *global, char *filename, char *line);
-int		ft_find_index(global_t *global, char *line);
-void	ft_counting(global_t *global, char *inst_line);
-void	ft_browse_file_counting(global_t *global);
-void	ft_browse_content(global_t *global);
-void	ft_get_opcode(global_t *global, char *line);
-void	ft_calcul_octet(global_t *global, char **line, int arg_ind);
-void	ft_parse_header(global_t *global);
-void	ft_comment_is_done(global_t *global, char *com);
-int		ft_open(global_t *global, char *str);
-void	ft_str_is_header(global_t *global);
+
+void	ft_controller(t_global *global);
+void	ft_parse_label(t_global *global);
+void	ft_exit(int nb, t_global *global, char **line);
+int		ft_write(t_global *global, char *string, int size);
+void	ft_read(t_global *global, char *filename, char *line);
+int		ft_find_index(t_global *global, char *line);
+void	ft_counting(t_global *global, char *inst_line);
+void	ft_browse_file_counting(t_global *global);
+void	ft_browse_content(t_global *global);
+void	ft_get_opcode(t_global *global, char *line);
+void	ft_calcul_octet(t_global *global, char **line, int arg_ind);
+void	ft_parse_header(t_global *global);
+void	ft_comment_is_done(t_global *global, char *com);
+int		ft_open(t_global *global, char *str);
+void	ft_str_is_header(t_global *global);
+char	*ft_strstrchr(char *line, char *pool);
+void	ft_erase_cmt(char *line);
 /*
 **   FONCTIONS FREE
 */
-void	ft_free_global(global_t *global);
-void	ft_free_map(global_t *global);
-void	ft_free_labels(global_t *global);
-void	ft_free_content(global_t *global);
+void	ft_free_global(t_global *global);
+void	ft_free_map(t_global *global);
+void	ft_free_labels(t_global *global);
+void	ft_free_content(t_global *global);
 /*
 **   FONCTIONS INIT_STRUCT DE L'ASM
 */
-void	ft_initialize_global(global_t **global);
-void	ft_initialize_map(map_t **map, char *line);
-void	ft_stock_map(global_t *global, char *line);
-void	ft_initialize_label(label_t **label);
-void	ft_stock_label(global_t *global);
-void	ft_initialize_content(content_t **content, char *line);
-void	ft_stock_content(global_t *global, char *line);
-void	ft_browse_label(global_t *global, int type);
-void	ft_initialize_header(header_t **header);
-void	ft_initialize_content_null(content_t **content, char *line);
+void	ft_initialize_global(t_global **global);
+void	ft_initialize_map(t_map **map, char *line);
+void	ft_stock_map(t_global *global, char *line);
+void	ft_initialize_label(t_label **label);
+void	ft_stock_label(t_global *global);
+void	ft_initialize_content(t_content **content, char *line);
+void	ft_stock_content(t_global *global, char *line);
+void	ft_browse_label(t_global *global, int type);
+void	ft_initialize_header(t_header **header);
+void	ft_initialize_content_null(t_content **content, char *line);
 /*
 **   LIBRAIRIES ASM (en complément de LIBFT)
 */
@@ -213,24 +208,19 @@ char	**ft_split_tab(char **tab1);
 void	ft_print_lines(char **tab);
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
 char	*ft_arg(char *arg, int param, int type);
-char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet);
+char	*ft_convert_hexa(t_global *global, char *arg, int type, int nb_octet);
 int		ft_isstrdigit(char *s);
 int		ft_isdigitspace(char *s);
 int		ft_isstrint(char *s);
 void	ft_free_tab(char **tab);
 int		ft_strlen_tab(char **tab);
-int		go_to_label(char *label, global_t *global);
+int		go_to_label(char *label, t_global *global);
 char	*ft_free_strjoin(char **s1, char **s2);
-/*
-**   FONCTIONS DE TESTS POUR DEBUG -- A supprimer
-*/
-void	DEBUG_read_map(global_t *global);
-void	DEBUG_read_labels(global_t *global);
-void	DEBUG_read_content(global_t *global);
-void	ft_print_words_tables(char **tab);
+
 /*
 **   FONCTIONS DE TRADUCTIONS
 */
+
 enum				e_conversion
 {
 	live = 0,
@@ -250,34 +240,35 @@ enum				e_conversion
 	lfork = 14,
 	aff = 15,
 };
-void	ft_ptr_tab(global_t *global, int index, int one_arg, int arg_ind);
-char	*(*p_tab[25])(global_t *, char **line);
-char	*ld_instruct(global_t *global, char **line);
-char	*st_instruct(global_t *global, char **line);
-char	*add_instruct(global_t *global, char **line);
-char	*and_instruct(global_t *global, char **line);
-char	*sub_instruct(global_t *global, char **line);
-char	*and_instruct(global_t *global, char **line);
-char	*or_instruct(global_t *global, char **line);
-char	*xor_instruct(global_t *global, char **line);
-char	*ldi_instruct(global_t *global, char **line);
-char	*sti_instruct(global_t *global, char **line);
-char	*lld_instruct(global_t *global, char **line);
-char	*lldi_instruct(global_t *global, char **line);
-char	*aff_instruct(global_t *global, char **line);
+
+void	ft_g_ptr_tab(t_global *global, int index, int one_arg, int arg_ind);
+char	*(*g_ptr_tab[25])(t_global *, char **line);
+char	*ld_instruct(t_global *global, char **line);
+char	*st_instruct(t_global *global, char **line);
+char	*add_instruct(t_global *global, char **line);
+char	*and_instruct(t_global *global, char **line);
+char	*sub_instruct(t_global *global, char **line);
+char	*and_instruct(t_global *global, char **line);
+char	*or_instruct(t_global *global, char **line);
+char	*xor_instruct(t_global *global, char **line);
+char	*ldi_instruct(t_global *global, char **line);
+char	*sti_instruct(t_global *global, char **line);
+char	*lld_instruct(t_global *global, char **line);
+char	*lldi_instruct(t_global *global, char **line);
+char	*aff_instruct(t_global *global, char **line);
 /*
 **	SOUS-FONCTIONS DE TRADUCTION
 */
-void	ft_get_values(global_t *global, char **line, int arg_ind);
-void	gal_fct(global_t *global, int one_arg, char *arg_tmp, int arg_ind);
-char	*ft_arg_and_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_ld_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_st_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_add_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_sub_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_or_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_xor_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_ldi_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_sti_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_lld_bis(global_t *global, char **line, int i, char **arg);
-char	*ft_arg_lldi_bis(global_t *global, char **line, int i, char **arg);
+void	ft_get_values(t_global *global, char **line, int arg_ind);
+void	gal_fct(t_global *global, int one_arg, char *arg_tmp, int arg_ind);
+char	*ft_arg_and_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_ld_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_st_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_add_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_sub_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_or_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_xor_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_ldi_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_sti_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_lld_bis(t_global *global, char **line, int i, char **arg);
+char	*ft_arg_lldi_bis(t_global *global, char **line, int i, char **arg);

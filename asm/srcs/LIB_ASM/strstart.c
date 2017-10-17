@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:52:52 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 17:29:12 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 13:28:59 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,51 +33,22 @@ char	*ft_strchrstart(const char *big, const char *little)
 
 char	*ft_strstart(const char *big, const char *little)
 {
-	int		i;
-	int		k;
+	char	*find;
 
-	i = 0;
-	k = 0;
-	if (little[0] == '\0')
-		return ((char *)big);
-	while (big[i])
-	{
-		if ((size_t)k < ft_strlen(little) && (big[i] == ' ' || big[i] == '\t'))
-			i++;
-		if (little[k] == '\0')
-			return ((char *)big + i);
-		if (big[i] == little[k])
-		{
-			i++;
-			k++;
-		}
-		else
-			return (NULL);
-	}
-	if (big[i] == little[k] && (size_t)k == ft_strlen(little))
-		return ((char *)big + i);
-	return (NULL);
+	if ((find = ft_strstr(big, little)))
+		return (find + ft_strlen(little));
+	else
+		return (NULL);
 }
 
 char	*ft_str_mod(const char *big, const char *little)
 {
-	int		i;
+	char	*find;
 
-	i = 0;
-	if (little[0] == '\0')
-		return (ft_big_till_space((char *)big));
-	while (big[i])
-	{
-		if (little[i] == '\0')
-			return (ft_big_till_space((char *)big + i));
-		if (big[i] == little[i])
-			i++;
-		else
-			return (NULL);
-	}
-	if (big[i] == little[i] && (size_t)i == ft_strlen(little))
-		return (ft_big_till_space((char *)big + i));
-	return (NULL);
+	if ((find = ft_strstr(big, little)))
+		return (ft_big_till_space(find + ft_strlen(little)));
+	else
+		return (NULL);
 }
 
 char	*ft_big_till_space(char *big)

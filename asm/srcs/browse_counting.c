@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:27:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 17:27:55 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-int		ft_find_index(global_t *global, char *line)
+int		ft_find_index(t_global *global, char *line)
 {
 	int i;
 
@@ -26,7 +26,7 @@ int		ft_find_index(global_t *global, char *line)
 	return (i);
 }
 
-void	ft_counting(global_t *global, char *inst_line)
+void	ft_counting(t_global *global, char *inst_line)
 {
 	int	index;
 
@@ -49,7 +49,7 @@ void	ft_counting(global_t *global, char *inst_line)
 		ft_exit(10, global, NULL);
 }
 
-void	ft_calcul_octet(global_t *global, char **line, int arg_ind)
+void	ft_calcul_octet(t_global *global, char **line, int arg_ind)
 {
 	int		i;
 	char	*val_tmp;
@@ -68,7 +68,7 @@ void	ft_calcul_octet(global_t *global, char **line, int arg_ind)
 	}
 }
 
-void	ft_browse_file_counting(global_t *global)
+void	ft_browse_file_counting(t_global *global)
 {
 	global->s_label = global->begin_label;
 	while (!ft_strcmp(global->s_label->name, "HEADER")

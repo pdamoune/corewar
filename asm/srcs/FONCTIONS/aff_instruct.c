@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:52:37 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 17:54:48 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:05:48 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-char	*aff_instruct(global_t *global, char **line)
+char	*aff_instruct(t_global *global, char **line)
 {
 	int		i;
 	char	*arg;

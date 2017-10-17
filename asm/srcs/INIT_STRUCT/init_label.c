@@ -6,15 +6,15 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:24:25 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:25:26 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-void		ft_initialize_label(label_t **label)
+void		ft_initialize_label(t_label **label)
 {
-	if (!(*label = (label_t*)malloc(sizeof(label_t))))
+	if (!(*label = (t_label*)malloc(sizeof(t_label))))
 		return ;
 	(*label)->begin_content = NULL;
 	(*label)->s_content = NULL;
@@ -25,9 +25,9 @@ void		ft_initialize_label(label_t **label)
 	(*label)->previous = NULL;
 }
 
-void		ft_stock_label(global_t *global)
+void		ft_stock_label(t_global *global)
 {
-	label_t	*new;
+	t_label	*new;
 
 	new = NULL;
 	ft_initialize_label(&new);

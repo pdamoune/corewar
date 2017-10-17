@@ -6,15 +6,15 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:35:15 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:36:31 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/op.h"
 
-int		go_to_label(char *label, global_t *global)
+int		go_to_label(char *label, t_global *global)
 {
-	label_t		*tmp;
+	t_label		*tmp;
 	int			begin_octet;
 	int			label_octet;
 	int			stop;

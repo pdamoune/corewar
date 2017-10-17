@@ -6,20 +6,19 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:26:50 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 16:48:19 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:23:07 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-void		ft_initialize_content(content_t **content, char *line)
+void		ft_initialize_content(t_content **content, char *line)
 {
 	char **tab1;
 	char **tab2;
 
-	tab1 = NULL;
-	tab2 = NULL;
-	if (!(*content = (content_t*)malloc(sizeof(content_t))))
+	ft_erase_cmt(line);
+	if (!(*content = (t_content*)ft_memalloc(sizeof(t_content))))
 		return ;
 	tab1 = ft_strsplit_cmt(ft_strdup_asm(line));
 	if (ft_strlen_tab(tab1) > 1)
@@ -27,19 +26,14 @@ void		ft_initialize_content(content_t **content, char *line)
 	else
 		tab2 = ft_strsplit_virg(ft_strdup_asm(line));
 	(*content)->line = ft_split_tab(tab2);
-	(*content)->nb_octet = 0;
-	(*content)->begin_octet = 0;
-	(*content)->next = NULL;
-	(*content)->instruction = NULL;
-	(*content)->previous = NULL;
 }
 
-void		ft_initialize_content_header(content_t **content, char *line)
+void		ft_initialize_content_header(t_content **content, char *line)
 {
 	char	**tmp;
 
 	tmp = ft_strsplit(line, '"');
-	if (!(*content = (content_t*)malloc(sizeof(content_t))))
+	if (!(*content = (t_content*)malloc(sizeof(t_content))))
 		return ;
 	if (!((*content)->line = (char**)malloc(sizeof(char*) * 3)))
 		return ;
@@ -56,12 +50,12 @@ void		ft_initialize_content_header(content_t **content, char *line)
 	(*content)->previous = NULL;
 }
 
-void		ft_initialize_content_name(content_t **content, char *line)
+void		ft_initialize_content_name(t_content **content, char *line)
 {
 	char	**tmp;
 
 	tmp = ft_strsplit(line, '"');
-	if (!(*content = (content_t*)malloc(sizeof(content_t))))
+	if (!(*content = (t_content*)malloc(sizeof(t_content))))
 		return ;
 	if (!((*content)->line = (char**)malloc(sizeof(char*) * 3)))
 		return ;
@@ -79,10 +73,10 @@ void		ft_initialize_content_name(content_t **content, char *line)
 **  STOCKE CHAQUE LINE DANS LA STRUCT CONTENT
 */
 
-void		ft_stock_content(global_t *global, char *line)
+void		ft_stock_content(t_global *global, char *line)
 {
-	content_t	*new;
-	content_t	*previous;
+	t_content	*new;
+	t_content	*previous;
 
 	new = NULL;
 	previous = NULL;
@@ -105,7 +99,7 @@ void		ft_stock_content(global_t *global, char *line)
 	global->s_label->s_content = new;
 }
 
-void		ft_initialize_content_null(content_t **content, char *line)
+void		ft_initialize_content_null(t_content **content, char *line)
 {
 	(*content)->line = &line;
 	(*content)->nb_octet = 0;

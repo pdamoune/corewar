@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:48:58 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 14:40:29 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:05:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-char	*ft_arg_add_bis(global_t *global, char **line, int i, char **arg)
+char	*ft_arg_add_bis(t_global *global, char **line, int i, char **arg)
 {
 	if (i == 2)
 	{
@@ -31,7 +31,7 @@ char	*ft_arg_add_bis(global_t *global, char **line, int i, char **arg)
 	return (*arg);
 }
 
-char	*add_instruct(global_t *global, char **line)
+char	*add_instruct(t_global *global, char **line)
 {
 	int			i;
 	char		*arg;

@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:50:34 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 23:55:05 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:24:30 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static char			**ft_copy_tab_2(char **tab3, char **tab2)
 	return (tab3);
 }
 
-
 static char			**ft_copy_tab_1_and_3(char **tab3, char **tab1, char **tab)
 {
 	int		i;
@@ -52,7 +51,7 @@ static char			**ft_copy_tab_1_and_3(char **tab3, char **tab1, char **tab)
 	return (tab);
 }
 
-char			**ft_keep_first(char **tab2)
+char				**ft_keep_first(char **tab2)
 {
 	int		i;
 	int		len;
@@ -73,7 +72,7 @@ char			**ft_keep_first(char **tab2)
 	return (tab3);
 }
 
-char			**ft_split_tab(char **tab1)
+char				**ft_split_tab(char **tab1)
 {
 	char	**tab2;
 	char	**tab3;

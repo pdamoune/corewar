@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:02:06 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:02:17 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-char	*ft_arg_or_bis(global_t *global, char **line, int i, char **arg)
+char	*ft_arg_or_bis(t_global *global, char **line, int i, char **arg)
 {
 	if (i == 2)
 	{
@@ -33,7 +33,7 @@ char	*ft_arg_or_bis(global_t *global, char **line, int i, char **arg)
 	return (*arg);
 }
 
-char	*or_instruct(global_t *global, char **line)
+char	*or_instruct(t_global *global, char **line)
 {
 	int		i;
 	char	*arg;

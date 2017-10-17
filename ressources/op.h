@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/08/23 17:34:44 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/10/17 15:43:59 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef struct		header_s
+typedef struct		s_header
 {
   unsigned int		magic;
   char				prog_name[PROG_NAME_LENGTH + 1];
   unsigned int		prog_size;
   char				comment[COMMENT_LENGTH + 1];
-}					header_t;
+}					t_header;

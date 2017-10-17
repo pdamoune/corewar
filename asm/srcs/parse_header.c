@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 18:50:26 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:23:42 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-void			ft_comment_is_done(global_t *global, char *com)
+void			ft_comment_is_done(t_global *global, char *com)
 {
 	int		i;
 	int		nb_quote;
@@ -41,7 +41,7 @@ void			ft_comment_is_done(global_t *global, char *com)
 	}
 }
 
-static void		ft_kind_of_header(global_t *global,
+static void		ft_kind_of_header(t_global *global,
 			char *header, int size, int error)
 {
 	int k;
@@ -65,17 +65,17 @@ static void		ft_kind_of_header(global_t *global,
 	}
 }
 
-void			ft_parse_header(global_t *global)
+void			ft_parse_header(t_global *global)
 {
 	unsigned int	rev;
 
 	global->s_label = global->begin_label;
-	if (global->total_octet > (MEM_SIZE /3))
+	if (global->total_octet > (MEM_SIZE / 3))
 		ft_exit(7, global, NULL);
 	if (global->total_octet > CHAMP_MAX_SIZE)
 		ft_putendl("Warning, champion too heavy to fit in the arena.");
 	rev = INTREV32(global->total_octet);
-	ft_bzero(&global->header, sizeof(header_t));
+	ft_bzero(&global->header, sizeof(t_header));
 	ft_bzero(global->res, CHAMP_MAX_SIZE + CHAMP_MAX_SIZE + 1);
 	global->header.prog_size = rev;
 	while (!ft_strcmp(global->s_label->name, "HEADER"))

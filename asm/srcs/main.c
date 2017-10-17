@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 14:43:44 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,29 @@ static char		*g_errors[20] =
 	"Le header donne n'est ni un name, ni un comment",
 };
 
-void			ft_exit(int nb, global_t *global, char **line)
+void			ft_exit(int nb, t_global *global, char **line)
 {
 	ft_printf("ERROR n°%d : %s\n", nb, g_errors[nb - 1]);
-	close(global->fdIn);
+	close(global->fdin);
 	ft_free_global(global);
 	if (line && *line)
 		ft_strdel(line);
 	exit(0);
 }
 
-int				ft_open(global_t *global, char *str)
+int				ft_open(t_global *global, char *str)
 {
 	int		magic_bis;
 
 	magic_bis = COREWAR_EXEC_MAGIC;
 	global->header.magic = INTREV32(magic_bis);
-	global->fdOut = open(str, O_CREAT | O_TRUNC | O_WRONLY, 0666);
-	if (global->fdOut == -1)
+	global->fdout = open(str, O_CREAT | O_TRUNC | O_WRONLY, 0666);
+	if (global->fdout == -1)
 	{
 		ft_exit(4, global, NULL);
 	}
 	else
-		write(global->fdOut, &global->header, sizeof(header_t));
+		write(global->fdout, &global->header, sizeof(t_header));
 	return (EXIT_SUCCESS);
 }
 
@@ -62,15 +62,15 @@ int				ft_open(global_t *global, char *str)
 **  LIS LE FICHIER ET STOCK CHAQUE LINE DANS LA STRUCT MAP
 */
 
-void			ft_read(global_t *global, char *filename, char *line)
+void			ft_read(t_global *global, char *filename, char *line)
 {
 	int			gnl;
 	int			k;
 
-	global->fdIn = open(filename, O_RDONLY, 0666);
-	if (-1 == global->fdIn)
+	global->fdin = open(filename, O_RDONLY, 0666);
+	if (-1 == global->fdin)
 		ft_exit(2, global, &line);
-	while ((gnl = get_next_line(global->fdIn, &line)))
+	while ((gnl = get_next_line(global->fdin, &line)))
 	{
 		k = 0;
 		if (gnl == -1)
@@ -88,7 +88,7 @@ void			ft_read(global_t *global, char *filename, char *line)
 int				main(int argc, char **argv)
 {
 	char		*line;
-	global_t	*global;
+	t_global	*global;
 	int			i;
 	size_t		len;
 	char		*title;
@@ -106,8 +106,8 @@ int				main(int argc, char **argv)
 		ft_memcpy(title + len - 2, "1.cor", 6);
 		ft_read(global, argv[i], line);
 		ft_open(global, title);
-		write(global->fdOut, global->res, global->total_octet);
-		close(global->fdIn);
+		write(global->fdout, global->res, global->total_octet);
+		close(global->fdin);
 		ft_putstr("Writing output in ");
 		ft_putendl(title);
 	}

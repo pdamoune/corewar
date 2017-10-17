@@ -1,7 +1,7 @@
 .name "Ultimate Surrender"
 .comment "Y'en a qui vont prendre cher... :)"
 
-ld %0, r2
+ld %0, r2  
 zjmp %:var170
 var1:
 lfork %:var1
