@@ -146,7 +146,8 @@ second:
 live %0
 ld %84475923, r3 #0x0509001b
 ld %84475923, r6
-ld %511, r7
+ld %511,
+r7
 ld %28, r4
 ld %0, r5
 zjmp %:jump

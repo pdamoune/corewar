@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 18:29:29 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/19 17:55:30 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char		*g_errors[20] =
 {
 	"Le nombre d'arguments en ligne de commande est différent de 2",
 	"Erreur dans l'ouverture du fichier de départ",
-	"Problème avec le get next line",
+	"Lecture du fichier impossible",
 	"Erreur dans l'ouverture du fichier de destination",
 	"Le nom du fichier est trop long",
 	"Le commentaire du fichier est trop long",
@@ -72,8 +72,11 @@ void			ft_read(t_global *global, char *filename, char *line)
 		ft_exit(2, global, &line);
 	while ((gnl = get_next_line(global->fdin, &line)))
 	{
+		//TODO
+		// DG("%s", line);
+		// exit(0);
 		k = 0;
-		if (gnl == -1)
+		if (gnl == -1 || !ft_isascii(line[0]))
 			ft_exit(3, global, &line);
 		while (line[k] == ' ' || line[k] == '\t')
 			k++;
@@ -82,6 +85,7 @@ void			ft_read(t_global *global, char *filename, char *line)
 		free(line);
 		global->nb_lines++;
 	}
+	DG();
 	ft_controller(global);
 }
 

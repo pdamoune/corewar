@@ -6,15 +6,73 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 16:23:42 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/19 19:22:54 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
+static int		ft_c_i_d_2(t_global *global, char *com)
+{
+	int			i;
+	int			len;
+	char		*f_quote;
+	char		*l_quote;
+
+	DG("%s", global->s_map->line);
+	i = 0;
+	f_quote = ft_strchr(global->s_map->line, '"');
+	if ((l_quote = ft_strchr(f_quote + 1, '"')))
+	{
+		len = (int)(l_quote - f_quote);
+		if (len > COMMENT_LENGTH)
+			ft_exit(6, global, NULL);
+		while (i++ < len - 1)
+			com[i] = f_quote[i];
+		com[i] = '\0';
+		return (-1);
+	}
+	len = ft_strlen(f_quote);
+	if (len > COMMENT_LENGTH)
+		ft_exit(6, global, NULL);
+	while (i++ < len)
+		com[i] = f_quote[i];
+	global->s_map = global->s_map->next;
+	return (len);
+}
+
 void			ft_comment_is_done(t_global *global, char *com)
 {
-	int		i;
+	int			len;
+	int			i;
+	int			k;
+
+	i = ft_c_i_d_2(global, com);
+	DG("%s", com);
+	if (i == -1)
+		return ;
+	while (!ft_strchr(global->s_map->line, '"'))
+	{
+		k = 0;
+		len = i + ft_strlen(global->s_map->line);
+		if (len > COMMENT_LENGTH)
+			ft_exit(6, global, NULL);
+		while (i++ < len)
+			com[i] = global->s_map->line[k++];
+		global->s_map = global->s_map->next;
+		DG("%s", com);
+	}
+	DG("%s", global->s_map->line);
+	k = 0;
+	len = i + (int)(ft_strchr(global->s_map->line, '"') - global->s_map->line);
+	if (len > COMMENT_LENGTH)
+		ft_exit(6, global, NULL);
+	while (i++ < len)
+		com[i] = global->s_map->line[k++];
+	com[i] = '\0';
+	DG("%s", com);
+}
+/*	int		i;
 	int		nb_quote;
 	size_t	k;
 	int		drift;
@@ -40,7 +98,7 @@ void			ft_comment_is_done(t_global *global, char *com)
 		global->s_map = global->s_map->next;
 	}
 }
-
+*/
 static void		ft_kind_of_header(t_global *global,
 			char *header, int size, int error)
 {

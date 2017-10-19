@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:27:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 19:08:11 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/19 15:37:05 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	ft_counting(t_global *global, char *inst_line)
 	int	index;
 
 	index = ft_find_index(global, inst_line);
-	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11)
+	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11 || index == 15)
 	{
 		global->s_label->s_content->nb_octet++;
 		ft_calcul_octet(global, global->s_label->s_content->line, 0);
 	}
-	else if (index == 0 || index == 15)
+	else if (index == 0)
 		ft_calcul_octet(global, global->s_label->s_content->line, 0);
 	else if (index == 6 || index == 9 || index == 14)
 		ft_calcul_octet(global, global->s_label->s_content->line, 1);

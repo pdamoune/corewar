@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 18:39:49 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/19 15:39:32 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void				ft_get_opcode(t_global *global, char *line)
 	index = ft_find_index(global, line);
 	global->res[global->res_pc] = ft_opcode(index);
 	++global->res_pc;
-	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11)
+	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11 || index == 15)
 		ft_g_ptr_tab(global, index, 0, 0);
-	else if (index == 0 || index == 15)
+	else if (index == 0)
 		ft_g_ptr_tab(global, index, 1, 0);
 	else if (index == 6 || index == 9 || index == 14)
 		ft_g_ptr_tab(global, index, 1, 1);
@@ -123,8 +123,7 @@ void	ft_get_values(t_global *global, char **line, int arg_ind)
 	value_char = 0;
 	while (line[++global->i] && !ft_str_mod(line[global->i], "#"))
 	{
-		//printf("\n\n line === == == = = = =    %s\n", line[global->i]);
-
+		//DG("-%s-", line[global->i]);
 		if (!arg_ind && ((val_tmp = ft_str_mod(line[global->i], "%:"))
 			|| (val_tmp = ft_str_mod(line[global->i], "%"))))
 		{
@@ -151,7 +150,7 @@ void	ft_get_values(t_global *global, char **line, int arg_ind)
 			global->res_pc += 2;
 		}
 		else if ((arg_ind && (val_tmp = ft_str_mod(line[global->i], "%")))
-			|| ((val_tmp = ft_strdup(line[global->i])) && ft_isstrint(val_tmp)))
+			|| ((val_tmp = ft_strtrim(line[global->i])) && ft_isstrint(val_tmp)))
 		{
 			value_ind = (unsigned short*)(global->res + global->res_pc);
 			*value_ind = INTREV16(ft_atoi(val_tmp));

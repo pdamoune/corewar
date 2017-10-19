@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:52:37 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 16:05:48 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/19 15:44:35 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*aff_instruct(t_global *global, char **line)
 
 	arg = ft_strdup("00000000");
 	i = 0;
-	while (line[i++] && !ft_strstart(line[i], "#"))
+	while (line[i] && !ft_strchrstart(line[i], COMMENT_CHAR))
 	{
 		if (i > 1)
 			ft_exit(11, global, NULL);
@@ -30,6 +30,7 @@ char	*aff_instruct(t_global *global, char **line)
 			else
 				ft_exit(12, global, NULL);
 		}
+		i++;
 	}
 	return (arg);
 }
