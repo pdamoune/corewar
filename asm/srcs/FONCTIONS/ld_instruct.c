@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:58:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 16:12:20 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/20 16:48:49 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char		*ld_instruct(t_global *global, char **line)
 		{
 			if (ft_strstart(line[i], "%"))
 				arg = ft_arg(arg, 1, DIR_CODE);
-			else if (ft_strstart(line[i], "r"))
+			else if (ft_strstart(line[i], "r") && !ft_strchr(line[i], ':'))
 				arg = ft_arg(arg, 1, REG_CODE);
 			else
 				arg = ft_arg(arg, 1, IND_CODE);

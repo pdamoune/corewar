@@ -2,7 +2,7 @@
 .comment "Stay still, I'm trying to shoot you..!"
 
 init:
-	st		r1, :replic1
+	st		r55, :replic1
 	st		r6, -4
 	ld		:replic1, r1
 

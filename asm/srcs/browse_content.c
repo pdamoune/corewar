@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/19 15:39:32 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/20 16:51:51 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void				ft_get_opcode(t_global *global, char *line)
 	index = ft_find_index(global, line);
 	global->res[global->res_pc] = ft_opcode(index);
 	++global->res_pc;
-	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11 || index == 15)
+	if ((index > 0 && index <= 5) || index == 8
+	|| index == 13 || index == 11 || index == 15)
 		ft_g_ptr_tab(global, index, 0, 0);
 	else if (index == 0)
 		ft_g_ptr_tab(global, index, 1, 0);
@@ -73,88 +74,30 @@ void				ft_browse_content(t_global *global)
 	}
 }
 
-// void				ft_get_values(t_global *global, char **line, int arg_ind)
-// {
-// 	char			*val_tmp;
-
-// 	val_tmp = NULL;
-// 	while (line[++global->i] && !ft_str_mod(line[global->i], "#"))
-// 	{
-// 		if (!arg_ind && ((val_tmp = ft_str_mod(line[global->i], "%:"))
-// 			|| (val_tmp = ft_str_mod(line[global->i], "%"))))
-// 		{
-// 			if (ft_isstrint(val_tmp))
-// 				global->res[global->res_pc += 4] = INTREV32(ft_atoi(val_tmp));
-// 			else
-// 				global->res[global->res_pc += 4] =
-// 				INTREV32(go_to_label(val_tmp, global));
-// 		}
-// 		else if ((val_tmp = ft_str_mod(line[global->i], "r"))
-// 				&& ft_isdigitspace(val_tmp))
-// 			global->res[global->res_pc++] = ft_atoi(val_tmp);
-// 		else if ((arg_ind && (val_tmp = ft_str_mod(line[global->i], "%:")))
-// 		|| (val_tmp = ft_str_mod(line[global->i], ":")))
-// 		{
-// 			DG();
-// 			DG("%p", &global->res[global->res_pc]);
-// 			DG("%p", &global->res[global->res_pc += 2]);
-// 			DG("%p", &global->res[global->res_pc]);
-// 			// global->res[global->res_pc += 2] =
-// 			global->res[global->res_pc] =
-// 			INTREV16(go_to_label(val_tmp, global));
-// 			// DG("%hd", global->res[global->res_pc]);
-// 		}
-// 		else if ((arg_ind && (val_tmp = ft_str_mod(line[global->i], "%")))
-// 		|| ((val_tmp = ft_strdup(line[global->i])) && ft_isstrint(val_tmp)))
-// 			global->res[global->res_pc += 2] = INTREV16(ft_atoi(val_tmp));
-// 	}
-// }
-
-void	ft_get_values(t_global *global, char **line, int arg_ind)
+void				ft_get_values(t_global *global, char **line, int arg_ind)
 {
-	int				*value;
-	unsigned short	*value_ind;
-	char			*value_char;
 	char			*val_tmp;
+	int				inc;
 
 	val_tmp = NULL;
-	value = 0;
-	value_ind = 0;
-	value_char = 0;
-	while (line[++global->i] && !ft_str_mod(line[global->i], "#"))
+	while ((inc = 1) && line[++global->i] && !ft_str_mod(line[global->i], "#"))
 	{
-		//DG("-%s-", line[global->i]);
 		if (!arg_ind && ((val_tmp = ft_str_mod(line[global->i], "%:"))
 			|| (val_tmp = ft_str_mod(line[global->i], "%"))))
-		{
-			value = (int*)(global->res + global->res_pc);
-			if(ft_isstrint(val_tmp))
-				*value = INTREV32(ft_atoi(val_tmp));
-			else
-				*value = INTREV32(go_to_label(val_tmp, global));
-			global->res_pc += 4;
-		}
+			*(int *)(&global->res[global->res_pc]) =
+			(inc = 4) && ft_isstrint(val_tmp) ?
+			INTREV32(ft_atoi(val_tmp)) : INTREV32(go_to_label(val_tmp, global));
 		else if ((val_tmp = ft_str_mod(line[global->i], "r"))
-				&& ft_isdigitspace(val_tmp))
-		{
-			//global->res[global->res_pc++] = ft_atoi(val_tmp);
-			value_char = (global->res + global->res_pc);
-			*value_char = ft_atoi(val_tmp);
-			global->res_pc++;
-		}
+				&& !ft_strchr(line[global->i], ':') && ft_isdigitspace(val_tmp))
+			global->res[global->res_pc] = ft_atoi(val_tmp);
 		else if ((arg_ind && (val_tmp = ft_str_mod(line[global->i], "%:")))
 			|| (val_tmp = ft_str_mod(line[global->i], ":")))
-		{
-			value_ind = (unsigned short*)(global->res + global->res_pc);
-			*value_ind = INTREV16((unsigned short)go_to_label(val_tmp, global));
-			global->res_pc += 2;
-		}
+			*(unsigned short *)(&global->res[global->res_pc++]) =
+			INTREV16((unsigned short)go_to_label(val_tmp, global));
 		else if ((arg_ind && (val_tmp = ft_str_mod(line[global->i], "%")))
-			|| ((val_tmp = ft_strtrim(line[global->i])) && ft_isstrint(val_tmp)))
-		{
-			value_ind = (unsigned short*)(global->res + global->res_pc);
-			*value_ind = INTREV16(ft_atoi(val_tmp));
-			global->res_pc += 2;
-		}
+		|| ((val_tmp = ft_strtrim(line[global->i])) && ft_isstrint(val_tmp)))
+			*(unsigned short *)(&global->res[global->res_pc++]) =
+			INTREV16((unsigned short)ft_atoi(val_tmp));
+		global->res_pc += inc;
 	}
 }

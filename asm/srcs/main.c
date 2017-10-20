@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/19 17:55:30 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/20 17:36:20 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,6 @@ void			ft_read(t_global *global, char *filename, char *line)
 		ft_exit(2, global, &line);
 	while ((gnl = get_next_line(global->fdin, &line)))
 	{
-		//TODO
-		// DG("%s", line);
-		// exit(0);
 		k = 0;
 		if (gnl == -1 || !ft_isascii(line[0]))
 			ft_exit(3, global, &line);
@@ -85,7 +82,6 @@ void			ft_read(t_global *global, char *filename, char *line)
 		free(line);
 		global->nb_lines++;
 	}
-	DG();
 	ft_controller(global);
 }
 
@@ -104,10 +100,11 @@ int				main(int argc, char **argv)
 	line = NULL;
 	while (++i < argc)
 	{
-		len = ft_strlen(argv[i]);
-		title = malloc(len + 3);
-		ft_memcpy(title, argv[i], len - 1);
-		ft_memcpy(title + len - 1, "cor", 4);
+		len = ft_strstr(argv[i], ".s") ?
+		ft_strstr(argv[i], ".s") - argv[i] : ft_strlen(argv[i]);
+		title = malloc(len + 5);
+		ft_memcpy(title, argv[i], len);
+		ft_memcpy(title + len, ".cor", 5);
 		ft_read(global, argv[i], line);
 		ft_open(global, title);
 		write(global->fdout, global->res, global->total_octet);

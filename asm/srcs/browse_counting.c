@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:27:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/19 15:37:05 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/20 17:15:00 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	ft_counting(t_global *global, char *inst_line)
 	int	index;
 
 	index = ft_find_index(global, inst_line);
-	if ((index > 0 && index <= 5) || index == 8 || index == 13 || index == 11 || index == 15)
+	if ((index > 0 && index <= 5) || index == 8
+	|| index == 13 || index == 11 || index == 15)
 	{
 		global->s_label->s_content->nb_octet++;
 		ft_calcul_octet(global, global->s_label->s_content->line, 0);
@@ -58,10 +59,11 @@ void	ft_calcul_octet(t_global *global, char **line, int arg_ind)
 	val_tmp = NULL;
 	while (line[++i] && !ft_str_mod(line[i], "#"))
 	{
-		if ((val_tmp = ft_str_mod(line[i], "r")) && ft_isdigitspace(val_tmp))
+		if ((val_tmp = ft_str_mod(line[i], "r"))
+		&& !ft_strchr(line[i], ':') && ft_isdigitspace(val_tmp))
 			global->s_label->s_content->nb_octet++;
 		else if (!arg_ind && ((val_tmp = ft_str_mod(line[i], "%:"))
-			|| (val_tmp = ft_str_mod(line[i], "%"))))
+		|| ((val_tmp = ft_str_mod(line[i], "%")) && !ft_strchr(val_tmp, ':'))))
 			global->s_label->s_content->nb_octet += 4;
 		else
 			global->s_label->s_content->nb_octet += 2;

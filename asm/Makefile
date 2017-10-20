@@ -33,6 +33,7 @@ LIBS		=
 SRC_BASE	=	\
 browse_content.c\
 browse_counting.c\
+comment_done.c\
 controller.c\
 fonctions/add_instruct.c\
 fonctions/aff_instruct.c\
