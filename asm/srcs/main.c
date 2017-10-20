@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/20 17:36:20 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/20 17:47:02 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int				ft_open(t_global *global, char *str)
 	int		magic_bis;
 
 	magic_bis = COREWAR_EXEC_MAGIC;
-	global->header.magic = INTREV32(magic_bis);
+	global->header.magic = bswap_32(magic_bis);
 	global->fdout = open(str, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 	if (global->fdout == -1)
 	{

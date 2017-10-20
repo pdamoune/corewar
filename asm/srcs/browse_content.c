@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/20 16:51:51 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/20 17:54:15 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,18 @@ void				ft_get_values(t_global *global, char **line, int arg_ind)
 			|| (val_tmp = ft_str_mod(line[global->i], "%"))))
 			*(int *)(&global->res[global->res_pc]) =
 			(inc = 4) && ft_isstrint(val_tmp) ?
-			INTREV32(ft_atoi(val_tmp)) : INTREV32(go_to_label(val_tmp, global));
+			bswap_32(ft_atoi(val_tmp)) : bswap_32(go_to_label(val_tmp, global));
 		else if ((val_tmp = ft_str_mod(line[global->i], "r"))
 				&& !ft_strchr(line[global->i], ':') && ft_isdigitspace(val_tmp))
 			global->res[global->res_pc] = ft_atoi(val_tmp);
 		else if ((arg_ind && (val_tmp = ft_str_mod(line[global->i], "%:")))
 			|| (val_tmp = ft_str_mod(line[global->i], ":")))
 			*(unsigned short *)(&global->res[global->res_pc++]) =
-			INTREV16((unsigned short)go_to_label(val_tmp, global));
+			bswap_16(go_to_label(val_tmp, global));
 		else if ((arg_ind && (val_tmp = ft_str_mod(line[global->i], "%")))
 		|| ((val_tmp = ft_strtrim(line[global->i])) && ft_isstrint(val_tmp)))
 			*(unsigned short *)(&global->res[global->res_pc++]) =
-			INTREV16((unsigned short)ft_atoi(val_tmp));
+			bswap_16(ft_atoi(val_tmp));
 		global->res_pc += inc;
 	}
 }
