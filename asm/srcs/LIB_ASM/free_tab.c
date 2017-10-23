@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:34:57 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:34:59 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:48:56 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void		ft_free_tab(char **tab)
 	if (tab)
 	{
 		while (tab[i])
-			free(tab[i++]);
+		{
+			ft_strdel(&tab[i++]);
+		}
 		free(tab);
 	}
+	tab = NULL;
 }

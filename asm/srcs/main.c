@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/20 17:47:02 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:40:40 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			ft_read(t_global *global, char *filename, char *line)
 			k++;
 		if (!ft_strchr(COMMENT_CHAR, line[k]))
 			ft_stock_map(global, line);
-		free(line);
+		ft_strdel(&line);
 		global->nb_lines++;
 	}
 	ft_controller(global);
@@ -95,22 +95,27 @@ int				main(int argc, char **argv)
 
 	i = 0;
 	ft_initialize_global(&global);
-	if (argc < 2)
+	if (argc != 2)
 		ft_exit(1, global, &line);
 	line = NULL;
 	while (++i < argc)
 	{
 		len = ft_strstr(argv[i], ".s") ?
 		ft_strstr(argv[i], ".s") - argv[i] : ft_strlen(argv[i]);
-		title = malloc(len + 5);
+		title = ft_memalloc(len + 5);
 		ft_memcpy(title, argv[i], len);
 		ft_memcpy(title + len, ".cor", 5);
 		ft_read(global, argv[i], line);
+		ft_free_map(global);
 		ft_open(global, title);
 		write(global->fdout, global->res, global->total_octet);
 		close(global->fdin);
 		ft_putstr("Writing output program to ");
 		ft_putendl(title);
+		DG();
+		ft_free_global(global);
+		free(title);
+		DG();
 	}
 	return (0);
 }

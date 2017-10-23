@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/17 16:45:58 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:38:23 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,18 @@ typedef struct			s_header
 /*
 **  STRUCTURES DE BASES DE L'ASM
 */
+
+struct			s_opa
+{
+	char	*label;
+	int		nb_params;
+	int		params[MAX_ARGS_NUMBER];
+	int		op_code;
+	int		cycle;
+	char	*description;
+	int		ocp;
+	int		index;
+}				t_opa;
 
 typedef struct			s_global
 {
@@ -211,7 +223,7 @@ char					**ft_strsplit_cmt(char const *str);
 char					**ft_split_tab(char **tab1);
 void					ft_print_lines(char **tab);
 char					*ft_convert_base(char *nbr,
-	char *base_from, char *base_to);
+	int len_from, int len_to);
 char					*ft_arg(char *arg, int param, int type);
 char					*ft_convert_hexa(t_global *global,
 	char *arg, int type, int nb_octet);

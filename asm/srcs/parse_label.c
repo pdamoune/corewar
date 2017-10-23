@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 16:56:46 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/20 16:48:59 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:08:38 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				ft_kind_of_line(t_global *global, char *line)
 	int		i;
 
 	i = 0;
-	if (line[i] == '\n')
+	if (line[i] == '\n' || line[i] == '\0')
 		return (EMPTY_LINE);
 	else if (ft_strchr(COMMENT_CHAR, line[i]))
 		return (COMMENT);

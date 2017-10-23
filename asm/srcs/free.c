@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:55:30 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 16:06:45 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:43:01 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void		ft_free_map(t_global *global)
 	t_map	*tmp;
 
 	global->s_map = global->begin_map;
-	while (global->s_map)
+	while (global->s_map != NULL)
 	{
-		if (global->s_map->line)
-			free(global->s_map->line);
+		if (global->s_map->line != NULL)
+			//ft_strdel(&global->s_map->line);
 		tmp = global->s_map->next;
 		free(global->s_map);
 		global->s_map = tmp;

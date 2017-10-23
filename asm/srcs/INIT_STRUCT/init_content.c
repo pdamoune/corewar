@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:26:50 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 16:23:07 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:03:59 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 void		ft_initialize_content(t_content **content, char *line)
 {
-	char **tab1;
-	char **tab2;
+	char	**tab1;
+	char	**tab2;
+	char	*str;
 
 	ft_erase_cmt(line);
+	str = ft_strdup_asm(line);
 	if (!(*content = (t_content*)ft_memalloc(sizeof(t_content))))
 		return ;
-	tab1 = ft_strsplit_cmt(ft_strdup_asm(line));
+	tab1 = ft_strsplit_cmt(str);
 	if (ft_strlen_tab(tab1) > 1)
 		tab2 = ft_strsplit_virg(tab1[0]);
 	else
-		tab2 = ft_strsplit_virg(ft_strdup_asm(line));
+		tab2 = ft_strsplit_virg(str);
 	(*content)->line = ft_split_tab(tab2);
+	ft_free_tab(tab1);
+	ft_strdel(&str);
+	//ft_free_tab(tab2);
 }
 
 void		ft_initialize_content_header(t_content **content, char *line)
@@ -48,6 +53,7 @@ void		ft_initialize_content_header(t_content **content, char *line)
 	(*content)->next = NULL;
 	(*content)->instruction = NULL;
 	(*content)->previous = NULL;
+	ft_free_tab(tmp);
 }
 
 void		ft_initialize_content_name(t_content **content, char *line)
@@ -67,6 +73,7 @@ void		ft_initialize_content_name(t_content **content, char *line)
 	(*content)->next = NULL;
 	(*content)->instruction = NULL;
 	(*content)->previous = NULL;
+	ft_free_tab(tmp);
 }
 
 /*

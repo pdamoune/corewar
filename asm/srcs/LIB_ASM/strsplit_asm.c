@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:50:34 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 16:24:30 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:20:04 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static char			**ft_copy_tab_2(char **tab3, char **tab2)
 			tab3[1][j++] = tab2[i][k++];
 		i++;
 	}
-	ft_free_tab(tab2);
 	tab3[1][j] = '\0';
 	tab3[2] = NULL;
 	return (tab3);
@@ -46,8 +45,6 @@ static char			**ft_copy_tab_1_and_3(char **tab3, char **tab1, char **tab)
 	while (tab1[j])
 		tab[i++] = ft_strdup(tab1[j++]);
 	tab[i] = NULL;
-	ft_free_tab(tab1);
-	ft_free_tab(tab3);
 	return (tab);
 }
 
@@ -91,5 +88,7 @@ char				**ft_split_tab(char **tab1)
 	if (!(tab = (char**)malloc(sizeof(*tab) * (len + 1))))
 		return (NULL);
 	tab = ft_copy_tab_1_and_3(tab3, tab1, tab);
+	ft_free_tab(tab2);
+	ft_free_tab(tab3);
 	return (tab);
 }
