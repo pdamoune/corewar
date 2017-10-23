@@ -230,7 +230,6 @@ char					*ft_convert_hexa(t_global *global,
 int						ft_isstrdigit(char *s);
 int						ft_isdigitspace(char *s);
 int						ft_isstrint(char *s);
-void					ft_free_tab(char **tab);
 int						ft_strlen_tab(char **tab);
 int						go_to_label(char *label, t_global *global);
 char					*ft_free_strjoin(char **s1, char **s2);

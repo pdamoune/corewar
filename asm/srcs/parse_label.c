@@ -34,7 +34,7 @@ int				ft_kind_of_line(t_global *global, char *line)
 			|| ft_strstart(line, COMMENT_CMD_STRING))
 		return (HEADER);
 	else if (ft_strstart(line, "."))
-		ft_exit(15, global, NULL);
+		ft_exit(15, global, &line);
 	while (line[i++])
 	{
 		while (is_labelchars(line[i]))

@@ -88,7 +88,7 @@ char				**ft_split_tab(char **tab1)
 	if (!(tab = (char**)malloc(sizeof(*tab) * (len + 1))))
 		return (NULL);
 	tab = ft_copy_tab_1_and_3(tab3, tab1, tab);
-	ft_free_tab(tab2);
-	ft_free_tab(tab3);
+	ft_tabdel(&tab2);
+	ft_tabdel(&tab3);
 	return (tab);
 }

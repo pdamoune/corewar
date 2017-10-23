@@ -70,7 +70,7 @@ void			ft_read(t_global *global, char *filename, char *line)
 	global->fdin = open(filename, O_RDONLY, 0666);
 	if (-1 == global->fdin)
 		ft_exit(2, global, &line);
-	while ((gnl = get_next_line(global->fdin, &line)))
+	while ((gnl = get_next_line(global->fdin, &line)) > 0)
 	{
 		k = 0;
 		if (gnl == -1 || !ft_isascii(line[0]))

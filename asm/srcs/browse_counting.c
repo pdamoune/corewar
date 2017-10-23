@@ -82,7 +82,7 @@ void	ft_browse_file_counting(t_global *global)
 		while (global->s_label->s_content)
 		{
 			global->s_label->s_content->begin_octet = global->total_octet;
-			if (global->s_label->s_content->line[0])
+			if (global->s_label->s_content->line && global->s_label->s_content->line[0])
 			{
 				global->s_label->s_content->nb_octet++;
 				ft_counting(global, global->s_label->s_content->line[0]);
