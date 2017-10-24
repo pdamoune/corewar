@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/23 17:40:40 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 13:05:29 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			ft_exit(int nb, t_global *global, char **line)
 	ft_printf("ERROR n°%d : %s\n", nb, g_errors[nb - 1]);
 	close(global->fdin);
 	ft_free_global(global);
+	DG();
 	if (line && *line)
 		ft_strdel(line);
 	exit(0);
@@ -79,8 +80,8 @@ void			ft_read(t_global *global, char *filename, char *line)
 			k++;
 		if (!ft_strchr(COMMENT_CHAR, line[k]))
 			ft_stock_map(global, line);
-		ft_strdel(&line);
 		global->nb_lines++;
+		free(line);
 	}
 	ft_controller(global);
 }
@@ -106,16 +107,14 @@ int				main(int argc, char **argv)
 		ft_memcpy(title, argv[i], len);
 		ft_memcpy(title + len, ".cor", 5);
 		ft_read(global, argv[i], line);
-		ft_free_map(global);
 		ft_open(global, title);
 		write(global->fdout, global->res, global->total_octet);
 		close(global->fdin);
 		ft_putstr("Writing output program to ");
 		ft_putendl(title);
-		DG();
+		ft_free_map(global);
 		ft_free_global(global);
 		free(title);
-		DG();
 	}
 	return (0);
 }

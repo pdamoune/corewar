@@ -6,19 +6,19 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:08:29 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/23 16:33:30 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:47:50 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-void		ft_initialize_map(t_map **map, char *str)
+void		ft_initialize_map(t_map **new, char *str)
 {
-	if (!(*map = (t_map*)malloc(sizeof(t_map))))
+	if (!(*new = (t_map*)ft_memalloc(sizeof(t_map))))
 		return ;
-	(*map)->line = ft_strdup(str);
-	(*map)->next = NULL;
-	(*map)->previous = NULL;
+	(*new)->line = ft_strdup(str);
+	(*new)->next = NULL;
+	(*new)->previous = NULL;
 }
 
 /*

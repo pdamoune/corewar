@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/23 17:38:23 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 12:53:33 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ char					*ft_strstart(const char *big, const char *little);
 char					*ft_strchrstart(const char *big, const char *little);
 char					*ft_str_mod(const char *big, const char *little);
 char					*ft_big_till_space(char *big);
-char					*ft_strsubc(char **s, char c);
+int						ft_strsubc_nb(char *s, char c);
 char					*ft_strdup_asm(const char *s);
 char					**ft_strsplit_spa(char const *str);
 char					**ft_strsplit_virg(char const *str);
@@ -233,6 +233,7 @@ int						ft_isstrint(char *s);
 int						ft_strlen_tab(char **tab);
 int						go_to_label(char *label, t_global *global);
 char					*ft_free_strjoin(char **s1, char **s2);
+char					*ft_strndup(char *s, int i);
 
 /*
 **   FONCTIONS DE TRADUCTIONS
