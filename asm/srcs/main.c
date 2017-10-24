@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 15:00:05 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 15:04:10 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			ft_exit(int nb, t_global *global, char **line)
 	ft_printf("ERROR n°%d : %s\n", nb, g_errors[nb - 1]);
 	close(global->fdin);
 	ft_free_global(global);
+	DG();
 	if (line && *line)
 		ft_strdel(line);
 	exit(0);
@@ -81,8 +82,8 @@ void			ft_read(t_global *global)
 			k++;
 		if (!ft_strchr(COMMENT_CHAR, line[k]))
 			ft_stock_map(global, line);
-		ft_strdel(&line);
 		global->nb_lines++;
+		free(line);
 	}
 	ft_controller(global);
 }
@@ -310,11 +311,11 @@ static int			do_asm(t_asm *a, char *filename)
 	global->fdin = a->file.fdin;
 	global->index_tab = ft_index_tab2();
 	ft_read(global);
-	ft_free_map(global);
 	ft_open(global, a->file.filename);
 	write(global->fdout, global->res, global->total_octet);
 	close(global->fdin);
 	ft_printf ("Writting output program to %s\n", a->file.filename);
+	ft_free_map(global);
 	ft_free_global(global);
 	free(a->file.filename);
 	return (0);
