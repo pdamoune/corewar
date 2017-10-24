@@ -6,11 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/10/23 18:55:53 by tdebarge         ###   ########.fr       */
-=======
-/*   Updated: 2017/10/24 12:53:33 by tdebarge         ###   ########.fr       */
->>>>>>> 48608bd0997a4acdbece0d0b0483ac4d51d89c92
+/*   Updated: 2017/10/24 15:36:29 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +38,9 @@
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
 # define COMMENT_CHAR			"#;"
-# define LABEL_CHAR				":"
-# define DIRECT_CHAR			"%"
-# define SEPARATOR_CHAR			","
+# define LABEL_CHAR				':'
+# define DIRECT_CHAR			'%'
+# define SEPARATOR_CHAR			','
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
@@ -86,7 +82,7 @@ typedef struct			s_header
 **  STRUCTURES DE BASES DE L'ASM
 */
 
-struct					s_opa
+typedef struct					s_op
 {
 	char				*label;
 	int					nb_params;
@@ -96,7 +92,7 @@ struct					s_opa
 	char				*description;
 	int					ocp;
 	int					index;
-}						t_opa;
+}						t_op;
 
 typedef struct			s_global
 {
@@ -178,13 +174,12 @@ void					ft_parse_label(t_global *global);
 void					ft_exit(int nb, t_global *global, char **line);
 int						ft_write(t_global *global, char *string, int size);
 void					ft_read(t_global *global, char *filename, char *line);
-int						ft_find_index(t_global *global, char *line);
+int						ft_find_i(char *line);
 void					ft_counting(t_global *global, char *inst_line);
 void					ft_browse_file_counting(t_global *global);
 void					ft_browse_content(t_global *global);
 void					ft_get_opcode(t_global *global, char *line);
-void					ft_calcul_octet(t_global *global,
-	char **line, int arg_ind);
+void					ft_calcul_octet(t_global *global, char **line);
 void					ft_parse_header(t_global *global);
 void					ft_comment_is_done(t_global *global, char *com);
 int						ft_open(t_global *global, char *str);
@@ -264,6 +259,10 @@ enum					e_conversion
 	aff = 15,
 };
 
+char	*ft_central(t_global *global, char **line);
+char	*ft_central2(t_global *global, char **line, int i, char **arg);
+char	*ft_central3(t_global *global, char **line, int i, char **arg);
+
 void					ft_g_ptr_tab(t_global *global,
 	int index, int one_arg, int arg_ind);
 char					*(*g_ptr_tab[25])(t_global *, char **line);
@@ -283,10 +282,8 @@ char					*aff_instruct(t_global *global, char **line);
 /*
 **	SOUS-FONCTIONS DE TRADUCTION
 */
-void					ft_get_values(t_global *global,
-	char **line, int arg_ind);
-void					gal_fct(t_global *global,
-	int one_arg, char *arg_tmp, int arg_ind);
+void					ft_get_values(t_global *global, char **line);
+void					gal_fct(t_global *global, char *arg_tmp);
 char					*ft_arg_and_bis(t_global *global,
 	char **line, int i, char **arg);
 char					*ft_arg_ld_bis(t_global *global,

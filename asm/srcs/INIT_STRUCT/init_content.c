@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:26:50 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/23 17:03:59 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 17:58:58 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void		ft_stock_content(t_global *global, char *line)
 	previous = NULL;
 	if (!line)
 		ft_initialize_content_null(&new, NULL);
-	if (!ft_strncmp(line, ".comment", 8))
+	else if (!ft_strncmp(line, ".comment", 8))
 		ft_initialize_content_header(&new, line);
 	else if (!ft_strncmp(line, ".name", 5))
 		ft_initialize_content_name(&new, line);
@@ -113,7 +113,9 @@ void		ft_stock_content(t_global *global, char *line)
 
 void		ft_initialize_content_null(t_content **content, char *line)
 {
-	(*content)->line = &line;
+	if (!(*content = (t_content*)malloc(sizeof(t_content))))
+		return ;
+	(*content)->line = line ? &line : NULL;
 	(*content)->nb_octet = 0;
 	(*content)->begin_octet = 0;
 	(*content)->next = NULL;

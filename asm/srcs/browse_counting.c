@@ -6,18 +6,19 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:27:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/23 18:57:29 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 18:32:07 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
+extern t_op	g_op_tab[];
 
 int		ft_find_i(char *line)
 {
 	int i;
 
 	i = 0;
-	while (g_op_tab[i])
+	while (i < 16)
 	{
 		if (line && !ft_strcmp(line, g_op_tab[i].label))
 			return (i);
@@ -31,7 +32,7 @@ void	ft_counting(t_global *global, char *inst_line)
 	global->i_tab = ft_find_i(inst_line);
 	if (g_op_tab[global->i_tab].ocp == 1)
 		global->s_label->s_content->nb_octet++;
-	ft_calcul_octet(global, global->s_label->s_content->line)
+	ft_calcul_octet(global, global->s_label->s_content->line);
 }
 
 void	ft_calcul_octet(t_global *global, char **line)

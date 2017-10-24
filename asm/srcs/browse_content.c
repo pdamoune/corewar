@@ -6,12 +6,12 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/23 19:39:55 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 15:43:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
-
+extern t_op	g_op_tab[];
 // static int			ft_opcode(int index)
 // {
 // 	int		opcode[16];
@@ -37,14 +37,16 @@
 
 void				ft_get_opcode(t_global *global, char *line)
 {
-	int		i;
 	char	*arg;
 
-	global->i_tab = ft_find_index(line);
+	global->i_tab = ft_find_i(line);
 	global->res[global->res_pc] = g_op_tab[global->i_tab].op_code;
 	++global->res_pc;
-	if (i < 16)
-		arg = ft_central(global, line);
+	if (global->i_tab < 16 && g_op_tab[global->i_tab].ocp)
+		arg = ft_central(global, global->s_label->s_content->line);
+	else
+		arg = NULL;
+	gal_fct(global, arg);
 	// if ((index > 0 && index <= 5) || index == 8
 	// || index == 13 || index == 11 || index == 15)
 	// 	ft_g_ptr_tab(global, index, 0, 0);
@@ -54,7 +56,7 @@ void				ft_get_opcode(t_global *global, char *line)
 	// 	ft_g_ptr_tab(global, index, 1, 1);
 	// else if (index == 7 || index == 10 || index == 12)
 	// 	ft_g_ptr_tab(global, index, 0, 1);
-	else
+	if (global->i_tab == 16)
 		ft_exit(10, global, NULL);
 }
 
@@ -77,7 +79,7 @@ void				ft_browse_content(t_global *global)
 	}
 }
 
-void				ft_get_values(t_global *global, char **line, int arg_ind)
+void				ft_get_values(t_global *global, char **line)
 {
 	char			*val_tmp;
 	int				inc;
@@ -85,7 +87,7 @@ void				ft_get_values(t_global *global, char **line, int arg_ind)
 	val_tmp = NULL;
 	while ((inc = 1) && line[++global->i] && !ft_str_mod(line[global->i], "#"))
 	{
-		if (!arg_ind && ((val_tmp = ft_str_mod(line[global->i], "%:"))
+		if (!g_op_tab[global->i_tab].index && ((val_tmp = ft_str_mod(line[global->i], "%:"))
 			|| (val_tmp = ft_str_mod(line[global->i], "%"))))
 			*(int *)(&global->res[global->res_pc]) =
 			(inc = 4) && ft_isstrint(val_tmp) ?
@@ -93,11 +95,11 @@ void				ft_get_values(t_global *global, char **line, int arg_ind)
 		else if ((val_tmp = ft_str_mod(line[global->i], "r"))
 				&& !ft_strchr(line[global->i], ':') && ft_isdigitspace(val_tmp))
 			global->res[global->res_pc] = ft_atoi(val_tmp);
-		else if ((arg_ind && (val_tmp = ft_str_mod(line[global->i], "%:")))
+		else if ((g_op_tab[global->i_tab].index && (val_tmp = ft_str_mod(line[global->i], "%:")))
 			|| (val_tmp = ft_str_mod(line[global->i], ":")))
 			*(unsigned short *)(&global->res[global->res_pc++]) =
 			bswap_16(go_to_label(val_tmp, global));
-		else if ((arg_ind && (val_tmp = ft_str_mod(line[global->i], "%")))
+		else if ((g_op_tab[global->i_tab].index && (val_tmp = ft_str_mod(line[global->i], "%")))
 		|| ((val_tmp = ft_strtrim(line[global->i])) && ft_isstrint(val_tmp)))
 			*(unsigned short *)(&global->res[global->res_pc++]) =
 			bswap_16(ft_atoi(val_tmp));

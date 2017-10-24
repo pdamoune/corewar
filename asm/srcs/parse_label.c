@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 16:56:46 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 13:03:17 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 18:09:25 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,18 @@ void			ft_with_label(t_global *global)
 
 	i = ft_strsubc_nb(global->s_map->line, LABEL_CHAR);
 	global->s_label->name = ft_strndup((global->s_map->line), i);
+	DG("%s-", global->s_map->line);
 	if(!ft_follow_lab(global, i + 1))
+	{
+		DG(" inst follow label %s", global->s_map->line + i + 1);
 		ft_stock_content(global, global->s_map->line + i + 1);
+	}
+	else if (!global->s_map->line || ft_strchr(global->s_map->line, ':'))
+	{
+		DG();
+		ft_stock_content(global, NULL);
+		ft_with_label(global);
+	}
 	else
 		ft_stock_content(global, global->s_map->line);
 	global->s_map = global->s_map->next;
