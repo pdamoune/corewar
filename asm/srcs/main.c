@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 15:04:10 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 17:46:55 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,10 +196,11 @@ static int			check_header(t_asm *a, char *line)
 		++line;
 	if (!*line)
 		return (1);
-	if (ft_strcmp(line, NAME_CMD_STRING) == ' ')
+	if (ft_isspa(ft_strcmp(line, NAME_CMD_STRING)))
 	{
 		if (IS_SET(a->file.flag, HEAD_NAME))
 			return (verbose(a, MSG_ERROR, "Name is already set", NULL));
+		SET(a->file.flag, HEAD_NAME);
 		line += 5;
 		while (ft_isspa(*line))
 			++line;
@@ -207,10 +208,11 @@ static int			check_header(t_asm *a, char *line)
 			return (verbose(a, MSG_ERROR, "Name lexical error", NULL));
 		return (check_header_name(a, line + 1));
 	}
-	else if (ft_strcmp(line, COMMENT_CMD_STRING) == ' ')
+	else if (ft_isspa(ft_strcmp(line, COMMENT_CMD_STRING)))
 	{
-		if (IS_SET(a->file.flag, HEAD_NAME))
+		if (IS_SET(a->file.flag, HEAD_COMMENT))
 			return (verbose(a, MSG_ERROR, "Comment is already set", NULL));
+		SET(a->file.flag, HEAD_COMMENT);
 		line += 8;
 		while (ft_isspa(*line))
 			++line;
@@ -294,6 +296,7 @@ static int			do_asm(t_asm *a, char *filename)
 		if ((ret = f(a, line)) == -1)
 		{
 			ft_strdel(&line);
+			verbose(a, MSG_ERROR, "Invalid header", NULL);
 			return (1);
 		}
 		ft_strdel(&line);
