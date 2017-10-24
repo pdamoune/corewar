@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:55:30 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/23 16:43:01 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:26:22 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void		ft_free_global(t_global *global)
 {
 	ft_tabdel(&global->index_tab);
 	ft_free_labels(global);
-	ft_free_map(global);
 	free(global);
 }
 
@@ -28,7 +27,7 @@ void		ft_free_map(t_global *global)
 		global->s_map = global->begin_map;
 	while (global->s_map != NULL)
 	{
-		ft_strdel(&global->s_map->line);
+		free(global->s_map->line);
 		tmp = global->s_map->next;
 		free(global->s_map);
 		global->s_map = tmp;
