@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/20 17:46:55 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 18:24:52 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void			ft_parse_header(t_global *global)
 	if (global->total_octet > CHAMP_MAX_SIZE)
 		ft_putendl("Warning, champion too heavy to fit in the arena.");
 	rev = bswap_32(global->total_octet);
-	ft_bzero(&global->header, sizeof(t_header));
+	/* ft_bzero(&global->header, sizeof(t_header)); */
 	ft_bzero(global->res, CHAMP_MAX_SIZE + CHAMP_MAX_SIZE + 1);
 	global->header.prog_size = rev;
 	while (!ft_strcmp(global->s_label->name, "HEADER"))
