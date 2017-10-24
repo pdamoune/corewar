@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:13:41 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/12 15:01:52 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 15:43:50 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ struct			s_op
 	char	*description;
 	int		ocp;
 	int		index;
-	int		(*instru)(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
+	int		(*instru)(t_vm *vm, t_process *process,
+						unsigned int *args, int *pc_inc);
 };
 
 struct			s_process
@@ -192,22 +193,38 @@ int				init_music(t_vm *vm);
 ** Instructions.
 */
 
-int				op_live(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_ld(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_st(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_add(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_sub(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_and(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_or(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_xor(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_zjmp(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_ldi(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_sti(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_fork(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_lld(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_lldi(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_lfork(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
-int				op_aff(t_vm *vm, t_process *process, unsigned int *args, int *pc_inc);
+int				op_live(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_ld(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_st(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_add(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_sub(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_and(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_or(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_xor(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_zjmp(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_ldi(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_sti(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_fork(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_lld(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_lldi(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_lfork(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
+int				op_aff(t_vm *vm, t_process *process, unsigned int *args,
+		int *pc_inc);
 
 /*
 ** DISPLAY

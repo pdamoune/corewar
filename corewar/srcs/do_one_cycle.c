@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/24 11:30:32 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 15:41:00 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,12 +150,17 @@ int				do_one_cycle(t_vm *vm)
 
 	++vm->cycle;
 	verbose(vm, MSG_INFO, "It is now cycle %d", vm->cycle);
-	LIST_FOR_EACH_ENTRY_0(process, &vm->process, lx);
-	while (LIST_FOR_EACH_ENTRY_1(process, &vm->process, lx))
+	process = (t_process *)((char*)(vm->process.next)
+			- offsetof(t_process, lx));
+	while (&process->lx != &vm->process)
+	{
 		if (init_instruction(vm, process))
 			return (1);
+		process = (t_process *)((char*)(process->lx.next)
+				- offsetof(t_process, lx));
+	}
+	check_cycle(vm);
 	if (IS_SET(vm->flag, DUMP) && vm->cycle == vm->cycle_to_dump)
 		dump(vm);
-	check_cycle(vm);
 	return (0);
 }

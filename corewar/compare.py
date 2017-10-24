@@ -105,6 +105,7 @@ def check_if_ended(file):
 
 def my_execute(cur_cmd):
     cmd = "gtimeout 5 " + cur_cmd
+    # cmd = cur_cmd
     return os.system(cmd)
 
 def all_cmd_test(cur_cmd):
@@ -141,6 +142,8 @@ def main_func(final):
                 print champdir + champ + ': Is not a valid file'
                 return (1)
             cur_cmd += ' ' + champdir + champ
+        # cur_cmd = '../ressources/champs/championships/champ.cor ../ressources/champs/Survivor.cor'
+        # cur_cmd =  ' ../ressources/champs/slider2.cor ../ressources/champs/championships/champ.cor ../ressources/champs/jumper.cor'
         # cur_cmd = ' ../ressources/champs/championships/youforkmytralala.cor ../ressources/champs/championships/justin_bee.cor ../ressources/champs/championships/Misaka_Mikoto.cor'
         # cur_cmd = ' ../ressources/champs/championships/salamahenagalabadoun.cor ../ressources/champs/championships/salamahenagalabadoun.cor ../ressources/champs/championships/salamahenagalabadoun.cor ../ressources/champs/championships/salamahenagalabadoun.cor'
         # cur_cmd = ' ../ressources/champs/championships/salamahenagalabadoun.cor'

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 17:42:01 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/24 10:48:54 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 12:32:17 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		op_live(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 	args[0] = -args[0] - 1;
 	p->last_live = vm->cycle;
 	++vm->livetmp;
-	if (args[0] > MAX_PLAYERS || !vm->file[args[0]].is_used)
+	if (args[0] >= MAX_PLAYERS || !vm->file[args[0]].is_used)
 		return (verbose(vm, MSG_WARNING, "Bad player number: %u", args[0]));
 	++vm->file[args[0]].live;
 	vm->file[args[0]].last_live = vm->cycle;
