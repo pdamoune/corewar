@@ -19,7 +19,6 @@ int		go_to_label(char *label, t_global *global)
 	int			label_octet;
 	int			stop;
 
-	DG("%s", label);
 	tmp = global->s_label;
 	stop = 0;
 	begin_octet = global->s_label->s_content->begin_octet;

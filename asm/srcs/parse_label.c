@@ -75,17 +75,14 @@ void			ft_with_label(t_global *global)
 
 	i = ft_strsubc_nb(global->s_map->line, LABEL_CHAR);
 	global->s_label->name = ft_strndup((global->s_map->line), i);
-	DG("%s-", global->s_map->line);
 	if(!ft_follow_lab(global, i + 1))
 	{
-		DG(" inst follow label %s", global->s_map->line + i + 1);
 		ft_stock_content(global, global->s_map->line + i + 1);
 	}
 	else if (!global->s_map->line || ft_strchr(global->s_map->line, ':'))
 	{
-		DG();
 		ft_stock_content(global, NULL);
-		ft_with_label(global);
+		global->s_map = global->s_map->previous;
 	}
 	else
 		ft_stock_content(global, global->s_map->line);
