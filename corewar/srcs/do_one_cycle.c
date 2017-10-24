@@ -6,13 +6,13 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/12 14:49:46 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:30:32 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-t_op	g_op_tab[17] =
+const static t_op	g_op_tab[17] =
 {
 	{"live", 1,
 		{T_DIR},
@@ -64,7 +64,8 @@ t_op	g_op_tab[17] =
 		16, 2, "aff", 1, 0, &op_aff}
 };
 
-static int		check_args(t_vm *vm, t_process *p, unsigned int *type, unsigned int *args)
+static int		check_args(t_vm *vm, t_process *p,
+							unsigned int *type, unsigned int *args)
 {
 	int		i;
 
@@ -73,12 +74,14 @@ static int		check_args(t_vm *vm, t_process *p, unsigned int *type, unsigned int 
 	{
 		if (IS_UNSET(p->op.params[i], type[i]) || !type[i])
 		{
-			verbose(vm, MSG_WARNING, "%b: Invalid type (allowed %b)", type[i], p->op.params[i]);
+			verbose(vm, MSG_WARNING, "%b: Invalid type (allowed %b)",
+						type[i], p->op.params[i]);
 			return (1);
 		}
 		if (type[i] == T_REG && args[i] > REG_NUMBER)
 		{
-			verbose(vm, MSG_WARNING, "%u: max register is %d", args[i], REG_NUMBER);
+			verbose(vm, MSG_WARNING, "%u: max register is %d",
+						args[i], REG_NUMBER);
 			return (1);
 		}
 		if (type[i] == T_REG && args[i] == 0)
@@ -90,7 +93,6 @@ static int		check_args(t_vm *vm, t_process *p, unsigned int *type, unsigned int 
 	}
 	return (0);
 }
-
 
 static int		do_instruction(t_vm *vm, t_process *p)
 {
@@ -109,20 +111,18 @@ static int		do_instruction(t_vm *vm, t_process *p)
 	if (check_args(vm, p, type, (unsigned *)args))
 	{
 		p->pc = move_pc(vm, p->pc, pc_inc, 1);
-		return (verbose(vm, MSG_WARNING, "%s: Instruction has invalid type parameters", p->op.label));
+		return (verbose(vm, MSG_WARNING,
+				"%s: Instruction has invalid type parameters", p->op.label));
 	}
 	if (p->op.instru(vm, p, args, &pc_inc))
 	{
-		verbose(vm, MSG_ERROR, "Something as failed in instruction. Vm will properly stop now", NULL);
-		SET(vm->flag, STOP);
-		return (1);
+		return (verbose(vm, MSG_ERROR,
+		"Something as failed in instruction. Vm will properly stop now", NULL));
 	}
-	if (pc_inc)
-		p->pc = move_pc(vm, p->pc, pc_inc, 1);
+	p->pc = move_pc(vm, p->pc, pc_inc, 1);
 	return (0);
 }
 
-//TODO il faudrait lire l'instruction un tour plus tôt (et donc dès l'initialisation), et enregistrer un nombre de cycle restan de la bonne taille, sans le -1
 static int		init_instruction(t_vm *vm, t_process *p)
 {
 	--p->nb_cycle_before_exec;

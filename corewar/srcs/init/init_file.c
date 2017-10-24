@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 11:53:01 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 16:35:51 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:31:51 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int				init_file(t_vm *vm, int num, char *filename)
 		return (verbose(vm, MSG_ERROR, "max player is %d", MAX_PLAYERS));
 	file = &(vm->file[num]);
 	if (file->is_used++)
-		return (verbose(vm, MSG_ERROR, "player number already used: %d", num));
+	{
+		return (verbose(vm, MSG_ERROR, "player number already used: %d",
+				num + 1));
+	}
 	if ((fd = open(filename, O_RDONLY)) == -1)
 	{
 		return (verbose(vm, MSG_ERROR, "{yel}%s:{red} %s",

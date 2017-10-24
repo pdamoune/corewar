@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 13:10:56 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/09 16:03:57 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:32:47 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int			gtk_cycle(t_vm *vm)
 	if (IS_SETREMOVE(vm->flag, STEP)
 		|| (vm->gtk.time - vm->gtk.oldtime) * vm->gtk.speed > 1000000)
 	{
-		//TODO check graphic in other thread
 		iter_on_px(vm);
 		if (do_one_cycle(vm))
 			return (1);
@@ -48,13 +47,9 @@ static gboolean		gtk_loop(void *data)
 				break ;
 		}
 		while (gtk_events_pending())
-		{
-			// DG();
 			if (gtk_main_iteration())
 				return (FALSE);
-		}
 	}
-	DG();
 	vm->gtk.time = g_get_monotonic_time();
 	while (g_get_monotonic_time() - vm->gtk.time < 100000)
 		;

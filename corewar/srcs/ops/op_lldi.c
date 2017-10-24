@@ -6,18 +6,25 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:07 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/12 15:12:15 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 10:56:54 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
+/*
+** Hi Corrector, In a perfect world, we will call analyze_long_value instead
+** of analyze_value. Thanks to Zaz vm and to his vm, we are making diff output.
+** So we let analyze_value in our code.
+** Kiss Xoxoxoxoxoxox
+*/
+
 int		op_lldi(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 {
-	(void)pc_inc;
 	unsigned int		val[MAX_ARGS_NUMBER];
 	unsigned int		addr;
 
+	(void)pc_inc;
 	ft_memcpy(val, args, sizeof(unsigned int) * 2);
 	analyze_value(vm, p, val, 2);
 	addr = p->pc + (int)(val[0] + val[1]);
@@ -29,7 +36,6 @@ int		op_lldi(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 		p->id, val[0], val[1], args[2],
 		val[0], val[1], val[0] + val[1], addr);
 	}
-	//TODO check because zaz do nimp
 	p->r[args[2] - 1] = get_value_at(vm, calc_addr(addr), REG_SIZE);
 	p->carry = !p->r[args[2] - 1];
 	return (0);

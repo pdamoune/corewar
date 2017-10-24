@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:11:43 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/12 15:02:35 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 10:48:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		op_ldi(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 {
-	(void)pc_inc;
 	unsigned int		val[MAX_ARGS_NUMBER];
 	unsigned int		addr;
 
+	(void)pc_inc;
 	ft_memcpy(val, args, sizeof(unsigned int) * 2);
 	analyze_value(vm, p, val, 2);
 	addr = p->pc + ((int)(val[0] + val[1]) % IDX_MOD);

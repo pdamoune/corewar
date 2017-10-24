@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 16:24:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/09 17:59:13 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:06:57 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,11 @@ void		check_cycle(t_vm *vm)
 		return ;
 	verbose(vm, MSG_DEBUG, "TIME TO CHECK", NULL);
 	check_live(vm);
-	
-	// if (vm->cycle_to_die <= 0)
-	// 	return (war_end(vm));
 	vm->last_check = vm->cycle;
 	if (vm->livetmp < NBR_LIVE && (++vm->check_count) < MAX_CHECKS)
 	{
 		if (list_empty(&vm->process))
-		return (war_end(vm));
+			return (war_end(vm));
 		reset_lives(vm);
 		return (update_chk_cpt(vm));
 	}

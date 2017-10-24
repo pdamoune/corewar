@@ -121,13 +121,13 @@ tools/add_process.c\
 tools/analyze_value.c\
 tools/calc_addr.c\
 tools/del_process.c\
-tools/display.c\
 tools/fork_process.c\
 tools/free_vm.c\
 tools/move_pc.c\
 tools/remove_all_process.c\
 tools/usage.c\
 war_end.c
+
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 16:43:45 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/09 18:56:06 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 10:58:49 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ typedef struct	s_panel
 	t_process		*process;
 }				t_panel;
 
-//TODO analyze why crash when surface move
 typedef struct	s_gtk
 {
 	cairo_surface_t		*surface;
