@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:55:30 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/23 16:43:01 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 14:56:01 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		ft_free_global(t_global *global)
 	ft_tabdel(&global->index_tab);
 	ft_free_labels(global);
 	ft_free_map(global);
-	free(global);
+	/* free(global); */
 }
 
 void		ft_free_map(t_global *global)

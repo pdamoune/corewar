@@ -6,14 +6,14 @@
 #    By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/10/23 17:04:59 by tdebarge         ###   ########.fr        #
+#    Updated: 2017/10/24 14:48:43 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	asm
 
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -g
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
 MAIN_FLAGS	=
 OBJ_FLAGS	=
 
@@ -73,7 +73,9 @@ LIB_ASM/strstart.c\
 LIB_ASM/strsubc.c\
 main.c\
 parse_header.c\
-parse_label.c
+parse_label.c\
+verbose.c
+
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

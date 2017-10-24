@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/23 17:38:23 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/24 14:35:40 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,8 @@ void					ft_controller(t_global *global);
 void					ft_parse_label(t_global *global);
 void					ft_exit(int nb, t_global *global, char **line);
 int						ft_write(t_global *global, char *string, int size);
-void					ft_read(t_global *global, char *filename, char *line);
+/* void					ft_read(t_global *global, char *filename, char *line); */
+void					ft_read(t_global *global);
 int						ft_find_index(t_global *global, char *line);
 void					ft_counting(t_global *global, char *inst_line);
 void					ft_browse_file_counting(t_global *global);
