@@ -6,20 +6,20 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 14:27:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/20 17:15:00 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 18:57:29 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-int		ft_find_index(t_global *global, char *line)
+int		ft_find_i(char *line)
 {
 	int i;
 
 	i = 0;
-	while (global->index_tab[i])
+	while (g_op_tab[i])
 	{
-		if (line && !ft_strcmp(line, global->index_tab[i]))
+		if (line && !ft_strcmp(line, g_op_tab[i].label))
 			return (i);
 		i++;
 	}
@@ -28,29 +28,13 @@ int		ft_find_index(t_global *global, char *line)
 
 void	ft_counting(t_global *global, char *inst_line)
 {
-	int	index;
-
-	index = ft_find_index(global, inst_line);
-	if ((index > 0 && index <= 5) || index == 8
-	|| index == 13 || index == 11 || index == 15)
-	{
+	global->i_tab = ft_find_i(inst_line);
+	if (g_op_tab[global->i_tab].ocp == 1)
 		global->s_label->s_content->nb_octet++;
-		ft_calcul_octet(global, global->s_label->s_content->line, 0);
-	}
-	else if (index == 0)
-		ft_calcul_octet(global, global->s_label->s_content->line, 0);
-	else if (index == 6 || index == 9 || index == 14)
-		ft_calcul_octet(global, global->s_label->s_content->line, 1);
-	else if (index == 7 || index == 10 || index == 12)
-	{
-		global->s_label->s_content->nb_octet++;
-		ft_calcul_octet(global, global->s_label->s_content->line, 1);
-	}
-	else
-		ft_exit(10, global, NULL);
+	ft_calcul_octet(global, global->s_label->s_content->line)
 }
 
-void	ft_calcul_octet(t_global *global, char **line, int arg_ind)
+void	ft_calcul_octet(t_global *global, char **line)
 {
 	int		i;
 	char	*val_tmp;
@@ -62,7 +46,7 @@ void	ft_calcul_octet(t_global *global, char **line, int arg_ind)
 		if ((val_tmp = ft_str_mod(line[i], "r"))
 		&& !ft_strchr(line[i], ':') && ft_isdigitspace(val_tmp))
 			global->s_label->s_content->nb_octet++;
-		else if (!arg_ind && ((val_tmp = ft_str_mod(line[i], "%:"))
+		else if (!g_op_tab[global->i_tab].index && ((val_tmp = ft_str_mod(line[i], "%:"))
 		|| ((val_tmp = ft_str_mod(line[i], "%")) && !ft_strchr(val_tmp, ':'))))
 			global->s_label->s_content->nb_octet += 4;
 		else

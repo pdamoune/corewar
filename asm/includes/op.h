@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/23 17:38:23 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 18:55:53 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
 # define COMMENT_CHAR			"#;"
-# define LABEL_CHAR				':'
-# define DIRECT_CHAR			'%'
-# define SEPARATOR_CHAR			','
+# define LABEL_CHAR				":"
+# define DIRECT_CHAR			"%"
+# define SEPARATOR_CHAR			","
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
@@ -82,17 +82,17 @@ typedef struct			s_header
 **  STRUCTURES DE BASES DE L'ASM
 */
 
-struct			s_opa
+struct					s_opa
 {
-	char	*label;
-	int		nb_params;
-	int		params[MAX_ARGS_NUMBER];
-	int		op_code;
-	int		cycle;
-	char	*description;
-	int		ocp;
-	int		index;
-}				t_opa;
+	char				*label;
+	int					nb_params;
+	int					params[MAX_ARGS_NUMBER];
+	int					op_code;
+	int					cycle;
+	char				*description;
+	int					ocp;
+	int					index;
+}						t_opa;
 
 typedef struct			s_global
 {
@@ -103,6 +103,7 @@ typedef struct			s_global
 	int					i;
 	int					j;
 	int					k;
+	int					i_tab;
 	int					fdin;
 	int					fdout;
 	struct s_map		*begin_map;

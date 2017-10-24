@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:56:31 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 16:05:51 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 19:33:10 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,52 @@ char	*and_instruct(t_global *global, char **line)
 			ft_arg_and_bis(global, line, i, &arg);
 	}
 	return (arg);
+}
+
+char	*ft_central(t_global *global, char *line)
+{
+	int		i;
+	char	*arg;
+
+	arg = ft_strdup("00000000");
+	i = 0;
+	while (line[++i] && !ft_strstart(line[i], "#"))
+	{
+		if (i > g_op_tab[global->i_tab].nb_params)
+			ft_exit(11, global, NULL);
+		else if (i == 1)
+		{
+			if (!g_op_tab[global->i_tab].index && ft_strstart(line[i], DIRECT_CHAR) && g_op_tab[global->i_tab].params[0] == T_DIR)
+				arg = ft_arg(arg, 1, DIR_CODE);
+			else if (ft_strstart(line[i], "r") && g_op_tab[global->i_tab].params[0] == T_REG)
+				arg = ft_arg(arg, 1, REG_CODE);
+			else if (g_op_tab[global->i_tab].index || g_op_tab[global->i_tab].params[0] == T_IND)
+				arg = ft_arg(arg, 1, IND_CODE);
+			else
+				ft_exit(12, global, NULL);
+		}
+		else
+			ft_central2(global, line, i, &arg);
+	}
+	return (arg);
+}
+
+char	*ft_central2(t_global *global, char *line, int i, char **arg)
+{
+	int		i;
+
+	if (i == 2)
+	{
+		if (!g_op_tab[global->i_tab].index && ft_strstart(line[i], DIRECT_CHAR) && g_op_tab[global->i_tab].params[1] == T_DIR)
+			arg* = ft_arg(arg*, 2, DIR_CODE);
+		else if (ft_strstart(line[i], "r") && g_op_tab[global->i_tab].params[1] == T_REG)
+			arg* = ft_arg(arg*, 2, REG_CODE);
+		else if (g_op_tab[global->i_tab].index || g_op_tab[global->i_tab].params[1] == T_IND)
+			arg* = ft_arg(arg*, 2, IND_CODE);
+		else
+			ft_exit(12, global, NULL);
+	}
+	else
+		ft_central3(global, line, k, arg);
+	return (*arg);
 }

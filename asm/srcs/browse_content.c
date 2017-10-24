@@ -6,51 +6,54 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 12:56:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/20 17:54:15 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 19:39:55 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-static int			ft_opcode(int index)
-{
-	int		opcode[16];
+// static int			ft_opcode(int index)
+// {
+// 	int		opcode[16];
 
-	opcode[0] = 1;
-	opcode[1] = 4;
-	opcode[2] = 5;
-	opcode[3] = 6;
-	opcode[4] = 7;
-	opcode[5] = 8;
-	opcode[6] = 9;
-	opcode[7] = 11;
-	opcode[8] = 3;
-	opcode[9] = 12;
-	opcode[10] = 14;
-	opcode[11] = 13;
-	opcode[12] = 10;
-	opcode[13] = 2;
-	opcode[14] = 15;
-	opcode[15] = 16;
-	return (opcode[index]);
-}
+// 	opcode[0] = 1;
+// 	opcode[1] = 4;
+// 	opcode[2] = 5;
+// 	opcode[3] = 6;
+// 	opcode[4] = 7;
+// 	opcode[5] = 8;
+// 	opcode[6] = 9;
+// 	opcode[7] = 11;
+// 	opcode[8] = 3;
+// 	opcode[9] = 12;
+// 	opcode[10] = 14;
+// 	opcode[11] = 13;
+// 	opcode[12] = 10;
+// 	opcode[13] = 2;
+// 	opcode[14] = 15;
+// 	opcode[15] = 16;
+// 	return (opcode[index]);
+// }
 
 void				ft_get_opcode(t_global *global, char *line)
 {
-	int		index;
+	int		i;
+	char	*arg;
 
-	index = ft_find_index(global, line);
-	global->res[global->res_pc] = ft_opcode(index);
+	global->i_tab = ft_find_index(line);
+	global->res[global->res_pc] = g_op_tab[global->i_tab].op_code;
 	++global->res_pc;
-	if ((index > 0 && index <= 5) || index == 8
-	|| index == 13 || index == 11 || index == 15)
-		ft_g_ptr_tab(global, index, 0, 0);
-	else if (index == 0)
-		ft_g_ptr_tab(global, index, 1, 0);
-	else if (index == 6 || index == 9 || index == 14)
-		ft_g_ptr_tab(global, index, 1, 1);
-	else if (index == 7 || index == 10 || index == 12)
-		ft_g_ptr_tab(global, index, 0, 1);
+	if (i < 16)
+		arg = ft_central(global, line);
+	// if ((index > 0 && index <= 5) || index == 8
+	// || index == 13 || index == 11 || index == 15)
+	// 	ft_g_ptr_tab(global, index, 0, 0);
+	// else if (index == 0)
+	// 	ft_g_ptr_tab(global, index, 1, 0);
+	// else if (index == 6 || index == 9 || index == 14)
+	// 	ft_g_ptr_tab(global, index, 1, 1);
+	// else if (index == 7 || index == 10 || index == 12)
+	// 	ft_g_ptr_tab(global, index, 0, 1);
 	else
 		ft_exit(10, global, NULL);
 }
