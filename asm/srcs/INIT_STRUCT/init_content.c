@@ -27,10 +27,12 @@ void		ft_initialize_content(t_content **content, char *line)
 		tab2 = ft_strsplit_virg(tab1[0]);
 	else
 		tab2 = ft_strsplit_virg(str);
-	(*content)->line = ft_split_tab(tab2);
-	ft_free_tab(tab1);
+	if (tab2)
+		(*content)->line = ft_split_tab(tab2);
+	ft_tabdel(&tab1);
 	ft_strdel(&str);
-	//ft_free_tab(tab2);
+	if (tab2 && *tab2)
+		ft_tabdel(&tab2);
 }
 
 void		ft_initialize_content_header(t_content **content, char *line)
@@ -53,7 +55,7 @@ void		ft_initialize_content_header(t_content **content, char *line)
 	(*content)->next = NULL;
 	(*content)->instruction = NULL;
 	(*content)->previous = NULL;
-	ft_free_tab(tmp);
+	ft_tabdel(&tmp);
 }
 
 void		ft_initialize_content_name(t_content **content, char *line)
@@ -61,19 +63,22 @@ void		ft_initialize_content_name(t_content **content, char *line)
 	char	**tmp;
 
 	tmp = ft_strsplit(line, '"');
-	if (!(*content = (t_content*)malloc(sizeof(t_content))))
-		return ;
-	if (!((*content)->line = (char**)malloc(sizeof(char*) * 3)))
-		return ;
-	(*content)->line[0] = ft_strdup(".name");
-	(*content)->line[1] = ft_strdup(tmp[1]);
-	(*content)->line[2] = NULL;
-	(*content)->nb_octet = 0;
-	(*content)->begin_octet = 0;
-	(*content)->next = NULL;
-	(*content)->instruction = NULL;
-	(*content)->previous = NULL;
-	ft_free_tab(tmp);
+	if (tmp)
+	{
+		if (!(*content = (t_content*)malloc(sizeof(t_content))))
+			return ;
+		if (!((*content)->line = (char**)malloc(sizeof(char*) * 3)))
+			return ;
+		(*content)->line[0] = ft_strdup(".name");
+		(*content)->line[1] = ft_strdup(tmp[1]);
+		(*content)->line[2] = NULL;
+		(*content)->nb_octet = 0;
+		(*content)->begin_octet = 0;
+		(*content)->next = NULL;
+		(*content)->instruction = NULL;
+		(*content)->previous = NULL;
+		ft_tabdel(&tmp);
+	}
 }
 
 /*
