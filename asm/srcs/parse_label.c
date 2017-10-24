@@ -76,9 +76,7 @@ void			ft_with_label(t_global *global)
 	i = ft_strsubc_nb(global->s_map->line, LABEL_CHAR);
 	global->s_label->name = ft_strndup((global->s_map->line), i);
 	if(!ft_follow_lab(global, i + 1))
-	{
 		ft_stock_content(global, global->s_map->line + i + 1);
-	}
 	else if (!global->s_map->line || ft_strchr(global->s_map->line, ':'))
 	{
 		ft_stock_content(global, NULL);
@@ -86,7 +84,8 @@ void			ft_with_label(t_global *global)
 	}
 	else
 		ft_stock_content(global, global->s_map->line);
-	global->s_map = global->s_map->next;
+	if (global->s_map)
+		global->s_map = global->s_map->next;
 	global->i = 1;
 	while (global->s_map
 		&& ft_kind_of_line(global, global->s_map->line) == EMPTY_LABEL)
