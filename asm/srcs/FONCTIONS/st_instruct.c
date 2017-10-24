@@ -6,18 +6,20 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:02:48 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:02:50 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/19 16:05:02 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-char	*ft_arg_st_bis(global_t *global, char **line, int i, char **arg)
+char	*ft_arg_st_bis(t_global *global, char **line, int i, char **arg)
 {
 	if (i == 2)
 	{
-		if (ft_strstart(line[i], "r"))
+		if (!ft_strstart(line[i], ":") && ft_strstart(line[i], "r"))
+		{
 			*arg = ft_arg(*arg, 2, REG_CODE);
+		}
 		else
 			*arg = ft_arg(*arg, 2, IND_CODE);
 	}
@@ -26,7 +28,7 @@ char	*ft_arg_st_bis(global_t *global, char **line, int i, char **arg)
 	return (*arg);
 }
 
-char	*st_instruct(global_t *global, char **line)
+char	*st_instruct(t_global *global, char **line)
 {
 	int		i;
 	char	*arg;

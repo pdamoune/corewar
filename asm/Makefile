@@ -6,14 +6,18 @@
 #    By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2017/10/24 10:41:19 by tdebarge         ###   ########.fr        #
+=======
+#    Updated: 2017/10/23 17:04:59 by tdebarge         ###   ########.fr        #
+>>>>>>> 1684686e89fd08673bd574bb7db58be4a49409d1
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	asm
 
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror -g
 MAIN_FLAGS	=
 OBJ_FLAGS	=
 
@@ -33,6 +37,7 @@ LIBS		=
 SRC_BASE	=	\
 browse_content.c\
 browse_counting.c\
+comment_done.c\
 controller.c\
 FONCTIONS/add_instruct.c\
 FONCTIONS/aff_instruct.c\
@@ -58,7 +63,6 @@ INIT_STRUCT/init_map.c\
 LIB_ASM/convert_base.c\
 LIB_ASM/convert_hexa.c\
 LIB_ASM/free_strjoin.c\
-LIB_ASM/free_tab.c\
 LIB_ASM/get_the_argument.c\
 LIB_ASM/go_to_label.c\
 LIB_ASM/is_labelchars.c\
@@ -71,9 +75,9 @@ LIB_ASM/strsplitspa.c\
 LIB_ASM/strsplitvirg.c\
 LIB_ASM/strstart.c\
 LIB_ASM/strsubc.c\
+main.c\
 parse_header.c\
-parse_label.c\
-read.c
+parse_label.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

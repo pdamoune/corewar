@@ -6,27 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:59:04 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 14:04:16 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/17 16:12:08 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-static char		*ft_strstrchr(char *line, char *pool)
-{
-	int		i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (ft_strchr(pool, line[i]))
-			return (line + i);
-		i++;
-	}
-	return (NULL);
-}
-
-char	*ft_arg_ldi_bis(global_t *global, char **line, int i, char **arg)
+char	*ft_arg_ldi_bis(t_global *global, char **line, int i, char **arg)
 {
 	char *comment_tmp;
 
@@ -52,7 +38,7 @@ char	*ft_arg_ldi_bis(global_t *global, char **line, int i, char **arg)
 	return (*arg);
 }
 
-char	*ldi_instruct(global_t *global, char **line)
+char	*ldi_instruct(t_global *global, char **line)
 {
 	int		i;
 	char	*arg;

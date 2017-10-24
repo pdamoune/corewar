@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 16:56:46 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/16 17:33:32 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:08:38 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 ** 5) instruction de header - HEADER
 */
 
-int				ft_kind_of_line(global_t *global, char *line)
+int				ft_kind_of_line(t_global *global, char *line)
 {
 	int		i;
 
 	i = 0;
-	if (line[i] == '\n')
+	if (line[i] == '\n' || line[i] == '\0')
 		return (EMPTY_LINE);
 	else if (ft_strchr(COMMENT_CHAR, line[i]))
 		return (COMMENT);
@@ -34,7 +34,7 @@ int				ft_kind_of_line(global_t *global, char *line)
 			|| ft_strstart(line, COMMENT_CMD_STRING))
 		return (HEADER);
 	else if (ft_strstart(line, "."))
-		ft_exit(15, global, NULL);
+		ft_exit(15, global, &line);
 	while (line[i++])
 	{
 		while (is_labelchars(line[i]))
@@ -48,7 +48,7 @@ int				ft_kind_of_line(global_t *global, char *line)
 	return (0);
 }
 
-static void		ft_follow_lab(global_t *global)
+static void		ft_follow_lab(t_global *global)
 {
 	int			i;
 
@@ -67,7 +67,7 @@ static void		ft_follow_lab(global_t *global)
 	}
 }
 
-void			ft_with_label(global_t *global)
+void			ft_with_label(t_global *global)
 {
 	global->s_label->name = ft_strsubc(&(global->s_map->line), LABEL_CHAR);
 	ft_follow_lab(global);
@@ -89,7 +89,7 @@ void			ft_with_label(global_t *global)
 **  STOCK LES DONNEES DANS UNE STRUCTURE LABEL
 */
 
-static void		ft_sort_lines(global_t *global, char *comment_line)
+static void		ft_sort_lines(t_global *global, char *comment_line)
 {
 	if (ft_kind_of_line(global, global->s_map->line) == COMMENT)
 	{
@@ -114,7 +114,7 @@ static void		ft_sort_lines(global_t *global, char *comment_line)
 	ft_stock_label(global);
 }
 
-void			ft_parse_label(global_t *global)
+void			ft_parse_label(t_global *global)
 {
 	char	comment_line[COMMENT_LENGTH + 256];
 

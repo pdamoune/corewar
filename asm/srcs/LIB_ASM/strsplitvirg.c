@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:53:46 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:53:48 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:03:20 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ char			**ft_strsplit_virg(char const *str)
 		while (*str && ft_isseparator(*str))
 			++str;
 	}
-	s1[i] = 0;
+	s1[i] = NULL;
 	return (s1);
 }

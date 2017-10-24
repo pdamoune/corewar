@@ -6,17 +6,17 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:08:29 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:24:07 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:33:30 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
 
-void		ft_initialize_map(map_t **map, char *line)
+void		ft_initialize_map(t_map **map, char *str)
 {
-	if (!(*map = (map_t*)malloc(sizeof(map_t))))
+	if (!(*map = (t_map*)malloc(sizeof(t_map))))
 		return ;
-	(*map)->line = ft_strdup(line);
+	(*map)->line = ft_strdup(str);
 	(*map)->next = NULL;
 	(*map)->previous = NULL;
 }
@@ -25,10 +25,10 @@ void		ft_initialize_map(map_t **map, char *line)
 **  STOCKE CHAQUE LINE DANS LA STRUCT MAP
 */
 
-void		ft_stock_map(global_t *global, char *line)
+void		ft_stock_map(t_global *global, char *line)
 {
-	map_t	*new;
-	map_t	*previous;
+	t_map	*new;
+	t_map	*previous;
 
 	new = NULL;
 	previous = NULL;
