@@ -6,14 +6,14 @@
 #    By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/10/24 15:05:00 by wescande         ###   ########.fr        #
+#    Updated: 2017/10/25 14:56:22 by tdebarge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	asm
 
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror -g
 MAIN_FLAGS	=
 OBJ_FLAGS	=
 
@@ -35,22 +35,7 @@ browse_content.c\
 browse_counting.c\
 comment_done.c\
 controller.c\
-FONCTIONS/add_instruct.c\
-FONCTIONS/aff_instruct.c\
-FONCTIONS/and_instruct.c\
-FONCTIONS/fork_instruct.c\
-FONCTIONS/ld_instruct.c\
-FONCTIONS/ldi_instruct.c\
-FONCTIONS/lfork_instruct.c\
-FONCTIONS/live_instruct.c\
-FONCTIONS/lld_instruct.c\
-FONCTIONS/lldi_instruct.c\
-FONCTIONS/or_instruct.c\
-FONCTIONS/st_instruct.c\
-FONCTIONS/sti_instruct.c\
-FONCTIONS/sub_instruct.c\
-FONCTIONS/xor_instruct.c\
-FONCTIONS/zjmp_instruct.c\
+fonctions/ft_central.c\
 free.c\
 INIT_STRUCT/init_content.c\
 INIT_STRUCT/init_global.c\

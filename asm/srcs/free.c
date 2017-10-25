@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:55:30 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 15:03:02 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:56:30 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,15 @@ void		ft_free_content(t_global *global)
 {
 	t_content	*tmp;
 
-	global->s_label->s_content = global->s_label->begin_content;
-	while (global->s_label->s_content)
+	G_L_C = global->s_label->begin_content;
+	while (G_L_C)
 	{
-		if (global->s_label->s_content->line)
-			ft_tabdel(&global->s_label->s_content->line);
-		ft_strdel(&global->s_label->s_content->instruction);
-		tmp = global->s_label->s_content->next;
-		free(global->s_label->s_content);
-		global->s_label->s_content = tmp;
+		if (G_L_C->line)
+			ft_tabdel(&G_L_C->line);
+		ft_strdel(&G_L_C->instruction);
+		tmp = G_L_C->next;
+		free(G_L_C);
+		G_L_C = tmp;
 	}
 	global->s_label->begin_content = NULL;
 }

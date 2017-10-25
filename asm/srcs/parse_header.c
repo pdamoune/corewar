@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 18:24:52 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:56:26 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ static void		ft_kind_of_header(t_global *global,
 
 	i = 0;
 	k = 0;
-	if (global->s_label->s_content->line[1] == NULL)
+	if (G_L_C->line[1] == NULL)
 		header = NULL;
 	else
 	{
-		while (global->s_label->s_content->line[1][i])
+		while (G_L_C->line[1][i])
 			i++;
 		if (i > size)
 			ft_exit(error, global, NULL);
 		while (k < i)
 		{
-			header[k] = global->s_label->s_content->line[1][k];
+			header[k] = G_L_C->line[1][k];
 			k++;
 		}
 	}
@@ -51,11 +51,11 @@ void			ft_parse_header(t_global *global)
 	global->header.prog_size = rev;
 	while (!ft_strcmp(global->s_label->name, "HEADER"))
 	{
-		if (!ft_strcmp(global->s_label->s_content->line[0],
+		if (!ft_strcmp(G_L_C->line[0],
 			NAME_CMD_STRING))
 			ft_kind_of_header(global, global->header.prog_name,
 				PROG_NAME_LENGTH, 5);
-		if (!ft_strcmp(global->s_label->s_content->line[0],
+		if (!ft_strcmp(G_L_C->line[0],
 			COMMENT_CMD_STRING))
 			ft_kind_of_header(global, global->header.comment,
 				COMMENT_LENGTH, 6);

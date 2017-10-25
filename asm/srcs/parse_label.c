@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 16:56:46 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 13:03:17 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:47:51 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static int		ft_follow_lab(t_global *global, int k)
 		else
 			return (0);
 	}
-	global->s_map = global->s_map->next;
+	if (global->s_map->next)
+		global->s_map = global->s_map->next;
 	return (1);
 }
 
@@ -75,12 +76,18 @@ void			ft_with_label(t_global *global)
 
 	i = ft_strsubc_nb(global->s_map->line, LABEL_CHAR);
 	global->s_label->name = ft_strndup((global->s_map->line), i);
-	if(!ft_follow_lab(global, i + 1))
+	if (!ft_follow_lab(global, i + 1))
 		ft_stock_content(global, global->s_map->line + i + 1);
+	else if (!global->s_map->line || ft_strchr(global->s_map->line, ':'))
+	{
+		ft_stock_content(global, NULL);
+		if (global->s_map->next)
+			global->s_map = global->s_map->previous;
+	}
 	else
 		ft_stock_content(global, global->s_map->line);
-	global->s_map = global->s_map->next;
-	global->i = 1;
+	if ((global->i = 1) && global->s_map)
+		global->s_map = global->s_map->next;
 	while (global->s_map
 		&& ft_kind_of_line(global, global->s_map->line) == EMPTY_LABEL)
 	{

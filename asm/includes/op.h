@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/24 15:02:39 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:56:33 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,17 @@ typedef struct			s_header
 **  STRUCTURES DE BASES DE L'ASM
 */
 
-struct			s_opa
+typedef struct					s_op
 {
-	char	*label;
-	int		nb_params;
-	int		params[MAX_ARGS_NUMBER];
-	int		op_code;
-	int		cycle;
-	char	*description;
-	int		ocp;
-	int		index;
-}				t_opa;
+	char				*label;
+	int					nb_params;
+	int					params[MAX_ARGS_NUMBER];
+	int					op_code;
+	int					cycle;
+	char				*description;
+	int					ocp;
+	int					index;
+}						t_op;
 
 typedef struct			s_global
 {
@@ -103,6 +103,7 @@ typedef struct			s_global
 	int					i;
 	int					j;
 	int					k;
+	int					i_tab;
 	int					fdin;
 	int					fdout;
 	struct s_map		*begin_map;
@@ -163,6 +164,8 @@ typedef	struct			s_var
 
 # define OCTET					0
 # define STOCK					1
+# define G_L_C					global->s_label->s_content
+# define ITAB					global->i_tab
 
 /*
 **   FONCTIONS DE L'ASM
@@ -174,13 +177,12 @@ void					ft_exit(int nb, t_global *global, char **line);
 int						ft_write(t_global *global, char *string, int size);
 /* void					ft_read(t_global *global, char *filename, char *line); */
 void					ft_read(t_global *global);
-int						ft_find_index(t_global *global, char *line);
+int						ft_find_i(char *line);
 void					ft_counting(t_global *global, char *inst_line);
 void					ft_browse_file_counting(t_global *global);
 void					ft_browse_content(t_global *global);
 void					ft_get_opcode(t_global *global, char *line);
-void					ft_calcul_octet(t_global *global,
-	char **line, int arg_ind);
+void					ft_calcul_octet(t_global *global, char **line);
 void					ft_parse_header(t_global *global);
 void					ft_comment_is_done(t_global *global, char *com);
 int						ft_open(t_global *global, char *str);
@@ -240,70 +242,14 @@ char					*ft_strndup(char *s, int i);
 **   FONCTIONS DE TRADUCTIONS
 */
 
-enum					e_conversion
-{
-	live = 0,
-	ld = 13,
-	st = 8,
-	add = 1,
-	sub = 2,
-	and = 3,
-	or = 4,
-	xor = 5,
-	zjmp = 6,
-	ldi = 12,
-	sti = 7,
-	FORK = 9,
-	lld = 11,
-	lldi = 10,
-	lfork = 14,
-	aff = 15,
-};
+char	*ft_central(t_global *global, char **line);
+char	*ft_central2(t_global *global, char **line, int i, char **arg);
+char	*ft_central3(t_global *global, char **line, int i, char **arg);
 
-void					ft_g_ptr_tab(t_global *global,
-	int index, int one_arg, int arg_ind);
-char					*(*g_ptr_tab[25])(t_global *, char **line);
-char					*ld_instruct(t_global *global, char **line);
-char					*st_instruct(t_global *global, char **line);
-char					*add_instruct(t_global *global, char **line);
-char					*and_instruct(t_global *global, char **line);
-char					*sub_instruct(t_global *global, char **line);
-char					*and_instruct(t_global *global, char **line);
-char					*or_instruct(t_global *global, char **line);
-char					*xor_instruct(t_global *global, char **line);
-char					*ldi_instruct(t_global *global, char **line);
-char					*sti_instruct(t_global *global, char **line);
-char					*lld_instruct(t_global *global, char **line);
-char					*lldi_instruct(t_global *global, char **line);
-char					*aff_instruct(t_global *global, char **line);
 /*
 **	SOUS-FONCTIONS DE TRADUCTION
 */
-void					ft_get_values(t_global *global,
-	char **line, int arg_ind);
-void					gal_fct(t_global *global,
-	int one_arg, char *arg_tmp, int arg_ind);
-char					*ft_arg_and_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_ld_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_st_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_add_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_sub_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_or_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_xor_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_ldi_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_sti_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_lld_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_lldi_bis(t_global *global,
-	char **line, int i, char **arg);
+void					ft_get_values(t_global *global, char **line);
+void					gal_fct(t_global *global, char *arg_tmp);
 
 #endif
