@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/25 14:56:33 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 15:37:05 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ typedef struct			s_global
 {
 	int					nb_empty;
 	int					nb_lines;
-	char				**index_tab;
 	int					total_octet;
 	int					i;
 	int					j;

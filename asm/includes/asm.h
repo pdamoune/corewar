@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/24 14:42:50 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:09:13 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ typedef struct s_file	t_file;
 
 struct s_file
 {
+	uint64_t		flag;
 	char			*filename;
 	int				fdin;
 	int				nb_error;
-	int				flag;
 	int				name_len;
 	int				comment_len;
 	t_header		header;

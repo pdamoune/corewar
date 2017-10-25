@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 17:46:55 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:24:39 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ static int			check_header(t_asm *a, char *line)
 {
 	while (ft_isspa(*line))
 		++line;
-	if (!*line)
+	if (!*line || ft_strchr(COMMENT_CHAR, *line))
 		return (1);
 	if (ft_isspa(ft_strcmp(line, NAME_CMD_STRING)))
 	{
@@ -231,20 +231,25 @@ static int			check_filename(t_asm *a, char *filename)
 
 	if (!(len = ft_strlen(filename)))
 		return (verbose(a, MSG_ERROR, "%s: len is 0", filename));
-	if (!ft_strcmp(filename + (len - 3), ".s"))
+	if (!ft_strcmp(filename + (len - 2), ".s"))
 	{
-		if (!(a->file.filename = (char *)malloc(len + 2)))
+		if (!(a->file.filename = (char *)malloc(len + 3)))
 			return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
-		ft_memcpy(a->file.filename, filename, len - 3);
+		ft_memcpy(a->file.filename, filename, len - 2);
+		ft_memcpy(a->file.filename + len - 2, ".cor", 5);
 	}
 	else
 	{
-		if (!(a->file.filename = ft_strdup(filename)))
+		if (!(a->file.filename = (char *)malloc(len + 5)))
 			return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
+		ft_memcpy(a->file.filename, filename, len);
+		ft_memcpy(a->file.filename + len, ".cor", 5);
 	}
-	ft_memcpy(a->file.filename + len - 2, ".cor", 4);
 	if ((a->file.fdin = open(filename, O_RDONLY)) < 0)
-		return (verbose(a, MSG_ERROR, "%s: No such file or directory", filename));
+	{
+		return (verbose(a, MSG_ERROR,
+					"%s: No such file or directory", filename));
+	}
 	return (0);
 }
 
@@ -254,32 +259,6 @@ const static t_itof g_send_line_func [] =
 	{2, &check_header_name},
 	{3, &check_header_comment},
 };
-
-char		**ft_index_tab2(void)
-{
-	char	**tab;
-
-	if (!(tab = (char **)malloc(17 * sizeof(*tab))))
-		return (NULL);
-	tab[0] = ft_strdup("live");
-	tab[1] = ft_strdup("add");
-	tab[2] = ft_strdup("sub");
-	tab[3] = ft_strdup("and");
-	tab[4] = ft_strdup("or");
-	tab[5] = ft_strdup("xor");
-	tab[6] = ft_strdup("zjmp");
-	tab[7] = ft_strdup("sti");
-	tab[8] = ft_strdup("st");
-	tab[9] = ft_strdup("fork");
-	tab[10] = ft_strdup("lldi");
-	tab[11] = ft_strdup("lld");
-	tab[12] = ft_strdup("ldi");
-	tab[13] = ft_strdup("ld");
-	tab[14] = ft_strdup("lfork");
-	tab[15] = ft_strdup("aff");
-	tab[16] = NULL;
-	return (tab);
-}
 
 static int			do_asm(t_asm *a, char *filename)
 {
@@ -300,10 +279,10 @@ static int			do_asm(t_asm *a, char *filename)
 			return (1);
 		}
 		ft_strdel(&line);
-		if (!ret && *a->file.header.prog_name && *a->file.header.comment)
+		if (!ret && IS_SET(a->file.flag, (HEAD_COMMENT | HEAD_NAME)))
 			break;
 		if (ret)
-			f = g_send_line_func[ret].f;
+			f = g_send_line_func[ret - 1].f;
 		else
 			f = &check_header;
 	}
@@ -312,12 +291,11 @@ static int			do_asm(t_asm *a, char *filename)
 	global = &a->file.global;
 	global->header = a->file.header;
 	global->fdin = a->file.fdin;
-	global->index_tab = ft_index_tab2();
 	ft_read(global);
 	ft_open(global, a->file.filename);
 	write(global->fdout, global->res, global->total_octet);
 	close(global->fdin);
-	ft_printf ("Writting output program to %s\n", a->file.filename);
+	ft_printf ("Writing output program to %s\n", a->file.filename);
 	ft_free_map(global);
 	ft_free_global(global);
 	free(a->file.filename);
