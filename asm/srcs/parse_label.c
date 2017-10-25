@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 16:56:46 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 18:09:25 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:08:24 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static int		ft_follow_lab(t_global *global, int k)
 		else
 			return (0);
 	}
-	global->s_map = global->s_map->next;
+	if (global->s_map->next)
+		global->s_map = global->s_map->next;
 	return (1);
 }
 
@@ -80,7 +81,8 @@ void			ft_with_label(t_global *global)
 	else if (!global->s_map->line || ft_strchr(global->s_map->line, ':'))
 	{
 		ft_stock_content(global, NULL);
-		global->s_map = global->s_map->previous;
+		if (global->s_map->next)
+			global->s_map = global->s_map->previous;
 	}
 	else
 		ft_stock_content(global, global->s_map->line);

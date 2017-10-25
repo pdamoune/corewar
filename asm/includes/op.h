@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/24 15:36:29 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:21:38 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,72 +239,14 @@ char					*ft_strndup(char *s, int i);
 **   FONCTIONS DE TRADUCTIONS
 */
 
-enum					e_conversion
-{
-	live = 0,
-	ld = 13,
-	st = 8,
-	add = 1,
-	sub = 2,
-	and = 3,
-	or = 4,
-	xor = 5,
-	zjmp = 6,
-	ldi = 12,
-	sti = 7,
-	FORK = 9,
-	lld = 11,
-	lldi = 10,
-	lfork = 14,
-	aff = 15,
-};
-
 char	*ft_central(t_global *global, char **line);
 char	*ft_central2(t_global *global, char **line, int i, char **arg);
 char	*ft_central3(t_global *global, char **line, int i, char **arg);
 
-void					ft_g_ptr_tab(t_global *global,
-	int index, int one_arg, int arg_ind);
-char					*(*g_ptr_tab[25])(t_global *, char **line);
-char					*ld_instruct(t_global *global, char **line);
-char					*st_instruct(t_global *global, char **line);
-char					*add_instruct(t_global *global, char **line);
-char					*and_instruct(t_global *global, char **line);
-char					*sub_instruct(t_global *global, char **line);
-char					*and_instruct(t_global *global, char **line);
-char					*or_instruct(t_global *global, char **line);
-char					*xor_instruct(t_global *global, char **line);
-char					*ldi_instruct(t_global *global, char **line);
-char					*sti_instruct(t_global *global, char **line);
-char					*lld_instruct(t_global *global, char **line);
-char					*lldi_instruct(t_global *global, char **line);
-char					*aff_instruct(t_global *global, char **line);
 /*
 **	SOUS-FONCTIONS DE TRADUCTION
 */
 void					ft_get_values(t_global *global, char **line);
 void					gal_fct(t_global *global, char *arg_tmp);
-char					*ft_arg_and_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_ld_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_st_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_add_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_sub_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_or_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_xor_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_ldi_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_sti_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_lld_bis(t_global *global,
-	char **line, int i, char **arg);
-char					*ft_arg_lldi_bis(t_global *global,
-	char **line, int i, char **arg);
 
 #endif

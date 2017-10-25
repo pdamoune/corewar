@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:52:41 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 15:09:19 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:17:20 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,28 +94,6 @@ void		gal_fct(t_global *global, char *arg_tmp)
 	ft_get_values(global, global->s_label->s_content->line);
 }
 
-/*void		ft_g_ptr_tab(t_global *global, int index, int one_arg, int arg_ind)
-{
-	char	*arg_tmp;
-
-	g_ptr_tab[ld] = ld_instruct;
-	g_ptr_tab[st] = st_instruct;
-	g_ptr_tab[add] = add_instruct;
-	g_ptr_tab[sub] = sub_instruct;
-	g_ptr_tab[and] = and_instruct;
-	g_ptr_tab[or] = or_instruct;
-	g_ptr_tab[xor] = xor_instruct;
-	g_ptr_tab[ldi] = ldi_instruct;
-	g_ptr_tab[sti] = sti_instruct;
-	g_ptr_tab[lld] = lld_instruct;
-	g_ptr_tab[lldi] = lldi_instruct;
-	g_ptr_tab[aff] = aff_instruct;
-	arg_tmp = NULL;
-	if (!one_arg)
-		arg_tmp = g_ptr_tab[index](global, global->s_label->s_content->line);
-	gal_fct(global, one_arg, arg_tmp, arg_ind);
-}
-*/
 void		ft_controller(t_global *global)
 {
 	ft_parse_label(global);
