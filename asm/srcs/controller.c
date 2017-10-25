@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:52:41 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/25 14:17:20 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:37:58 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		gal_fct(t_global *global, char *arg_tmp)
 	int		*arg;
 	char	*str;
 
-	if (g_op_tab[global->i_tab].ocp)
+	if (g_op_tab[ITAB].ocp)
 	{
 		arg = (int *)(global->res + global->res_pc);
 		str = ft_convert_base(arg_tmp, 2, 10);
@@ -91,7 +91,7 @@ void		gal_fct(t_global *global, char *arg_tmp)
 		global->res_pc++;
 	}
 	global->i = 0;
-	ft_get_values(global, global->s_label->s_content->line);
+	ft_get_values(global, G_L_C->line);
 }
 
 void		ft_controller(t_global *global)

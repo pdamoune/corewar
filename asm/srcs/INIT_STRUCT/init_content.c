@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:26:50 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 17:58:58 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:34:56 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ void		ft_stock_content(t_global *global, char *line)
 		global->s_label->begin_content = new;
 	else
 	{
-		previous = global->s_label->s_content;
+		previous = G_L_C;
 		new->previous = previous;
 		previous->next = new;
 	}
-	global->s_label->s_content = new;
+	G_L_C = new;
 }
 
 void		ft_initialize_content_null(t_content **content, char *line)

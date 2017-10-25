@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/25 14:21:38 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:36:45 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ typedef	struct			s_var
 
 # define OCTET					0
 # define STOCK					1
+# define G_L_C					global->s_label->s_content
+# define ITAB					global->i_tab
 
 /*
 **   FONCTIONS DE L'ASM

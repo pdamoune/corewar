@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:35:15 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 16:20:22 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 14:35:07 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		go_to_label(char *label, t_global *global)
 
 	tmp = global->s_label;
 	stop = 0;
-	begin_octet = global->s_label->s_content->begin_octet;
+	begin_octet = G_L_C->begin_octet;
 	label_octet = 0;
 	global->s_label = global->begin_label;
 	while (global->s_label && !stop)
