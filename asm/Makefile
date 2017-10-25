@@ -33,34 +33,35 @@ LIBS		=
 SRC_BASE	=	\
 browse_content.c\
 browse_counting.c\
+check_header.c\
 comment_done.c\
 controller.c\
-fonctions/ft_central.c\
+do_asm.c\
 free.c\
-INIT_STRUCT/init_content.c\
-INIT_STRUCT/init_global.c\
-INIT_STRUCT/init_label.c\
-INIT_STRUCT/init_map.c\
-LIB_ASM/convert_base.c\
-LIB_ASM/convert_hexa.c\
-LIB_ASM/free_strjoin.c\
-LIB_ASM/get_the_argument.c\
-LIB_ASM/go_to_label.c\
-LIB_ASM/is_labelchars.c\
-LIB_ASM/strdup.c\
-LIB_ASM/strisdigit.c\
-LIB_ASM/strlen_tab.c\
-LIB_ASM/strsplit_asm.c\
-LIB_ASM/strsplit_cmt.c\
-LIB_ASM/strsplitspa.c\
-LIB_ASM/strsplitvirg.c\
-LIB_ASM/strstart.c\
-LIB_ASM/strsubc.c\
+ft_central.c\
+init_struct/init_content.c\
+init_struct/init_global.c\
+init_struct/init_label.c\
+init_struct/init_map.c\
+lib_asm/convert_base.c\
+lib_asm/convert_hexa.c\
+lib_asm/free_strjoin.c\
+lib_asm/get_the_argument.c\
+lib_asm/go_to_label.c\
+lib_asm/is_labelchars.c\
+lib_asm/strdup.c\
+lib_asm/strisdigit.c\
+lib_asm/strlen_tab.c\
+lib_asm/strsplit_asm.c\
+lib_asm/strsplit_cmt.c\
+lib_asm/strsplitspa.c\
+lib_asm/strsplitvirg.c\
+lib_asm/strstart.c\
+lib_asm/strsubc.c\
 main.c\
 parse_header.c\
 parse_label.c\
 verbose.c
-
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))

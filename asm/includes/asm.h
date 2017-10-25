@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/25 17:44:09 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 19:05:06 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,17 @@
 typedef struct s_asm	t_asm;
 typedef struct s_file	t_file;
 
-int			verbose(t_asm *a, const int level, const char *message, ...);
+int						verbose(t_asm *a, const int level,
+			const char *message, ...);
+int						ft_strcat_check(char *dest,
+			char *src, int *len, int authorized);
+int						do_asm(t_asm *a, char *filename);
+int						usage(void);
+int						check_header(t_asm *a, char *line);
+int						check_header_name(t_asm *a, char *line);
+int						check_header_comment(t_asm *a, char *line);
 
-typedef struct					s_op
+typedef struct			s_op
 {
 	char				*label;
 	int					nb_params;
@@ -69,23 +77,23 @@ typedef struct			s_global
 	int					res_pc;
 }						t_global;
 
-struct s_file
+struct					s_file
 {
-	uint64_t		flag;
-	char			*filename;
-	int				fdin;
-	int				nb_error;
-	int				name_len;
-	int				comment_len;
-	t_header		header;
-	t_global		global;
+	uint64_t			flag;
+	char				*filename;
+	int					fdin;
+	int					nb_error;
+	int					name_len;
+	int					comment_len;
+	t_header			header;
+	t_global			global;
 };
 
-struct s_asm
+struct					s_asm
 {
-	uint64_t		flag;
-	char			**av_data;
-	t_file			file;
+	uint64_t			flag;
+	char				**av_data;
+	t_file				file;
 };
 
 typedef struct			s_label
@@ -129,16 +137,16 @@ typedef	struct			s_var
 **   DEFINE
 */
 
-# define EMPTY_LINE				1
-# define COMMENT				2
-# define WITH_LABEL				3
-# define EMPTY_LABEL	       	4
-# define HEADER		     	    5
+# define EMPTY_LINE		1
+# define COMMENT		2
+# define WITH_LABEL		3
+# define EMPTY_LABEL	4
+# define HEADER			5
 
-# define OCTET					0
-# define STOCK					1
-# define G_L_C					global->s_label->s_content
-# define ITAB					global->i_tab
+# define OCTET			0
+# define STOCK			1
+# define G_L_C			global->s_label->s_content
+# define ITAB			global->i_tab
 
 /*
 **   FONCTIONS DE L'ASM
@@ -148,7 +156,6 @@ void					ft_controller(t_global *global);
 void					ft_parse_label(t_global *global);
 void					ft_exit(int nb, t_global *global, char **line);
 int						ft_write(t_global *global, char *string, int size);
-/* void					ft_read(t_global *global, char *filename, char *line); */
 void					ft_read(t_global *global);
 int						ft_find_i(char *line);
 void					ft_counting(t_global *global, char *inst_line);
@@ -215,9 +222,11 @@ char					*ft_strndup(char *s, int i);
 **   FONCTIONS DE TRADUCTIONS
 */
 
-char	*ft_central(t_global *global, char **line);
-char	*ft_central2(t_global *global, char **line, int i, char **arg);
-char	*ft_central3(t_global *global, char **line, int i, char **arg);
+char					*ft_central(t_global *global, char **line);
+char					*ft_central2(t_global *global,
+		char **line, int i, char **arg);
+char					*ft_central3(t_global *global,
+		char **line, int i, char **arg);
 
 /*
 **	SOUS-FONCTIONS DE TRADUCTION

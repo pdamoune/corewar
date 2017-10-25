@@ -6,13 +6,12 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 20:57:40 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/25 17:46:06 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 19:01:59 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OP_H
 # define OP_H
-
 
 /*
 ** Toutes les tailles sont en octets.
