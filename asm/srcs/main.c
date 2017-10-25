@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/25 17:24:39 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:40:23 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/op.h"
+#include <asm.h>
 
 static char		*g_errors[20] =
 {
@@ -63,16 +63,12 @@ int				ft_open(t_global *global, char *str)
 **  LIS LE FICHIER ET STOCK CHAQUE LINE DANS LA STRUCT MAP
 */
 
-/* void			ft_read(t_global *global, char *filename, char *line) */
 void			ft_read(t_global *global)
 {
 	int			gnl;
 	int			k;
 	char		*line;
 
-	/* global->fdin = open(filename, O_RDONLY, 0666); */
-	/* if (-1 == global->fdin) */
-	/* 	ft_exit(2, global, &line); */
 	while ((gnl = get_next_line(global->fdin, &line)) > 0)
 	{
 		k = 0;
@@ -87,41 +83,6 @@ void			ft_read(t_global *global)
 	}
 	ft_controller(global);
 }
-
-/* int				main2(int argc, char **argv) */
-/* { */
-/* 	char		*line; */
-/* 	t_global	*global; */
-/* 	int			i; */
-/* 	size_t		len; */
-/* 	char		*title; */
-
-/* 	i = 0; */
-/* 	ft_initialize_global(&global); */
-/* 	if (argc != 2) */
-/* 		ft_exit(1, global, &line); */
-/* 	line = NULL; */
-/* 	while (++i < argc) */
-/* 	{ */
-/* 		/1* len = ft_strstr(argv[i], ".s") ? *1/ */
-/* 		/1* ft_strstr(argv[i], ".s") - argv[i] : ft_strlen(argv[i]); *1/ */
-/* 		/1* title = ft_memalloc(len + 5); *1/ */
-/* 		/1* ft_memcpy(title, argv[i], len); *1/ */
-/* 		/1* ft_memcpy(title + len, ".cor", 5); *1/ */
-/* 		ft_read(global, argv[i], line); */
-/* 		ft_free_map(global); */
-/* 		ft_open(global, title); */
-/* 		write(global->fdout, global->res, global->total_octet); */
-/* 		close(global->fdin); */
-/* 		ft_putstr("Writing output program to "); */
-/* 		ft_putendl(title); */
-/* 		ft_free_global(global); */
-/* 		free(title); */
-/* 	} */
-/* 	return (0); */
-/* } */
-
-#include <asm.h>
 
 static t_cliopts	g_read_opts[] =
 {

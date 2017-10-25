@@ -6,11 +6,11 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:26:50 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/25 14:34:56 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:40:23 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/op.h"
+#include <asm.h>
 
 void		ft_initialize_content(t_content **content, char *line)
 {

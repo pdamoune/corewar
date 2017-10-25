@@ -6,11 +6,11 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 17:13:08 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 13:05:11 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:40:23 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/op.h"
+#include <asm.h>
 
 static int		ft_line_no_spa(char *line)
 {

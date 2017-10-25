@@ -6,11 +6,11 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:54:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/24 13:03:28 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:50:35 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/op.h"
+#include <asm.h>
 
 char		*ft_strndup(char *s, int i)
 {

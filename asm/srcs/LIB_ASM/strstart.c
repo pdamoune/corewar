@@ -6,11 +6,11 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:52:52 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/17 13:28:59 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:50:35 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/op.h"
+#include <asm.h>
 
 char	*ft_strchrstart(const char *big, const char *little)
 {

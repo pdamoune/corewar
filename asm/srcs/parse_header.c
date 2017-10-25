@@ -6,11 +6,11 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 12:03:55 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/25 14:56:26 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:40:23 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/op.h"
+#include <asm.h>
 
 static void		ft_kind_of_header(t_global *global,
 			char *header, int size, int error)

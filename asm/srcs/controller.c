@@ -6,11 +6,11 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:52:41 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/25 14:37:58 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:40:23 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/op.h"
+#include <asm.h>
 
 /*
 **  LE CONTROLLER VA NOUS PERMETTRE DE TRAITER LES INFORMATIONS STOCKEES

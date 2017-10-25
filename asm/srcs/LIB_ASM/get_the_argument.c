@@ -6,11 +6,11 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:35:05 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/15 18:35:07 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:50:35 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/op.h"
+#include <asm.h>
 
 char	*ft_modif_arg(char *arg, int cell1, int cell2, int type)
 {
