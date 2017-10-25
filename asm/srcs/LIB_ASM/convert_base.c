@@ -1,6 +1,18 @@
-#include "../../includes/op.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert_base.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:33:57 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/25 21:26:48 by wescande         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		ft_check_putnbr_base(char *base)
+#include <asm.h>
+
+int				ft_check_putnbr_base(char *base)
 {
 	int i;
 	int j;
@@ -26,36 +38,7 @@ int		ft_check_putnbr_base(char *base)
 	return (1);
 }
 
-char	*ft_itoa_base(long int nbr, char *base, int base_len, char *tab)
-{
-	long int	display;
-	int			k;
-	int			i;
-	char		*temp;
-
-	while (base[base_len] || (k = 0))
-		base_len++;
-	if (*base && base_len != 1 && ft_check_putnbr_base(base))
-	{
-		if (nbr < 0)
-			if ((nbr = -nbr))
-				tab[k++] = '-';
-		display = 0;
-		i = 0;
-		temp = (char*)malloc(256 * sizeof(char));
-		while (nbr != 0)
-		{
-			temp[i++] = display * base_len + nbr % base_len;
-			nbr = nbr / base_len;
-		}
-		while (i-- > 0)
-			tab[k++] = base[0 + temp[i]];
-		tab[k] = 0;
-	}
-	return (tab);
-}
-
-int		ft_check_atoi_base(char c, char *base)
+int				ft_check_atoi_base(char c, char *base)
 {
 	int	i;
 
@@ -93,14 +76,12 @@ long int		ft_atoi_base(char *str, char *base)
 	return (sign ? display : 0);
 }
 
-char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+char			*ft_convert_base(char *nbr, int len_from, int len_to)
 {
-	long int	nb;
-	char		*tab;
-	int			base_len;
+	int			nb;
+	char		*str_nb;
 
-	base_len = 0;
-	tab = (char*)malloc(256 * sizeof(char));
-	nb = ft_atoi_base(nbr, base_from);
-	return (ft_itoa_base(nb, base_to, base_len, tab));
+	nb = ft_atoli_base(nbr, len_from);
+	str_nb = ft_litoa_base(nb, len_to, 0);
+	return (str_nb);
 }

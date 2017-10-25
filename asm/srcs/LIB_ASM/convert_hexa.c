@@ -1,6 +1,18 @@
-#include "../../includes/op.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert_hexa.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:34:26 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/25 21:27:06 by wescande         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char	*ft_construct_octets(global_t *global, int type, int nb_octet)
+#include <asm.h>
+
+char	*ft_construct_octets(t_global *global, int type, int nb_octet)
 {
 	char	*result;
 
@@ -18,34 +30,5 @@ char	*ft_construct_octets(global_t *global, int type, int nb_octet)
 		result = ft_strdup(" 0x.. 0x..");
 	else if (type == REG_CODE || type == ARG_CODE)
 		result = ft_strdup(" 0x..");
-	return (result);
-}
-
-char	*ft_convert_hexa(global_t *global, char *arg, int type, int nb_octet)
-{
-	char	*result;
-	char	*value;
-	int		i;
-	int		j;
-
-	result = ft_construct_octets(global, type, nb_octet);
-	if (type == ARG_CODE)
-		value = ft_convert_base(arg, "01", "0123456789ABCDEF");
-	else
-		value = ft_convert_base(arg, "0123456789", "0123456789ABCDEF");
-	i = ft_strlen(result) - 1;
-	j = ft_strlen(value) - 1;
-	while (i >= 0)
-	{
-		if (result[i] == '.')
-		{
-			if (j >= 0)
-				result[i] = value[j--];
-			else
-				result[i] = '0';
-		}
-		i--;
-	}
-	free(value);
 	return (result);
 }

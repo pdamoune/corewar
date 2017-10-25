@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/03 09:58:05 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/07 01:08:16 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:35:05 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ int		erase_px(t_vm *vm, int at)
 	cairo_set_source_rgb(cr, 1., 1., 1.);
 	cairo_rectangle(cr, pos.x, pos.y, SQUARE_WIDTH, SQUARE_HEIGHT);
 	cairo_fill(cr);
-	DG();
 	gtk_widget_queue_draw_area(vm->gtk.draw, pos.x, pos.y,
 								SQUARE_WIDTH, SQUARE_HEIGHT);
-	DG();
 	return (0);
 }

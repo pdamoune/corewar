@@ -1,16 +1,31 @@
-#include "../../includes/op.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   strsplitvirg.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:53:46 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/25 21:31:18 by wescande         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <asm.h>
 
 static int		ft_isseparator(int c)
 {
 	return (c == SEPARATOR_CHAR);
 }
 
-
 static int		ft_strcpy_c(char *dest, char const *src)
 {
 	int decalage;
 
 	decalage = 0;
+	while (*src && *src == ' ')
+	{
+		++src;
+	}
 	while (*src && !ft_isseparator(*src))
 	{
 		*dest = *src;
@@ -27,6 +42,10 @@ static int		ft_strlen_c(char const *str)
 	int len;
 
 	len = 0;
+	while (*str && *str == ' ')
+	{
+		++str;
+	}
 	while (*str && !ft_isseparator(*str))
 	{
 		++str;
@@ -66,6 +85,10 @@ char			**ft_strsplit_virg(char const *str)
 		++str;
 	while (*str)
 	{
+		while (*str && *str == ' ')
+		{
+			++str;
+		}
 		if (!(s1[i] = (char*)malloc(sizeof(**s1) * (ft_strlen_c(str) + 1))))
 			return (NULL);
 		str = str + ft_strcpy_c(s1[i], str);
@@ -73,6 +96,6 @@ char			**ft_strsplit_virg(char const *str)
 		while (*str && ft_isseparator(*str))
 			++str;
 	}
-	s1[i] = 0;
+	s1[i] = NULL;
 	return (s1);
 }

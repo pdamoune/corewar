@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/02 17:35:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/07 01:07:25 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:35:01 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void			draw_border(GtkWidget *widget, t_vm *vm, int at,
 	pos.y = ((at / BOX_BY_LINE) * PX_HEIGHT + SQUARE_SPA / 2);
 	draw_cairo_border(cr, pos, color);
 	cairo_fill(cr);
-	DG();
 	gtk_widget_queue_draw_area(widget, pos.x, pos.y,
 									SQUARE_WIDTH + 2 * SQUARE_BORDER,
 									SQUARE_HEIGHT + 2 * SQUARE_BORDER);
-	DG();
 }

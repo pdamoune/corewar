@@ -6,12 +6,11 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 10:39:53 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/07 01:06:12 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:33:24 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
-
 
 gboolean		cb_configure_event(GtkWidget *widget, GdkEventConfigure *event,
 							t_vm *vm)

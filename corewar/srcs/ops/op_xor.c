@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:44 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/12 15:03:15 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 10:57:20 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		op_xor(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 {
-	(void)pc_inc;
 	unsigned int		val[MAX_ARGS_NUMBER];
 
+	(void)pc_inc;
 	ft_memcpy(val, args, sizeof(unsigned int) * 2);
 	analyze_value(vm, p, val, 2);
 	if (IS_SET(vm->flag, OPERATION))

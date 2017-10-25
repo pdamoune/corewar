@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:34:11 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/09 17:41:53 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 10:57:39 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,9 @@ static int		calc_value(t_vm *vm, t_process *p,
 								int type, int arg)
 {
 	if (type == T_IND)
-	{
-		// DG("IND : pc %u | delta %u | addr %u", p->pc, arg, calc_addr(p->pc + arg));
 		return (get_value_at(vm, calc_addr(p->pc + arg % IDX_MOD), REG_SIZE));
-	}
 	else if (type == T_REG)
-	{
-		// DG("REG");
 		return (p->r[arg - 1]);
-	}
-	// DG("DIR");
 	return (arg);
 }
 
@@ -46,16 +39,9 @@ static int		calc_long_value(t_vm *vm, t_process *p,
 								int type, int arg)
 {
 	if (type == T_IND)
-	{
-		// DG("IND : pc %u | delta %u | addr %u", p->pc, arg, calc_addr(p->pc + arg));
 		return (get_value_at(vm, calc_addr(p->pc + arg), REG_SIZE));
-	}
 	else if (type == T_REG)
-	{
-		// DG("REG");
 		return (p->r[arg - 1]);
-	}
-	// DG("DIR");
 	return (arg);
 }
 

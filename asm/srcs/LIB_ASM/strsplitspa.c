@@ -1,11 +1,22 @@
-#include "../../includes/op.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   strsplitspa.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:52:43 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/25 17:50:35 by tdebarge         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <asm.h>
 
 static int		ft_isseparator(int c)
 {
 	return (c == ' ' || c == '\t' || c == '\v'
-			|| c == '\f' || c == '\r' || c == '\n');
+			|| c == '\f' || c == '\r' || c == '\n' || c == '#');
 }
-
 
 static int		ft_strcpy_c(char *dest, char const *src)
 {

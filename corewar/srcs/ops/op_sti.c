@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:30 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/12 15:03:07 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 10:57:12 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		op_sti(t_vm *vm, t_process *p, unsigned int *args, int *pc_inc)
 {
-	(void)pc_inc;
 	unsigned int		val[MAX_ARGS_NUMBER];
 	unsigned int		addr;
 
+	(void)pc_inc;
 	ft_memcpy(val, args, sizeof(unsigned int) * 3);
 	analyze_value(vm, p, val, 3);
 	addr = p->pc + ((int)(val[1] + val[2]) % IDX_MOD);

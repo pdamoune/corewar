@@ -1,14 +1,42 @@
-#include "../../includes/op.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   go_to_label.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 18:35:15 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/10/25 21:28:44 by wescande         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-label_t        *go_to_label(char *s, global_t *global)
+#include <asm.h>
+
+int		go_to_label(char *label, t_global *global)
 {
-    global->s_label = global->begin_label;
-    while (global->s_label)
-    {
-		if (!ft_strcmp(s, global->s_label->name))
-			return(global->s_label);
-        global->s_label = global->s_label->next;
-    }
-	ft_exit(15, global, NULL);
-    return(NULL);
+	t_label		*tmp;
+	int			begin_octet;
+	int			label_octet;
+	int			stop;
+
+	tmp = global->s_label;
+	stop = 0;
+	begin_octet = G_L_C->begin_octet;
+	label_octet = 0;
+	global->s_label = global->begin_label;
+	while (global->s_label && !stop)
+	{
+		if (!ft_strcmp(label, global->s_label->name))
+		{
+			stop = 1;
+			label_octet = global->s_label->begin_content->begin_octet;
+		}
+		global->s_label = global->s_label->next;
+	}
+	global->s_label = tmp;
+	if (stop)
+		return (label_octet - begin_octet);
+	else
+		ft_exit(15, global, NULL);
+	return (0);
 }

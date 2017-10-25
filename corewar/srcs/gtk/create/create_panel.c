@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 17:22:22 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/06 20:38:16 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/24 11:34:07 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ GtkWidget				*create_panel(t_vm *vm)
 										FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), create_scale_bar(vm), FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), create_cycle_display(vm), FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(box), gtk_label_new("MOUSE : "), FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), gtk_label_new("MOUSE : "),
+									FALSE, FALSE, 0);
 	vm->gtk.panel.mouse = gtk_label_new("-");
 	gtk_box_pack_start(GTK_BOX(box), vm->gtk.panel.mouse, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), create_players_info(vm), FALSE, FALSE, 15);
