@@ -49,30 +49,43 @@ void				ft_browse_content(t_global *global)
 	}
 }
 
-void				ft_get_values(t_global *global, char **line)
+void				type_of_arg(t_global *global, char **line, int *inc)
 {
 	char			*tmp;
-	int				inc;
+	int				yes;
 
 	tmp = NULL;
-	while ((inc = 1) && line[++global->i] && !ft_str_mod(line[global->i], "#"))
-	{
-		if (!g_op_tab[ITAB].index && ((tmp = ft_str_mod(line[global->i], "%:"))
-			|| (tmp = ft_str_mod(line[global->i], "%"))))
-			*(int *)(&global->res[global->res_pc]) =
-			(inc = 4) && ft_isstrint(tmp) ?
-			bswap_32(ft_atoi(tmp)) : bswap_32(go_to_label(tmp, global));
-		else if ((tmp = ft_str_mod(line[global->i], "r"))
-				&& !ft_strchr(line[global->i], ':') && ft_isdigitspace(tmp))
-			global->res[global->res_pc] = ft_atoi(tmp);
-		else if ((g_op_tab[ITAB].index && (tmp = ft_str_mod(line[global->i],
-			"%:"))) || (tmp = ft_str_mod(line[global->i], ":")))
-			*(unsigned short *)(&global->res[global->res_pc++]) =
-			bswap_16(go_to_label(tmp, global));
-		else if ((g_op_tab[ITAB].index && (tmp = ft_str_mod(line[global->i],
-			"%"))) || ((tmp = ft_strtrim(line[global->i])) && ft_isstrint(tmp)))
+	yes = 0;
+	if (!g_op_tab[ITAB].index && ((tmp = ft_str_mod(line[global->i], "%:"))
+		|| (tmp = ft_str_mod(line[global->i], "%"))))
+		*(int *)(&global->res[global->res_pc]) =
+		(*inc = 4) && ft_isstrint(tmp) ?
+		bswap_32(ft_atoi(tmp)) : bswap_32(go_to_label(tmp, global));
+	else if ((tmp = ft_str_mod(line[global->i], "r"))
+			&& !ft_strchr(line[global->i], ':') && ft_isdigitspace(tmp))
+		global->res[global->res_pc] = ft_atoi(tmp);
+	else if ((g_op_tab[ITAB].index && (tmp = ft_str_mod(line[global->i],
+		"%:"))) || (tmp = ft_str_mod(line[global->i], ":")))
+		*(unsigned short *)(&global->res[global->res_pc++]) =
+		bswap_16(go_to_label(tmp, global));
+	else if ((g_op_tab[ITAB].index && (tmp = ft_str_mod(line[global->i],
+		"%"))) || ((tmp = ft_strtrim(line[global->i])) && ((yes = 1))&& ft_isstrint(tmp)))
+		{
 			*(unsigned short *)(&global->res[global->res_pc++]) =
 			bswap_16(ft_atoi(tmp));
+			if (yes)
+				ft_strdel(&tmp);
+		}
+}
+
+void				ft_get_values(t_global *global, char **line)
+{
+	int				inc;
+
+	while ((inc = 1) && line[++global->i]
+	&& !ft_str_mod(line[global->i], "#"))
+	{
+		type_of_arg(global, line, &inc);
 		global->res_pc += inc;
 	}
 }
