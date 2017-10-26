@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/25 18:53:56 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/10/26 14:07:33 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int			launch_asm(t_asm *a)
 	global->fdin = a->file.fdin;
 	ft_read(global);
 	ft_open(global, a->file.filename);
+	if (!global->header.prog_size)
+		verbose(a, MSG_WARNING, "Champion is empty", NULL);
 	write(global->fdout, global->res, global->total_octet);
 	close(global->fdin);
 	ft_printf("Writing output program to %s\n", a->file.filename);
@@ -101,5 +103,7 @@ int					do_asm(t_asm *a, char *filename)
 			f = &check_header;
 	}
 	ft_strdel(&line);
+	if (IS_UNSET(a->file.flag, (HEAD_COMMENT | HEAD_NAME)))
+		return (verbose(a, MSG_ERROR, "%s: Invalid file", filename));
 	return (launch_asm(a));
 }
