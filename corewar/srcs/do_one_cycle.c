@@ -6,13 +6,13 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 14:30:20 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/25 21:54:04 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/30 23:36:10 by william          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 
-const static t_op	g_op_tab[17] =
+static const t_op	g_op_tab[17] =
 {
 	{"live", 1,
 		{T_DIR},

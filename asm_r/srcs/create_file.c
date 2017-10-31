@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/17 16:23:08 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/18 00:29:20 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/10/30 23:34:48 by william          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int		create_file(t_asm_r *asm_r, t_file *file)
 {
 	int		fd;
 
+	fd = -1;
 	if (create_filename(asm_r, &fd, file->filename, ft_strlen(file->filename)))
 		return (1);
 	if (write_header(asm_r, fd, file->header.prog_name, file->header.comment))

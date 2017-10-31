@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 15:52:52 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/25 21:32:12 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/30 23:33:36 by william          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 char	*ft_strchrstart(const char *big, const char *little)
 {
 	int		i;
-	int		k;
 
 	i = 0;
-	k = 0;
 	while (big[i])
 	{
 		if (ft_isspa(big[i]))

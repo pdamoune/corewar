@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/10/26 14:07:33 by wescande         ###   ########.fr       */
+/*   Updated: 2017/10/30 23:33:11 by william          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int			check_filename(t_asm *a, char *filename)
 	return (0);
 }
 
-const static t_itof g_send_line_func[] =
+static const t_itof g_send_line_func[] =
 {
 	{1, &check_header},
 	{2, &check_header_name},

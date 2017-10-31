@@ -6,7 +6,7 @@
 #    By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/10/25 21:19:47 by wescande         ###   ########.fr        #
+#    Updated: 2017/10/30 23:32:52 by william          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))
 NB			=	$(words $(SRC_BASE))
 INDEX		=	0
+SHELL		=	/bin/bash
 
 all :
 	@make -C $(LIBFT_DIR)
