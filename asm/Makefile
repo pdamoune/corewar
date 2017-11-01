@@ -32,8 +32,7 @@ LIBS		=
 
 SRC_BASE	=	\
 check_file_content.c\
-check_header_comment.c\
-check_header_name.c\
+check_header.c\
 do_asm.c\
 free.c\
 main.c\
