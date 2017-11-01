@@ -32,10 +32,14 @@ LIBS		=
 
 SRC_BASE	=	\
 check_file_content.c\
-check_header.c\
+check_header_comment.c\
+check_header_name.c\
 do_asm.c\
 free.c\
 main.c\
+tools/check_label.c\
+tools/is_label.c\
+tools/ski_spa.c\
 verbose.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))

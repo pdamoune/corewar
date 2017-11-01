@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 15:57:00 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:26:23 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,15 @@ int						check_header(t_asm *a, char *line);
 int						check_header(t_asm *a, char *line);
 int						check_header_name(t_asm *a, char *line);
 int						check_header_comment(t_asm *a, char *line);
+int						init_name_header(t_asm *a, char *line);
+int						init_comment_header(t_asm *a, char *line);
 int						init_asm(t_asm *a, char *filename, int (**f)());
+
+/*** TOOLS */
+int						skip_spa(char **line);
+int						check_label(t_asm *a);
+char					*is_label(char *line);
+int						count_nb_args(char *line);
 
 typedef struct			s_op
 {

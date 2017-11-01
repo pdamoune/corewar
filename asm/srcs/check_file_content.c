@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 15:57:17 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:26:41 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,63 +64,36 @@ static const t_op	g_op_tab[17] =
 		16, 2, "aff", 1, 0}
 };
 
-int					skip_spa(char **line)
-{
-	char *str;
 
-	str = *li
+// int					write_char(t_asm *a, char c, int *cur_len)
+// {
+// 	if (a->file.header.prog_size + *cur_len > 2 * CHAMP_MAX_SIZE)
+// 	{
+// 		SET(a->file.flag, LEN_ERROR);
+// 		return (verbose(a, MSG_ERROR, "%s: Champion is too big", a->file.filename));
+// 	}
+// 	if (a->file.header.prog_size + *cur_len > CHAMP_MAX_SIZE && IS_UNSET(a->file.flag, LEN_WARNING))
+// 	{
+// 		SET(a->file.flag, LEN_WARNING);
+// 		verbose(a, MSG_WARNING, "%s: Champion is too big", a->file.filename);
+// 	}
+// 	a->file.prog[a->file.header.prog_size + *cur_len++] = c;
+// 	return (0);
+// }
 
-	while (ft_isspa(**line))
-		++*line;
-	return (!**line);
-}
-
-int					count_nb_args(char *line)
-{
-	int		args_found;
-
-	args_found = 0;
-	while (*line)
-	{
-		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
-			break;
-		if (*line == SEPARATOR_CHAR)
-			return (-1);
-		++arg_found;//TODO CHANGE AVANCE while ! SPA while ! COMMENT while !SEPARATOR
-		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
-			break;
-		if (*line != SEPARATOR_CHAR)
-			return (-1);
-		++line;
-	}
-	return (args_found);
-}
-
-int					write_char(t_asm *a, char c, int *cur_len)
-{
-	if (a->file.header.prog_size + *cur_len > 2 * CHAMP_MAX_SIZE)
-	{
-		SET(a->file.flag, LEN_ERROR);
-		return (verbose(a, MSG_ERROR, "%s: Champion is too big", a->file.filename));
-	}
-	if (a->file.header.prog_size + *cur_len > CHAMP_MAX_SIZE && IS_UNSET(a->file.flag, LEN_WARNING))
-	{
-		SET(a->file.flag, LEN_WARNING);
-		verbose(a, MSG_WARNING, "%s: Champion is too big", a->file.filename);
-	}
-	a->file.prog[a->file.header.prog_size + *cur_len++] = c;
-	return (0);
-}
-
-int					get_type_and_value(t_asm *a, t_op *cur_instru, char *arg, t_arguments *parsed_args)
+int					get_type_and_value(t_asm *a, t_op *cur_instru, char *arg, t_argument *parsed_args)
 {
 	if (skip_spa(&arg) || ft_strchr(COMMENT_CHAR, *arg))
 		return (-1);
+	a = NULL;
+	parsed_args = NULL;
+	cur_instru = NULL;
+	return(0);
 	//get type, then set t_arguments value corresponding to the type.
 	//if label, check label lx to see if label exist
 }
 
-int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_arguments parsed_args[])
+int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_argument parsed_args[])
 {
 	char			**av;
 	int				ret;
@@ -148,11 +121,11 @@ int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_arguments pars
 int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 {
 	int				ret;
-	t_arguments		parsed_args[MAX_ARGS_NUMBER];
+	t_argument		parsed_args[MAX_ARGS_NUMBER];
 
 	//SPA AVNCE
-	ft_bzero(parsed_args, sizeof(t_arguments) * MAX_ARGS_NUMBER);
-	ret = parse_arguments(a, cur_instru, line, parsed_arguments);
+	ft_bzero(parsed_args, sizeof(t_argument) * MAX_ARGS_NUMBER);
+	ret = parse_arguments(a, cur_instru, line, parse_arguments);
 	if (!ret)
 		//TODO write instruction && avance prog_size
 	//todo ELSE REMOVE LABEL, remove memory leaks
@@ -189,14 +162,6 @@ int					save_label(t_asm *a, char **line, char *end_of_label)
 	return (0);
 }
 
-static char			*is_label(t_asm *a, char *line)
-{
-	while (*line && ft_strchr(LABEL_CHARS, *line))
-		++line;
-	if (*line == LABEL_CHAR)
-		return (line);
-	return (NULL);
-}
 
 int					check_file_content(t_asm *a, char *line)
 {
@@ -218,7 +183,7 @@ int					check_file_content(t_asm *a, char *line)
 			return (parse_instruction(a, cur_instru, line));
 		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
 			return (3);
-		return (verbose(a, MSG_ERROR, "%s: Invalid char at EOF: [%s]", a->file.filename, a->file.line);
+		return (verbose(a, MSG_ERROR, "%s: Invalid char at EOF: [%s]", a->file.filename, a->file.line));
 	}
 	return (verbose(a, MSG_ERROR, "%s: Unknow line: [%s]", a->file.filename, a->file.line));
 }

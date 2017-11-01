@@ -3,69 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   do_asm.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/01 11:47:23 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:24:19 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
-
-// int					usage(void)
-// {
-// 	ft_printf("usage: asm [-vqDc] file ...");
-// 	return (1);
-// }
-
-// static int			check_filename(t_asm *a, char *filename)
-// {
-// 	size_t		len;
-
-// 	if (!(len = ft_strlen(filename)))
-// 		return (verbose(a, MSG_ERROR, "%s: len is 0", filename));
-// 	if (!ft_strcmp(filename + (len - 2), ".s"))
-// 	// {
-// 		len -= 2;
-// 	// 	if (!(a->file.filename = (char *)malloc(len + 3)))
-// 	// 		return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
-// 	// 	ft_memcpy(a->file.filename, filename, len - 2);
-// 	// 	ft_memcpy(a->file.filename + len - 2, ".cor", 5);
-// 	// }
-// 	// else
-// 	// {
-// 		if (!(a->file.filename = (char *)malloc(len + 5)))
-// 			return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
-// 		ft_memcpy(a->file.filename, filename, len);
-// 		ft_memcpy(a->file.filename + len, ".cor", 5);
-// 	// }
-// 	if ((a->file.fdin = open(filename, O_RDONLY)) < 0)
-// 	{
-// 		return (verbose(a, MSG_ERROR,
-// 					"%s: No such file or directory", filename));
-// 	}
-// 	return (0);
-// }
-
-// static int			launch_asm(t_asm *a)
-// {
-// 	t_global	*global;
-
-// 	global = &a->file.global;
-// 	global->header = a->file.header;
-// 	global->fdin = a->file.fdin;
-// 	ft_read(global);
-// 	ft_open(global, a->file.filename);
-// 	if (!global->header.prog_size)
-// 		verbose(a, MSG_WARNING, "Champion is empty", NULL);
-// 	write(global->fdout, global->res, global->total_octet);
-// 	close(global->fdin);
-// 	ft_printf("Writing output program to %s\n", a->file.filename);
-// 	ft_free_map(global);
-// 	ft_free_global(global);
-// 	free(a->file.filename);
-// 	return (0);
-// }
 
 int finalize_asm(t_asm *a)
 {
@@ -73,7 +18,7 @@ int finalize_asm(t_asm *a)
 	int		fdout;
 
 	//TODO MAGIC REVERT FOR HEADER val
-	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
+	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRGRP | S_WGRP | S_ROTH | S_WOTH);
 	if (fdout == -1)
 		return (verbose(a, MSG_ERROR, "%s: Permission denied", a->file.filename));
 	if (sizeof(t_header) != (n_write = write(fdout, a->file.header, sizeof(t_header))))
@@ -91,22 +36,28 @@ int finalize_asm(t_asm *a)
 	return (0);
 }
 
-// int					dispatch_line(t_asm *a, int (*f)(), char *line)
-// {
-// 	int ret;
-
-// 	if (-1 == (ret = f(a, line)))
-// 		return (ret);
-// }
-
-
-static const int (*g_send_line_func[])() =
+static				int (*g_send_line_func[])() =
 {
 	&check_header,
 	&check_header_name,
-	&check_header_comment},
+	&check_header_comment,
 	&check_file_content,
 };
+
+int					check_header(t_asm *a, char *line)
+{
+	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
+		return (0);
+	// while (ft_isspa(*line))
+	// 	++line;
+	// if (!*line || ft_strchr(COMMENT_CHAR, *line))
+	// 	return (0);
+	if (ft_isspa(ft_strcmp(line, NAME_CMD_STRING)))//TODO BETTER CHECK
+		return (init_name_header(a, line));
+	else if (ft_isspa(ft_strcmp(line, COMMENT_CMD_STRING)))
+		return (init_comment_header(a, line));
+	return (verbose(a, MSG_ERROR, "%s:Invalid header", a->file.filename));
+}
 
 int					do_asm(t_asm *a, char *filename)
 {
@@ -137,7 +88,7 @@ int					do_asm(t_asm *a, char *filename)
 	free(a->file.filename);
 	//TODO FREE ALL (label !) ==> ret error if label unknow not resolve
 	return (ret);
-	
+
 	// if (IS_UNSET(a->file.flag, (HEAD_COMMENT | HEAD_NAME)))
 	// 	return (verbose(a, MSG_ERROR, "%s: Invalid file", filename));
 	// return (launch_asm(a));
