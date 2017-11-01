@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_file_content.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2017/11/01 22:29:10 by tdebarge         ###   ########.fr       */
+=======
+/*   Updated: 2017/11/01 21:47:09 by clegoube         ###   ########.fr       */
+>>>>>>> dab1f18225b3cb2520ac20a9cb6b902684b82fd6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +88,7 @@ static const t_op	g_op_tab[] =
 int					get_reg(int i, t_op *cur_instru, char *arg, t_argument *parsed_args)
 {
 	if (!cur_instru->params[i] & T_REG)
-		return (-1);	
+		return (-1);
 	parsed_args[i].type = T_REG;
 	parsed_args[i].value.reg = ft_atoi(arg + 1);
 	return (0);
@@ -170,19 +174,68 @@ DG();
 	}
 
 	if (ret)
+		;
 		//TODO erase inside t_arguments
 	ft_tabdel(&arg);
 	return (ret);
 }
 
-
-// {"live", 1,
-// 	{T_DIR},
-// 	1, 10, "alive", 0, 0},
+// int			write_arg_to_prog(char *prog, int *prog_size, int size, int value)
+// {
+// 	unsigned int		ret;
+// 	char				i;
+//
+// 	ret = 0;
+// 	i = -1;
+// 	while (++i < size)
+//
+// 	*pc_inc += size;
+// 	return (ret);
+// }
 
 int					write_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args)
 {
+	int nb_param;
 
+	DG("prog_size = %d", PROG_SIZE);
+	DG("prog = %d", *a->file.prog);
+	nb_param = 0;
+	//TODO ocp
+	while (nb_param < cur_instru->nb_params)
+	{
+		DG("type : %d", parsed_args[nb_param].type);
+
+		if (IS_SET(parsed_args[nb_param].type, T_REG))
+		{
+			a->file.prog[PROG_SIZE++] = parsed_args[nb_param].value.reg;
+		}
+
+		if (IS_SET(parsed_args[nb_param].type, T_IND))
+		{
+
+			*(unsigned short *)(&a->file.prog[PROG_SIZE]) = bswap_16(parsed_args[nb_param].value.ind);
+			DG("bin : %d", parsed_args[nb_param].value.ind);
+			DG("prog 0 : %hhx", a->file.prog[PROG_SIZE]);
+			DG("prog 1 : %hhx", a->file.prog[PROG_SIZE + 1]);
+			PROG_SIZE += 2;
+		}
+			// return ((short)get_int_from_area(vm, p->pc, 2, pc_inc));
+
+		if (IS_SET(parsed_args[nb_param].type, T_DIR) && cur_instru->index)
+		{
+
+		}
+			// return ((short)get_int_from_area(vm, p->pc, 2, pc_inc));
+
+		if (IS_SET(parsed_args[nb_param].type, T_DIR))
+		{
+
+		}
+			// return ((int)get_int_from_area(vm, p->pc, 4, pc_inc));
+
+		return (0);
+		nb_param++;
+	}
 
 	(void)a;
 	(void)cur_instru;
