@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 20:32:08 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 21:43:46 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int					get_type_and_value(t_asm *a, t_op *cur_instru, char *arg, t_argument *pa
 	if (skip_spa(&arg))
 		return (-1);
 
-	parsed_args->type = T_REG;
-	parsed_args->value.reg = 1;
+	parsed_args->type = T_IND;
+	parsed_args->value.ind = 65000;
 	parsed_args->label = NULL;
 
 	(void)a;
@@ -121,19 +121,68 @@ int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_argument parse
 	}
 
 	if (ret)
+		;
 		//TODO erase inside t_arguments
 	ft_tabdel(&arg);
 	return (ret);
 }
 
-
-// {"live", 1,
-// 	{T_DIR},
-// 	1, 10, "alive", 0, 0},
+// int			write_arg_to_prog(char *prog, int *prog_size, int size, int value)
+// {
+// 	unsigned int		ret;
+// 	char				i;
+//
+// 	ret = 0;
+// 	i = -1;
+// 	while (++i < size)
+//
+// 	*pc_inc += size;
+// 	return (ret);
+// }
 
 int					write_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args)
 {
+	int nb_param;
 
+	DG("prog_size = %d", PROG_SIZE);
+	DG("prog = %d", *a->file.prog);
+	nb_param = 0;
+	//TODO ocp
+	while (nb_param < cur_instru->nb_params)
+	{
+		DG("type : %d", parsed_args[nb_param].type);
+
+		if (IS_SET(parsed_args[nb_param].type, T_REG))
+		{
+			a->file.prog[PROG_SIZE++] = parsed_args[nb_param].value.reg;
+		}
+
+		if (IS_SET(parsed_args[nb_param].type, T_IND))
+		{
+
+			*(unsigned short *)(&a->file.prog[PROG_SIZE]) = bswap_16(parsed_args[nb_param].value.ind);
+			DG("bin : %d", parsed_args[nb_param].value.ind);
+			DG("prog 0 : %hhx", a->file.prog[PROG_SIZE]);
+			DG("prog 1 : %hhx", a->file.prog[PROG_SIZE + 1]);
+			PROG_SIZE += 2;
+		}
+			// return ((short)get_int_from_area(vm, p->pc, 2, pc_inc));
+
+		if (IS_SET(parsed_args[nb_param].type, T_DIR) && cur_instru->index)
+		{
+
+		}
+			// return ((short)get_int_from_area(vm, p->pc, 2, pc_inc));
+
+		if (IS_SET(parsed_args[nb_param].type, T_DIR))
+		{
+
+		}
+			// return ((int)get_int_from_area(vm, p->pc, 4, pc_inc));
+
+		return (0);
+		nb_param++;
+	}
 
 	(void)a;
 	(void)cur_instru;
@@ -151,8 +200,10 @@ int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 		// line++;
 	ft_bzero(parsed_args, sizeof(t_argument) * MAX_ARGS_NUMBER);
 	ret = parse_arguments(a, cur_instru, line, parsed_args);
-	if (!ret)
-		return (ret); // TODO
+
+	// if (!ret)
+	// 	return (ret); // TODO
+
 	if(write_instruction(a, cur_instru, parsed_args))
 		return (verbose(a, MSG_ERROR, "Pb intruction: [%s]", cur_instru->instruc));
 	//TODO write instruction && avance prog_size

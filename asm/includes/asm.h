@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 18:40:50 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 21:13:39 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define MSG_ERROR		4
 # define MSG_SUCESS		5
 # define MSG_STD_G		6
+
+# define PROG_SIZE		a->file.header.prog_size
 
 typedef struct s_asm	t_asm;
 typedef struct s_file	t_file;
@@ -80,10 +82,10 @@ typedef struct			s_label
 
 union				u_value
 {
-	char			reg;
-	short			ind;
-	short			index_dir;
-	int				dir;
+	unsigned char	reg;
+	unsigned short	ind;
+	unsigned short	index_dir;
+	unsigned int	dir;
 };
 
 typedef struct			s_argument
