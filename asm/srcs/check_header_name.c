@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_name.c                                       :+:      :+:    :+:   */
+/*   check_header_name.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:23:09 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/01 16:21:27 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:50:26 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			check_header_name(t_asm *a, char *line)
 	return (verbose(a, MSG_ERROR, "%s: Name lexical error", a->file.filename));
 }
 
-static int			init_name_header(t_asm *a, char *line)
+int			init_name_header(t_asm *a, char *line)
 {
 	if (IS_SET(a->file.flag, HEAD_NAME))
 		return (verbose(a, MSG_ERROR, "%s: Name was already set", a->file.filename));

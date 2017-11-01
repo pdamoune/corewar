@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/01 16:24:19 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:53:32 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ int finalize_asm(t_asm *a)
 	int		fdout;
 
 	//TODO MAGIC REVERT FOR HEADER val
-	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRGRP | S_WGRP | S_ROTH | S_WOTH);
+	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 	if (fdout == -1)
 		return (verbose(a, MSG_ERROR, "%s: Permission denied", a->file.filename));
-	if (sizeof(t_header) != (n_write = write(fdout, a->file.header, sizeof(t_header))))
+	if (sizeof(t_header) != (n_write = write(fdout, &(a->file.header), sizeof(t_header))))
 	{
 		close(fdout);
 		return (verbose(a, MSG_ERROR, "%s: Header write failed: %d on %u expected", a->file.filename, n_write, sizeof(t_header)));
 	}
-	if (a->file.header.prog_size != (n_write = write(fdout, a->file.prog, a->file.header.prog_size)))
+	if ((int)a->file.header.prog_size != (n_write = write(fdout, a->file.prog, a->file.header.prog_size)))
 	{
 		close(fdout);
 		return (verbose(a, MSG_ERROR, "%s: Program write failed: %d on %u expected", a->file.filename, n_write, a->file.header.prog_size));

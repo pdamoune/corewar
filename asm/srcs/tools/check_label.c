@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/01 16:15:24 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:48:23 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int					check_label(t_asm *a)
 {
-	a = a;
 	return(1);
+	(void)a;
 	//TODO function check
 }

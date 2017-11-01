@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 01:17:21 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 03:04:27 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:58:11 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		init_asm(t_asm *a, char *filename, int (**f)())
 	if (check_filename(a, filename))
 		return (1);
 	*f = &check_header;
-	INIT_LIST_HEAD(&(a->file.label));
-	INIT_LIST_HEAD(&(a->file.unknow_label));
+	INIT_LIST_HEAD(&(a->file.list_know_label));
+	INIT_LIST_HEAD(&(a->file.list_unknow_label));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 16:26:23 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:38:40 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int						ft_strcat_check(char *dest,
 			char *src, int *len, int authorized);
 int						do_asm(t_asm *a, char *filename);
 int						usage(void);
-int						check_header(t_asm *a, char *line);
+int						check_file_content(t_asm *a, char *line);
 int						check_header(t_asm *a, char *line);
 int						check_header_name(t_asm *a, char *line);
 int						check_header_comment(t_asm *a, char *line);

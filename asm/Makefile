@@ -38,6 +38,8 @@ do_asm.c\
 free.c\
 main.c\
 tools/check_label.c\
+tools/count_nb_args.c\
+tools/init_asm.c\
 tools/is_label.c\
 tools/ski_spa.c\
 verbose.c

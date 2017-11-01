@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 16:26:41 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:54:11 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static const t_op	g_op_tab[17] =
 
 int					get_type_and_value(t_asm *a, t_op *cur_instru, char *arg, t_argument *parsed_args)
 {
-	if (skip_spa(&arg) || ft_strchr(COMMENT_CHAR, *arg))
+	if (skip_spa(&arg))
 		return (-1);
 	a = NULL;
 	parsed_args = NULL;
@@ -125,9 +125,10 @@ int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 
 	//SPA AVNCE
 	ft_bzero(parsed_args, sizeof(t_argument) * MAX_ARGS_NUMBER);
-	ret = parse_arguments(a, cur_instru, line, parse_arguments);
+	ret = parse_arguments(a, cur_instru, line, parsed_args);
 	if (!ret)
-		//TODO write instruction && avance prog_size
+		return (ret); // TODO
+	//TODO write instruction && avance prog_size
 	//todo ELSE REMOVE LABEL, remove memory leaks
 	return (ret);
 }
@@ -144,6 +145,7 @@ static t_op			*is_instruction(t_asm *a, char **line)
 			return ((t_op *)&g_op_tab[i]);
 		}
 	return (NULL);
+	(void)a;
 }
 
 int					save_label(t_asm *a, char **line, char *end_of_label)
@@ -158,7 +160,7 @@ int					save_label(t_asm *a, char **line, char *end_of_label)
 	*line = end_of_label + 1;
 	label->pos_label = a->file.header.prog_size;
 	label->pos_instru = a->file.header.prog_size;
-	list_add(&(new_label->list_label), &(a->file.list_know_label));
+	list_add(&(label->list_label), &(a->file.list_know_label)); // TODO new_label ??
 	return (0);
 }
 
