@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_label.c                                      :+:      :+:    :+:   */
+/*   ft_spastrcmp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/01 21:35:31 by tdebarge         ###   ########.fr       */
+/*   Created: 2017/11/01 21:06:04 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/11/01 21:14:53 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-int					check_label(t_asm *a)
+int			ft_spastrcmp(char *spastr, char *str)
 {
-	return(0);
-	(void)a;
-	//TODO function check
+	int		len;
+
+	len = ft_strlen(str);
+	if (ft_strncmp(spastr, str, len))
+		return (1);
+	return (!ft_isspa(spastr[len]));
 }

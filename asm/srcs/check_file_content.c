@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 20:35:58 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/01 22:29:10 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,15 +152,16 @@ int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_argument parse
 	int				ret;
 	int				i;
 
-
+DG();
 	if (cur_instru->nb_params != (i = count_nb_args(line)))
 		return (verbose(a, MSG_ERROR, "%s: L %d: Incorrect nb of arguments %d on %d expected [%s]", a->file.filename, a->file.line_number, i, cur_instru->nb_params, a->file.line));
+DG();
 	if (!(arg = ft_strsplit(line, SEPARATOR_CHAR)))
 		return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
 	i = -1;
 	while (++i < cur_instru->nb_params)
 	{
-		if (-1 == (ret = get_type_and_value(i, cur_instru, av[i], &parsed_args[i])))
+		if (-1 == (ret = get_type_and_value(i, cur_instru, arg[i], &parsed_args[i])))
 		{
 			verbose(a, MSG_ERROR, "%s: L %d: type not recognized for arg %d", a->file.filename, a->file.line_number, i);
 			break;
@@ -186,7 +187,7 @@ int					write_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args)
 	(void)a;
 	(void)cur_instru;
 	(void)parsed_args;
-	return (1);
+	return (0);
 }
 
 int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
@@ -199,7 +200,7 @@ int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 		// line++;
 	ft_bzero(parsed_args, sizeof(t_argument) * MAX_ARGS_NUMBER);
 	ret = parse_arguments(a, cur_instru, line, parsed_args);
-	if (!ret)
+	if (ret)
 		return (ret); // TODO
 	if(write_instruction(a, cur_instru, parsed_args))
 		return (verbose(a, MSG_ERROR, "Pb intruction: [%s]", cur_instru->instruc));
@@ -213,9 +214,10 @@ static t_op			*is_instruction(t_asm *a, char **line)
 {
 	int		i;
 
+
 	i = -1;
 	while (++i < 16)
-		if (!ft_strncmp(*line, g_op_tab[i].instruc, ft_strlen(g_op_tab[i].instruc)))//TODO BETTER CHECK
+		if (!ft_spastrcmp(*line, g_op_tab[i].instruc))
 		{
 			*line += ft_strlen(g_op_tab[i].instruc);
 			return ((t_op *)&g_op_tab[i]);
@@ -227,6 +229,8 @@ static t_op			*is_instruction(t_asm *a, char **line)
 int					save_label(t_asm *a, char **line, char *end_of_label)
 {
 	t_label		*label;
+
+	
 //TODO CHECK IF LABEL EXIST
 	//TODO function to free label
 	if (!(label = (t_label *)malloc(sizeof(t_label))))

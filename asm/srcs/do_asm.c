@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/01 20:37:38 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/01 21:34:11 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int finalize_asm(t_asm *a)
 	int		fdout;
 
 	//TODO MAGIC REVERT FOR HEADER val
+	a->file.header.prog_size = bswap_32(a->file.header.prog_size);
 	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 	if (fdout == -1)
 		return (verbose(a, MSG_ERROR, "%s: Permission denied", a->file.filename));
@@ -73,8 +74,4 @@ int					do_asm(t_asm *a, char *filename)
 	free(a->file.filename);
 	//TODO FREE ALL (label !) ==> ret error if label unknow not resolve
 	return (ret);
-
-	// if (IS_UNSET(a->file.flag, (HEAD_COMMENT | HEAD_NAME)))
-	// 	return (verbose(a, MSG_ERROR, "%s: Invalid file", filename));
-	// return (launch_asm(a));
 }

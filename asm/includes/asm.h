@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 18:40:50 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 21:15:34 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int						skip_spa(char **line);
 int						check_label(t_asm *a);
 char					*is_label(char *line);
 int						count_nb_args(char *line);
+int						ft_spastrcmp(char *spastr, char *str);
 
 typedef struct			s_op
 {
