@@ -31,38 +31,12 @@ LIBFT_INC	=	$(LIBFT_DIR)includes/
 LIBS		=
 
 SRC_BASE	=	\
-parse_header.c\
-ft_central.c\
-browse_content.c\
-LIB_ASM/strdup.c\
-LIB_ASM/free_strjoin.c\
-LIB_ASM/strsplitvirg.c\
-LIB_ASM/strstart.c\
-LIB_ASM/strsplitspa.c\
-LIB_ASM/get_the_argument.c\
-LIB_ASM/strsubc.c\
-LIB_ASM/go_to_label.c\
-LIB_ASM/strsplit_asm.c\
-LIB_ASM/strsplit_cmt.c\
-LIB_ASM/is_labelchars.c\
-LIB_ASM/strlen_tab.c\
-LIB_ASM/strisdigit.c\
-LIB_ASM/convert_base.c\
-LIB_ASM/convert_hexa.c\
-main.c\
-comment_done.c\
-do_asm.c\
-INIT_STRUCT/init_asm.c\
-INIT_STRUCT/init_label.c\
-INIT_STRUCT/init_map.c\
-INIT_STRUCT/init_content.c\
-INIT_STRUCT/init_global.c\
-controller.c\
+check_file_content.c\
 check_header.c\
-verbose.c\
+do_asm.c\
 free.c\
-parse_label.c\
-browse_counting.c
+main.c\
+verbose.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.c=.o))
