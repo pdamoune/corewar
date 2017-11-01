@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file_content.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 16:54:11 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 20:30:57 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,69 @@ static const t_op	g_op_tab[17] =
 // 	return (0);
 // }
 
-int					get_type_and_value(t_asm *a, t_op *cur_instru, char *arg, t_argument *parsed_args)
+int					get_reg(int i, t_op *cur_instru, char *arg, t_argument *parsed_args)
 {
+	if (!cur_instru->params[i] & T_REG)
+		return (-1);	
+	parsed_args[i].type = T_REG;
+	parsed_args[i].value.reg = ft_atoi(arg + 1);
+	return (0);
+}
+
+int					get_dir(int i, t_op *cur_instru, char *arg, t_argument *parsed_args)
+{
+	if (!cur_instru->params[i] & T_DIR)
+		return (-1);
+	++arg;
+	if (*arg == ':')
+	{
+		parsed_args[i].type = T_DIR | T_LAB;
+		//TODO find value if label is known ELSE save in list of unknown labels
+	}
+	else if (*arg == '-' || (*arg >= '0' && *arg <= '9'))
+	{
+		parsed_args[i].type = T_DIR;
+		parsed_args[i].value.dir = ft_atoi(arg);
+	}
+	else
+		return (-1);
+	return (0);
+}
+
+int					get_ind(int i, t_op *cur_instru, char *arg, t_argument *parsed_args)
+{
+	if (!cur_instru->params[i] & T_IND)
+		return (-1);
+	if (*arg == ':')
+	{
+		parsed_args[i].type = T_IND | T_LAB;
+		//TODO find value if label is known ELSE save in list of unknown labels
+	}
+	else if (*arg == '-' || (*arg >= '0' && *arg <= '9'))
+	{
+		parsed_args[i].type = T_IND;
+		parsed_args[i].value.ind = ft_atoi(arg);
+	}
+	else
+		return (-1);
+	return (0);
+}
+
+int					get_type_and_value(int i, t_op *cur_instru, char *arg, t_argument *parsed_args)
+{
+	int				ret;
+
 	if (skip_spa(&arg))
 		return (-1);
-	a = NULL;
-	parsed_args = NULL;
-	cur_instru = NULL;
+	if (*arg == 'r')
+		ret = get_reg(i, cur_instru, arg, &parsed_args[i]);
+	else if (*arg == '%')
+		ret = get_dir(i, cur_instru, arg, &parsed_args[i]);
+	else
+		ret = get_ind(i, cur_instru, arg, &parsed_args[i]);
+	if (ret)
+		return (-1);
 	return(0);
-	//get type, then set t_arguments value corresponding to the type.
-	//if label, check label lx to see if label exist
 }
 
 int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_argument parsed_args[])
@@ -106,7 +159,7 @@ int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_argument parse
 	i = -1;
 	while (++i < cur_instru->nb_params)
 	{
-		if (-1 == (ret = get_type_and_value(a, cur_instru, av[i], &parsed_args[i])))
+		if (-1 == (ret = get_type_and_value(i, cur_instru, av[i], &parsed_args[i])))
 		{
 			verbose(a, MSG_ERROR, "%s: L %d: type not recognized for arg %d", a->file.filename, a->file.line_number, i);
 			break;

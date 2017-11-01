@@ -1,5 +1,5 @@
-.name "King Sombra"
-.comment "Crystal empire is mine!"
+.name"0"
+.comment"Crystal empire is mine!"
 
 init:
 rest:
