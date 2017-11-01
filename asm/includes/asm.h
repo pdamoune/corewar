@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 16:38:40 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 18:40:50 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int						check_header_comment(t_asm *a, char *line);
 int						init_name_header(t_asm *a, char *line);
 int						init_comment_header(t_asm *a, char *line);
 int						init_asm(t_asm *a, char *filename, int (**f)());
+// static int				check_filename(t_asm *a, char *filename);
 
 /*** TOOLS */
 int						skip_spa(char **line);
@@ -59,7 +60,7 @@ int						count_nb_args(char *line);
 
 typedef struct			s_op
 {
-	char				*label;
+	char				*instruc;
 	int					nb_params;
 	int					params[MAX_ARGS_NUMBER];
 	int					op_code;
@@ -74,7 +75,6 @@ typedef struct			s_label
 	char				*label;
 	int					pos_instru;
 	int					pos_label;
-	t_lx				list_label;
 }						t_label;
 
 
@@ -100,14 +100,13 @@ struct					s_file
 	int					fdin;
 	char				*line;
 	int					line_number;
-	// int					nb_error;
+	// int				nb_error;
 	int					name_len;
 	int					comment_len;
-	t_lx				list_know_label;
-	t_lx				list_unknow_label;
+	t_ld				*list_know_label;
+	t_ld				*list_unknow_label;
 	t_header			header;
 	char				prog[(2 * CHAMP_MAX_SIZE) + 1];
-
 	// t_global			global;
 };
 

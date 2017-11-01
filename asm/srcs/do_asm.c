@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/01 16:53:32 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 18:41:22 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ int					check_header(t_asm *a, char *line)
 {
 	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
 		return (0);
-	// while (ft_isspa(*line))
-	// 	++line;
-	// if (!*line || ft_strchr(COMMENT_CHAR, *line))
-	// 	return (0);
 	if (ft_isspa(ft_strcmp(line, NAME_CMD_STRING)))//TODO BETTER CHECK
 		return (init_name_header(a, line));
 	else if (ft_isspa(ft_strcmp(line, COMMENT_CMD_STRING)))

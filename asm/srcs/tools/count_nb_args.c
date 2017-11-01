@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:26:09 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/01 16:26:25 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/01 19:11:24 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int					count_nb_args(char *line)
 			break;
 		if (*line == SEPARATOR_CHAR)
 			return (-1);
-		++args_found;//TODO CHANGE AVANCE while ! SPA while ! COMMENT while !SEPARATOR
+		++args_found;
+		while (*line && !ft_isspa(*line) && !ft_strchr(COMMENT_CHAR, *line)
+				&& *line != SEPARATOR_CHAR)
+			++line;
 		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
 			break;
 		if (*line != SEPARATOR_CHAR)
