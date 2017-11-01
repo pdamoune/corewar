@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verbose.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:39:28 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/25 17:56:08 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/01 12:21:44 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 static void	asm_verbose(const int level, const char *str)
 {
 	if (level == MSG_ERROR)
-		ft_dprintf(2, "{pur}Corewar:{red} %s{eoc}\n", str);
+		ft_dprintf(2, "{pur}Asm:{red} %s{eoc}\n", str);
 	else if (level == MSG_SUCESS)
 		ft_printf("{gre}%s{eoc}\n", str);
 	else if (level == MSG_WARNING)
-		ft_printf("{pur}Corewar: {yel}WARNING:{eoc} %s{eoc}\n", str);
+		ft_printf("{pur}Asm: {yel}WARNING:{eoc} %s{eoc}\n", str);
 	else if (level == MSG_INFO)
-		ft_printf("{pur}Corewar: {blu}INFO:{eoc} %s{eoc}\n", str);
+		ft_printf("{pur}Asm: {blu}INFO:{eoc} %s{eoc}\n", str);
 	else if (level == MSG_STD)
-		ft_printf("{pur}Corewar: {eoc}%s{eoc}\n", str);
+		ft_printf("{pur}Asm: {eoc}%s{eoc}\n", str);
 	else if (level == MSG_DEBUG)
-		ft_printf("{pur}Corewar: {YEL}{bla}DEBUG:{eoc} {yel}%s{eoc}\n", str);
+		ft_printf("{pur}Asm: {YEL}{bla}DEBUG:{eoc} {yel}%s{eoc}\n", str);
 }
 
 int			verbose(t_asm *a, const int level, const char *message, ...)

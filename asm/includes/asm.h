@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 04:04:20 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/01 12:17:32 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,19 @@ typedef struct			s_label
 	t_lx				list_label;
 }						t_label;
 
+
+union				u_value
+{
+	char			reg;
+	short			ind;
+	short			index_dir;
+	int				dir;
+};
+
 typedef struct			s_argument
 {
 	int					type;
-	union				u_value
-	{
-		char			reg;
-		short			ind;
-		short			s_dir;
-		int				dir;
-	}
+	union u_value		value;
 	t_label				*label;
 }						t_argument;
 

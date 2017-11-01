@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/01 04:08:03 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/01 11:47:23 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int finalize_asm(t_asm *a)
 	int		fdout;
 
 	//TODO MAGIC REVERT FOR HEADER val
-	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRGRP | S_WGRP | S_ROTH | S_WOTH);
+	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 	if (fdout == -1)
 		return (verbose(a, MSG_ERROR, "%s: Permission denied", a->file.filename));
 	if (sizeof(t_header) != (n_write = write(fdout, a->file.header, sizeof(t_header))))

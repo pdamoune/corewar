@@ -6,10 +6,11 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 04:07:13 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/01 13:54:36 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <asm.h>
 
 static const t_op	g_op_tab[17] =
 {
@@ -81,17 +82,18 @@ int					count_nb_args(char *line)
 	args_found = 0;
 	while (*line)
 	{
-		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *arg))
+		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
+			break;
+		if (*line == SEPARATOR_CHAR)
+			return (-1);
+		++arg_found;//TODO CHANGE AVANCE while ! SPA while ! COMMENT while !SEPARATOR
+		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
 			break;
 		if (*line != SEPARATOR_CHAR)
-			++arg_found;
-		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *arg))
-			break;
-		if (*line != SEPARATOR_CHAR)
-			return (1);
+			return (-1);
 		++line;
 	}
-	return (nb_parargs_found);
+	return (args_found);
 }
 
 int					write_char(t_asm *a, char c, int *cur_len)
@@ -148,10 +150,12 @@ int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 	int				ret;
 	t_arguments		parsed_args[MAX_ARGS_NUMBER];
 
+	//SPA AVNCE
 	ft_bzero(parsed_args, sizeof(t_arguments) * MAX_ARGS_NUMBER);
-	ret = parse_arguments(a, cur_instru, av, parsed_arguments);
+	ret = parse_arguments(a, cur_instru, line, parsed_arguments);
 	if (!ret)
-		//TODO write instruction && avance prog_size
+		//TODO write instruction && avance prog_size 
+	//todo ELSE REMOVE LABEL, remove memory leaks
 	return (ret);
 }
 
@@ -161,10 +165,10 @@ static t_op			*is_instruction(t_asm *a, char **line)
 
 	i = -1;
 	while (++i < 17)
-		if (ft_isspa(ft_strcmp(*line, g_op_tab[i].label)))
+		if (ft_isspa(ft_strcmp(*line, g_op_tab[i].label)))//TODO BETTER CHECK
 		{
-			*line += ft_strlen(g_op_tab[i].label +1);
-			return ((t_op *)&g_op_tab[i])
+			*line += ft_strlen(g_op_tab[i].label);
+			return ((t_op *)&g_op_tab[i]);
 		}
 	return (NULL);
 }
@@ -172,7 +176,7 @@ static t_op			*is_instruction(t_asm *a, char **line)
 int					save_label(t_asm *a, char **line, char *end_of_label)
 {
 	t_label		*label;
-
+//TODO CHECK IF LABEL EXIST
 	//TODO function to free label
 	if (!(label = (t_label *)malloc(sizeof(t_label))))
 		return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
@@ -187,11 +191,11 @@ int					save_label(t_asm *a, char **line, char *end_of_label)
 
 static char			*is_label(t_asm *a, char *line)
 {
-	while (*line && ft_strchr(COMMENT_CHAR, line))
+	while (*line && ft_strchr(LABEL_CHARS, *line))
 		++line;
 	if (*line == LABEL_CHAR)
 		return (line);
-	return (NULL;)
+	return (NULL);
 }
 
 int					check_file_content(t_asm *a, char *line)
@@ -206,7 +210,10 @@ int					check_file_content(t_asm *a, char *line)
 	if ((end_of_label = is_label(line)))
 	{
 		if (save_label(a, &line, end_of_label))
-			return (verbose(a, MSG_ERROR, "%s: Invalid label:"))
+			return (-1);
+		// return (check_file_content(a, line)); // TODO CHECK IF 2 label se suivent and remove linessss below
+		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
+			return (3);
 		if ((cur_instru = is_instruction(a, &line)))
 			return (parse_instruction(a, cur_instru, line));
 		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
