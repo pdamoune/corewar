@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/25 19:05:06 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/01 04:04:20 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 # define HEAD_NAME		(1 << 0)
 # define HEAD_COMMENT	(1 << 1)
+# define LEN_WARNING	(1 << 2)
+# define LEN_ERROR		(1 << 3)
 
 # define MSG_STD		0
 # define MSG_INFO		1
@@ -57,36 +59,63 @@ typedef struct			s_op
 	int					index;
 }						t_op;
 
-typedef struct			s_global
+// typedef struct			s_global
+// {
+// 	int					nb_empty;
+// 	int					nb_lines;
+// 	int					total_octet;
+// 	int					i;
+// 	int					j;
+// 	int					k;
+// 	int					i_tab;
+// 	int					fdin;
+// 	int					fdout;
+// 	struct s_map		*begin_map;
+// 	struct s_map		*s_map;
+// 	struct s_label		*begin_label;
+// 	struct s_label		*s_label;
+// 	struct s_header		header;
+// 	char				res[(2 * CHAMP_MAX_SIZE) + 1];
+// 	int					res_pc;
+// }						t_global;
+
+typedef struct			s_label
 {
-	int					nb_empty;
-	int					nb_lines;
-	int					total_octet;
-	int					i;
-	int					j;
-	int					k;
-	int					i_tab;
-	int					fdin;
-	int					fdout;
-	struct s_map		*begin_map;
-	struct s_map		*s_map;
-	struct s_label		*begin_label;
-	struct s_label		*s_label;
-	struct s_header		header;
-	char				res[(2 * CHAMP_MAX_SIZE) + 1];
-	int					res_pc;
-}						t_global;
+	char				*label;
+	int					pos_instru;
+	int					pos_label;
+	t_lx				list_label;
+}						t_label;
+
+typedef struct			s_argument
+{
+	int					type;
+	union				u_value
+	{
+		char			reg;
+		short			ind;
+		short			s_dir;
+		int				dir;
+	}
+	t_label				*label;
+}						t_argument;
 
 struct					s_file
 {
 	uint64_t			flag;
 	char				*filename;
 	int					fdin;
-	int					nb_error;
+	char				*line;
+	int					line_number;
+	// int					nb_error;
 	int					name_len;
 	int					comment_len;
+	t_lx				list_know_label;
+	t_lx				list_unknow_label;
 	t_header			header;
-	t_global			global;
+	char				prog[(2 * CHAMP_MAX_SIZE) + 1];
+	
+	// t_global			global;
 };
 
 struct					s_asm
@@ -151,6 +180,8 @@ typedef	struct			s_var
 /*
 **   FONCTIONS DE L'ASM
 */
+int		init_asm(t_asm *a, char *filename, int (**f)());
+
 
 void					ft_controller(t_global *global);
 void					ft_parse_label(t_global *global);
