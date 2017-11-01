@@ -1,8 +1,7 @@
 .name    "Survivor"
 .comment "Invincible"
 
-	live	%1
-	fork	%:f1
+
 	zjmp	%:j1
 f1:	ld	%4, r2
 	zjmp	%:run

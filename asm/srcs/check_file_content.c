@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 20:30:57 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/01 20:35:58 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-static const t_op	g_op_tab[17] =
+static const t_op	g_op_tab[] =
 {
 	{"live", 1,
 		{T_DIR},
@@ -148,13 +148,14 @@ int					get_type_and_value(int i, t_op *cur_instru, char *arg, t_argument *parse
 
 int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_argument parsed_args[])
 {
-	char			**av;
+	char			**arg;
 	int				ret;
 	int				i;
 
+
 	if (cur_instru->nb_params != (i = count_nb_args(line)))
 		return (verbose(a, MSG_ERROR, "%s: L %d: Incorrect nb of arguments %d on %d expected [%s]", a->file.filename, a->file.line_number, i, cur_instru->nb_params, a->file.line));
-	if (!(av = ft_strsplit(line, SEPARATOR_CHAR)))
+	if (!(arg = ft_strsplit(line, SEPARATOR_CHAR)))
 		return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
 	i = -1;
 	while (++i < cur_instru->nb_params)
@@ -164,11 +165,28 @@ int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_argument parse
 			verbose(a, MSG_ERROR, "%s: L %d: type not recognized for arg %d", a->file.filename, a->file.line_number, i);
 			break;
 		}
+
 	}
+
 	if (ret)
 		//TODO erase inside t_arguments
-	ft_tabdel(&av);
+	ft_tabdel(&arg);
 	return (ret);
+}
+
+
+// {"live", 1,
+// 	{T_DIR},
+// 	1, 10, "alive", 0, 0},
+
+int					write_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args)
+{
+
+
+	(void)a;
+	(void)cur_instru;
+	(void)parsed_args;
+	return (1);
 }
 
 int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
@@ -176,13 +194,18 @@ int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 	int				ret;
 	t_argument		parsed_args[MAX_ARGS_NUMBER];
 
-	//SPA AVNCE
+	if (skip_spa(&line))
+		return (verbose(a, MSG_ERROR, "%s: Unknown error: [%s]", a->file.filename, a->file.line));
+		// line++;
 	ft_bzero(parsed_args, sizeof(t_argument) * MAX_ARGS_NUMBER);
 	ret = parse_arguments(a, cur_instru, line, parsed_args);
 	if (!ret)
 		return (ret); // TODO
+	if(write_instruction(a, cur_instru, parsed_args))
+		return (verbose(a, MSG_ERROR, "Pb intruction: [%s]", cur_instru->instruc));
 	//TODO write instruction && avance prog_size
 	//todo ELSE REMOVE LABEL, remove memory leaks
+
 	return (ret);
 }
 
@@ -191,10 +214,10 @@ static t_op			*is_instruction(t_asm *a, char **line)
 	int		i;
 
 	i = -1;
-	while (++i < 17)
-		if (ft_isspa(ft_strcmp(*line, g_op_tab[i].label)))//TODO BETTER CHECK
+	while (++i < 16)
+		if (!ft_strncmp(*line, g_op_tab[i].instruc, ft_strlen(g_op_tab[i].instruc)))//TODO BETTER CHECK
 		{
-			*line += ft_strlen(g_op_tab[i].label);
+			*line += ft_strlen(g_op_tab[i].instruc);
 			return ((t_op *)&g_op_tab[i]);
 		}
 	return (NULL);
@@ -210,10 +233,11 @@ int					save_label(t_asm *a, char **line, char *end_of_label)
 		return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
 	*end_of_label = 0;
 	label->label = ft_strdup(*line);
+	*end_of_label = LABEL_CHAR;
 	*line = end_of_label + 1;
 	label->pos_label = a->file.header.prog_size;
 	label->pos_instru = a->file.header.prog_size;
-	list_add(&(label->list_label), &(a->file.list_know_label)); // TODO new_label ??
+	ft_ld_pushback(&a->file.list_know_label, label);
 	return (0);
 }
 
@@ -225,20 +249,12 @@ int					check_file_content(t_asm *a, char *line)
 
 	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
 		return (3);
-	if ((cur_instru = is_instruction(a, &line)))
-		return (parse_instruction(a, cur_instru, line));
 	if ((end_of_label = is_label(line)))
-	{
 		if (save_label(a, &line, end_of_label))
 			return (-1);
-		// return (check_file_content(a, line)); // TODO CHECK IF 2 label se suivent and remove linessss below
-		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
-			return (3);
-		if ((cur_instru = is_instruction(a, &line)))
-			return (parse_instruction(a, cur_instru, line));
-		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
-			return (3);
-		return (verbose(a, MSG_ERROR, "%s: Invalid char at EOF: [%s]", a->file.filename, a->file.line));
-	}
-	return (verbose(a, MSG_ERROR, "%s: Unknow line: [%s]", a->file.filename, a->file.line));
+	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
+		return (3);
+	if ((cur_instru = is_instruction(a, &line)))
+		return (parse_instruction(a, cur_instru, line));
+	return (verbose(a, MSG_ERROR, "%s: Unknown line: [%s]", a->file.filename, a->file.line));
 }
