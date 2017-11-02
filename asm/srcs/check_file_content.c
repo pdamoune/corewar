@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file_content.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/02 19:07:01 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/02 20:06:36 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,109 +80,6 @@ static const t_op	g_op_tab[] =
 // 	a->file.prog[a->file.header.prog_size + *cur_len++] = c;
 // 	return (0);
 // }
-
-int					get_reg(t_asm *a, char *arg, t_argument *parsed_args)
-{
-	if (!parsed_args->type & T_REG)
-		return (-1);
-	if (!ft_spastrisnumeral(arg))
-		return (-1);
-	parsed_args->type = T_REG;
-	parsed_args->value.dir = ft_atoi(arg + 1);
-	if (parsed_args->value.dir < 0 || parsed_args->value.dir > REG_NUMBER)
-		verbose(a, MSG_WARNING, "%s: L%d: Register range is [0-%d], yours is %d", a->file.line, a->file.line_number, REG_NUMBER, parsed_args->value.dir);
-	return (0);
-}
-
-int					get_dir(t_asm *a, char *arg, t_argument *parsed_args)
-{
-	char *end_of_label;
-
-	if (!parsed_args->type & T_DIR)
-		return (-1);
-	parsed_args->type = T_DIR;
-	++arg;
-	if ((end_of_label = is_arg_label(arg)))
-		return (analyze_arg_label(a, arg + 1, parsed_args, end_of_label));
-		//*end_of_label = 0;
-		//if ()
-		//TODO find value if label is known ELSE save in list of unknown labels
-//		parsed_args->type |= T_LAB;
-	else if (!ft_spastrisnumeral(arg))
-		return (-1);
-	parsed_args->value.dir = ft_atoi(arg);
-	return (0);
-}
-
-int					get_ind(t_asm *a, char *arg, t_argument *parsed_args)
-{
-	if (!parsed_args->type & T_IND)
-		return (-1);
-	parsed_args->type = T_IND;
-	if ((end_of_label = is_arg_label(arg)))
-		return (analyze_arg_label(a, arg + 1, parsed_args, end_of_label));
-	//if (is_arg_label(arg))
-	//{
-		//TODO find value if label is known ELSE save in list of unknown labels
-		//parsed_args->type |= T_LAB;
-		//TODO find value if label is known ELSE save in list of unknown labels
-	//}
-	else if (!ft_spastrisnumeral(arg))
-		return (-1);
-	parsed_args->value.ind = ft_atoi(arg);
-	return (0);
-}
-
-int					get_type_and_value(t_asm *a, char *arg, t_argument *parsed_args)
-{
-	if (skip_spa(&arg))
-		return (-1);
-	if (*arg == 'r')
-		return (get_reg(a, arg, parsed_args));
-	else if (*arg == '%')
-		return (get_dir(a, arg, parsed_args));
-	return (get_ind(a, arg, parsed_args));
-}
-
-int					parse_arguments(t_asm *a, t_op *cur_instru, char *line, t_argument *parsed_args)
-{
-	char			**arg;
-	int				ret;
-	int				i;
-
-	if (cur_instru->nb_params != (i = count_nb_args(line)))
-		return (verbose(a, MSG_ERROR, "%s: L %d: Incorrect nb of arguments %d on %d expected [%s]", a->file.filename, a->file.line_number, i, cur_instru->nb_params, a->file.line));
-	if (!(arg = ft_strsplit(line, SEPARATOR_CHAR)))
-		return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
-	i = -1;
-	while (++i < cur_instru->nb_params)
-	{
-		parsed_args[i].type = cur_instru->params[i];
-		if (-1 == (ret = get_type_and_value(a, arg[i], &parsed_args[i]))
-		{
-			verbose(a, MSG_ERROR, "%s: L %d: type not recognized for arg %d", a->file.filename, a->file.line_number, i);
-			break;
-		}
-		if (parsed_args[i].type & T_LAB)
-			parsed_args[i].label->pos_label = i;
-	}
-	ft_tabdel(&arg);
-	return (ret);
-}
-
-int		free_arguments(t_op *cur_instru, t_arguments *parsed_args)
-{
-	int				i;
-	
-	i = -1;
-	while (++i < cur_instru->nb_params)
-		if (parsed_args[i].type & T_LAB)
-		{
-			ft_strdel(parsed_args[i].label->label);
-			free(parsed_args[i].label);
-		}
-	return (-1);
-}
 
 // int			write_arg_to_prog(char *prog, int *prog_size, int size, int value)
 // {
@@ -267,13 +164,52 @@ int					write_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args)
 	return (0);
 }
 
+int		free_arguments(t_op *cur_instru, t_argument *parsed_args)
+{
+	int				i;
+	
+	i = -1;
+	while (++i < cur_instru->nb_params)
+		if (parsed_args[i].type & T_LAB)
+		{
+			ft_strdel(&parsed_args[i].label->label);
+			free(parsed_args[i].label);
+		}
+	return (-1);
+}
+
+int					parse_arguments(t_asm *a, t_op *cur_instru,
+									char *line, t_argument *parsed_args)
+{
+	char			**arg;
+	int				ret;
+	int				i;
+
+	if (cur_instru->nb_params != (i = count_nb_args(line)))
+	{
+		return (verbose(a, MSG_ERROR,
+				"%s: L %d: Incorrect nb of arguments %d on %d expected [%s]",
+				a->file.filename, a->file.line_number, i,
+				cur_instru->nb_params, a->file.line));
+	}
+	if (!(arg = ft_strsplit(line, SEPARATOR_CHAR)))
+		return (verbose(a, MSG_ERROR, "Malloc failed", NULL));
+	ret = analyze_each_arguments(a, cur_instru, arg, parsed_args);
+	ft_tabdel(&arg);
+	return (ret);
+}
+
+
 int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 {
 	t_argument		parsed_args[MAX_ARGS_NUMBER];
 	int				i;
 
 	if (skip_spa(&line))
-		return (verbose(a, MSG_ERROR, "%s: Unknown error: [%s]", a->file.filename, a->file.line));
+	{
+		return (verbose(a, MSG_ERROR, "%s-L%d: Unknown error: [%s]",
+						a->file.filename, a->file.line_number, a->file.line));
+	}
 	ft_bzero(parsed_args, sizeof(t_argument) * MAX_ARGS_NUMBER);
 	if (parse_arguments(a, cur_instru, line, parsed_args))
 		return (free_arguments(cur_instru, parsed_args));
@@ -282,10 +218,11 @@ int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 		if (parsed_args[i].type & T_LAB)
 			ft_ld_pushfront(&a->file.list_unknow_label, parsed_args[i].label);
 	if (write_instruction(a, cur_instru, parsed_args))
-		return (verbose(a, MSG_ERROR, "Pb intruction: [%s]", cur_instru->instruc));
-	//TODO write instruction && avance prog_size
-	//todo ELSE REMOVE LABEL, remove memory leaks
-
+	{
+		return (verbose(a, MSG_ERROR, "%s-L%d: Can't write instruction: [%s]",
+					a->file.filename, a->file.line_number,
+					cur_instru->instruc));
+	}
 	return (0);
 }
 
@@ -311,10 +248,12 @@ int					save_label(t_asm *a, char **line, char *end_of_label)
 	t_ld		**found;
 
 	*end_of_label = 0;
-	if ((found = find_label(a->file.list_know_label, *line)))
+	if ((found = find_label(&a->file.list_know_label, *line)))
 	{
 		*end_of_label = LABEL_CHAR;
-		return (verbose(a, MSG_ERROR, "%s: L %d: Label [%s] Already exists", a->file.line, a->file.line_number, ((t_label*)(*found)->content)->label));
+		return (verbose(a, MSG_ERROR, "%s-L%d: Label [%s] Already exists",
+					a->file.filename, a->file.line_number,
+					((t_label*)(*found)->content)->label));
 	}
 	if (!(label = (t_label *)malloc(sizeof(t_label))))
 		return (verbose(a, MSG_ERROR, "Malloc failed", NULL));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_asm.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/01 21:34:11 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/02 19:35:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ int					do_asm(t_asm *a, char *filename)
 	int			(*f)();
 	int			ret;
 	char		*line;
+	int			fdin;
 
-	if (init_asm(a, filename, &f))
+	if (-1 == (fdin = init_asm(a, filename, &f))
 		return (1);
-	while (0 < (ret = get_next_line(a->file.fdin, &line)))
+	while (0 < (ret = get_next_line(fdin, &line)))
 	{
 		++a->file.line_number;
 		a->file.line = line;
@@ -66,7 +67,7 @@ int					do_asm(t_asm *a, char *filename)
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
-	close(a->file.fdin);
+	close(fdin);
 	if (!ret)
 		ret = check_label(a);
 	if (!ret)

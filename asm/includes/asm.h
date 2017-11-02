@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/02 17:42:19 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/02 20:03:58 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ typedef struct s_asm	t_asm;
 typedef struct s_file	t_file;
 
 int						verbose(t_asm *a, const int level,
-			const char *message, ...);
+								const char *message, ...);
 int						ft_strcat_check(char *dest,
-			char *src, int *len, int authorized);
+								char *src, int *len, int authorized);
 int						do_asm(t_asm *a, char *filename);
 int						usage(void);
 int						check_file_content(t_asm *a, char *line);
@@ -52,14 +52,30 @@ int						check_header_comment(t_asm *a, char *line);
 int						init_name_header(t_asm *a, char *line);
 int						init_comment_header(t_asm *a, char *line);
 int						init_asm(t_asm *a, char *filename, int (**f)());
-// static int				check_filename(t_asm *a, char *filename);
+int						analyze_each_arguments(t_asm *a, t_op *cur_instru,
+										char **arg, t_argument *parsed_args);
 
-/*** TOOLS */
+/*
+** TOOLS
+*/
+
 int						skip_spa(char **line);
-int						check_label(t_asm *a);
-char					*is_label(char *line);
 int						count_nb_args(char *line);
 int						ft_spastrcmp(char *spastr, char *str);
+int						ft_spastrisnumeral(const char *str);
+char					*type_to_str(int type);
+
+/*
+** LABEL TREAT
+*/
+t_ld					**find_label(t_ld **head_list, char *name);
+void					replace_label(t_asm *a, unsigned int pos,
+										t_ld **target);
+int						check_label(t_asm *a);
+char					*is_label(char *line);
+char					*is_arg_label(char *line);
+int						analyze_arg_label(t_asm *a, char *arg,
+									t_argument *parsed_args, char *end_of_label)
 
 typedef struct			s_op
 {
@@ -100,7 +116,7 @@ struct					s_file
 {
 	uint64_t			flag;
 	char				*filename;
-	int					fdin;
+	// int					fdin;
 	char				*line;
 	int					line_number;
 	// int				nb_error;
@@ -110,7 +126,6 @@ struct					s_file
 	t_ld				*list_unknow_label;
 	t_header			header;
 	char				prog[(2 * CHAMP_MAX_SIZE) + 1];
-	// t_global			global;
 };
 
 struct					s_asm
@@ -119,57 +134,5 @@ struct					s_asm
 	char				**av_data;
 	t_file				file;
 };
-
-// typedef struct			s_label
-// {
-// 	struct s_content	*begin_content;
-// 	struct s_content	*s_content;
-// 	char				*name;
-// 	int					index;
-// 	int					num;
-// 	struct s_label		*next;
-// 	struct s_label		*previous;
-//
-// }						t_label;
-
-typedef struct			s_content
-{
-	char				**line;
-	int					nb_octet;
-	int					begin_octet;
-	char				*instruction;
-	struct s_content	*next;
-	struct s_content	*previous;
-}						t_content;
-
-typedef struct			s_map
-{
-	char				*line;
-	struct s_map		*next;
-	struct s_map		*previous;
-}						t_map;
-
-typedef	struct			s_var
-{
-	int					chaine;
-	int					mot;
-	int					lettre;
-	struct s_var		*next;
-}						t_var;
-
-/*
-**   DEFINE
-*/
-
-# define EMPTY_LINE		1
-# define COMMENT		2
-# define WITH_LABEL		3
-# define EMPTY_LABEL	4
-# define HEADER			5
-
-# define OCTET			0
-# define STOCK			1
-# define G_L_C			global->s_label->s_content
-# define ITAB			global->i_tab
 
 #endif
