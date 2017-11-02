@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_label.c                                         :+:      :+:    :+:   */
+/*   remove_label.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/02 17:39:26 by tdebarge         ###   ########.fr       */
+/*   Created: 2017/11/02 13:33:53 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/11/02 13:57:15 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-char			*is_label(char *line)
+static void		free_label(t_label *rip)
 {
-	while (*line && ft_strchr(LABEL_CHARS, *line))
-		++line;
-	if (*line == LABEL_CHAR)
-		return (line);
-	return (NULL);
+	ft_strdel(&rip->label);
+	free(rip);
 }
 
-char			*is_arg_label(char *line)
+void 			remove_label(t_ld **rip)
 {
-	if (*line != LABEL_CHAR)
-		return (NULL);
-	while (*line && ft_strchr(LABEL_CHARS, *line))
-		++line;
-	if (!*line || ft_isspa(line) || ft_strchr(COMMENT_CHAR, *line))
-		return (line)
-	return (NULL);
+	ft_ld_del(rip, &free_label);
 }

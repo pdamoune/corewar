@@ -6,12 +6,14 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:23:09 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/01 21:26:49 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/02 18:58:27 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
+
+//TODO no space before " after .name is good, should not segfault
 int			check_header_name(t_asm *a, char *line)
 {
 	if (*a->file.header.prog_name)
@@ -47,6 +49,7 @@ int			init_name_header(t_asm *a, char *line)
 	return (check_header_name(a, line + 1));
 }
 
+//TODO no space before " after .comment is good, should not segfault
 int			check_header_comment(t_asm *a, char *line)
 {
 	if (*a->file.header.comment)
