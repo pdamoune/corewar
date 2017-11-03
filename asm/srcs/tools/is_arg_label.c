@@ -12,11 +12,18 @@
 
 #include <asm.h>
 
-char			*is_label(char *line)
+char			*is_arg_label(char *line)
 {
-	while (*line && ft_strchr(LABEL_CHARS, *line))
+	if (*line != LABEL_CHAR)
+		return (NULL);
+	while (*line && ft_strchr(line, LABEL_CHAR))
 		++line;
-	if (*line == LABEL_CHAR)
-		return (line);
-	return (NULL);
+	if (!*line || ft_isspa(*line) || ft_strchr(COMMENT_CHAR, *line))
+	{
+		return (NULL);
+
+	}
+	DG("line: %s", line);
+
+	return (line);
 }

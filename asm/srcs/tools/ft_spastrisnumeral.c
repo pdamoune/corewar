@@ -20,9 +20,11 @@ int		ft_spastrisnumeral(const char *str)
 		++str;
 	while (*str && !ft_isspa(*str) && !ft_strchr(COMMENT_CHAR, *str))
 	{
+		DG("ft_isdigit: %c", *str);
 		if (!ft_isdigit(*str))
 			return (0);
 		++str;
 	}
+	DG("ft_isdigit 0: %c", *str);
 	return (1);
 }

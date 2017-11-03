@@ -18,7 +18,7 @@ static int		get_reg(t_asm *a, char *arg, t_argument *parsed_args)
 
 	if (!parsed_args->type & T_REG)
 		return (-1);
-	if (!ft_spastrisnumeral(arg))
+	if (!ft_spastrisnumeral(arg + 1))
 		return (-1);
 	parsed_args->type = T_REG;
 	arg_value = ft_atoi(arg + 1);
@@ -39,8 +39,12 @@ static int		get_dir(t_asm *a, char *arg, t_argument *parsed_args)
 	parsed_args->type = T_DIR;
 	++arg;
 	if ((end_of_label = is_arg_label(arg)))
+	{
+		DG("ARG + 1= %s", arg + 1);
 		return (analyze_arg_label(a, arg + 1, parsed_args, end_of_label));
-	else if (!ft_spastrisnumeral(arg))
+
+	}
+	else if (!ft_spastrisnumeral(arg + 1))
 		return (-1);
 	parsed_args->value.dir = ft_atoi(arg);
 	return (0);
@@ -95,4 +99,3 @@ int				analyze_each_arguments(t_asm *a, t_op *cur_instru, char **arg,
 	}
 	return (0);
 }
-
