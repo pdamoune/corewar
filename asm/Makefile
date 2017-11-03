@@ -35,13 +35,17 @@ check_file_content.c\
 check_header.c\
 do_asm.c\
 free.c\
+get_value_and_type.c\
 main.c\
 tools/check_label.c\
 tools/count_nb_args.c\
 tools/ft_spastrcmp.c\
+tools/ft_spastrisnumeral.c\
 tools/init_asm.c\
 tools/is_label.c\
+tools/remove_label.c\
 tools/ski_spa.c\
+tools/type_to_str.c\
 verbose.c
 
 SRCS		=	$(addprefix $(SRC_DIR), $(SRC_BASE))

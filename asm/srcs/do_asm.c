@@ -52,7 +52,7 @@ int					do_asm(t_asm *a, char *filename)
 	char		*line;
 	int			fdin;
 
-	if (-1 == (fdin = init_asm(a, filename, &f))
+	if (-1 == (fdin = init_asm(a, filename, &f)))
 		return (1);
 	while (0 < (ret = get_next_line(fdin, &line)))
 	{

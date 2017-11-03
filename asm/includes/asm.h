@@ -39,43 +39,6 @@
 typedef struct s_asm	t_asm;
 typedef struct s_file	t_file;
 
-int						verbose(t_asm *a, const int level,
-								const char *message, ...);
-int						ft_strcat_check(char *dest,
-								char *src, int *len, int authorized);
-int						do_asm(t_asm *a, char *filename);
-int						usage(void);
-int						check_file_content(t_asm *a, char *line);
-int						check_header(t_asm *a, char *line);
-int						check_header_name(t_asm *a, char *line);
-int						check_header_comment(t_asm *a, char *line);
-int						init_name_header(t_asm *a, char *line);
-int						init_comment_header(t_asm *a, char *line);
-int						init_asm(t_asm *a, char *filename, int (**f)());
-int						analyze_each_arguments(t_asm *a, t_op *cur_instru,
-										char **arg, t_argument *parsed_args);
-
-/*
-** TOOLS
-*/
-
-int						skip_spa(char **line);
-int						count_nb_args(char *line);
-int						ft_spastrcmp(char *spastr, char *str);
-int						ft_spastrisnumeral(const char *str);
-char					*type_to_str(int type);
-
-/*
-** LABEL TREAT
-*/
-t_ld					**find_label(t_ld **head_list, char *name);
-void					replace_label(t_asm *a, unsigned int pos,
-										t_ld **target);
-int						check_label(t_asm *a);
-char					*is_label(char *line);
-char					*is_arg_label(char *line);
-int						analyze_arg_label(t_asm *a, char *arg,
-									t_argument *parsed_args, char *end_of_label)
 
 typedef struct			s_op
 {
@@ -134,5 +97,44 @@ struct					s_asm
 	char				**av_data;
 	t_file				file;
 };
+
+int						verbose(t_asm *a, const int level,
+								const char *message, ...);
+int						ft_strcat_check(char *dest,
+								char *src, int *len, int authorized);
+int						do_asm(t_asm *a, char *filename);
+int						usage(void);
+int						check_file_content(t_asm *a, char *line);
+int						check_header(t_asm *a, char *line);
+int						check_header_name(t_asm *a, char *line);
+int						check_header_comment(t_asm *a, char *line);
+int						init_name_header(t_asm *a, char *line);
+int						init_comment_header(t_asm *a, char *line);
+int						init_asm(t_asm *a, char *filename, int (**f)());
+int						analyze_each_arguments(t_asm *a, t_op *cur_instru,
+										char **arg, t_argument *parsed_args);
+
+/*
+** TOOLS
+*/
+
+int						skip_spa(char **line);
+int						count_nb_args(char *line);
+int						ft_spastrcmp(char *spastr, char *str);
+int						ft_spastrisnumeral(const char *str);
+char					*type_to_str(int type);
+void 					remove_label(t_ld **rip);
+
+/*
+** LABEL TREAT
+*/
+t_ld					**find_label(t_ld **head_list, char *name);
+void					replace_label(t_asm *a, unsigned int pos,
+										t_ld **target);
+int						check_label(t_asm *a);
+char					*is_label(char *line);
+char					*is_arg_label(char *line);
+int						analyze_arg_label(t_asm *a, char *arg,
+									t_argument *parsed_args, char *end_of_label);
 
 #endif

@@ -28,7 +28,8 @@ t_ld			**find_label(t_ld **head_list, char *name)
 
 void			replace_label(t_asm *a, unsigned int pos, t_ld **target)
 {
-
+	(void)a;
+	(void)pos;
 	remove_label(target);
 }
 
@@ -39,7 +40,7 @@ int				analyze_arg_label(t_asm *a, char *arg,
 	t_label		*label;
 
 	*end_of_label = 0;
-	if (found = find_label(&a->file.list_know_label, arg))
+	if ((found = find_label(&a->file.list_know_label, arg)))
 	{
 		parsed_args->value.dir = ((t_label *)(*found)->content)->pos_label;
 		return (0);
@@ -51,6 +52,7 @@ int				analyze_arg_label(t_asm *a, char *arg,
 	label->pos_label = -42;
 	label->pos_instru = a->file.header.prog_size;
 	parsed_args->label = label;
+	return(1);
 }
 
 int					check_label(t_asm *a)

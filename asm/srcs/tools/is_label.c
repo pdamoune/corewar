@@ -27,7 +27,7 @@ char			*is_arg_label(char *line)
 		return (NULL);
 	while (*line && ft_strchr(LABEL_CHARS, *line))
 		++line;
-	if (!*line || ft_isspa(line) || ft_strchr(COMMENT_CHAR, *line))
-		return (line)
+	if (!*line || ft_isspa(*line) || ft_strchr(COMMENT_CHAR, *line))
+		return (line);
 	return (NULL);
 }

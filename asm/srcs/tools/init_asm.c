@@ -43,5 +43,5 @@ int		init_asm(t_asm *a, char *filename, int (**f)())
 	*f = &check_header;
 	// INIT_LIST_HEAD(&(a->file.list_know_label));
 	// INIT_LIST_HEAD(&(a->file.list_unknow_label));
-	return (fd);
+	return (fdin);
 }
