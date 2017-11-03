@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:39:28 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/01 15:57:28 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/04 00:20:37 by william          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	asm_verbose(const int level, const char *str)
 {
 	if (level == MSG_ERROR)
-		ft_dprintf(2, "{pur}Asm:{red} %s{eoc}\n", str);
+		ft_dprintf(2, "{pur}Asm:{red} ERROR: %s{eoc}\n", str);
 	else if (level == MSG_SUCESS)
 		ft_printf("{gre}%s{eoc}\n", str);
 	else if (level == MSG_WARNING)

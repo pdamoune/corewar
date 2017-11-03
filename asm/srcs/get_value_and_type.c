@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_arguments.c                                  :+:      :+:    :+:   */
+/*   get_value_and_type.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:37:07 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/02 20:01:37 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 00:28:33 by william          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 static int		get_reg(t_asm *a, char *arg, t_argument *parsed_args)
 {
 	int			arg_value;
+	int		allowed_type;
 
-	if (!parsed_args->type & T_REG)
-		return (-1);
-	if (!ft_spastrisnumeral(arg + 1))
-		return (-1);
+	allowed_type = parsed_args->type;
 	parsed_args->type = T_REG;
-	arg_value = ft_atoi(arg + 1);
+	if (!(allowed_type & T_REG))
+		return (-1);
+	if (!ft_spastrisnumeral(arg))
+		return (-1);
+	arg_value = ft_atoi(arg);
 	if (arg_value < 0 || arg_value > REG_NUMBER)
 		verbose(a, MSG_WARNING,
 				"%s: L%d: Register range is [0-%d], yours is %d",
@@ -33,18 +35,15 @@ static int		get_reg(t_asm *a, char *arg, t_argument *parsed_args)
 static int		get_dir(t_asm *a, char *arg, t_argument *parsed_args)
 {
 	char *end_of_label;
+	int		allowed_type;
 
-	if (!parsed_args->type & T_DIR)
-		return (-1);
+	allowed_type = parsed_args->type;
 	parsed_args->type = T_DIR;
-	++arg;
+	if (!(allowed_type & T_DIR))
+		return (-1);
 	if ((end_of_label = is_arg_label(arg)))
-	{
-		DG("ARG + 1= %s", arg + 1);
 		return (analyze_arg_label(a, arg + 1, parsed_args, end_of_label));
-
-	}
-	else if (!ft_spastrisnumeral(arg + 1))
+	else if (!ft_spastrisnumeral(arg))
 		return (-1);
 	parsed_args->value.dir = ft_atoi(arg);
 	return (0);
@@ -52,11 +51,13 @@ static int		get_dir(t_asm *a, char *arg, t_argument *parsed_args)
 
 static int		get_ind(t_asm *a, char *arg, t_argument *parsed_args)
 {
-	char *end_of_label;
+	char	*end_of_label;
+	int		allowed_type;
 
-	if (!parsed_args->type & T_IND)
-		return (-1);
+	allowed_type = parsed_args->type;
 	parsed_args->type = T_IND;
+	if (!(allowed_type & T_IND))
+		return (-1);
 	if ((end_of_label = is_arg_label(arg)))
 		return (analyze_arg_label(a, arg + 1, parsed_args, end_of_label));
 	else if (!ft_spastrisnumeral(arg))
@@ -70,9 +71,9 @@ static int		get_type_and_value(t_asm *a, char *arg, t_argument *parsed_args)
 	if (skip_spa(&arg))
 		return (-1);
 	if (*arg == 'r')
-		return (get_reg(a, arg, parsed_args));
+		return (get_reg(a, arg + 1, parsed_args));
 	else if (*arg == '%')
-		return (get_dir(a, arg, parsed_args));
+		return (get_dir(a, arg + 1, parsed_args));
 	return (get_ind(a, arg, parsed_args));
 }
 
@@ -87,12 +88,17 @@ int				analyze_each_arguments(t_asm *a, t_op *cur_instru, char **arg,
 		parsed_args[i].type = cur_instru->params[i];
 		if (-1 == get_type_and_value(a, arg[i], &parsed_args[i]))
 		{
-			return (verbose(a, MSG_ERROR,
-						"%s: L %d: Arg %d has not a valid type type found is : "
-						"%s Type allowed are vs %s. [%s]",
+			if (!(parsed_args[i].type & cur_instru->params[i]))
+				return (verbose(a, MSG_ERROR,
+						"%s-L%d: Arg n°%d has incorrect type %s vs %s. [%s]",
 						a->file.filename, a->file.line_number, i,
 						type_to_str(parsed_args[i].type),
 						type_to_str(cur_instru->params[i]), a->file.line));
+			return (verbose(a, MSG_ERROR,
+						"%s-L%d: Arg n°%d has wrong format for type %s. [%s]",
+						a->file.filename, a->file.line_number, i,
+						type_to_str(parsed_args[i].type), a->file.line));
+			
 		}
 		if (parsed_args[i].type & T_LAB)
 			parsed_args[i].label->pos_label = i;
