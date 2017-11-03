@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/02 19:07:01 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/03 23:48:38 by william          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_ld			**find_label(t_ld **head_list, char *name)
 {
+	if (!*head_list)
+		return (NULL);
 	*head_list = ft_ld_front(*head_list);
 	while (1)
 	{
