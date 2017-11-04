@@ -28,17 +28,6 @@ t_ld			**find_label(t_ld **head_list, char *name)
 	return (head_list);
 }
 
-void			replace_label(t_asm *a, unsigned int pos, t_ld **target)
-{
-	(void)a;
-	(void)pos;
-/* DG("target ptr is %p", target); */
-/* DG("target *ptr is %p", *target); */
-/* t_label *label = (*target)->content; */
-/* DG("gonna be free %s at pos %d-%d", label->label, label->pos_instru, label->pos_label); */
-	remove_label(target);
-}
-
 int					check_label(t_asm *a)
 {
 	return(0);

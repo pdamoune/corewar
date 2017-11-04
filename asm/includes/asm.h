@@ -112,7 +112,10 @@ int						init_name_header(t_asm *a, char *line);
 int						init_comment_header(t_asm *a, char *line);
 int						init_asm(t_asm *a, char *filename, int (**f)());
 int						analyze_each_arguments(t_asm *a, t_op *cur_instru,
-										char **arg, t_argument *parsed_args);
+							char **arg, t_argument *parsed_args);
+int						free_arguments(t_op *cur_instru, t_argument *parsed_args);
+int						stock_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args, uint8_t ocp);
+int						stock_argument(t_asm *a, uint16_t pos, t_argument *arg, uint8_t index);
 
 /*
 ** TOOLS
@@ -124,14 +127,17 @@ int						ft_spastrcmp(char *spastr, char *str);
 int						ft_spastrisnumeral(const char *str);
 char					*type_to_str(int type);
 void 					remove_label(t_ld **rip);
+t_op				*is_instruction(char **line);
+uint8_t					calcul_instruction_len(uint8_t op_code, uint8_t ocp);
+uint8_t					calcul_ocp(int	nb_params, t_argument *parsed_args);
+uint8_t					calcul_type_from_ocp(uint8_t ocp, uint8_t index);
 
 /*
 ** LABEL TREAT
 */
 void					free_label(t_label *rip);
 t_ld					**find_label(t_ld **head_list, char *name);
-void					replace_label(t_asm *a, unsigned int pos,
-										t_ld **target);
+void			replace_label(t_asm *a, t_label *label, t_ld **target);
 int						check_label(t_asm *a);
 char					*is_label(char *line);
 char					*is_arg_label(char *line);

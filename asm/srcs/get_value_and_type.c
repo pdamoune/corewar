@@ -98,7 +98,7 @@ int				analyze_each_arguments(t_asm *a, t_op *cur_instru, char **arg,
 						"%s-L%d: Arg n°%d has wrong format for type %s. [%s]",
 						a->file.filename, a->file.line_number, i,
 						type_to_str(parsed_args[i].type), a->file.line));
-			
+
 		}
 		if (parsed_args[i].type & T_LAB)
 			parsed_args[i].label->pos_label = i;
