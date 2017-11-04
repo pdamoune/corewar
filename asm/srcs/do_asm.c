@@ -6,39 +6,49 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/04 17:04:44 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 18:17:51 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-int finalize_asm(t_asm *a)
+static int		finalize_asm_2(t_asm *a, int fdout, int len)
 {
-	int		n_write;
+	int			n_write;
+	int			res;
+
+	res = 0;
+	if (fdout == -1)
+		res = (verbose(a, MSG_ERROR, "%s: Permission denied",
+		a->file.filename));
+	else if (sizeof(t_header) != (n_write = write(fdout,
+		&(a->file.header), sizeof(t_header))))
+		res = (verbose(a, MSG_ERROR,
+			"%s: Header write failed: %d on %u expected",
+			a->file.filename, n_write, sizeof(t_header)));
+	else if (len != (n_write = write(fdout, a->file.prog, len)))
+		res = (verbose(a, MSG_ERROR,
+			"%s: Program write failed: %d on %u expected",
+			a->file.filename, n_write, len));
+	else
+		ft_printf("Writing output program to %s\n", a->file.filename);
+	close(fdout);
+	return (res);
+}
+
+int				finalize_asm(t_asm *a)
+{
 	int		fdout;
 	int		len;
 
 	len = a->file.header.prog_size;
 	a->file.header.prog_size = bswap_32(a->file.header.prog_size);
-	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
-	if (fdout == -1)
-		return (verbose(a, MSG_ERROR, "%s: Permission denied", a->file.filename));
-	if (sizeof(t_header) != (n_write = write(fdout, &(a->file.header), sizeof(t_header))))
-	{
-		close(fdout);
-		return (verbose(a, MSG_ERROR, "%s: Header write failed: %d on %u expected", a->file.filename, n_write, sizeof(t_header)));
-	}
-	if (len != (n_write = write(fdout, a->file.prog, len)))
-	{
-		close(fdout);
-		return (verbose(a, MSG_ERROR, "%s: Program write failed: %d on %u expected", a->file.filename, n_write, len));
-	}
-	ft_printf("Writing output program to %s\n", a->file.filename);
-	close(fdout);
-	return (0);
+	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY,
+		S_IRWXU | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
+	return (finalize_asm_2(a, fdout, len));
 }
 
-static				int (*g_send_line_func[])() =
+static int		(*g_send_line_func[])() =
 {
 	&check_header,
 	&check_header_name,
@@ -46,7 +56,19 @@ static				int (*g_send_line_func[])() =
 	&check_file_content,
 };
 
-int					do_asm(t_asm *a, char *filename)
+static int		do_asm_next(t_asm *a, int ret)
+{
+	if (a->file.list_unknow_label)
+		ret = -1;// TODO VERBOSE
+	if (!ret)
+		ret = finalize_asm(a);
+	free(a->file.filename);
+	ft_ld_clear(&a->file.list_know_label, free_label);
+	ft_ld_clear(&a->file.list_unknow_label, free_label);
+	return (ret);
+}
+
+int				do_asm(t_asm *a, char *filename)
 {
 	int			(*f)();
 	int			ret;
@@ -57,7 +79,8 @@ int					do_asm(t_asm *a, char *filename)
 		return (1);
 	while (0 < (ret = get_next_line(fdin, &line)))
 	{
-		verbose(a, MSG_DEBUG, "Parsing %s-L%d: [%s]", a->file.filename, a->file.line_number, line);
+		verbose(a, MSG_DEBUG, "Parsing %s-L%d: [%s]",
+		a->file.filename, a->file.line_number, line);
 		++a->file.line_number;
 		a->file.line = line;
 		if (-1 == (ret = f(a, line)))
@@ -71,12 +94,5 @@ int					do_asm(t_asm *a, char *filename)
 	//TODO ERROR MSG IF RET => ça veut dire qu'on arrive pas à get_next_line sur le fichier
 	ft_strdel(&line);
 	close(fdin);
-	if (a->file.list_unknow_label)
-		ret = -1;// TODO VERBOSE
-	if (!ret)
-		ret = finalize_asm(a);
-	free(a->file.filename);
-	ft_ld_clear(&a->file.list_know_label, free_label);
-	ft_ld_clear(&a->file.list_unknow_label, free_label);
-	return (ret);
+	return (do_asm_next(a, ret));
 }

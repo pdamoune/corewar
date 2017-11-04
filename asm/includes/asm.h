@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 17:11:43 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 19:09:07 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@
 typedef struct s_asm	t_asm;
 typedef struct s_file	t_file;
 
-
 typedef struct			s_op
 {
 	char				*instruc;
@@ -58,7 +57,6 @@ typedef struct			s_label
 	int					pos_instru;
 	int					pos_label;
 }						t_label;
-
 
 union					u_value
 {
@@ -79,10 +77,8 @@ struct					s_file
 {
 	uint64_t			flag;
 	char				*filename;
-	// int					fdin;
 	char				*line;
 	int					line_number;
-	// int				nb_error;
 	int					name_len;
 	int					comment_len;
 	t_ld				*list_know_label;
@@ -113,9 +109,12 @@ int						init_comment_header(t_asm *a, char *line);
 int						init_asm(t_asm *a, char *filename, int (**f)());
 int						analyze_each_arguments(t_asm *a, const t_op *cur_instru,
 							char **arg, t_argument *parsed_args);
-int						free_arguments(const t_op *cur_instru, t_argument *parsed_args);
-int						stock_instruction(t_asm *a, const t_op *cur_instru, t_argument *parsed_args, uint8_t ocp);
-int						stock_argument(t_asm *a, uint16_t pos, t_argument *arg, uint8_t index);
+int						free_arguments(const t_op *cur_instru,
+	t_argument *parsed_args);
+int						stock_instruction(t_asm *a,
+	const t_op *cur_instru, t_argument *parsed_args, uint8_t ocp);
+int						stock_argument(t_asm *a,
+	uint16_t pos, t_argument *arg, uint8_t index);
 
 /*
 ** TOOLS
@@ -126,10 +125,11 @@ int						count_nb_args(char *line);
 int						ft_spastrcmp(char *spastr, char *str);
 int						ft_spastrisnumeral(const char *str);
 const char				*type_to_str(int type);
-void 					remove_label(t_ld **rip);
+void					remove_label(t_ld **rip);
 const t_op				*is_instruction(char **line);
 const t_op				*find_cur_instru(uint8_t pos);
-uint8_t					calcul_instruction_len(int has_ocp, uint8_t ocp, int nb_params, int index);
+uint8_t					calcul_instruction_len(int has_ocp,
+	uint8_t ocp, int nb_params, int index);
 uint8_t					calcul_ocp(int	nb_params, t_argument *parsed_args);
 uint8_t					calcul_type_from_ocp(uint8_t ocp, uint8_t index);
 
@@ -143,6 +143,6 @@ int						check_label(t_asm *a);
 char					*is_label(char *line);
 char					*is_arg_label(char *line);
 int						analyze_arg_label(t_asm *a, char *arg,
-									t_argument *parsed_args, char *end_of_label);
+	t_argument *parsed_args, char *end_of_label);
 
 #endif

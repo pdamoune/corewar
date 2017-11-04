@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:37:07 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 17:12:12 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 18:50:36 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int		get_reg(t_asm *a, char *arg, t_argument *parsed_args)
 {
 	int			arg_value;
-	int		allowed_type;
+	int			allowed_type;
 
 	allowed_type = parsed_args->type;
 	parsed_args->type = T_REG;
@@ -34,8 +34,8 @@ static int		get_reg(t_asm *a, char *arg, t_argument *parsed_args)
 
 static int		get_dir(t_asm *a, char *arg, t_argument *parsed_args)
 {
-	char *end_of_label;
-	int		allowed_type;
+	char		*end_of_label;
+	int			allowed_type;
 
 	allowed_type = parsed_args->type;
 	parsed_args->type = T_DIR;
@@ -51,8 +51,8 @@ static int		get_dir(t_asm *a, char *arg, t_argument *parsed_args)
 
 static int		get_ind(t_asm *a, char *arg, t_argument *parsed_args)
 {
-	char	*end_of_label;
-	int		allowed_type;
+	char		*end_of_label;
+	int			allowed_type;
 
 	allowed_type = parsed_args->type;
 	parsed_args->type = T_IND;
@@ -77,8 +77,8 @@ static int		get_type_and_value(t_asm *a, char *arg, t_argument *parsed_args)
 	return (get_ind(a, arg, parsed_args));
 }
 
-int				analyze_each_arguments(t_asm *a, const t_op *cur_instru, char **arg,
-										t_argument *parsed_args)
+int				analyze_each_arguments(t_asm *a, const t_op *cur_instru,
+					char **arg, t_argument *parsed_args)
 {
 	int			i;
 
@@ -89,16 +89,17 @@ int				analyze_each_arguments(t_asm *a, const t_op *cur_instru, char **arg,
 		if (-1 == get_type_and_value(a, arg[i], &parsed_args[i]))
 		{
 			if (!(parsed_args[i].type & cur_instru->params[i]))
+			{
 				return (verbose(a, MSG_ERROR,
-						"%s-L%d: Arg n°%d has incorrect type %s vs %s. [%s]",
+					"%s-L%d: Arg n°%d has incorrect type %s vs %s. [%s]",
 						a->file.filename, a->file.line_number, i,
 						type_to_str(parsed_args[i].type),
 						type_to_str(cur_instru->params[i]), a->file.line));
+			}
 			return (verbose(a, MSG_ERROR,
-						"%s-L%d: Arg n°%d has wrong format for type %s. [%s]",
+					"%s-L%d: Arg n°%d has wrong format for type %s. [%s]",
 						a->file.filename, a->file.line_number, i,
 						type_to_str(parsed_args[i].type), a->file.line));
-
 		}
 		if (parsed_args[i].type & T_LAB)
 			parsed_args[i].label->pos_label = i;

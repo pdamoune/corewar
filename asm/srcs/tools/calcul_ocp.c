@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/04 17:07:49 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 18:56:36 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ uint8_t		calcul_type_from_ocp(uint8_t ocp, uint8_t index)
 	return (0);
 }
 
-uint8_t		calcul_ocp(int	nb_params, t_argument *parsed_args)
+uint8_t		calcul_ocp(int nb_params, t_argument *parsed_args)
 {
 	unsigned char		ocp;
 	int					i;
@@ -42,7 +42,8 @@ uint8_t		calcul_ocp(int	nb_params, t_argument *parsed_args)
 	return (ocp);
 }
 
-uint8_t		calcul_instruction_len(int has_ocp, uint8_t ocp, int nb_params, int index)
+uint8_t		calcul_instruction_len(int has_ocp,
+	uint8_t ocp, int nb_params, int index)
 {
 	uint8_t			len;
 	int				i;

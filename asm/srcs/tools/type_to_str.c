@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:48:18 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 15:31:42 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 18:58:06 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-static const char		*g_char_type[]=
+static const char		*g_char_type[] =
 {
 	"{T_REG | T_DIR | T_IND}",
 	"{T_DIR | T_IND}",
@@ -42,4 +42,3 @@ const char				*type_to_str(int type)
 		return (g_char_type[6]);
 	return (g_char_type[7]);
 }
-

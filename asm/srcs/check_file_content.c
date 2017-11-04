@@ -6,36 +6,40 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 17:12:07 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 19:02:54 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-int					check_and_stock_instruction(t_asm *a, const t_op *cur_instru, t_argument *parsed_args)
+int				check_and_stock_instruction(t_asm *a,
+	const t_op *cur_instru, t_argument *parsed_args)
 {
 	int		ocp;
 	int		instruction_len;
 
 	ocp = calcul_ocp(cur_instru->nb_params, parsed_args);
-	instruction_len = calcul_instruction_len(cur_instru->ocp, ocp, cur_instru->nb_params, cur_instru->index);
+	instruction_len = calcul_instruction_len(cur_instru->ocp, ocp,
+		cur_instru->nb_params, cur_instru->index);
 	if (PROG_SIZE + instruction_len > 2 * CHAMP_MAX_SIZE)
 	{
 		SET(a->file.flag, LEN_ERROR);
 		return (verbose(a, MSG_ERROR,
-					"%s-L%d: Champion is too big", a->file.filename, a->file.line_number));
+					"%s-L%d: Champion is too big", a->file.filename,
+					a->file.line_number));
 	}
 	if (PROG_SIZE + instruction_len > CHAMP_MAX_SIZE
 			&& IS_UNSET(a->file.flag, LEN_WARNING))
 	{
 		SET(a->file.flag, LEN_WARNING);
-		verbose(a, MSG_WARNING, "%s-L%d: Champion is too big", a->file.filename, a->file.line_number);
+		verbose(a, MSG_WARNING, "%s-L%d: Champion is too big",
+		a->file.filename, a->file.line_number);
 	}
 	return (stock_instruction(a, cur_instru, parsed_args, ocp));
 }
 
-int					parse_arguments(t_asm *a, const t_op *cur_instru,
-									char *line, t_argument *parsed_args)
+int				parse_arguments(t_asm *a, const t_op *cur_instru,
+	char *line, t_argument *parsed_args)
 {
 	char			**arg;
 	int				ret;
@@ -55,8 +59,8 @@ int					parse_arguments(t_asm *a, const t_op *cur_instru,
 	return (ret);
 }
 
-
-int					parse_instruction(t_asm *a, const t_op *cur_instru, char *line)
+int				parse_instruction(t_asm *a,
+	const t_op *cur_instru, char *line)
 {
 	t_argument		parsed_args[MAX_ARGS_NUMBER];
 	int				i;
@@ -64,7 +68,7 @@ int					parse_instruction(t_asm *a, const t_op *cur_instru, char *line)
 	if (skip_spa(&line))
 	{
 		return (verbose(a, MSG_ERROR, "%s-L%d: Unknown error: [%s]",
-						a->file.filename, a->file.line_number, a->file.line));
+				a->file.filename, a->file.line_number, a->file.line));
 	}
 	ft_bzero(parsed_args, sizeof(t_argument) * MAX_ARGS_NUMBER);
 	if (parse_arguments(a, cur_instru, line, parsed_args))
@@ -82,7 +86,7 @@ int					parse_instruction(t_asm *a, const t_op *cur_instru, char *line)
 	return (0);
 }
 
-int					save_label(t_asm *a, char **line, char *end_of_label)
+int				save_label(t_asm *a, char **line, char *end_of_label)
 {
 	t_label		*label;
 	t_ld		**found;
@@ -108,8 +112,7 @@ int					save_label(t_asm *a, char **line, char *end_of_label)
 	return (0);
 }
 
-
-int					check_file_content(t_asm *a, char *line)
+int				check_file_content(t_asm *a, char *line)
 {
 	const t_op	*cur_instru;
 	char		*end_of_label;
@@ -123,5 +126,6 @@ int					check_file_content(t_asm *a, char *line)
 		return (3);
 	if ((cur_instru = is_instruction(&line)))
 		return (parse_instruction(a, cur_instru, line));
-	return (verbose(a, MSG_ERROR, "%s-L%d: Unknown line: [%s]", a->file.filename, a->file.line_number, a->file.line));
+	return (verbose(a, MSG_ERROR, "%s-L%d: Unknown line: [%s]",
+	a->file.filename, a->file.line_number, a->file.line));
 }

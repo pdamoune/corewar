@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:26:09 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/04 01:25:52 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 18:55:06 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int					count_nb_args(char *line)
 	while (*line)
 	{
 		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
-			break;
+			break ;
 		if (*line == SEPARATOR_CHAR)
 			return (-1);
 		++args_found;
@@ -28,7 +28,7 @@ int					count_nb_args(char *line)
 				&& *line != SEPARATOR_CHAR)
 			++line;
 		if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
-			break;
+			break ;
 		if (*line != SEPARATOR_CHAR)
 			return (-1);
 		++line;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_asm.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 01:17:21 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/02 19:34:58 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 18:55:57 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int			check_filename(t_asm *a, char *filename)
 	return (0);
 }
 
-int		init_asm(t_asm *a, char *filename, int (**f)())
+int					init_asm(t_asm *a, char *filename, int (**f)())
 {
 	int		fdin;
 
@@ -38,10 +38,8 @@ int		init_asm(t_asm *a, char *filename, int (**f)())
 	if ((fdin = open(filename, O_RDONLY)) < 0)
 	{
 		return (verbose(a, MSG_ERROR,
-					"%s: No such file or directory, or permission denied", filename));
+	"%s: No such file or directory, or permission denied", filename));
 	}
 	*f = &check_header;
-	// INIT_LIST_HEAD(&(a->file.list_know_label));
-	// INIT_LIST_HEAD(&(a->file.list_unknow_label));
 	return (fdin);
 }
