@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:55:30 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/01 04:08:28 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:12:10 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-int		free_arguments(t_op *cur_instru, t_argument *parsed_args)
+int		free_arguments(const t_op *cur_instru, t_argument *parsed_args)
 {
 	int				i;
 

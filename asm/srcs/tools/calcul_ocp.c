@@ -6,13 +6,11 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/04 16:13:43 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:07:49 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
-
-extern t_op		g_op_tab[];
 
 uint8_t		calcul_type_from_ocp(uint8_t ocp, uint8_t index)
 {

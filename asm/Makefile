@@ -40,8 +40,8 @@ main.c\
 stock_arg_and_instru.c\
 tools/analyze_arg_label.c\
 tools/calcul_ocp.c\
-tools/check_find_label.c\
 tools/count_nb_args.c\
+tools/find_label.c\
 tools/ft_spastrcmp.c\
 tools/ft_spastrisnumeral.c\
 tools/init_asm.c\

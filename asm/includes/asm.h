@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 16:55:26 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:11:43 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ int						check_header_comment(t_asm *a, char *line);
 int						init_name_header(t_asm *a, char *line);
 int						init_comment_header(t_asm *a, char *line);
 int						init_asm(t_asm *a, char *filename, int (**f)());
-int						analyze_each_arguments(t_asm *a, t_op *cur_instru,
+int						analyze_each_arguments(t_asm *a, const t_op *cur_instru,
 							char **arg, t_argument *parsed_args);
-int						free_arguments(t_op *cur_instru, t_argument *parsed_args);
-int						stock_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args, uint8_t ocp);
+int						free_arguments(const t_op *cur_instru, t_argument *parsed_args);
+int						stock_instruction(t_asm *a, const t_op *cur_instru, t_argument *parsed_args, uint8_t ocp);
 int						stock_argument(t_asm *a, uint16_t pos, t_argument *arg, uint8_t index);
 
 /*
@@ -127,7 +127,8 @@ int						ft_spastrcmp(char *spastr, char *str);
 int						ft_spastrisnumeral(const char *str);
 const char				*type_to_str(int type);
 void 					remove_label(t_ld **rip);
-t_op					*is_instruction(char **line);
+const t_op				*is_instruction(char **line);
+const t_op				*find_cur_instru(uint8_t pos);
 uint8_t					calcul_instruction_len(int has_ocp, uint8_t ocp, int nb_params, int index);
 uint8_t					calcul_ocp(int	nb_params, t_argument *parsed_args);
 uint8_t					calcul_type_from_ocp(uint8_t ocp, uint8_t index);
@@ -137,7 +138,7 @@ uint8_t					calcul_type_from_ocp(uint8_t ocp, uint8_t index);
 */
 void					free_label(t_label **rip);
 t_ld					**find_label(t_ld **head_list, char *name);
-void			replace_label(t_asm *a, t_label *label, t_ld **target);
+void					replace_label(t_asm *a, t_label *label, t_ld **target);
 int						check_label(t_asm *a);
 char					*is_label(char *line);
 char					*is_arg_label(char *line);

@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/04 15:17:59 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:12:16 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-const t_op	g_op_tab[] =
+static const t_op	g_op_tab[] =
 {
 	{"live", 1,
 		{T_DIR},
@@ -64,7 +64,7 @@ const t_op	g_op_tab[] =
 		16, 2, "aff", 1, 0}
 };
 
-t_op			*is_instruction(char **line)
+const t_op			*is_instruction(char **line)
 {
 	int		i;
 
@@ -76,4 +76,11 @@ t_op			*is_instruction(char **line)
 			return ((t_op *)&g_op_tab[i]);
 		}
 	return (NULL);
+}
+
+const t_op			*find_cur_instru(uint8_t pos)
+{
+	if (!pos  || pos > 16)
+		return (NULL); //error on sait pas coder
+	return (&g_op_tab[pos - 1]);
 }

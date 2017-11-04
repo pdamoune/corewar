@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 16:43:33 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:12:07 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-int					check_and_stock_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args)
+int					check_and_stock_instruction(t_asm *a, const t_op *cur_instru, t_argument *parsed_args)
 {
 	int		ocp;
 	int		instruction_len;
@@ -34,7 +34,7 @@ int					check_and_stock_instruction(t_asm *a, t_op *cur_instru, t_argument *pars
 	return (stock_instruction(a, cur_instru, parsed_args, ocp));
 }
 
-int					parse_arguments(t_asm *a, t_op *cur_instru,
+int					parse_arguments(t_asm *a, const t_op *cur_instru,
 									char *line, t_argument *parsed_args)
 {
 	char			**arg;
@@ -56,7 +56,7 @@ int					parse_arguments(t_asm *a, t_op *cur_instru,
 }
 
 
-int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
+int					parse_instruction(t_asm *a, const t_op *cur_instru, char *line)
 {
 	t_argument		parsed_args[MAX_ARGS_NUMBER];
 	int				i;
@@ -111,7 +111,7 @@ int					save_label(t_asm *a, char **line, char *end_of_label)
 
 int					check_file_content(t_asm *a, char *line)
 {
-	t_op		*cur_instru;
+	const t_op	*cur_instru;
 	char		*end_of_label;
 
 	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))

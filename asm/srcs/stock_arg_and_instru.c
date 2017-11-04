@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 15:17:17 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:12:03 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			stock_argument(t_asm *a, uint16_t pos, t_argument *arg, uint8_t index)
 
 }
 
-int			stock_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args, uint8_t ocp)
+int			stock_instruction(t_asm *a, const t_op *cur_instru, t_argument *parsed_args, uint8_t ocp)
 {
 	int			i;
 
@@ -53,5 +53,4 @@ int			stock_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args, uin
 		PROG_SIZE += stock_argument(a, PROG_SIZE, &parsed_args[i], cur_instru->index);
 	}
 	return (0);
-	/* //TODO check len < CHAMP_MAX_SIZE */
 }

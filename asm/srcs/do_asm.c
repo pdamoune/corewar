@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/04 16:57:27 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:04:44 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,12 @@ int					do_asm(t_asm *a, char *filename)
 	//TODO ERROR MSG IF RET => ça veut dire qu'on arrive pas à get_next_line sur le fichier
 	ft_strdel(&line);
 	close(fdin);
-	if (!ret)
-		ret = check_label(a);
+	if (a->file.list_unknow_label)
+		ret = -1;// TODO VERBOSE
 	if (!ret)
 		ret = finalize_asm(a);
 	free(a->file.filename);
 	ft_ld_clear(&a->file.list_know_label, free_label);
 	ft_ld_clear(&a->file.list_unknow_label, free_label);
-	//TODO FREE ALL (label !) ==> ret error if label unknow not resolve
 	return (ret);
 }

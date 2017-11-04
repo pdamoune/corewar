@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_value_and_type.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:37:07 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 00:28:33 by william          ###   ########.fr       */
+/*   Updated: 2017/11/04 17:12:12 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int		get_type_and_value(t_asm *a, char *arg, t_argument *parsed_args)
 	return (get_ind(a, arg, parsed_args));
 }
 
-int				analyze_each_arguments(t_asm *a, t_op *cur_instru, char **arg,
+int				analyze_each_arguments(t_asm *a, const t_op *cur_instru, char **arg,
 										t_argument *parsed_args)
 {
 	int			i;
