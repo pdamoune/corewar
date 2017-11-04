@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/02 20:06:36 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 01:24:08 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,18 @@ static const t_op	g_op_tab[] =
 // 	return (ret);
 // }
 
-unsigned char		calcul_ocp(int	nb_params, t_argument *parsed_args)
+uint8_t		calcul_type_from_ocp(uint8_t ocp, uint8_t index)
+{
+	if (((ocp >> (6 - 2 * index)) & 0b11) == 0b01)
+		return (T_REG);
+	else if (((ocp >> (6 - 2 * index)) & 0b11) == 0b10)
+		return (T_DIR);
+	else if (((ocp >> (6 - 2 * index)) & 0b11) == 0b11)
+		return (T_IND);
+	return (0);
+}
+
+uint8_t		calcul_ocp(int	nb_params, t_argument *parsed_args)
 {
 	unsigned char		ocp;
 	int					i;
@@ -105,63 +116,143 @@ unsigned char		calcul_ocp(int	nb_params, t_argument *parsed_args)
 	{
 		if (IS_SET(parsed_args[i].type, T_REG))
 			ocp |= (1 << (6 - 2 * i));
-		if (IS_SET(parsed_args[i].type, T_DIR))
+		else if (IS_SET(parsed_args[i].type, T_DIR))
 			ocp |= (2 << (6 - 2 * i));
-		if (IS_SET(parsed_args[i].type, T_IND))
+		else if (IS_SET(parsed_args[i].type, T_IND))
 			ocp |= (3 << (6 - 2 * i));
 	}
 	return (ocp);
 }
 
-int					write_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args)
+uint8_t		calcul_instruction_len(uint8_t op_code, uint8_t ocp)
 {
-	int nb_param;
+	uint8_t			len;
+	int				i;
 
-	DG("prog_size = %d", PROG_SIZE);
-	DG("prog = %d", *a->file.prog);
-	nb_param = 0;
-	//TODO check len < CHAMP_MAX_SIZE
-	//TODO write instruction op and ocp
-	while (nb_param < cur_instru->nb_params)
+	i = -1;
+	len = g_op_tab[op_code].ocp + 1;
+	while (++i < g_op_tab[op_code].nb_params)
 	{
-		DG("type : %d", parsed_args[nb_param].type);
-
-		if (IS_SET(parsed_args[nb_param].type, T_REG))
-		{
-			a->file.prog[PROG_SIZE++] = parsed_args[nb_param].value.reg;
-		}
-
-		if (IS_SET(parsed_args[nb_param].type, T_IND))
-		{
-
-			*(unsigned short *)(&a->file.prog[PROG_SIZE]) = bswap_16(parsed_args[nb_param].value.ind);
-			DG("bin : %d", parsed_args[nb_param].value.ind);
-			DG("prog 0 : %hhx", a->file.prog[PROG_SIZE]);
-			DG("prog 1 : %hhx", a->file.prog[PROG_SIZE + 1]);
-			PROG_SIZE += 2;
-		}
-			// return ((short)get_int_from_area(vm, p->pc, 2, pc_inc));
-
-		if (IS_SET(parsed_args[nb_param].type, T_DIR) && cur_instru->index)
-		{
-
-		}
-			// return ((short)get_int_from_area(vm, p->pc, 2, pc_inc));
-
-		if (IS_SET(parsed_args[nb_param].type, T_DIR))
-		{
-
-		}
-			// return ((int)get_int_from_area(vm, p->pc, 4, pc_inc));
-
-		return (0);
-		nb_param++;
+		if (((ocp >> (6 - 2 * i)) & 0b11) == 0b01)
+			len += 1;
+		else if (((ocp >> (6 - 2 * i)) & 0b11) == 0b10)
+			len += 2 * (1 + g_op_tab[op_code].index);
+		else if (((ocp >> (6 - 2 * i)) & 0b11) == 0b11)
+			len += 2;
 	}
+	return (len);
+}
 
-	(void)a;
-	(void)cur_instru;
-	(void)parsed_args;
+int					stock_argument(t_asm *a, uint16_t pos, t_argument *arg, uint8_t index)
+{
+	if (IS_SET(arg->type, T_REG))
+	{
+		a->file.prog[pos] = arg->value.reg;
+		return (1);
+	}
+	if (IS_SET(arg->type, T_DIR))
+	{
+		if (index)
+		{
+			*(uint16_t *)&a->file.prog[pos] = bswap_16(arg->value.index_dir);
+			return (2);
+		}
+		*(uint32_t *)&a->file.prog[pos] = bswap_32(arg->value.dir);
+		return (4);
+	}
+	if (IS_SET(arg->type, T_IND))
+	{
+		*(uint16_t *)&a->file.prog[pos] = bswap_16(arg->value.ind);
+		return (2);
+	}
+	DG("I AM FUCKING BOLOSSSSSSSSS BECAUSE THIS IS NOT A POSSIBLE END !!!!!!!!!!!!");
+		//TODO remove the last if to return him
+	return (-2147483645);
+
+}
+
+int					stock_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args, uint8_t ocp)
+{
+	int			i;
+
+	a->file.prog[PROG_SIZE++] = cur_instru->op_code;
+	if (cur_instru->ocp)
+		a->file.prog[PROG_SIZE++] = ocp;
+	i = -1;
+	while (++i < cur_instru->nb_params)
+	{
+		PROG_SIZE += stock_argument(a, PROG_SIZE, &parsed_args[i], cur_instru->index);
+	}
 	return (0);
+	/* int		nb_param; */
+	/* DG("prog_size = %d", PROG_SIZE); */
+	/* DG("prog = %d", *a->file.prog); */
+	/* nb_param = 0; */
+	
+	/* //TODO check len < CHAMP_MAX_SIZE */
+	/* //TODO write instruction op and ocp */
+	/* while (nb_param < cur_instru->nb_params) */
+	/* { */
+	/* 	DG("type : %d", parsed_args[nb_param].type); */
+
+	/* 	if (IS_SET(parsed_args[nb_param].type, T_REG)) */
+	/* 	{ */
+	/* 		a->file.prog[PROG_SIZE++] = parsed_args[nb_param].value.reg; */
+	/* 	} */
+
+	/* 	if (IS_SET(parsed_args[nb_param].type, T_IND)) */
+	/* 	{ */
+
+	/* 		*(unsigned short *)(&a->file.prog[PROG_SIZE]) = bswap_16(parsed_args[nb_param].value.ind); */
+	/* 		DG("bin : %d", parsed_args[nb_param].value.ind); */
+	/* 		DG("prog 0 : %hhx", a->file.prog[PROG_SIZE]); */
+	/* 		DG("prog 1 : %hhx", a->file.prog[PROG_SIZE + 1]); */
+	/* 		PROG_SIZE += 2; */
+	/* 	} */
+	/* 		// return ((short)get_int_from_area(vm, p->pc, 2, pc_inc)); */
+
+	/* 	if (IS_SET(parsed_args[nb_param].type, T_DIR) && cur_instru->index) */
+	/* 	{ */
+
+	/* 	} */
+	/* 		// return ((short)get_int_from_area(vm, p->pc, 2, pc_inc)); */
+
+	/* 	if (IS_SET(parsed_args[nb_param].type, T_DIR)) */
+	/* 	{ */
+
+	/* 	} */
+	/* 		// return ((int)get_int_from_area(vm, p->pc, 4, pc_inc)); */
+
+	/* 	return (0); */
+	/* 	nb_param++; */
+	/* } */
+
+	/* (void)a; */
+	/* (void)cur_instru; */
+	/* (void)parsed_args; */
+	/* return (0); */
+}
+
+int					check_and_stock_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args)
+{
+	int		ocp;
+	int		instruction_len;
+
+	ocp = calcul_ocp(cur_instru->nb_params, parsed_args);
+	instruction_len = calcul_instruction_len(cur_instru->op_code, ocp);
+	if (PROG_SIZE + instruction_len > 2 * CHAMP_MAX_SIZE)
+	{
+		SET(a->file.flag, LEN_ERROR);
+		return (verbose(a, MSG_ERROR,
+					"%s: Champion is too big", a->file.filename));
+	}
+	if (PROG_SIZE + instruction_len > CHAMP_MAX_SIZE
+			&& IS_UNSET(a->file.flag, LEN_WARNING))
+	{
+		SET(a->file.flag, LEN_WARNING);
+		verbose(a, MSG_WARNING, "%s: Champion is too big", a->file.filename);
+	}
+	return (stock_instruction(a, cur_instru, parsed_args, ocp));
 }
 
 int		free_arguments(t_op *cur_instru, t_argument *parsed_args)
@@ -217,7 +308,7 @@ int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 	while (++i < cur_instru->nb_params)
 		if (parsed_args[i].type & T_LAB)
 			ft_ld_pushfront(&a->file.list_unknow_label, parsed_args[i].label);
-	if (write_instruction(a, cur_instru, parsed_args))
+	if (check_and_stock_instruction(a, cur_instru, parsed_args))
 	{
 		return (verbose(a, MSG_ERROR, "%s-L%d: Can't write instruction: [%s]",
 					a->file.filename, a->file.line_number,
@@ -226,7 +317,7 @@ int					parse_instruction(t_asm *a, t_op *cur_instru, char *line)
 	return (0);
 }
 
-static t_op			*is_instruction(t_asm *a, char **line)
+static t_op			*is_instruction(char **line)
 {
 	int		i;
 
@@ -239,7 +330,6 @@ static t_op			*is_instruction(t_asm *a, char **line)
 			return ((t_op *)&g_op_tab[i]);
 		}
 	return (NULL);
-	(void)a;
 }
 
 int					save_label(t_asm *a, char **line, char *end_of_label)
@@ -281,7 +371,7 @@ int					check_file_content(t_asm *a, char *line)
 			return (-1);
 	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
 		return (3);
-	if ((cur_instru = is_instruction(a, &line)))
+	if ((cur_instru = is_instruction(&line)))
 		return (parse_instruction(a, cur_instru, line));
 	return (verbose(a, MSG_ERROR, "%s: Unknown line: [%s]", a->file.filename, a->file.line));
 }

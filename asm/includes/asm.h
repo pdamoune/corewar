@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/02 20:03:58 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 01:15:18 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ typedef struct			s_op
 {
 	char				*instruc;
 	int					nb_params;
-	int					params[MAX_ARGS_NUMBER];
-	int					op_code;
+	uint8_t				params[MAX_ARGS_NUMBER];
+	uint8_t				op_code;
 	int					cycle;
 	char				*description;
-	int					ocp;
-	int					index;
+	uint8_t				ocp;
+	uint8_t				index;
 }						t_op;
 
 typedef struct			s_label
