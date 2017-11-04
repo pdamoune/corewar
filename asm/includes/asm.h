@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 01:15:18 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 01:59:18 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void 					remove_label(t_ld **rip);
 /*
 ** LABEL TREAT
 */
+void					free_label(t_label *rip);
 t_ld					**find_label(t_ld **head_list, char *name);
 void					replace_label(t_asm *a, unsigned int pos,
 										t_ld **target);

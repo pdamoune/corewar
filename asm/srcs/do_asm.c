@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/04 00:39:05 by william          ###   ########.fr       */
+/*   Updated: 2017/11/04 02:06:12 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ int					do_asm(t_asm *a, char *filename)
 
 	if (-1 == (fdin = init_asm(a, filename, &f)))
 		return (1);
+	DG();
 	while (0 < (ret = get_next_line(fdin, &line)))
 	{
+	DG("[%s]", line);
 		++a->file.line_number;
 		a->file.line = line;
 		if (-1 == (ret = f(a, line)))
@@ -67,7 +69,9 @@ int					do_asm(t_asm *a, char *filename)
 		else
 			f = g_send_line_func[ret];
 		ft_strdel(&line);
+	DG();
 	}
+	DG();
 	//TODO ERROR MSG IF RET => ça veut dire qu'on arrive pas à get_next_line sur le fichier
 	ft_strdel(&line);
 	close(fdin);
@@ -76,6 +80,8 @@ int					do_asm(t_asm *a, char *filename)
 	if (!ret)
 		ret = finalize_asm(a);
 	free(a->file.filename);
+	ft_ld_clear(&a->file.list_know_label, free_label);
+	ft_ld_clear(&a->file.list_unknow_label, free_label);
 	//TODO FREE ALL (label !) ==> ret error if label unknow not resolve
 	return (ret);
 }

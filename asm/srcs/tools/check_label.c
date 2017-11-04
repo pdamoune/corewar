@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/03 23:48:38 by william          ###   ########.fr       */
+/*   Updated: 2017/11/04 02:02:37 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ void			replace_label(t_asm *a, unsigned int pos, t_ld **target)
 {
 	(void)a;
 	(void)pos;
+/* DG("target ptr is %p", target); */
+/* DG("target *ptr is %p", *target); */
+/* t_label *label = (*target)->content; */
+/* DG("gonna be free %s at pos %d-%d", label->label, label->pos_instru, label->pos_label); */
 	remove_label(target);
 }
 

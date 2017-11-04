@@ -6,16 +6,17 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 13:33:53 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/02 13:57:15 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 01:58:59 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-static void		free_label(t_label *rip)
+void		free_label(t_label *rip)
 {
 	ft_strdel(&rip->label);
-	free(rip);
+	/* free(rip); */
+	//TODO i don't know why free(rip) hav to be commented
 }
 
 void 			remove_label(t_ld **rip)

@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 01:24:08 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 01:55:12 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,7 @@ int		free_arguments(t_op *cur_instru, t_argument *parsed_args)
 {
 	int				i;
 	
+	DG("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	i = -1;
 	while (++i < cur_instru->nb_params)
 		if (parsed_args[i].type & T_LAB)
@@ -373,5 +374,5 @@ int					check_file_content(t_asm *a, char *line)
 		return (3);
 	if ((cur_instru = is_instruction(&line)))
 		return (parse_instruction(a, cur_instru, line));
-	return (verbose(a, MSG_ERROR, "%s: Unknown line: [%s]", a->file.filename, a->file.line));
+	return (verbose(a, MSG_ERROR, "%s-L%d: Unknown line: [%s]", a->file.filename, a->file.line_number, a->file.line));
 }

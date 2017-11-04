@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/02 19:07:01 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 02:02:18 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int				analyze_arg_label(t_asm *a, char *arg,
 	t_label		*label;
 
 	*end_of_label = 0;
-	DG("ARG= %s", arg);
 	if ((found = find_label(&a->file.list_know_label, arg)))
 	{
 		parsed_args->value.dir = ((t_label *)(*found)->content)->pos_label;
