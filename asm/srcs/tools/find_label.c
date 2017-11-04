@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_label.c                                      :+:      :+:    :+:   */
+/*   find_label.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/04 02:02:37 by wescande         ###   ########.fr       */
+/*   Created: 2017/11/04 16:59:16 by tdebarge          #+#    #+#             */
+/*   Updated: 2017/11/04 17:00:04 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,4 @@ t_ld			**find_label(t_ld **head_list, char *name)
 		*head_list = (*head_list)->next;
 	}
 	return (head_list);
-}
-
-int					check_label(t_asm *a)
-{
-	return(0);
-	(void)a;
-	//TODO function check
 }

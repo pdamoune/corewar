@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   type_to_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:48:18 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/02 19:55:33 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 15:31:42 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-char		*g_char_type[]=
+static const char		*g_char_type[]=
 {
 	"{T_REG | T_DIR | T_IND}",
 	"{T_DIR | T_IND}",
@@ -24,7 +24,7 @@ char		*g_char_type[]=
 	"{Type was not recognized}",
 };
 
-char		*type_to_str(int type)
+const char				*type_to_str(int type)
 {
 	if (IS_SET(type, T_REG | T_DIR | T_IND))
 		return (g_char_type[0]);

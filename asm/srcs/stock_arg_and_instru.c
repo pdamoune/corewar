@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file_content.c                               :+:      :+:    :+:   */
+/*   stock_arg_and_instru.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 01:55:12 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 15:17:17 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
-
-extern const t_op	g_op_tab[];
 
 int			stock_argument(t_asm *a, uint16_t pos, t_argument *arg, uint8_t index)
 {

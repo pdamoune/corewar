@@ -6,14 +6,12 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:23:09 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/02 18:58:27 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 16:57:13 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-
-//TODO no space before " after .name is good, should not segfault
 int			check_header_name(t_asm *a, char *line)
 {
 	if (*a->file.header.prog_name)
@@ -32,7 +30,10 @@ int			check_header_name(t_asm *a, char *line)
 		return (1);
 	++line;
 	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
+	{
+		SET(a->file.flag, HEAD_NAME);
 		return (0);
+	}
 	return (verbose(a, MSG_ERROR, "%s: Name lexical error", a->file.filename));
 }
 
@@ -40,7 +41,6 @@ int			init_name_header(t_asm *a, char *line)
 {
 	if (IS_SET(a->file.flag, HEAD_NAME))
 		return (verbose(a, MSG_ERROR, "%s: Name was already set", a->file.filename));
-	SET(a->file.flag, HEAD_NAME);
 	line += 5;
 	while (ft_isspa(*line))
 		++line;
@@ -49,7 +49,6 @@ int			init_name_header(t_asm *a, char *line)
 	return (check_header_name(a, line + 1));
 }
 
-//TODO no space before " after .comment is good, should not segfault
 int			check_header_comment(t_asm *a, char *line)
 {
 	if (*a->file.header.comment)
@@ -68,7 +67,10 @@ int			check_header_comment(t_asm *a, char *line)
 		return (2);
 	++line;
 	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
+	{
+		SET(a->file.flag, HEAD_COMMENT);
 		return (0);
+	}
 	return (verbose(a, MSG_ERROR, "%s: Comment lexical error", a->file.filename));
 }
 
@@ -76,7 +78,6 @@ int			init_comment_header(t_asm *a, char *line)
 {
 	if (IS_SET(a->file.flag, HEAD_COMMENT))
 		return (verbose(a, MSG_ERROR, "%s: Comment is already set", a->file.filename));
-	SET(a->file.flag, HEAD_COMMENT);
 	line += 8;
 	while (ft_isspa(*line))
 		++line;
@@ -89,9 +90,9 @@ int					check_header(t_asm *a, char *line)
 {
 	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
 		return (0);
-	if (!(ft_spastrcmp(line, NAME_CMD_STRING)))
+	if (!(ft_strncmp(line, NAME_CMD_STRING, 5)))
 		return (init_name_header(a, line));
-	else if (!(ft_spastrcmp(line, COMMENT_CMD_STRING)))
+	else if (!(ft_strncmp(line, COMMENT_CMD_STRING, 8)))
 		return (init_comment_header(a, line));
 	return (verbose(a, MSG_ERROR, "%s:Invalid header", a->file.filename));
 }

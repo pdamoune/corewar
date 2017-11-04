@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_asm.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/04 02:06:12 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 16:57:27 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int finalize_asm(t_asm *a)
 	int		fdout;
 	int		len;
 
-	//TODO MAGIC REVERT FOR HEADER val
 	len = a->file.header.prog_size;
 	a->file.header.prog_size = bswap_32(a->file.header.prog_size);
 	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
@@ -56,10 +55,9 @@ int					do_asm(t_asm *a, char *filename)
 
 	if (-1 == (fdin = init_asm(a, filename, &f)))
 		return (1);
-	DG();
 	while (0 < (ret = get_next_line(fdin, &line)))
 	{
-	DG("[%s]", line);
+		verbose(a, MSG_DEBUG, "Parsing %s-L%d: [%s]", a->file.filename, a->file.line_number, line);
 		++a->file.line_number;
 		a->file.line = line;
 		if (-1 == (ret = f(a, line)))
@@ -69,9 +67,7 @@ int					do_asm(t_asm *a, char *filename)
 		else
 			f = g_send_line_func[ret];
 		ft_strdel(&line);
-	DG();
 	}
-	DG();
 	//TODO ERROR MSG IF RET => ça veut dire qu'on arrive pas à get_next_line sur le fichier
 	ft_strdel(&line);
 	close(fdin);

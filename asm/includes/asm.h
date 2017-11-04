@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 01:59:18 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 16:55:26 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ typedef struct			s_label
 }						t_label;
 
 
-union				u_value
+union					u_value
 {
-	unsigned char	reg;
-	unsigned short	ind;
-	unsigned short	index_dir;
-	unsigned int	dir;
+	unsigned char		reg;
+	unsigned short		ind;
+	unsigned short		index_dir;
+	unsigned int		dir;
 };
 
 typedef struct			s_argument
@@ -125,17 +125,17 @@ int						skip_spa(char **line);
 int						count_nb_args(char *line);
 int						ft_spastrcmp(char *spastr, char *str);
 int						ft_spastrisnumeral(const char *str);
-char					*type_to_str(int type);
+const char				*type_to_str(int type);
 void 					remove_label(t_ld **rip);
-t_op				*is_instruction(char **line);
-uint8_t					calcul_instruction_len(uint8_t op_code, uint8_t ocp);
+t_op					*is_instruction(char **line);
+uint8_t					calcul_instruction_len(int has_ocp, uint8_t ocp, int nb_params, int index);
 uint8_t					calcul_ocp(int	nb_params, t_argument *parsed_args);
 uint8_t					calcul_type_from_ocp(uint8_t ocp, uint8_t index);
 
 /*
 ** LABEL TREAT
 */
-void					free_label(t_label *rip);
+void					free_label(t_label **rip);
 t_ld					**find_label(t_ld **head_list, char *name);
 void			replace_label(t_asm *a, t_label *label, t_ld **target);
 int						check_label(t_asm *a);

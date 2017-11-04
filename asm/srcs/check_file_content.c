@@ -3,66 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_file_content.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 01:55:12 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/04 16:43:33 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
-
-const t_op	g_op_tab[] =
-{
-	{"live", 1,
-		{T_DIR},
-		1, 10, "alive", 0, 0},
-	{"ld", 2,
-		{T_DIR | T_IND, T_REG},
-		2, 5, "load", 1, 0},
-	{"st", 2,
-		{T_REG, T_IND | T_REG},
-		3, 5, "store", 1, 0},
-	{"add", 3,
-		{T_REG, T_REG, T_REG},
-		4, 10, "addition", 1, 0},
-	{"sub", 3,
-		{T_REG, T_REG, T_REG},
-		5, 10, "soustraction", 1, 0},
-	{"and", 3,
-		{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-		6, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1, 0},
-	{"or", 3,
-		{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-		7, 6, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0},
-	{"xor", 3,
-		{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-		8, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0},
-	{"zjmp", 1,
-		{T_DIR},
-		9, 20, "jump if zero", 0, 1},
-	{"ldi", 3,
-		{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
-		10, 25, "load index", 1, 1},
-	{"sti", 3,
-		{T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG},
-		11, 25, "store index", 1, 1},
-	{"fork", 1,
-		{T_DIR},
-		12, 800, "fork", 0, 1},
-	{"lld", 2,
-		{T_DIR | T_IND, T_REG},
-		13, 10, "long load", 1, 0},
-	{"lldi", 3,
-		{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
-		14, 50, "long load index", 1, 1},
-	{"lfork", 1,
-		{T_DIR},
-		15, 1000, "long fork", 0, 1},
-	{"aff", 1,
-		{T_REG},
-		16, 2, "aff", 1, 0}
-};
 
 int					check_and_stock_instruction(t_asm *a, t_op *cur_instru, t_argument *parsed_args)
 {
@@ -70,18 +18,18 @@ int					check_and_stock_instruction(t_asm *a, t_op *cur_instru, t_argument *pars
 	int		instruction_len;
 
 	ocp = calcul_ocp(cur_instru->nb_params, parsed_args);
-	instruction_len = calcul_instruction_len(cur_instru->op_code, ocp);
+	instruction_len = calcul_instruction_len(cur_instru->ocp, ocp, cur_instru->nb_params, cur_instru->index);
 	if (PROG_SIZE + instruction_len > 2 * CHAMP_MAX_SIZE)
 	{
 		SET(a->file.flag, LEN_ERROR);
 		return (verbose(a, MSG_ERROR,
-					"%s: Champion is too big", a->file.filename));
+					"%s-L%d: Champion is too big", a->file.filename, a->file.line_number));
 	}
 	if (PROG_SIZE + instruction_len > CHAMP_MAX_SIZE
 			&& IS_UNSET(a->file.flag, LEN_WARNING))
 	{
 		SET(a->file.flag, LEN_WARNING);
-		verbose(a, MSG_WARNING, "%s: Champion is too big", a->file.filename);
+		verbose(a, MSG_WARNING, "%s-L%d: Champion is too big", a->file.filename, a->file.line_number);
 	}
 	return (stock_instruction(a, cur_instru, parsed_args, ocp));
 }
