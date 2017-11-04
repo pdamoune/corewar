@@ -48,7 +48,6 @@ tools/init_asm.c\
 tools/is_arg_label.c\
 tools/is_instruction.c\
 tools/is_label.c\
-tools/remove_label.c\
 tools/replace_label.c\
 tools/ski_spa.c\
 tools/type_to_str.c\

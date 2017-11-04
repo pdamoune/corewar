@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:55:30 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/04 17:12:10 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 19:18:33 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-int		free_arguments(const t_op *cur_instru, t_argument *parsed_args)
+int			free_arguments(const t_op *cur_instru, t_argument *parsed_args)
 {
 	int				i;
 
@@ -25,4 +25,15 @@ int		free_arguments(const t_op *cur_instru, t_argument *parsed_args)
 			free(parsed_args[i].label);
 		}
 	return (-1);
+}
+
+void		free_label(t_label **rip)
+{
+	ft_strdel(&(*rip)->label);
+	free(*rip);
+}
+
+void		remove_label(t_ld **rip)
+{
+	ft_ld_del(rip, &free_label);
 }
