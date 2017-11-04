@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/04 17:12:16 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 18:58:46 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ const t_op			*is_instruction(char **line)
 
 const t_op			*find_cur_instru(uint8_t pos)
 {
-	if (!pos  || pos > 16)
-		return (NULL); //error on sait pas coder
+	if (!pos || pos > 16)
+		return (NULL);
 	return (&g_op_tab[pos - 1]);
 }

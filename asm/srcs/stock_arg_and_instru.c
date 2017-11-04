@@ -6,13 +6,14 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 17:12:03 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 18:54:00 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-int			stock_argument(t_asm *a, uint16_t pos, t_argument *arg, uint8_t index)
+int			stock_argument(t_asm *a, uint16_t pos,
+	t_argument *arg, uint8_t index)
 {
 	if (IS_SET(arg->type, T_REG))
 	{
@@ -34,13 +35,13 @@ int			stock_argument(t_asm *a, uint16_t pos, t_argument *arg, uint8_t index)
 		*(uint16_t *)&a->file.prog[pos] = bswap_16(arg->value.ind);
 		return (2);
 	}
-	DG("I AM FUCKING BOLOSSSSSSSSS BECAUSE THIS IS NOT A POSSIBLE END !!!!!!!!!!!!");
-		//TODO remove the last if to return him
+	DG("I AM FUCKING BOLOSS BECAUSE THIS IS NOT A POSSIBLE END !!!!!");
+	//TODO remove the last if to return him
 	return (-2147483645);
-
 }
 
-int			stock_instruction(t_asm *a, const t_op *cur_instru, t_argument *parsed_args, uint8_t ocp)
+int			stock_instruction(t_asm *a,
+	const t_op *cur_instru, t_argument *parsed_args, uint8_t ocp)
 {
 	int			i;
 
@@ -50,7 +51,8 @@ int			stock_instruction(t_asm *a, const t_op *cur_instru, t_argument *parsed_arg
 	i = -1;
 	while (++i < cur_instru->nb_params)
 	{
-		PROG_SIZE += stock_argument(a, PROG_SIZE, &parsed_args[i], cur_instru->index);
+		PROG_SIZE += stock_argument(a, PROG_SIZE,
+			&parsed_args[i], cur_instru->index);
 	}
 	return (0);
 }
