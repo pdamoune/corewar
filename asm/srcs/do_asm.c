@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/04 18:17:51 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/04 19:40:02 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,20 @@ static int		(*g_send_line_func[])() =
 
 static int		do_asm_next(t_asm *a, int ret)
 {
+	if (!a->file.line_number)
+	{
+		DG("line number:%d", a->file.line_number);//TODO ERROR MSG IF RET => ça veut dire qu'on arrive pas à get_next_line sur le fichier
+		ret = -1;
+		verbose(a, MSG_DEBUG, "Le fichier %s est vide-L%d",
+		a->file.filename, a->file.line_number);
+	}
 	if (a->file.list_unknow_label)
-		ret = -1;// TODO VERBOSE
+	{
+		ret = -1;// TODO Faire la liste des labels introuves
+		verbose(a, MSG_DEBUG,
+		"Certains labels en argument n'ont pas trouve de correspondances  L%d:",
+		a->file.line_number);
+	}
 	if (!ret)
 		ret = finalize_asm(a);
 	free(a->file.filename);
@@ -91,7 +103,6 @@ int				do_asm(t_asm *a, char *filename)
 			f = g_send_line_func[ret];
 		ft_strdel(&line);
 	}
-	//TODO ERROR MSG IF RET => ça veut dire qu'on arrive pas à get_next_line sur le fichier
 	ft_strdel(&line);
 	close(fdin);
 	return (do_asm_next(a, ret));
