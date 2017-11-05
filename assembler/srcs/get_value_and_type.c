@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:37:07 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/05 13:20:18 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:51:42 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ static int		get_reg(t_asm *a, char *arg, t_argument *parsed_args)
 	arg_value = ft_atoi(arg);
 	if (arg_value < 0 || arg_value > REG_NUMBER)
 		verbose(a, MSG_WARNING,
-				"%s: L%d: Register range is [0-%d], yours is %d",
-				a->file.line, a->file.line_number, REG_NUMBER, arg_value);
+				"%s-L%d: Register range is [0-%d], yours is %d\n[%s]",
+				a->file.filename, a->file.line_number, REG_NUMBER, arg_value,
+				a->file.line);
 	parsed_args->value.reg = arg_value;
 	return (0);
 }

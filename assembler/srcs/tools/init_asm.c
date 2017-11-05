@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 01:17:21 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/05 12:57:36 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:53:09 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int			check_filename(t_asm *a, char *filename)
 	size_t		len;
 
 	if (!(len = ft_strlen(filename)))
-		return (verbose(a, MSG_ERROR, "%s: len is 0", filename));
+		return (verbose(a, MSG_ERROR, "%s: filename len is 0", filename));
 	if (!ft_strcmp(filename + (len - 2), ".s"))
 		len -= 2;
 	if (!(a->file.filename = (char *)malloc(len + 5)))
