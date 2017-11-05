@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:37:07 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 18:50:36 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:20:18 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ int				analyze_each_arguments(t_asm *a, const t_op *cur_instru,
 			if (!(parsed_args[i].type & cur_instru->params[i]))
 			{
 				return (verbose(a, MSG_ERROR,
-					"%s-L%d: Arg n°%d has incorrect type %s vs %s. [%s]",
+					"%s-L%d: Arg n°%d has incorrect type %s vs %s.\n[%s]",
 						a->file.filename, a->file.line_number, i,
 						type_to_str(parsed_args[i].type),
 						type_to_str(cur_instru->params[i]), a->file.line));
 			}
 			return (verbose(a, MSG_ERROR,
-					"%s-L%d: Arg n°%d has wrong format for type %s. [%s]",
+					"%s-L%d: Arg n°%d has wrong format for type %s.\n[%s]",
 						a->file.filename, a->file.line_number, i,
 						type_to_str(parsed_args[i].type), a->file.line));
 		}

@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 19:02:54 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:19:05 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int				parse_arguments(t_asm *a, const t_op *cur_instru,
 	if (cur_instru->nb_params != (i = count_nb_args(line)))
 	{
 		return (verbose(a, MSG_ERROR,
-				"%s: L %d: Incorrect nb of arguments %d on %d expected [%s]",
+				"%s: L %d: Incorrect nb of arguments %d on %d expected\n[%s]",
 				a->file.filename, a->file.line_number, i,
 				cur_instru->nb_params, a->file.line));
 	}
@@ -67,7 +67,7 @@ int				parse_instruction(t_asm *a,
 
 	if (skip_spa(&line))
 	{
-		return (verbose(a, MSG_ERROR, "%s-L%d: Unknown error: [%s]",
+		return (verbose(a, MSG_ERROR, "%s-L%d: Unknown error:\n[%s]",
 				a->file.filename, a->file.line_number, a->file.line));
 	}
 	ft_bzero(parsed_args, sizeof(t_argument) * MAX_ARGS_NUMBER);
@@ -79,7 +79,7 @@ int				parse_instruction(t_asm *a,
 			ft_ld_pushfront(&a->file.list_unknow_label, parsed_args[i].label);
 	if (check_and_stock_instruction(a, cur_instru, parsed_args))
 	{
-		return (verbose(a, MSG_ERROR, "%s-L%d: Can't write instruction: [%s]",
+		return (verbose(a, MSG_ERROR, "%s-L%d: Can't write instruction:\n[%s]",
 					a->file.filename, a->file.line_number,
 					cur_instru->instruc));
 	}
@@ -126,6 +126,6 @@ int				check_file_content(t_asm *a, char *line)
 		return (3);
 	if ((cur_instru = is_instruction(&line)))
 		return (parse_instruction(a, cur_instru, line));
-	return (verbose(a, MSG_ERROR, "%s-L%d: Unknown line: [%s]",
+	return (verbose(a, MSG_ERROR, "%s-L%d: Unknown line:\n[%s]",
 	a->file.filename, a->file.line_number, a->file.line));
 }

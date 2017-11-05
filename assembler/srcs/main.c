@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 17:13:39 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/05 12:57:52 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:30:55 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int			usage(void)
 {
-	ft_printf("usage: asm [-vqDc] [-e nb_error] file ...");
+	ft_printf("usage: asm [-vqDc] [-e nb_error] file ...\n");
 	return (1);
 }
 
@@ -33,6 +33,7 @@ static int			get_error(char **opt_arg, t_asm *a, int n_args)
 	nb_error = ft_atoi(args[0]);
 	if (nb_error < 0)
 		return (verbose(a, MSG_ERROR, "Argument must be positive", NULL));
+	verbose(a, MSG_DEBUG, "nb error by file is %d", nb_error);
 	a->nb_error = nb_error;
 	return (0);
 }

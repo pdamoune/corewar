@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/05 12:57:21 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:30:07 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int				check_if_file_valid(t_asm *a)
 {
 	t_ld	*cur;
 
+	if (!(IS_SET(a->file.flag, (HEAD_COMMENT | HEAD_NAME))))
+		return (verbose(a, MSG_ERROR, "%s: Invalid header", a->file.filename));
 	if (!a->file.line_number)
 		return (verbose(a, MSG_ERROR, "%s: file is empty", a->file.filename));
 	if ((cur = a->file.list_unknow_label))
@@ -84,8 +86,8 @@ int				parse_asm(t_asm *a, char *filename)
 		a->file.filename, a->file.line_number, line);
 		++a->file.line_number;
 		a->file.line = line;
-		if (-1 == (ret = f(a, line))
-				&& (--a->file.nb_error || a->file.flag & LEN_ERROR))
+		if (-1 == (ret = f(a, line)) && (!--a->file.nb_error
+					|| a->file.flag & LEN_ERROR || f != check_file_content))
 			break ;
 		if (IS_SET(a->file.flag, (HEAD_COMMENT | HEAD_NAME)))
 			f = g_send_line_func[3];

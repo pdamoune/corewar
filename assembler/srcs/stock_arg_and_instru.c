@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 02:09:59 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 18:54:00 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:21:41 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,8 @@ int			stock_argument(t_asm *a, uint16_t pos,
 		*(uint32_t *)&a->file.prog[pos] = bswap_32(arg->value.dir);
 		return (4);
 	}
-	if (IS_SET(arg->type, T_IND))
-	{
-		*(uint16_t *)&a->file.prog[pos] = bswap_16(arg->value.ind);
-		return (2);
-	}
-	DG("I AM FUCKING BOLOSS BECAUSE THIS IS NOT A POSSIBLE END !!!!!");
-	//TODO remove the last if to return him
-	return (-2147483645);
+	*(uint16_t *)&a->file.prog[pos] = bswap_16(arg->value.ind);
+	return (2);
 }
 
 int			stock_instruction(t_asm *a,
