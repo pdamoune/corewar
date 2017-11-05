@@ -7,5 +7,5 @@ hello:
 	add		r2, r3, r4
 
 alive:
-	live	%0
+	live	%%0
 	zjmp	%:alive
