@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/05 11:29:49 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/05 11:46:20 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static int		do_asm_next(t_asm *a, int ret)
 	{
 		ret = -1;// TODO Faire la liste des labels introuves
 		verbose(a, MSG_ERROR,
-		"%s: Unknown label left at L%d:", a->file.filename,
-		a->file.list_unknow_label->((t_label *)(*content))->pos_instru);
+		"%s: Unknown label left at Line %d:", a->file.filename,
+		((t_label *)a->file.list_unknow_label->content)->pos_instru);
 	}
 	if (!ret)
 		ret = finalize_asm(a);
