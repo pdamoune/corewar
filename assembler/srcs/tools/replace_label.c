@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 16:01:24 by clegoube          #+#    #+#             */
-/*   Updated: 2017/11/04 19:00:06 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/05 11:08:19 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void			replace_label(t_asm *a, t_label *label, t_ld **target)
 		a->file.prog[unknown_label->pos_instru + 1],
 		unknown_label->pos_label, cur_instru->index);
 	arg.value.dir = label->pos_label - unknown_label->pos_instru;
-	DG("replacing [%s], with value : %d | %hd",
-	unknown_label->label, arg.value.dir, arg.value.dir);
 	stock_argument(a, pos, &arg, cur_instru->index);
 	remove_label(target);
 }

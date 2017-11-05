@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/04 19:40:02 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/11/05 11:29:49 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ int				finalize_asm(t_asm *a)
 	int		len;
 
 	len = a->file.header.prog_size;
+	if (len == 0)
+	{
+		return (verbose(a, MSG_ERROR, "%s: No instruction in file",
+		a->file.filename));
+	}
 	a->file.header.prog_size = bswap_32(a->file.header.prog_size);
 	fdout = open(a->file.filename, O_CREAT | O_TRUNC | O_WRONLY,
 		S_IRWXU | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
@@ -60,17 +65,16 @@ static int		do_asm_next(t_asm *a, int ret)
 {
 	if (!a->file.line_number)
 	{
-		DG("line number:%d", a->file.line_number);//TODO ERROR MSG IF RET => ça veut dire qu'on arrive pas à get_next_line sur le fichier
 		ret = -1;
-		verbose(a, MSG_DEBUG, "Le fichier %s est vide-L%d",
+		verbose(a, MSG_ERROR, "Le fichier %s est vide-L%d",
 		a->file.filename, a->file.line_number);
 	}
 	if (a->file.list_unknow_label)
 	{
 		ret = -1;// TODO Faire la liste des labels introuves
-		verbose(a, MSG_DEBUG,
-		"Certains labels en argument n'ont pas trouve de correspondances  L%d:",
-		a->file.line_number);
+		verbose(a, MSG_ERROR,
+		"%s: Unknown label left at L%d:", a->file.filename,
+		a->file.list_unknow_label->((t_label *)(*content))->pos_instru);
 	}
 	if (!ret)
 		ret = finalize_asm(a);

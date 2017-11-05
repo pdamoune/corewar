@@ -1,0 +1,76 @@
+0a1,2
+> Champion comment too long (Max length 2048)
+> Champion name too long (Max length 128)
+1a4
+> Syntax error at token [TOKEN][001:001] END "(null)"
+3a7
+> Syntax error at token [TOKEN][005:008] REGISTER "r1"
+4a9,28
+> Invalid parameter 1 type register for instruction live
+> Syntax error at token [TOKEN][011:028] ENDLINE
+> Syntax error at token [TOKEN][003:001] LABEL "hello:"
+> Syntax error at token [TOKEN][002:010] INSTRUCTION "aff"
+> Syntax error at token [TOKEN][002:010] INSTRUCTION "aff"
+> Syntax error at token [TOKEN][012:001] END "(null)"
+> Syntax error at token [TOKEN][003:001] END "(null)"
+> No such label alive while attempting to dereference token [TOKEN][005:011] DIRECT_LABEL "%:alive"
+> Syntax error at token [TOKEN][003:001] LABEL "hello:"
+> Syntax error at token [TOKEN][001:009] INSTRUCTION "laugh"
+> Syntax error at token [TOKEN][001:009] INSTRUCTION "laugh"
+> Syntax error at token [TOKEN][002:011] INSTRUCTION "aff"
+> Invalid parameter 0 type direct for instruction sti
+> Writing output program to ./champion_bug/too_big_champion.cor
+> Syntax error at token [TOKEN][006:006] SEPARATOR ","
+> Syntax error at token [TOKEN][007:012] SEPARATOR ","
+> Syntax error at token [TOKEN][007:012] SEPARATOR ","
+> Syntax error at token [TOKEN][007:010] SEPARATOR ","
+> Champion comment too long (Max length 2048)
+> Champion name too long (Max length 128)
+5a30
+> Syntax error at token [TOKEN][001:001] END "(null)"
+7a33
+> Syntax error at token [TOKEN][005:008] REGISTER "r1"
+8a35,54
+> Invalid parameter 1 type register for instruction live
+> Syntax error at token [TOKEN][011:028] ENDLINE
+> Syntax error at token [TOKEN][003:001] LABEL "hello:"
+> Syntax error at token [TOKEN][002:010] INSTRUCTION "aff"
+> Syntax error at token [TOKEN][002:010] INSTRUCTION "aff"
+> Syntax error at token [TOKEN][012:001] END "(null)"
+> Syntax error at token [TOKEN][003:001] END "(null)"
+> No such label alive while attempting to dereference token [TOKEN][005:011] DIRECT_LABEL "%:alive"
+> Syntax error at token [TOKEN][003:001] LABEL "hello:"
+> Syntax error at token [TOKEN][001:009] INSTRUCTION "laugh"
+> Syntax error at token [TOKEN][001:009] INSTRUCTION "laugh"
+> Syntax error at token [TOKEN][002:011] INSTRUCTION "aff"
+> Invalid parameter 0 type direct for instruction sti
+> Writing output program to ./champion_bug/too_big_champion.cor
+> Syntax error at token [TOKEN][006:006] SEPARATOR ","
+> Syntax error at token [TOKEN][007:012] SEPARATOR ","
+> Syntax error at token [TOKEN][007:012] SEPARATOR ","
+> Syntax error at token [TOKEN][007:010] SEPARATOR ","
+> Champion comment too long (Max length 2048)
+> Champion name too long (Max length 128)
+9a56
+> Syntax error at token [TOKEN][001:001] END "(null)"
+11a59
+> Syntax error at token [TOKEN][005:008] REGISTER "r1"
+12a61,78
+> Invalid parameter 1 type register for instruction live
+> Syntax error at token [TOKEN][011:028] ENDLINE
+> Syntax error at token [TOKEN][003:001] LABEL "hello:"
+> Syntax error at token [TOKEN][002:010] INSTRUCTION "aff"
+> Syntax error at token [TOKEN][002:010] INSTRUCTION "aff"
+> Syntax error at token [TOKEN][012:001] END "(null)"
+> Syntax error at token [TOKEN][003:001] END "(null)"
+> No such label alive while attempting to dereference token [TOKEN][005:011] DIRECT_LABEL "%:alive"
+> Syntax error at token [TOKEN][003:001] LABEL "hello:"
+> Syntax error at token [TOKEN][001:009] INSTRUCTION "laugh"
+> Syntax error at token [TOKEN][001:009] INSTRUCTION "laugh"
+> Syntax error at token [TOKEN][002:011] INSTRUCTION "aff"
+> Invalid parameter 0 type direct for instruction sti
+> Writing output program to ./champion_bug/too_big_champion.cor
+> Syntax error at token [TOKEN][006:006] SEPARATOR ","
+> Syntax error at token [TOKEN][007:012] SEPARATOR ","
+> Syntax error at token [TOKEN][007:012] SEPARATOR ","
+> Syntax error at token [TOKEN][007:010] SEPARATOR ","
