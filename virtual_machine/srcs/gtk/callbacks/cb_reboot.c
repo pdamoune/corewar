@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 19:45:41 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/05 16:25:32 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 17:31:04 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,9 @@ gboolean	cb_reboot(GtkWidget *widget, t_vm *vm)
 	init_gtk_value(vm);
 	if (IS_SET(vm->flag, MUSIC))
 		if (play_music(&(vm->audio), MUSIC_FILE_INTRO, SDL_MIX_MAXVOLUME))
-		{
 			return (verbose(vm, MSG_ERROR, "Failed to init_audio: %s",
 					ft_strerror(g_errnum)));
-		}
-	if (init_vm_value(vm))
+			if (init_vm_value(vm))
 		SET(vm->flag, STOP);
 	vm->gtk.speed = tmp;
 	panel_reboot(vm);

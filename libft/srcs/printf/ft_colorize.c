@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 19:43:14 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/05 16:13:02 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 17:32:01 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static void		check_color_fg(t_wrk *w, char *end)
 		check_color_bg(w, end);
 }
 
-#include <stdio.h>
 void			ft_colorize(t_wrk *w)
 {
 	char	*end;

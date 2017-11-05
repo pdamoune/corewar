@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 11:43:27 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/05 12:56:11 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 17:28:08 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ struct					s_asm
 int						parse_asm(t_asm *a, char *filename);
 int						check_if_file_valid(t_asm *a);
 int						write_file(t_asm *a);
-
 
 int						verbose(t_asm *a, const int level,
 								const char *message, ...);
