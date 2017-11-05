@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 01:17:21 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 18:55:57 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/05 12:57:36 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int					init_asm(t_asm *a, char *filename, int (**f)())
 	int		fdin;
 
 	ft_bzero(&a->file, sizeof(t_file));
+	a->file.nb_error = a->nb_error;
 	a->file.header.magic = bswap_32(COREWAR_EXEC_MAGIC);
 	if (check_filename(a, filename))
 		return (-1);

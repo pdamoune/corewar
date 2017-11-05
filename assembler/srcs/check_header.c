@@ -6,13 +6,13 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:23:09 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/04 18:47:04 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/05 12:49:36 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <asm.h>
 
-int			check_header_name(t_asm *a, char *line)
+int					check_header_name(t_asm *a, char *line)
 {
 	if (*a->file.header.prog_name)
 	{
@@ -39,7 +39,7 @@ int			check_header_name(t_asm *a, char *line)
 	return (verbose(a, MSG_ERROR, "%s: Name lexical error", a->file.filename));
 }
 
-int			init_name_header(t_asm *a, char *line)
+static int			init_name_header(t_asm *a, char *line)
 {
 	if (IS_SET(a->file.flag, HEAD_NAME))
 	{
@@ -57,7 +57,7 @@ int			init_name_header(t_asm *a, char *line)
 	return (check_header_name(a, line + 1));
 }
 
-int			check_header_comment(t_asm *a, char *line)
+int					check_header_comment(t_asm *a, char *line)
 {
 	if (*a->file.header.comment)
 	{
@@ -85,7 +85,7 @@ int			check_header_comment(t_asm *a, char *line)
 						a->file.filename));
 }
 
-int			init_comment_header(t_asm *a, char *line)
+static int			init_comment_header(t_asm *a, char *line)
 {
 	if (IS_SET(a->file.flag, HEAD_COMMENT))
 	{
@@ -103,7 +103,7 @@ int			init_comment_header(t_asm *a, char *line)
 	return (check_header_comment(a, line + 1));
 }
 
-int			check_header(t_asm *a, char *line)
+int					check_header(t_asm *a, char *line)
 {
 	if (skip_spa(&line) || ft_strchr(COMMENT_CHAR, *line))
 		return (0);

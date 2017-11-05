@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 18:55:30 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/05 11:08:33 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/05 12:37:03 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,11 @@ void		free_label(t_label **rip)
 void		remove_label(t_ld **rip)
 {
 	ft_ld_del(rip, &free_label);
+}
+
+void		free_file(t_asm *a)
+{
+	free(a->file.filename);
+	ft_ld_clear(&a->file.list_know_label, free_label);
+	ft_ld_clear(&a->file.list_unknow_label, free_label);
 }
