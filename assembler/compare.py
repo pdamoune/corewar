@@ -11,51 +11,81 @@ asmzaz = '../ressources/asm '
 out = 'asm.out'
 outzaz = 'asmzaz.out'
 
-champdir = './fichiersasmtest/'
+
+# champdir = './fichiersasmtest/'
+champdir = './champion_bug/'
 
 champ_list = [
-    'zork.s',
-    'Car.s',
-    'Gagnant.s',
-    'Octobre_Rouge_V4.2.s',
-    'Survivor.s',
-    'ex.s',
-    'jumper.s',
-    'maxidef.s',
-    'slider2.s',
-    'Asombra.s',
-    'Kappa.s',
-    'Machine-gun.s',
-    'MarineKing.s',
-    'Misaka_Mikoto.s',
-    'Rainbow_dash.s',
-    'THUNDER.s',
-    'Varimathras.s',
-    'Wall.s',
-    '_.s',
-    '_honeybadger.s',
-    'big_feet.s',
-    'casimir.s',
-    'champ.s',
-    'corelol.s',
-    'darksasuke.s',
-    'doge.s',
-    'dubo.s',
-    'gedeon.s',
-    'jinx.s',
-    'justin_bee.s',
-    'littlepuppy.s',
-    'live.s',
-    'loose.s',
-    'mandragore.s',
-    'meowluigi.s',
-    'salamahenagalabadoun.s',
-    'sam_2.0.s',
-    'skynet.s',
-    'terminator.s',
-    'ultimate-surrender.s',
-    'youforkmytralala.s',
-    ]
+'big_comment.s',
+'big_name.s',
+'corelol.s',
+'empty.s',
+'empty_comment.s',
+'empty_name.s',
+'guillemets_inside_instru.s',
+'labelchar_inside_comment_OK.s',
+'live_2arg.s',
+'no_arg.s',
+'no_comment.s',
+'no_comment_guillemet1.s',
+'no_comment_guillemet2.s',
+'no_comment_guillemet3.s',
+'no_instruction.s',
+'no_label_arg.s',
+'no_name.s',
+'no_name_guillemet.s',
+'no_name_guillemet2.s',
+'no_name_guillemet3.s',
+'sti_wrong_type.s',
+'too_big_champion.s',
+'virgule_apres_instruction.s',
+'virgule_not_expected.s',
+'virgule_not_expected2.s',
+'virgule_not_expected3.s',
+]
+# champ_list = [
+#     'zork.s',
+#     'Car.s',
+#     'Gagnant.s',
+#     'Octobre_Rouge_V4.2.s',
+#     'Survivor.s',
+#     'ex.s',
+#     'jumper.s',
+#     'maxidef.s',
+#     'slider2.s',
+#     'Asombra.s',
+#     'Kappa.s',
+#     'Machine-gun.s',
+#     'MarineKing.s',
+#     'Misaka_Mikoto.s',
+#     'Rainbow_dash.s',
+#     'THUNDER.s',
+#     'Varimathras.s',
+#     'Wall.s',
+#     '_.s',
+#     '_honeybadger.s',
+#     'big_feet.s',
+#     'casimir.s',
+#     'champ.s',
+#     'corelol.s',
+    # 'darksasuke.s',
+    # 'doge.s',
+    # 'dubo.s',
+    # 'gedeon.s',
+    # 'jinx.s',
+    # 'justin_bee.s',
+    # 'littlepuppy.s',
+    # 'live.s',
+    # 'loose.s',
+    # 'mandragore.s',
+    # 'meowluigi.s',
+    # 'salamahenagalabadoun.s',
+    # 'sam_2.0.s',
+    # 'skynet.s',
+    # 'terminator.s',
+    # 'ultimate-surrender.s',
+    # 'youforkmytralala.s',
+    # ]
 
 def my_execute(cur_cmd):
     # cmd = "gtimeout 5 " + cur_cmd
@@ -64,7 +94,7 @@ def my_execute(cur_cmd):
 def all_cmd_test(cur_cmd):
     # for index,command in enumerate(cmd_list):
 	skip = 0
-	res = my_execute(asmzaz + cur_cmd + ' > ' + outzaz)
+	res = my_execute(asmzaz + cur_cmd + ' >> ' + outzaz)
 	if res == 1:
 		# if not (check_if_ended(outzaz)):
 		return (-1)
@@ -75,7 +105,7 @@ def all_cmd_test(cur_cmd):
 	# if res == 31744:
 	# 	print "\033[33mCommand take too much time. next fight\033[00m"
 	# 	return (index)
-	res = my_execute(asm + cur_cmd + ' > ' + out)
+	res = my_execute(asm + cur_cmd + ' >> ' + out)
 	if res == 1:
 		return (-1)
 	# if res == 31744:
@@ -85,7 +115,7 @@ def all_cmd_test(cur_cmd):
 		print "\033[31mDIFF ON: asm'" + cur_cmd + "'\033[00m"
 		if skip == 1:
 			return (0)
-		return (-1)
+		return (0)
 	print 'file is ' + cur_cmd[:-1] + 'cor' 
 	if skip == 0:
 		if os.system('diff ' + cur_cmd[:-1] + 'cor' + ' ' + "champ.tmp" + ' > champ.diff'):
@@ -93,7 +123,7 @@ def all_cmd_test(cur_cmd):
 			os.system('hexdump champ.tmp > dumpzazout')
 			os.system('hexdump ' + cur_cmd[:-1] + 'cor > dumpout')
 			os.system('diff dumpout dumpzazout > hex_diff')
-			return (-1)
+			return (0)
 	# if (check_if_ended(outzaz)):
 	# 	print "\033[33mFight already over at command: '" + command + "'\033[00m"
 	# 	return (-2)

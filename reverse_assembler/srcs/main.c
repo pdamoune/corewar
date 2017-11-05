@@ -6,7 +6,7 @@
 /*   By: pdamoune <pdamoune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 17:26:48 by pdamoune          #+#    #+#             */
-/*   Updated: 2017/10/18 00:10:04 by pdamoune         ###   ########.fr       */
+/*   Updated: 2017/11/05 02:28:13 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_cliopts	g_read_opts[] =
 
 int					usage(void)
 {
-	DG("USAGE\n");
+	ft_printf("asm_r -[vqD] file ...");
 	return (1);
 }
 
