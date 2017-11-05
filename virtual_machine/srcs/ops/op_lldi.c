@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 19:12:07 by philippe          #+#    #+#             */
-/*   Updated: 2017/10/24 10:56:54 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 17:14:58 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** Hi Corrector, In a perfect world, we will call analyze_long_value instead
-** of analyze_value. Thanks to Zaz vm and to his vm, we are making diff output.
+** of analyze_value. Thanks to Zaz and to his vm, we are making diff output.
 ** So we let analyze_value in our code.
 ** Kiss Xoxoxoxoxoxox
 */

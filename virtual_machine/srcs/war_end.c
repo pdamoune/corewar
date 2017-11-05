@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 19:02:23 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/06 12:48:21 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 16:26:24 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ static void		does_the_user_still_want_the_dump(t_vm *vm)
 void			war_end(t_vm *vm)
 {
 	if (IS_SET(vm->flag, MUSIC))
-		play_music(&(vm->audio), MUSIC_FILE_END, SDL_MIX_MAXVOLUME);
+		if (play_music(&(vm->audio), MUSIC_FILE_END, SDL_MIX_MAXVOLUME))
+		{
+			verbose(vm, MSG_ERROR, "Failed to init_audio: %s",
+					ft_strerror(g_errnum));
+		}
 	if (IS_SET(vm->flag, DUMP) && IS_UNSET(vm->flag, ZAZ))
 		does_the_user_still_want_the_dump(vm);
 	display_win(vm);

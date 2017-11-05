@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 14:53:14 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 16:35:30 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 16:22:45 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ int		init_music(t_vm *vm)
 		return (verbose(vm, MSG_ERROR, "Failed to init_audio: %s",
 				ft_strerror(g_errnum)));
 	}
-	play_music(&(vm->audio), MUSIC_FILE_INTRO, SDL_MIX_MAXVOLUME);
+	if (play_music(&(vm->audio), MUSIC_FILE_INTRO, SDL_MIX_MAXVOLUME))
+	{
+		return (verbose(vm, MSG_ERROR, "Failed to init_audio: %s",
+				ft_strerror(g_errnum)));
+	}
 	vm->slash = create_audio(MUSIC_FILE_SLASH, 0, SDL_MIX_MAXVOLUME / 2);
 	return (0);
 }

@@ -6,18 +6,16 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/10/06 23:20:58 by wescande         ###   ########.fr        #
+#    Updated: 2017/11/05 17:25:24 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	corewar
 
 CC			?=	gcc
-FLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror -O3
 MAIN_FLAGS	=	
 OBJ_FLAGS	=	`pkg-config --cflags gtk+-3.0` `pkg-config --cflags sdl2`
-# -I ../portaudio/include -I ../libsndfile/src
-# -I ../allegro/addons/acodec/ -I ../allegro/addons/audio/ -I ../allegro/include/ -I ../allegro/build/include/
 
 LEN_NAME	=	`echo $(NAME) |wc -c`
 DELTA		=	$$(echo "$$(tput cols)-31-$(LEN_NAME)"|bc)
@@ -31,8 +29,6 @@ LIBFT_LIB	=	$(LIBFT_DIR)libft.a
 LIBFT_INC	=	$(LIBFT_DIR)includes/
 
 LIBS		=	`pkg-config --libs gtk+-3.0` `pkg-config --libs sdl2`
-# -L../portaudio/lib/.libs -lportaudio -L../libsndfile/src/.libs -lsndfile -lc
-# -L../allegro/build/lib -lallegro_acodec -lallegro_audio -lallegro -lallegro_main 
 
 SRC_BASE	=	\
 area_interface/get_type_from_area.c\

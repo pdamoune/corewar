@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:22:49 by wescande          #+#    #+#             */
-/*   Updated: 2017/10/05 16:10:21 by wescande         ###   ########.fr       */
+/*   Updated: 2017/11/05 16:23:37 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ inline int				play_audio(t_private_audio *device,
 		return (1);
 	if (!filename)
 		return (ERR_SET(1, E_CUSTOM_ERR, "Warning", "Filename is NULL"));
-	new_sound = create_audio(filename, loop, volume);
+	if (!(new_sound = create_audio(filename, loop, volume)))
+	{
+		return (ERR_SET(1, E_CUSTOM_ERR,
+					filename, "Unable to load audio file"));
+	}
 	return (common_add(device, loop, new_sound));
 }
 

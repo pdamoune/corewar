@@ -6,7 +6,7 @@
 /*   By: wescande <wescande@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 19:43:14 by wescande          #+#    #+#             */
-/*   Updated: 2017/11/04 00:21:08 by william          ###   ########.fr       */
+/*   Updated: 2017/11/05 16:13:02 by wescande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void			ft_colorize(t_wrk *w)
 
 	while (w->len > 4)
 	{
-		while ((end = ft_strnchr(w->buf, '{', w->len - 5)) && end[4] == '}')
+		while (w->len > 4
+				&& (end = ft_strnchr(w->buf, '{', w->len - 5)) && end[4] == '}')
 		{
 			check_color_fg(w, end);
 			w->len -= ((end - w->buf) + 1);
