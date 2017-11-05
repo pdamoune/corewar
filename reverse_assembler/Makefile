@@ -6,14 +6,14 @@
 #    By: wescande <wescande@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/11/05 02:02:25 by wescande         ###   ########.fr        #
+#    Updated: 2017/11/05 18:02:38 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	asm_r
 
 CC			?=	gcc
-FLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror -O3
 MAIN_FLAGS	=
 
 LEN_NAME	=	`echo $(NAME) |wc -c`

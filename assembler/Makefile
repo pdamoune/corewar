@@ -6,14 +6,14 @@
 #    By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/29 21:32:58 by wescande          #+#    #+#              #
-#    Updated: 2017/11/04 16:56:21 by tdebarge         ###   ########.fr        #
+#    Updated: 2017/11/05 18:02:15 by wescande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	asm
 
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror  -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror
 MAIN_FLAGS	=
 OBJ_FLAGS	=
 
