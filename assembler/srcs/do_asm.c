@@ -6,7 +6,7 @@
 /*   By: tdebarge <tdebarge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 18:48:12 by tdebarge          #+#    #+#             */
-/*   Updated: 2017/11/05 11:46:20 by tdebarge         ###   ########.fr       */
+/*   Updated: 2017/11/05 11:48:46 by tdebarge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ static int		do_asm_next(t_asm *a, int ret)
 	if (!a->file.line_number)
 	{
 		ret = -1;
-		verbose(a, MSG_ERROR, "Le fichier %s est vide-L%d",
-		a->file.filename, a->file.line_number);
+		verbose(a, MSG_ERROR, "%s: file is empty",
+		a->file.filename);
 	}
 	if (a->file.list_unknow_label)
 	{
